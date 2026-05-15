@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>9-TEEN &mdash; JKMRY</title>
+<link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --white: #FFFFFF;
+    --cream: #FAF8F5;
+    --black: #121212;
+    --ink: #1A1A1A;
+    --gray-dark: #3A3A3A;
+    --gray: #6B6B6B;
+    --gray-light: #A8A8A8;
+    --gray-rule: #D6D4D0;
+    --red: #D92B2B;
+    --font-headline: 'Jost', 'Futura', 'Helvetica Neue', sans-serif;
+    --font-body: 'Jost', 'Futura', 'Helvetica Neue', sans-serif;
+    --font-sans: 'Jost', 'Futura', 'Helvetica Neue', sans-serif;
+  }
+
+  html { font-size: 16px; scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: var(--font-body);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection { background: var(--red); color: var(--white); }
+
+  /* ---- NAV ---- */
+  .topbar {
+    border-bottom: 1px solid var(--gray-rule);
+    padding: 0.6rem 0;
+    position: sticky;
+    top: 0;
+    background: var(--cream);
+    z-index: 100;
+  }
+
+  .topbar-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gray);
+  }
+
+  .topbar-inner a {
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .topbar-inner a:hover { color: var(--red); }
+
+  /* ---- HERO ---- */
+  .case-hero {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem 2.5rem;
+    position: relative;
+    display: flex;
+    justify-content: center;
+  }
+
+  .case-hero-wrap {
+    max-width: 1100px;
+    border: none;
+  }
+
+  .case-hero-img {
+    max-height: 90vh;
+    width: 100%;
+    height: auto;
+    display: block;
+    background: var(--black);
+  }
+
+  .img-placeholder {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    background: linear-gradient(145deg, #2A2A2A 0%, #4A4A4A 40%, #8A8A8A 70%, #C8C4C0 100%);
+  }
+
+  .img-placeholder.hero {
+    aspect-ratio: 16 / 10;
+  }
+
+  .img-placeholder.wide {
+    aspect-ratio: 21 / 9;
+  }
+
+  /* ---- HEADER ---- */
+  .case-header {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 4rem 2.5rem 0;
+  }
+
+  .case-cat {
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--red);
+    margin-bottom: 1rem;
+  }
+
+  .case-title {
+    font-family: var(--font-headline);
+    font-size: clamp(2.2rem, 4vw, 3.2rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--black);
+    margin-bottom: 1.2rem;
+  }
+
+  .case-subtitle {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--gray-dark);
+    max-width: 600px;
+    margin-bottom: 2.5rem;
+  }
+
+  /* ---- BRIEF METADATA ---- */
+  .case-meta {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border-top: 2px solid var(--black);
+    border-bottom: 1px solid var(--gray-rule);
+  }
+
+  .case-meta-item {
+    padding: 1.2rem 1.5rem 1.2rem 0;
+    border-right: 1px solid var(--gray-rule);
+  }
+
+  .case-meta-item:last-child { border-right: none; }
+
+  .case-meta-label {
+    font-family: var(--font-sans);
+    font-size: 0.6rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--gray-light);
+    margin-bottom: 0.3rem;
+  }
+
+  .case-meta-value {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.4;
+  }
+
+  /* ---- CONTENT SECTIONS ---- */
+  .case-content {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2.5rem;
+  }
+
+  .case-section {
+    padding: 3.5rem 0;
+    border-bottom: 1px solid var(--gray-rule);
+  }
+
+  .case-section:last-child { border-bottom: none; }
+
+  .case-section-grid {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .case-section-label {
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--red);
+    padding-top: 0.3rem;
+  }
+
+  .case-section-body p {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--gray-dark);
+    margin-bottom: 1.2rem;
+  }
+
+  .case-section-body p:last-child { margin-bottom: 0; }
+
+  /* ---- SPREAD IMAGES ---- */
+  .case-images {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 3rem 2.5rem;
+  }
+
+  .case-images-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .case-img {
+    width: 100%;
+    overflow: hidden;
+    background: var(--white);
+    border: 1px solid var(--gray-rule);
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .case-img:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+  }
+
+  .case-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .case-img.full { grid-column: span 2; }
+
+  /* ---- PULL QUOTE ---- */
+  .pull-quote {
+    padding: 3rem 0;
+    text-align: center;
+    border-bottom: 1px solid var(--gray-rule);
+  }
+
+  .pull-quote blockquote {
+    font-family: var(--font-headline);
+    font-size: clamp(1.4rem, 2.5vw, 1.8rem);
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--black);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .pull-quote cite {
+    display: block;
+    margin-top: 1rem;
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--red);
+    font-style: normal;
+  }
+
+  /* ---- LIGHTBOX ---- */
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(0,0,0,0.92);
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    cursor: zoom-out;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .lightbox.active {
+    display: flex;
+    opacity: 1;
+  }
+
+  .lightbox img {
+    max-width: 95vw;
+    max-height: 92vh;
+    object-fit: contain;
+    border-radius: 2px;
+    box-shadow: 0 4px 60px rgba(0,0,0,0.5);
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 2rem;
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: rgba(255,255,255,0.5);
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+
+  .lightbox-close:hover { color: var(--white); }
+
+  .lightbox-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: 1px solid rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.6);
+    font-size: 1.4rem;
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s;
+    border-radius: 50%;
+  }
+
+  .lightbox-arrow:hover {
+    color: var(--white);
+    border-color: rgba(255,255,255,0.5);
+  }
+
+  .lightbox-prev { left: 2rem; }
+  .lightbox-next { right: 2rem; }
+
+  .lightbox-counter {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    color: rgba(255,255,255,0.4);
+  }
+
+  .case-images-caption {
+    font-family: var(--font-sans);
+    font-size: 0.68rem;
+    color: var(--gray-light);
+    font-style: italic;
+    text-align: center;
+    margin-top: 0.8rem;
+  }
+
+  /* ---- NEXT PROJECT ---- */
+  .next-project {
+    border-top: 2px solid var(--black);
+    padding: 3rem 0;
+    text-align: center;
+  }
+
+  .next-label {
+    font-family: var(--font-sans);
+    font-size: 0.62rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--gray-light);
+    margin-bottom: 0.8rem;
+  }
+
+  .next-title {
+    font-family: var(--font-headline);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--black);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .next-title:hover { color: var(--red); }
+
+  /* ---- FOOTER ---- */
+  .footer {
+    background: var(--black);
+    color: var(--gray-light);
+    padding: 2.5rem 0;
+  }
+
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-logo {
+    font-family: var(--font-headline);
+    font-size: 1.1rem;
+    font-weight: 300;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--white);
+    text-decoration: none;
+  }
+
+  .footer-text {
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    color: var(--gray);
+  }
+
+  /* ---- RESPONSIVE ---- */
+  @media (max-width: 768px) {
+    .case-header { padding: 3rem 1.5rem 0; }
+    .case-content { padding: 0 1.5rem; }
+    .case-images { padding: 2rem 1.5rem; }
+    .case-meta { grid-template-columns: 1fr 1fr; }
+    .case-meta-item:nth-child(2) { border-right: none; }
+    .case-section-grid { grid-template-columns: 1fr; gap: 0.8rem; }
+    .case-images-grid { grid-template-columns: 1fr; }
+    .case-img.full { grid-column: span 1; }
+    .footer-inner { flex-direction: column; gap: 1rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <a href="portfolio.html">&larr; Back to JKMRY</a>
+    <span>Case Study</span>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="case-hero">
+  <div class="case-img case-hero-wrap">
+    <img class="case-hero-img" src="9-teen-images/IMG_9272-1.jpg" alt="9-TEEN — image 1">
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="case-header">
+  <p class="case-cat">Pop-Up &middot; Paper Engineering &middot; Photography</p>
+  <h1 class="case-title">9-TEEN</h1>
+  <p class="case-subtitle">A handcrafted pop-up book using photographic imagery, paper-cut silhouettes, and sculptural paper engineering &mdash; exploring identity, place, and scale through the architecture of Flushing Meadows&rsquo; Unisphere.</p>
+
+  <div class="case-meta">
+    <div class="case-meta-item">
+      <p class="case-meta-label">Designer</p>
+      <p class="case-meta-value">Jack Murray</p>
+    </div>
+    <div class="case-meta-item">
+      <p class="case-meta-label">Timeline</p>
+      <p class="case-meta-value">2022</p>
+    </div>
+    <div class="case-meta-item">
+      <p class="case-meta-label">Medium</p>
+      <p class="case-meta-value">Pop-Up Book,<br>CT Photography</p>
+    </div>
+    <div class="case-meta-item">
+      <p class="case-meta-label">Deliverables</p>
+      <p class="case-meta-value">Handcrafted Book,<br>Typography, Pop-Ups</p>
+    </div>
+  </div>
+</header>
+
+<!-- INTRO -->
+<div class="case-content">
+
+  <div class="case-section">
+    <div class="case-section-grid">
+      <p class="case-section-label">The Brief</p>
+      <div class="case-section-body">
+        <p>9-TEEN is a handmade pop-up book that uses photographic imagery and paper engineering to create three-dimensional narratives from flat pages. The project merges CT scan imagery, architectural photography of New York&rsquo;s Unisphere, and hand-cut silhouette figures into a sculptural book form &mdash; bound in a silver metallic cover.</p>
+        <p>Each spread transforms when opened, with pop-up mechanisms bringing photographic scenes to life. The book explores the relationship between the human figure and monumental architecture, placing silhouettes against expansive landscapes that dwarf and frame them.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="case-section">
+    <div class="case-section-grid">
+      <p class="case-section-label">Concept</p>
+      <div class="case-section-body">
+        <p>The title 9-TEEN speaks to the threshold of adulthood &mdash; a moment of standing at the edge of something vast, looking up. The Unisphere, a relic of the 1964 World&rsquo;s Fair, becomes a recurring symbol: a monument to possibility built from steel and ambition, now standing quietly in Queens.</p>
+        <p>The silhouette figures are deliberately anonymous &mdash; cut from dark card stock, they could be anyone. One holds their arms up to the sky; another stands with a camera on a tripod. They are observers, participants, and stand-ins for the viewer.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ALL SPREADS -->
+<div class="case-images">
+  <div class="case-images-grid">
+    <div class="case-img">
+      <img src="9-teen-images/IMG_9273-2.jpg" alt="9-TEEN — image 2">
+    </div>
+    <div class="case-img">
+      <img src="9-teen-images/IMG_9275-3.jpg" alt="9-TEEN — image 3">
+    </div>
+    <div class="case-img">
+      <img src="9-teen-images/IMG_9276-4.jpg" alt="9-TEEN — image 4">
+    </div>
+    <div class="case-img">
+      <img src="9-teen-images/IMG_9279-5.jpg" alt="9-TEEN — image 5">
+    </div>
+    <div class="case-img">
+      <img src="9-teen-images/IMG_9280-6.jpg" alt="9-TEEN — image 6">
+    </div>
+    <div class="case-img">
+      <img src="9-teen-images/IMG_9281-7.jpg" alt="9-TEEN — image 7">
+    </div>
+    <div class="case-img">
+      <img src="9-teen-images/IMG_9282-8.jpg" alt="9-TEEN — image 8">
+    </div>
+    <div class="case-img">
+      <img src="9-teen-images/IMG_9283-9.jpg" alt="9-TEEN — image 9">
+    </div>
+    <div class="case-img">
+      <img src="9-teen-images/IMG_9284-10.jpg" alt="9-TEEN — image 10">
+    </div>
+    <div class="case-img">
+      <img src="9-teen-images/IMG_9285-11.jpg" alt="9-TEEN — image 11">
+    </div>
+    <div class="case-img">
+      <img src="9-teen-images/IMG_9286-12.jpg" alt="9-TEEN — image 12">
+    </div>
+    <div class="case-img">
+      <img src="9-teen-images/IMG_9290-13.jpg" alt="9-TEEN — image 13">
+    </div>
+    <div class="case-img">
+      <img src="9-teen-images/IMG_9293-14.jpg" alt="9-TEEN — image 14">
+    </div>
+    <div class="case-img">
+      <img src="9-teen-images/IMG_9294-15.jpg" alt="9-TEEN — image 15">
+    </div>
+  </div>
+</div>
+
+<!-- PROCESS -->
+<div class="case-content">
+
+  <div class="case-section">
+    <div class="case-section-grid">
+      <p class="case-section-label">Process</p>
+      <div class="case-section-body">
+        <p>The book was constructed entirely by hand. Each pop-up mechanism was prototyped in plain card before being transferred to photographic prints. The Unisphere was photographed from multiple angles to create panoramic and perspective-shifted compositions that fold and rise from the page.</p>
+        <p>Silhouette figures were hand-cut from dark card stock and integrated into the pop-up structures, creating layered scenes with depth and narrative. The silver metallic cover was chosen to echo the Unisphere&rsquo;s stainless steel surface, grounding the book&rsquo;s material language in its subject.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- CLOSING -->
+<div class="case-content">
+
+  <div class="pull-quote">
+    <blockquote>&ldquo;Standing at the edge of something vast, looking up.&rdquo;</blockquote>
+    <cite>9-TEEN</cite>
+  </div>
+
+  <!-- NEXT PROJECT -->
+  <div class="next-project">
+    <p class="next-label">Next Project</p>
+    <a href="stellas-purpose.html" class="next-title">Stella&rsquo;s Purpose &rarr;</a>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <a href="portfolio.html" class="footer-logo">JKMRY</a>
+    <span class="footer-text">&copy; 2026. All rights reserved.</span>
+  </div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close">ESC to close</button>
+  <button class="lightbox-arrow lightbox-prev" id="lightbox-prev">&larr;</button>
+  <img id="lightbox-img" src="" alt="">
+  <button class="lightbox-arrow lightbox-next" id="lightbox-next">&rarr;</button>
+  <p class="lightbox-counter" id="lightbox-counter"></p>
+</div>
+
+<script>
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  const lightboxPrev = document.getElementById('lightbox-prev');
+  const lightboxNext = document.getElementById('lightbox-next');
+  const lightboxCounter = document.getElementById('lightbox-counter');
+
+  const allImages = [];
+  document.querySelectorAll('.case-img').forEach(el => {
+    const img = el.querySelector('img');
+    if (img) allImages.push({ src: img.src, alt: img.alt });
+  });
+
+  let currentIndex = 0;
+
+  function showImage(index) {
+    currentIndex = index;
+    lightboxImg.src = allImages[index].src;
+    lightboxImg.alt = allImages[index].alt;
+    lightboxCounter.textContent = (index + 1) + ' / ' + allImages.length;
+    lightboxPrev.style.visibility = index === 0 ? 'hidden' : 'visible';
+    lightboxNext.style.visibility = index === allImages.length - 1 ? 'hidden' : 'visible';
+  }
+
+  document.querySelectorAll('.case-img').forEach((el, i) => {
+    el.addEventListener('click', () => {
+      const img = el.querySelector('img');
+      if (!img) return;
+      showImage(i);
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox || e.target === lightboxImg) {
+      lightbox.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  });
+
+  document.querySelector('.lightbox-close').addEventListener('click', () => {
+    lightbox.classList.remove('active');
+    document.body.style.overflow = '';
+  });
+
+  lightboxPrev.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (currentIndex > 0) showImage(currentIndex - 1);
+  });
+
+  lightboxNext.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (currentIndex < allImages.length - 1) showImage(currentIndex + 1);
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (!lightbox.classList.contains('active')) return;
+    if (e.key === 'Escape') {
+      lightbox.classList.remove('active');
+      document.body.style.overflow = '';
+    } else if (e.key === 'ArrowLeft' && currentIndex > 0) {
+      showImage(currentIndex - 1);
+    } else if (e.key === 'ArrowRight' && currentIndex < allImages.length - 1) {
+      showImage(currentIndex + 1);
+    }
+  });
+</script>
+
+</body>
+</html>

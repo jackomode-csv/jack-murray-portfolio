@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JKMRY — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --white: #FFFFFF;
+    --cream: #FAF8F5;
+    --paper: #F3F0EB;
+    --black: #121212;
+    --ink: #1A1A1A;
+    --gray-dark: #3A3A3A;
+    --gray: #6B6B6B;
+    --gray-light: #A8A8A8;
+    --gray-rule: #D6D4D0;
+    --red: #D92B2B;
+    --red-dark: #B81E1E;
+    --font-headline: 'Jost', 'Futura', 'Helvetica Neue', sans-serif;
+    --font-body: 'Jost', 'Futura', 'Helvetica Neue', sans-serif;
+    --font-sans: 'Jost', 'Futura', 'Helvetica Neue', sans-serif;
+    --font-condensed: 'Jost', 'Futura', 'Helvetica Neue', sans-serif;
+    --max-width: 1200px;
+    --col-gap: 2rem;
+  }
+
+  html { font-size: 16px; scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: var(--font-body);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection { background: var(--red); color: var(--white); }
+
+  .container { max-width: var(--max-width); margin: 0 auto; padding: 0 2.5rem; }
+
+  .rule-thick { border: none; border-top: 3px solid var(--black); }
+  .rule-red { border: none; border-top: 2px solid var(--red); }
+
+  /* ---- TOPBAR ---- */
+  .topbar {
+    background: var(--cream);
+    border-bottom: 1px solid var(--gray-rule);
+    padding: 0.6rem 0;
+  }
+
+  .topbar-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font-condensed);
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gray);
+  }
+
+  /* ---- MASTHEAD ---- */
+  .masthead {
+    text-align: center;
+    padding: 2rem 0 0.8rem;
+  }
+
+  .masthead-title {
+    font-family: var(--font-headline);
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    font-weight: 300;
+    color: var(--black);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+
+  .masthead-tagline {
+    font-family: var(--font-body);
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--gray);
+  }
+
+  /* ---- NAV ---- */
+  .nav-main {
+    border-top: 1px solid var(--gray-rule);
+    border-bottom: 1px solid var(--gray-rule);
+    padding: 0.65rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--cream);
+  }
+
+  .nav-main ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 2.8rem;
+  }
+
+  .nav-main a {
+    font-family: var(--font-condensed);
+    font-size: 0.72rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .nav-main a:hover { color: var(--red); }
+
+  /* ---- HERO (Full viewport, New Yorker style) ---- */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+  }
+
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 5rem 4rem;
+    background: var(--black);
+    position: relative;
+  }
+
+  .hero-content-inner {
+    max-width: 420px;
+  }
+
+  .hero-headline {
+    font-family: var(--font-headline);
+    font-size: clamp(2.2rem, 3.5vw, 3.4rem);
+    font-weight: 300;
+    line-height: 1.15;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: 1.8rem;
+    opacity: 0;
+    animation: heroFadeUp 0.8s ease 0.3s forwards;
+  }
+
+  .hero-deck {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--gray-light);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: heroFadeUp 0.8s ease 0.5s forwards;
+  }
+
+  .hero-byline {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--gray-light);
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: heroFadeUp 0.8s ease 0.65s forwards;
+  }
+
+  .hero-byline strong {
+    color: var(--white);
+    font-weight: 700;
+  }
+
+  .hero-listen {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    color: var(--gray-light);
+    text-decoration: none;
+    padding: 0.5rem 1.2rem;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 100px;
+    transition: all 0.3s ease;
+    opacity: 0;
+    animation: heroFadeUp 0.8s ease 0.8s forwards;
+  }
+
+  .hero-listen:hover {
+    border-color: rgba(255,255,255,0.5);
+    color: var(--white);
+  }
+
+  .hero-listen svg {
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.5;
+  }
+
+  .hero-image {
+    position: relative;
+    background: url('IMG_9173.jpg') center center / cover no-repeat;
+    overflow: hidden;
+  }
+
+  .hero-image::after {
+    content: '';
+  }
+
+  @keyframes heroFadeUp {
+    from { opacity: 0; transform: translateY(25px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ---- ARTICLES ---- */
+  .articles { padding: 3rem 0 2rem; }
+
+  .article-lead-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    cursor: pointer;
+  }
+
+  .article-lead-link:hover .article-lead-title {
+    color: var(--red-dark);
+  }
+
+  .article-lead-link:hover .article-img-placeholder,
+  .article-lead-link:hover .article-lead-image img {
+    opacity: 0.85;
+  }
+
+  .article-cat {
+    font-family: var(--font-condensed);
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--red);
+    margin-bottom: 0.5rem;
+  }
+
+  .article-lead-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  .article-lead-title {
+    font-family: var(--font-headline);
+    font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--black);
+    margin-bottom: 1rem;
+    letter-spacing: -0.01em;
+    transition: color 0.2s;
+  }
+
+  .article-lead-deck {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--gray-dark);
+    margin-bottom: 1rem;
+  }
+
+  .article-lead-byline {
+    font-family: var(--font-condensed);
+    font-size: 0.72rem;
+    font-weight: 400;
+    color: var(--gray);
+  }
+
+  .article-lead-byline strong { color: var(--ink); font-weight: 600; }
+
+  .article-lead-image { overflow: hidden; }
+
+  .article-lead-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: opacity 0.3s;
+  }
+
+  .article-img-placeholder {
+    width: 100%;
+    aspect-ratio: 4/3;
+    transition: opacity 0.3s;
+  }
+
+  .article-img-placeholder:hover { opacity: 0.85; }
+
+  .ap-1 { background: linear-gradient(145deg, #5A6B3C 0%, #7A8B5A 40%, #A4A878 70%, #C8C49A 100%); }
+  .ap-2 { background: linear-gradient(145deg, #8B6F5A 0%, #A3785C 50%, #C4A882 100%); }
+  .ap-3 { background: linear-gradient(145deg, #6B7D60 0%, #8B9A7E 50%, #A8B49A 100%); }
+  .ap-4 { background: linear-gradient(145deg, #7A6A8A 0%, #9A8AA0 50%, #B8ACc0 100%); }
+  .ap-5 { background: linear-gradient(145deg, #3C4A5A 0%, #5A6B7A 50%, #9AA8B8 100%); }
+  .ap-6 { background: linear-gradient(145deg, #2A2A2A 0%, #4A4A4A 40%, #8A8A8A 70%, #C8C4C0 100%); }
+
+  .articles-row {
+    display: grid;
+    grid-template-columns: 1fr 1px 1fr 1px 1fr;
+    gap: 0;
+  }
+
+  .articles-row-divider {
+    background: var(--gray-rule);
+    align-self: stretch;
+  }
+
+  .article-secondary {
+    padding: 0 1.8rem;
+    cursor: pointer;
+  }
+
+  .article-secondary:first-child { padding-left: 0; }
+  .article-secondary:last-of-type { padding-right: 0; }
+
+  .article-secondary .article-img-placeholder {
+    margin-bottom: 1rem;
+  }
+
+  .article-secondary-title {
+    font-family: var(--font-headline);
+    font-size: 1.1rem;
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+    transition: color 0.2s;
+  }
+
+  .article-secondary:hover .article-secondary-title { color: var(--red-dark); }
+
+  .article-secondary-deck {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    color: var(--gray);
+    line-height: 1.6;
+    margin-bottom: 0.6rem;
+  }
+
+  .article-secondary-byline {
+    font-family: var(--font-condensed);
+    font-size: 0.62rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gray-light);
+  }
+
+  .rule { border: none; border-top: 1px solid var(--gray-rule); }
+
+  /* ---- ABOUT (below hero) ---- */
+  .about-section { padding: 4rem 0 3rem; }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1px 1fr;
+    gap: 0 var(--col-gap);
+    align-items: start;
+  }
+
+  .about-divider {
+    background: var(--gray-rule);
+    align-self: stretch;
+  }
+
+  .about-main { padding-right: 1rem; }
+
+  .about-label {
+    font-family: var(--font-condensed);
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--red);
+    margin-bottom: 0.8rem;
+  }
+
+  .about-heading {
+    font-family: var(--font-headline);
+    font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--black);
+    margin-bottom: 1.5rem;
+  }
+
+  .about-heading em { font-style: italic; font-weight: 400; }
+
+  .about-text {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.78;
+    color: var(--gray-dark);
+    margin-bottom: 1rem;
+  }
+
+  .about-sidebar { padding-left: 1rem; }
+
+  .sidebar-heading {
+    font-family: var(--font-condensed);
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--red);
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--gray-rule);
+  }
+
+  .sidebar-item {
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--gray-rule);
+  }
+
+  .sidebar-item:last-child { border-bottom: none; }
+
+  .sidebar-item-cat {
+    font-family: var(--font-condensed);
+    font-size: 0.62rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--gray-light);
+    margin-bottom: 0.3rem;
+  }
+
+  .sidebar-item-title {
+    font-family: var(--font-headline);
+    font-size: 1.05rem;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--ink);
+    margin-bottom: 0.3rem;
+  }
+
+  .sidebar-item-blurb {
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    color: var(--gray);
+    line-height: 1.55;
+  }
+
+  /* ---- FEATURES (Projects) ---- */
+  .features { padding: 3rem 0; }
+
+  .features-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 2rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--gray-rule);
+  }
+
+  .features-title {
+    font-family: var(--font-headline);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--black);
+  }
+
+  .features-see-all {
+    font-family: var(--font-condensed);
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--red);
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+
+  .features-see-all:hover { opacity: 0.7; }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: 1fr 1px 1fr 1px 1fr;
+    gap: 0;
+  }
+
+  .features-divider {
+    background: var(--gray-rule);
+    align-self: stretch;
+  }
+
+  .feature-card {
+    padding: 0 1.8rem;
+    cursor: pointer;
+  }
+
+  .feature-card:first-child { padding-left: 0; }
+  .feature-card:last-of-type { padding-right: 0; }
+
+  .feature-thumb {
+    width: 100%;
+    aspect-ratio: 4/3;
+    margin-bottom: 1rem;
+    overflow: hidden;
+    transition: opacity 0.3s ease;
+  }
+
+  .feature-card:hover .feature-thumb { opacity: 0.85; }
+
+  .ft-1 { background: linear-gradient(135deg, #2C2C2C 0%, #4A4A4A 50%, #6A6A6A 100%); }
+  .ft-2 { background: linear-gradient(135deg, #8B6F5A 0%, #A3785C 50%, #C4A882 100%); }
+  .ft-3 { background: linear-gradient(135deg, #6B7D60 0%, #8B9A7E 50%, #A8B49A 100%); }
+
+  .feature-cat {
+    font-family: var(--font-condensed);
+    font-size: 0.62rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--red);
+    margin-bottom: 0.4rem;
+  }
+
+  .feature-title {
+    font-family: var(--font-headline);
+    font-size: 1.15rem;
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--ink);
+    margin-bottom: 0.6rem;
+    transition: color 0.2s;
+  }
+
+  .feature-card:hover .feature-title { color: var(--red-dark); }
+
+  .feature-blurb {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    color: var(--gray);
+    line-height: 1.6;
+    margin-bottom: 0.6rem;
+  }
+
+  .feature-byline {
+    font-family: var(--font-condensed);
+    font-size: 0.65rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--gray-light);
+  }
+
+  /* ---- DEPARTMENTS (Skills) ---- */
+  .departments {
+    padding: 3rem 0;
+    background: var(--white);
+    border-top: 3px solid var(--black);
+    border-bottom: 3px solid var(--black);
+  }
+
+  .departments-inner {
+    display: grid;
+    grid-template-columns: 1fr 1px 1fr;
+    gap: 0 var(--col-gap);
+  }
+
+  .dept-divider {
+    background: var(--gray-rule);
+    align-self: stretch;
+  }
+
+  .dept-column { padding: 0 1rem; }
+  .dept-column:first-child { padding-left: 0; }
+  .dept-column:last-of-type { padding-right: 0; }
+
+  .dept-title {
+    font-family: var(--font-headline);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--black);
+    padding-bottom: 0.8rem;
+    margin-bottom: 1.2rem;
+    border-bottom: 1px solid var(--gray-rule);
+  }
+
+  .dept-skill {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid rgba(214,212,208,0.5);
+    transition: padding-left 0.25s ease;
+  }
+
+  .dept-skill:hover { padding-left: 0.4rem; }
+
+  .dept-skill-name {
+    font-family: var(--font-sans);
+    font-size: 0.88rem;
+    color: var(--ink);
+  }
+
+  .dept-skill-bar { display: flex; gap: 3px; }
+
+  .bar-seg {
+    width: 18px;
+    height: 4px;
+    background: var(--gray-rule);
+  }
+
+  .bar-seg.filled { background: var(--red); }
+
+  /* ---- LETTERS (Contact) ---- */
+  .letters {
+    padding: 4rem 0;
+    text-align: center;
+  }
+
+  .letters-ornament {
+    font-family: var(--font-headline);
+    font-size: 2rem;
+    color: var(--red);
+    margin-bottom: 1.5rem;
+    user-select: none;
+  }
+
+  .letters-heading {
+    font-family: var(--font-headline);
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--black);
+    margin-bottom: 0.8rem;
+  }
+
+  .letters-heading em { font-style: italic; font-weight: 400; }
+
+  .letters-deck {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--gray);
+    max-width: 480px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.7;
+  }
+
+  .letters-cta {
+    display: inline-block;
+    font-family: var(--font-condensed);
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--white);
+    background: var(--red);
+    padding: 0.9rem 2.8rem;
+    text-decoration: none;
+    transition: background 0.3s ease;
+  }
+
+  .letters-cta:hover { background: var(--red-dark); }
+
+  .letters-links {
+    display: flex;
+    justify-content: center;
+    gap: 2.5rem;
+    margin-top: 2rem;
+  }
+
+  .letters-links a {
+    font-family: var(--font-condensed);
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--gray);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .letters-links a:hover { color: var(--red); }
+
+  /* ---- FOOTER ---- */
+  .footer {
+    background: var(--black);
+    color: var(--gray-light);
+    padding: 2.5rem 0;
+  }
+
+  .footer-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-logo {
+    font-family: var(--font-headline);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--white);
+  }
+
+  .footer-text {
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    color: var(--gray);
+  }
+
+  .footer-links { display: flex; gap: 1.5rem; }
+
+  .footer-links a {
+    font-family: var(--font-condensed);
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gray);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--white); }
+
+  /* ---- ANIMATIONS ---- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-d1 { transition-delay: 0.08s; }
+  .reveal-d2 { transition-delay: 0.16s; }
+  .reveal-d3 { transition-delay: 0.24s; }
+
+  /* ---- RESPONSIVE ---- */
+  @media (max-width: 900px) {
+    .container { padding: 0 1.5rem; }
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-content { padding: 4rem 2rem; min-height: 60vh; }
+    .hero-image { min-height: 50vh; order: -1; }
+    .article-lead-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+    .articles-row { grid-template-columns: 1fr; gap: 2rem; }
+    .articles-row-divider { display: none; }
+    .article-secondary { padding: 0 !important; padding-bottom: 2rem !important; border-bottom: 1px solid var(--gray-rule); }
+    .article-secondary:last-of-type { border-bottom: none; }
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .about-divider { display: none; }
+    .about-sidebar { padding-left: 0; padding-top: 1rem; border-top: 1px solid var(--gray-rule); }
+    .features-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .features-divider { display: none; }
+    .feature-card { padding: 0 !important; padding-bottom: 2rem !important; border-bottom: 1px solid var(--gray-rule); }
+    .feature-card:last-of-type { border-bottom: none; }
+    .departments-inner { grid-template-columns: 1fr; gap: 2rem; }
+    .dept-divider { display: none; }
+    .dept-column { padding: 0 !important; }
+    .footer-inner { flex-direction: column; gap: 1rem; text-align: center; }
+    .nav-main ul { gap: 1.5rem; flex-wrap: wrap; justify-content: center; }
+  }
+
+  @media (max-width: 600px) {
+    .masthead-title { font-size: 2rem; }
+    .hero-content { padding: 2.5rem 1.5rem; }
+    .hero-headline { font-size: 2.2rem; }
+    .nav-main ul { gap: 1rem; }
+    .nav-main a { font-size: 0.65rem; }
+    .letters-links { flex-wrap: wrap; gap: 1.2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- MASTHEAD -->
+<header class="masthead container">
+  <h1 class="masthead-title">JKMRY</h1>
+</header>
+
+<!-- NAV -->
+<nav class="nav-main">
+  <div class="container">
+    <ul>
+      <li><a href="#articles">Featured Work</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#departments">Expertise</a></li>
+      <li><a href="#letters">Correspondence</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO (Full viewport, New Yorker style) -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-content-inner">
+      <h2 class="hero-headline">Jack Murray</h2>
+      <p class="hero-deck">Designer focused on graphic design and data visualization. Bridging politics and visual culture, from campaign awareness projects to design research on campaign finance. I'm passionate about making complex political and cultural issues accessible through clear, impactful design.</p>
+    </div>
+  </div>
+  <div class="hero-image"></div>
+</section>
+
+<!-- ARTICLES -->
+<section class="articles container" id="articles">
+  <hr class="rule-thick" style="margin-bottom: 2rem;">
+
+  <!-- Lead Article -->
+  <a href="farmers-value.html" class="article-lead-link">
+  <div class="article-lead">
+    <div class="article-lead-grid" style="grid-template-columns: 1fr 1.6fr;">
+      <div class="article-lead-text">
+        <p class="article-cat">Documentary · Video · Research</p>
+        <h2 class="article-lead-title">The Farmer's Value</h2>
+        <p class="article-lead-deck">A short documentary exploring the economic challenges facing small American farmers — built on USDA data, real stories, and a mathematical framework for change.</p>
+        <p class="article-lead-byline"><strong>Role:</strong> Director, Writer, Editor &nbsp;·&nbsp; 2026</p>
+      </div>
+      <div class="article-lead-image">
+        <img src="farmers-value-images/still-first-frame.jpg" alt="The Farmer's Value — title card">
+      </div>
+    </div>
+  </div>
+  </a>
+
+  <hr class="rule" style="margin: 2.5rem 0;">
+
+  <!-- Lead Article 2 -->
+  <a href="creeping-body.html" class="article-lead-link">
+  <div class="article-lead">
+    <div class="article-lead-grid" style="grid-template-columns: 1fr 1.4fr;">
+      <div class="article-lead-text">
+        <p class="article-cat">Political Science · Editorial Design · Research</p>
+        <h2 class="article-lead-title">The Creeping Body</h2>
+        <p class="article-lead-deck">A long-form political analysis examining the Supreme Court as a policy-making body — campaign finance, constitutional tradition, and the erosion of democratic norms.</p>
+        <p class="article-lead-byline"><strong>Role:</strong> Author, Designer &nbsp;·&nbsp; 2024</p>
+      </div>
+      <div class="article-lead-image">
+        <img src="creeping-body-images/creeping-body-cover.png" alt="The Creeping Body" style="width:100%; height:100%; object-fit:cover; display:block;">
+      </div>
+    </div>
+  </div>
+  </a>
+
+  <hr class="rule" style="margin: 2.5rem 0;">
+
+  <hr class="rule" style="margin: 2.5rem 0;">
+
+  <!-- Lead Article 4 -->
+  <a href="9-teen.html" class="article-lead-link">
+  <div class="article-lead">
+    <div class="article-lead-grid" style="grid-template-columns: 1fr 1.4fr;">
+      <div class="article-lead-text">
+        <p class="article-cat">Pop-Up · Paper Engineering · Photography</p>
+        <h2 class="article-lead-title">9-TEEN</h2>
+        <p class="article-lead-deck">A handcrafted pop-up book using photographic imagery, paper-cut silhouettes, and sculptural paper engineering — exploring identity, place, and scale through the architecture of Flushing Meadows' Unisphere.</p>
+        <p class="article-lead-byline"><strong>Role:</strong> Designer, Paper Engineer, Photographer &nbsp;·&nbsp; 2022</p>
+      </div>
+      <div class="article-lead-image">
+        <img src="9-teen-images/IMG_9272-1.jpg" alt="9-TEEN" style="width:100%; height:100%; object-fit:cover; display:block;">
+      </div>
+    </div>
+  </div>
+  </a>
+
+  <hr class="rule" style="margin: 2.5rem 0;">
+
+  <!-- Secondary Articles Row -->
+  <div class="articles-row">
+    <a href="now-we-know.html" class="article-secondary" style="text-decoration:none; color:inherit;">
+      <div class="article-lead-image" style="margin-bottom:1rem;">
+        <img src="now-wek-know/Cover.jpg" alt="Now We Know Where We're Going" style="width:100%; aspect-ratio:4/3; object-fit:cover; display:block;">
+      </div>
+      <p class="article-cat">Climate Activism · Zine · Illustration</p>
+      <h3 class="article-secondary-title">Now We Know Where We&rsquo;re Going</h3>
+      <p class="article-secondary-deck">A climate activism zine proposing a shift from fear-based messaging to positive reinforcement — showing people the progress they've already made.</p>
+      <p class="article-secondary-byline">Designer, Writer, Illustrator &nbsp;·&nbsp; 2024</p>
+    </a>
+    <div class="articles-row-divider"></div>
+    <a href="stellas-purpose.html" class="article-secondary" style="text-decoration:none; color:inherit;">
+      <div class="article-lead-image" style="margin-bottom:1rem;">
+        <img src="stella-images/stella-cover.png" alt="Stella's Purpose" style="width:100%; aspect-ratio:4/3; object-fit:cover; display:block;">
+      </div>
+      <p class="article-cat">Illustration · Storytelling · Persona Study</p>
+      <h3 class="article-secondary-title">Stella's Purpose</h3>
+      <p class="article-secondary-deck">A zine-format persona study tracing a narrative from childhood wonder to the quiet realization that sometimes you just want to be alive.</p>
+      <p class="article-secondary-byline">Designer, Illustrator, Photographer &nbsp;·&nbsp; 2022</p>
+    </a>
+    <div class="articles-row-divider"></div>
+    <a href="politics-of-design.html" class="article-secondary" style="text-decoration:none; color:inherit;">
+      <p class="article-cat">Architecture · Political Theory · Design Culture</p>
+      <h3 class="article-secondary-title">The Politics of Design</h3>
+      <p class="article-secondary-deck">An investigation into how architecture, urban planning, fashion, and public art operate as instruments of governance.</p>
+      <p class="article-secondary-byline">Author, Researcher &nbsp;·&nbsp; 2025</p>
+    </a>
+  </div>
+
+  <hr class="rule" style="margin: 2.5rem 0;">
+
+  <!-- More Articles Row -->
+  <div class="articles-row">
+    <div class="article-secondary">
+      <p class="article-cat">Branding · Hospitality</p>
+      <h3 class="article-secondary-title">Noma's Third Act: An Identity for a Restaurant That No Longer Exists</h3>
+      <p class="article-secondary-deck">When the world's most famous restaurant reinvented itself, the brand needed to evolve with it. Logo, signage, menus, and digital presence.</p>
+      <p class="article-secondary-byline">Identity · Spatial · Digital &nbsp;·&nbsp; 2025</p>
+    </div>
+    <div class="articles-row-divider"></div>
+    <div class="article-secondary">
+      <p class="article-cat">Campaign · Social</p>
+      <h3 class="article-secondary-title">Last Letters: A Typographic Portrait of Vanishing Sign Painters</h3>
+      <p class="article-secondary-deck">Photo series and campaign documenting New York's last generation of hand-lettering artists. Exhibition design and printed zine.</p>
+      <p class="article-secondary-byline">Photography · Exhibition · Print &nbsp;·&nbsp; 2024</p>
+    </div>
+    <div class="articles-row-divider"></div>
+    <div class="article-secondary">
+      <p class="article-cat">Research · Editorial</p>
+      <h3 class="article-secondary-title">Kissaten: The Graphic Design of Tokyo's Vanishing Coffee Houses</h3>
+      <p class="article-secondary-deck">A visual research project cataloging the vernacular typography, menu design, and spatial branding of Tokyo's disappearing kissaten.</p>
+      <p class="article-secondary-byline">Research · Photography · Book Design &nbsp;·&nbsp; 2024</p>
+    </div>
+  </div>
+</section>
+<!-- ABOUT -->
+<section class="about-section container" id="about">
+  <hr class="rule-thick" style="margin-bottom: 2rem;">
+  <div class="about-grid">
+    <div class="about-main reveal">
+      <p class="about-label">Profile</p>
+      <h3 class="about-heading">A Decade of Design,<br>Driven by <em>Curiosity</em></h3>
+      <p class="about-text">
+        For over a decade, I've worked at the intersection of brand, editorial, and digital design — guided by the conviction that how something looks is inseparable from how it makes you feel. My practice spans identity systems, art direction, and the quiet details that turn a good design into an unforgettable one.
+      </p>
+      <p class="about-text">
+        Currently based in New York, I take on a select number of projects each year for clients who care about craft. Past collaborators include cultural institutions, independent publishers, luxury brands, and startups with something real to say.
+      </p>
+    </div>
+
+    <div class="about-divider"></div>
+
+    <div class="about-sidebar reveal reveal-d2">
+      <p class="sidebar-heading">In Brief</p>
+      <div class="sidebar-item">
+        <p class="sidebar-item-cat">Experience</p>
+        <p class="sidebar-item-title">10+ Years in Design</p>
+        <p class="sidebar-item-blurb">Spanning branding, editorial, digital product, and art direction across studios and freelance.</p>
+      </div>
+      <div class="sidebar-item">
+        <p class="sidebar-item-cat">Recognition</p>
+        <p class="sidebar-item-title">15 Industry Awards</p>
+        <p class="sidebar-item-blurb">Including AIGA, D&AD, and Communication Arts distinctions for brand and editorial work.</p>
+      </div>
+      <div class="sidebar-item">
+        <p class="sidebar-item-cat">Approach</p>
+        <p class="sidebar-item-title">Research-Led, Detail-Obsessed</p>
+        <p class="sidebar-item-blurb">Every project begins with understanding context and ends with sweating the smallest typographic decisions.</p>
+      </div>
+      <div class="sidebar-item">
+        <p class="sidebar-item-cat">Availability</p>
+        <p class="sidebar-item-title">Accepting Projects for Q3 2026</p>
+        <p class="sidebar-item-blurb">Open to branding, editorial, and digital design commissions. Reach out below.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features container" id="features">
+  <div class="features-header reveal">
+    <h2 class="features-title">Featured Work</h2>
+    <a href="#" class="features-see-all">View All Projects →</a>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card reveal reveal-d1">
+      <div class="feature-thumb ft-1"></div>
+      <p class="feature-cat">Branding & Identity</p>
+      <h3 class="feature-title">Maison Aura: A Fragrance House Finds Its Visual Voice</h3>
+      <p class="feature-blurb">Complete identity system for a luxury perfumery — from wordmark to packaging to the spatial design of their flagship boutique.</p>
+      <p class="feature-byline">Branding · Packaging · Spatial</p>
+    </div>
+    <div class="features-divider"></div>
+    <div class="feature-card reveal reveal-d2">
+      <div class="feature-thumb ft-2"></div>
+      <p class="feature-cat">Editorial Design</p>
+      <h3 class="feature-title">Verde: Designing a Quarterly for the Slow Living Movement</h3>
+      <p class="feature-blurb">Art direction, typography, and layout system for a print publication about sustainability and intentional living.</p>
+      <p class="feature-byline">Editorial · Typography · Print</p>
+    </div>
+    <div class="features-divider"></div>
+    <div class="feature-card reveal reveal-d3">
+      <div class="feature-thumb ft-3"></div>
+      <p class="feature-cat">Digital Product</p>
+      <h3 class="feature-title">Kinfolk: Building Community One Interface at a Time</h3>
+      <p class="feature-blurb">UI/UX design for a platform connecting local artisans with collectors who value the handmade.</p>
+      <p class="feature-byline">Product Design · UX · Mobile</p>
+    </div>
+  </div>
+</section>
+
+<!-- DEPARTMENTS -->
+<section class="departments" id="departments">
+  <div class="container">
+    <div class="departments-inner">
+      <div class="dept-column reveal">
+        <h3 class="dept-title">Design Disciplines</h3>
+        <div class="dept-skill"><span class="dept-skill-name">Brand Identity</span><div class="dept-skill-bar"><span class="bar-seg filled"></span><span class="bar-seg filled"></span><span class="bar-seg filled"></span><span class="bar-seg filled"></span><span class="bar-seg filled"></span></div></div>
+        <div class="dept-skill"><span class="dept-skill-name">Typography</span><div class="dept-skill-bar"><span class="bar-seg filled"></span><span class="bar-seg filled"></span><span class="bar-seg filled"></span><span class="bar-seg filled"></span><span class="bar-seg filled"></span></div></div>
+        <div class="dept-skill"><span class="dept-skill-name">Art Direction</span><div class="dept-skill-bar"><span class="bar-seg filled"></span><span class="bar-seg filled"></span><span class="bar-seg filled"></span><span class="bar-seg filled"></span><span class="bar-seg filled"></span></div></div>
+        <div class="dept-skill"><span class="dept-skill-name">Editorial & Layout</span><div class="dept-skill-bar"><span class="bar-seg filled"></span><span class="bar-seg filled"></span><span class="bar-seg filled"></span><span class="bar-seg filled"></span><span class="bar-seg"></span></div></div>
+        <div class="dept-skill"><span class="dept-skill-name">UI / UX Design</span><div class="dept-skill-bar"><span class="bar-seg filled"></span><span class="bar-seg filled"></span><span class="bar-seg filled"></span><span class="bar-seg filled"></span><span class="bar-seg"></span></div></div>
+        <div class="dept-skill"><span class="dept-skill-name">Motion Design</span><div class="dept-skill-bar"><span class="bar-seg filled"></span><span class="bar-seg filled"></span><span class="bar-seg filled"></span><span class="bar-seg"></span><span class="bar-seg"></span></div></div>
+      </div>
+      <div class="dept-divider"></div>
+      <div class="dept-column reveal reveal-d2">
+        <h3 class="dept-title">Tools of the Trade</h3>
+        <div class="dept-skill"><span class="dept-skill-name">Figma</span><div class="dept-skill-bar"><span class="bar-seg filled"></span><span class="bar-seg filled"></span><span class="bar-seg filled"></span><span class="bar-seg filled"></span><span class="bar-seg filled"></span></div></div>
+        <div class="dept-skill"><span class="dept-skill-name">Adobe Creative Suite</span><div class="dept-skill-bar"><span class="bar-seg filled"></span><span class="bar-seg filled"></span><span class="bar-seg filled"></span><span class="bar-seg filled"></span><span class="bar-seg filled"></span></div></div>
+        <div class="dept-skill"><span class="dept-skill-name">After Effects</span><div class="dept-skill-bar"><span class="bar-seg filled"></span><span class="bar-seg filled"></span><span class="bar-seg filled"></span><span class="bar-seg"></span><span class="bar-seg"></span></div></div>
+        <div class="dept-skill"><span class="dept-skill-name">Webflow / Framer</span><div class="dept-skill-bar"><span class="bar-seg filled"></span><span class="bar-seg filled"></span><span class="bar-seg filled"></span><span class="bar-seg filled"></span><span class="bar-seg"></span></div></div>
+        <div class="dept-skill"><span class="dept-skill-name">HTML / CSS</span><div class="dept-skill-bar"><span class="bar-seg filled"></span><span class="bar-seg filled"></span><span class="bar-seg filled"></span><span class="bar-seg"></span><span class="bar-seg"></span></div></div>
+        <div class="dept-skill"><span class="dept-skill-name">Blender / 3D</span><div class="dept-skill-bar"><span class="bar-seg filled"></span><span class="bar-seg filled"></span><span class="bar-seg"></span><span class="bar-seg"></span><span class="bar-seg"></span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LETTERS -->
+<section class="letters container" id="letters">
+  <div class="reveal">
+    <hr class="rule-red" style="width: 60px; margin: 0 auto 2.5rem;">
+    <div class="letters-ornament">✦</div>
+    <h2 class="letters-heading">Letters to <em>the Editor</em></h2>
+    <p class="letters-deck">I'm always interested in hearing about new projects, unusual ideas, or just a good conversation about design. Let's correspond.</p>
+    <a href="/cdn-cgi/l/email-protection#f098959c9c9fb0899f8582949f9d91999ede939f9d" class="letters-cta">Write to Me</a>
+    <div class="letters-links">
+      <a href="#">Dribbble</a>
+      <a href="#">Behance</a>
+      <a href="#">Instagram</a>
+      <a href="#">LinkedIn</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container footer-inner">
+    <span class="footer-logo">JKMRY</span>
+    <span class="footer-text">© 2026. All rights reserved.</span>
+    <div class="footer-links">
+      <a href="#">Privacy</a>
+      <a href="#">Colophon</a>
+      <a href="#">RSS</a>
+    </div>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // Date
+  const d = new Date();
+  document.getElementById('current-date').textContent =
+    d.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('v

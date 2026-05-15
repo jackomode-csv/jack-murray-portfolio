@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Politics of Design — JKMRY</title>
+<link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --white: #FFFFFF;
+    --cream: #FAF8F5;
+    --black: #121212;
+    --ink: #1A1A1A;
+    --gray-dark: #3A3A3A;
+    --gray: #6B6B6B;
+    --gray-light: #A8A8A8;
+    --gray-rule: #D6D4D0;
+    --red: #D92B2B;
+    --font-headline: 'Jost', 'Futura', 'Helvetica Neue', sans-serif;
+    --font-body: 'Jost', 'Futura', 'Helvetica Neue', sans-serif;
+    --font-sans: 'Jost', 'Futura', 'Helvetica Neue', sans-serif;
+  }
+
+  html { font-size: 16px; scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: var(--font-body);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection { background: var(--red); color: var(--white); }
+
+  /* ---- NAV ---- */
+  .topbar {
+    border-bottom: 1px solid var(--gray-rule);
+    padding: 0.6rem 0;
+    position: sticky;
+    top: 0;
+    background: var(--cream);
+    z-index: 100;
+  }
+
+  .topbar-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gray);
+  }
+
+  .topbar-inner a {
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .topbar-inner a:hover { color: var(--red); }
+
+  /* ---- HEADER ---- */
+  .case-header {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 5rem 2.5rem 0;
+  }
+
+  .case-cat {
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--red);
+    margin-bottom: 1rem;
+  }
+
+  .case-title {
+    font-family: var(--font-headline);
+    font-size: clamp(2.2rem, 4vw, 3.2rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--black);
+    margin-bottom: 1.2rem;
+  }
+
+  .case-subtitle {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--gray-dark);
+    max-width: 600px;
+    margin-bottom: 2.5rem;
+  }
+
+  /* ---- BRIEF METADATA ---- */
+  .case-meta {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border-top: 2px solid var(--black);
+    border-bottom: 1px solid var(--gray-rule);
+  }
+
+  .case-meta-item {
+    padding: 1.2rem 1.5rem 1.2rem 0;
+    border-right: 1px solid var(--gray-rule);
+  }
+
+  .case-meta-item:last-child { border-right: none; }
+
+  .case-meta-label {
+    font-family: var(--font-sans);
+    font-size: 0.6rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--gray-light);
+    margin-bottom: 0.3rem;
+  }
+
+  .case-meta-value {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.4;
+  }
+
+  /* ---- IMAGES ---- */
+  .case-images {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 3rem 2.5rem;
+  }
+
+  .case-img {
+    width: 100%;
+    overflow: hidden;
+    background: var(--white);
+    border: 1px solid var(--gray-rule);
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .case-img:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+  }
+
+  .case-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .case-images-caption {
+    font-family: var(--font-sans);
+    font-size: 0.68rem;
+    color: var(--gray-light);
+    font-style: italic;
+    text-align: center;
+    margin-top: 0.8rem;
+  }
+
+  /* ---- LIGHTBOX ---- */
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(0,0,0,0.92);
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    cursor: zoom-out;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .lightbox.active {
+    display: flex;
+    opacity: 1;
+  }
+
+  .lightbox img {
+    max-width: 95vw;
+    max-height: 92vh;
+    object-fit: contain;
+    border-radius: 2px;
+    box-shadow: 0 4px 60px rgba(0,0,0,0.5);
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 2rem;
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: rgba(255,255,255,0.5);
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+
+  .lightbox-close:hover { color: var(--white); }
+
+  /* ---- CONTENT SECTIONS ---- */
+  .case-content {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2.5rem;
+  }
+
+  .case-section {
+    padding: 3.5rem 0;
+    border-bottom: 1px solid var(--gray-rule);
+  }
+
+  .case-section:last-child { border-bottom: none; }
+
+  .case-section-grid {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .case-section-label {
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--red);
+    padding-top: 0.3rem;
+  }
+
+  .case-section-body p {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--gray-dark);
+    margin-bottom: 1.2rem;
+  }
+
+  .case-section-body p:last-child { margin-bottom: 0; }
+
+  /* ---- WORKS CITED ---- */
+  .works-cited-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .works-cited-list li {
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    line-height: 1.7;
+    color: var(--gray-dark);
+    padding: 0.6rem 0;
+    border-bottom: 1px solid rgba(214,212,208,0.5);
+    padding-left: 2rem;
+    text-indent: -2rem;
+  }
+
+  .works-cited-list li:last-child { border-bottom: none; }
+
+  /* ---- NEXT PROJECT ---- */
+  .next-project {
+    border-top: 2px solid var(--black);
+    padding: 3rem 0;
+    text-align: center;
+  }
+
+  .next-label {
+    font-family: var(--font-sans);
+    font-size: 0.62rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--gray-light);
+    margin-bottom: 0.8rem;
+  }
+
+  .next-title {
+    font-family: var(--font-headline);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--black);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .next-title:hover { color: var(--red); }
+
+  /* ---- FOOTER ---- */
+  .footer {
+    background: var(--black);
+    color: var(--gray-light);
+    padding: 2.5rem 0;
+  }
+
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-logo {
+    font-family: var(--font-headline);
+    font-size: 1.1rem;
+    font-weight: 300;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--white);
+    text-decoration: none;
+  }
+
+  .footer-text {
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    color: var(--gray);
+  }
+
+  /* ---- RESPONSIVE ---- */
+  @media (max-width: 768px) {
+    .case-header { padding: 3rem 1.5rem 0; }
+    .case-content { padding: 0 1.5rem; }
+    .case-meta { grid-template-columns: 1fr 1fr; }
+    .case-meta-item:nth-child(2) { border-right: none; }
+    .case-section-grid { grid-template-columns: 1fr; gap: 0.8rem; }
+    .footer-inner { flex-direction: column; gap: 1rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <a href="portfolio.html">&larr; Back to JKMRY</a>
+    <span>Research Essay</span>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="case-header">
+  <p class="case-cat">Architecture &middot; Political Theory &middot; Design Culture</p>
+  <h1 class="case-title">The Politics of Design: Architecture, Ideology, and Institutional Power</h1>
+  <p class="case-subtitle">An investigation into how architecture, urban planning, fashion, and public art operate as instruments of governance&mdash;shaping how citizens encounter the state and how ideology becomes material.</p>
+
+  <div class="case-meta">
+    <div class="case-meta-item">
+      <p class="case-meta-label">Role</p>
+      <p class="case-meta-value">Author, Researcher</p>
+    </div>
+    <div class="case-meta-item">
+      <p class="case-meta-label">Timeline</p>
+      <p class="case-meta-value">2025</p>
+    </div>
+    <div class="case-meta-item">
+      <p class="case-meta-label">Discipline</p>
+      <p class="case-meta-value">Design History,<br>Political Theory</p>
+    </div>
+    <div class="case-meta-item">
+      <p class="case-meta-label">Scope</p>
+      <p class="case-meta-value">9 Case Studies,<br>17 Sources</p>
+    </div>
+  </div>
+</header>
+
+<!-- CONTENT -->
+<div class="case-content">
+
+  <div class="case-section">
+    <div class="case-section-grid">
+      <p class="case-section-label">Thesis</p>
+      <div class="case-section-body">
+        <p>Design operates as an instrument of governance. It shapes the ways citizens encounter institutions, how ideologies become material, and how state power is experienced through images, objects, and built environments. Across architecture, fashion, urban planning, and cultural policy, design enforces political values even when it appears neutral or decorative. The sites and objects examined in this research&mdash;including the Institut du Monde Arabe, the J. Edgar Hoover Building, the mid-century suburban home, Alexander Calder&rsquo;s <em>Flamingo</em>, and Hugo Boss&rsquo;s Waffen-SS uniforms&mdash;reveal the entanglement between design and systems of authority. When expanded to include the Louvre Pyramid, the CCTV Headquarters in Beijing, Bras&iacute;lia, and the European Parliament Building, this body of material shows how design has operated across the twentieth and twenty-first centuries as a medium of both representation and regulation.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div class="case-images">
+  <div class="case-img">
+    <img src="politics-of-design-images/slide-2.png" alt="Thesis — Design as governance">
+  </div>
+</div>
+<div class="case-content">
+
+  <div class="case-section">
+    <div class="case-section-grid">
+      <p class="case-section-label">Institut du<br>Monde Arabe</p>
+      <div class="case-section-body">
+        <p>The Institut du Monde Arabe in Paris is one of the clearest demonstrations of architecture&rsquo;s ability to perform cultural diplomacy while enacting control. Designed by Jean Nouvel and completed in 1987, the building&rsquo;s southern facade consists of hundreds of mechanical apertures inspired by the mashrabiya screens of traditional Islamic architecture. These devices respond to changing light conditions through a system of diaphragms. Their movement resembles the opening and closing of camera lenses. The facade becomes a visual machine that performs a vision of Arab identity translated into the language of French technological modernism.</p>
+        <p>As Gaymon Bennett argues in <em>Technicians of Human Dignity</em>, institutions often convert moral ideals into administrative techniques. The Institut does precisely this by turning cultural difference into a regulated optical system. Its performance of recognition and inclusion depends on a technological frame, one that is administered by the French state. The building celebrates cultural exchange while keeping it within the bounds of a secular French universalism.</p>
+        <p>As scholars like Timothy Mitchell have noted, modern institutions frequently stage cultural encounters in ways that mask the asymmetries of power that underlie them. The Institut du Monde Arabe presents the appearance of openness yet contains the representation of Arab culture within a distinctly Western design logic. Although the building appears diplomatic, it defines the terms under which Islamic identity may be seen and interpreted. It offers visibility without sovereignty. The facade&rsquo;s choreography of light dramatizes this duality. Cultural difference is technically displayed and technically contained.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div class="case-images">
+  <div class="case-img">
+    <img src="politics-of-design-images/slide-3.png" alt="Institut du Monde Arabe — facade and wireframe">
+  </div>
+</div>
+<div class="case-content">
+
+  <div class="case-section">
+    <div class="case-section-grid">
+      <p class="case-section-label">J. Edgar Hoover<br>Building</p>
+      <div class="case-section-body">
+        <p>A different configuration of design and authority appears in the J. Edgar Hoover Building. Completed in 1975 and designed by Charles Murphy and Associates, the building embodies the ethos of surveillance and secrecy associated with the Federal Bureau of Investigation. The structure employs the heavy, imposing concrete masses associated with brutalism. These forms communicate solidity, severity, and opacity. The building&rsquo;s blank walls and recessed windows suggest an institution that watches without being watched.</p>
+        <p>Tuuli Mattelm&auml;ki and colleagues have described the rise of empathic design as an attempt to foreground compassion and user experience within design practice. The Hoover Building offers a dark parallel to this idea. It demonstrates how design can express institutional emotions in service of domination rather than care. The building materializes the affective atmosphere of fear, intimidation, and bureaucratic moral certainty.</p>
+        <p>Reinhold Martin has written about the political nature of postwar architectural modernism, noting that administrative buildings often use monumental forms to legitimize authority. The Hoover Building exemplifies this phenomenon. Its weight and scale represent not democratic transparency, but the moral rigidity of the intelligence apparatus. Architectural form becomes a tool for shaping public emotion. Instead of fostering empathy, the building uses affect as a means of enforcing obedience. Through its physical presence, the building naturalizes the authority of the institution it serves.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div class="case-images">
+  <div class="case-img">
+    <img src="politics-of-design-images/slide-4.png" alt="J. Edgar Hoover Building — FBI Headquarters">
+  </div>
+</div>
+<div class="case-content">
+
+  <div class="case-section">
+    <div class="case-section-grid">
+      <p class="case-section-label">The Suburban<br>Home</p>
+      <div class="case-section-body">
+        <p>While the Hoover Building embodies authoritarian control, the mid-century suburban home expresses governance through desire. Elaine Stiles&rsquo;s analysis of the postwar American economy house reveals how domestic architecture and consumer goods functioned as ideological weapons in the struggle between capitalist and socialist visions of modern life. Suburban developers marketed modern homes as proof that private enterprise could solve the nation&rsquo;s housing crisis more effectively than state intervention. The modest ranch house, with its efficient floor plan, open living spaces, and standardized materials, became a symbol of individual prosperity and self-sufficiency.</p>
+        <p>As scholars such as Dolores Hayden and Dianne Harris have shown, the suburban ideal was deeply intertwined with racial exclusion, discriminatory mortgage policies, and Cold War anxieties. The architecture of the single-family home was never neutral. It expressed a political and economic ideology in material form.</p>
+        <p>The suburban home demonstrates Michel Foucault&rsquo;s concept of governmentality, in which power operates through the shaping of everyday behavior rather than direct coercion. The design of the home encouraged domestic routines that aligned with middle-class capitalist values. The kitchen&rsquo;s work triangle promoted efficiency. The large picture window encouraged surveillance of the street. The private backyard represented personal ownership and escape from the collective. These features created subjects who internalized the values of individual responsibility and consumer citizenship. The suburban home was a tool of governance disguised as a symbol of independence.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div class="case-images">
+  <div class="case-img">
+    <img src="politics-of-design-images/slide-5.png" alt="Mid-Century Modern Homes — suburban America">
+  </div>
+</div>
+<div class="case-content">
+
+  <div class="case-section">
+    <div class="case-section-grid">
+      <p class="case-section-label">Calder&rsquo;s<br>Flamingo</p>
+      <div class="case-section-body">
+        <p>The entanglement of aesthetics and power also appears in the federal government&rsquo;s commissioning of public art. Alexander Calder&rsquo;s <em>Flamingo</em>, installed in Chicago&rsquo;s Federal Plaza in 1974, was the first major project funded through the General Services Administration&rsquo;s Art in Architecture program. The bright red steel sculpture, abstract and monumental, was intended to soften the rigid geometry of the surrounding government buildings.</p>
+        <p>As Amy Sabrin argues, government arts funding always raises questions about the relationship between patronage and autonomy. Calder&rsquo;s <em>Flamingo</em> appears apolitical, yet its very neutrality serves a political purpose. It presents an image of democratic pluralism and cultural vitality within a federal landscape that might otherwise seem impersonal or oppressive.</p>
+        <p>Francis Hodsoll&rsquo;s reflections on the NEA during the 1980s underscore the tensions inherent in government involvement in the arts. <em>Flamingo</em>, with its abstract form and cheerful color, aligns with a particular vision of culture that avoids controversy and affirms national unity. In this sense, abstraction becomes a political tool. It allows the government to sponsor art that appears universal while subtly reinforcing the values of order, stability, and civic harmony.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div class="case-images">
+  <div class="case-img">
+    <img src="politics-of-design-images/slide-6.png" alt="Alexander Calder's Flamingo — Federal Plaza, Chicago">
+  </div>
+</div>
+<div class="case-content">
+
+  <div class="case-section">
+    <div class="case-section-grid">
+      <p class="case-section-label">Hugo Boss &amp;<br>the Waffen-SS</p>
+      <div class="case-section-body">
+        <p>At the most extreme end of political aesthetics lie the uniforms designed for the Waffen-SS by the Hugo Boss company. These garments illustrate Teal Triggs&rsquo;s critique of design history, which often neglects the political implications of aesthetic innovation. The SS uniforms were meticulously tailored, visually striking, and deliberately intimidating. They merged modern fashion with authoritarian ideology.</p>
+        <p>Scholars such as Jeffrey Herf and Claudia Koonz have shown how Nazi propaganda relied on the coordination of imagery, typography, clothing, and architecture to create an all-encompassing visual regime. The uniforms functioned not only as symbols of power, but as devices that shaped behavior and identity. Their elegance contributed to the seductive appeal of fascism. Design became a mechanism for producing obedient subjects and projecting the myths of racial superiority.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div class="case-images">
+  <div class="case-img">
+    <img src="politics-of-design-images/slide-7.png" alt="Hugo Boss Waffen-SS Uniforms — 1930s and 40s Germany">
+  </div>
+</div>
+<div class="case-content">
+
+  <div class="case-section">
+    <div class="case-section-grid">
+      <p class="case-section-label">The Louvre<br>Pyramid</p>
+      <div class="case-section-body">
+        <p>The role of design in constructing national identity is also evident in the Louvre Pyramid, created by I.&thinsp;M. Pei in 1989 as part of President Fran&ccedil;ois Mitterrand&rsquo;s program of monumental public works. The glass and steel structure stands in stark contrast to the historic stone facades of the Louvre Palace. Pei sought to create a modern entrance that would improve visitor circulation while signaling France&rsquo;s commitment to contemporary cultural leadership.</p>
+        <p>Scholars such as Neil Levine and Sarah Williams Goldhagen have analyzed the pyramid&rsquo;s symbolic significance, noting that its geometric clarity reflects Enlightenment ideals of reason and order. At the same time, the pyramid became a site of controversy. Critics accused the French government of desecrating national heritage. Supporters argued that the structure represented a confident, modern France. The debate surrounding the pyramid revealed how architecture can become a stage for negotiating national narratives. The building asserts the authority of the state to reinterpret cultural history on its own terms.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div class="case-images">
+  <div class="case-img">
+    <img src="politics-of-design-images/slide-8.png" alt="I.M. Pei's Louvre Pyramid and Redesign">
+  </div>
+</div>
+<div class="case-content">
+
+  <div class="case-section">
+    <div class="case-section-grid">
+      <p class="case-section-label">CCTV<br>Headquarters</p>
+      <div class="case-section-body">
+        <p>A similar interplay of openness and control appears in the CCTV Headquarters in Beijing, designed by Rem Koolhaas and OMA. Completed in 2012, the building houses China Central Television, the state&rsquo;s primary media apparatus. Its dramatic looping form rejects the vertical hierarchy of traditional skyscrapers in favor of a continuous circuit. Koolhaas has described the building as a new model for high-rise architecture.</p>
+        <p>Yet scholars such as Xiaoxuan Lu and Beatriz Colomina interpret the structure as a theatrical manifestation of state power. The building&rsquo;s transparency, achieved through extensive glass surfaces, presents an image of accessibility and modernity. However, the institution housed within it is one of the most tightly controlled media organizations in the world. The architecture stages a fantasy of openness while concealing the mechanisms of censorship and propaganda. Like the Hoover Building, the CCTV Headquarters materializes ideology. It transforms surveillance culture into an architectural spectacle.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="case-section">
+    <div class="case-section-grid">
+      <p class="case-section-label">Bras&iacute;lia</p>
+      <div class="case-section-body">
+        <p>Bras&iacute;lia offers another example of design as political aspiration and social engineering. Planned by Lucio Costa and designed largely by Oscar Niemeyer, the city was inaugurated in 1960 as the new capital of Brazil. It embodied the modernist ideal that architecture and urban planning could create a more equitable society. The city&rsquo;s monumental axis, vast open plazas, and sculptural government buildings symbolized national progress and democratic promise.</p>
+        <p>Yet, as James Holston has shown, Bras&iacute;lia&rsquo;s rationalist design produced new forms of inequality. The city&rsquo;s zoning policies separated residential, commercial, and governmental functions into discrete sectors. The reliance on automobiles marginalized the workers who built the city, many of whom were forced to live in distant satellite towns. The attempt to create a modern utopia resulted in spatial segregation. Architecture revealed its inability to resolve social contradictions through form alone.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="case-section">
+    <div class="case-section-grid">
+      <p class="case-section-label">European<br>Parliament</p>
+      <div class="case-section-body">
+        <p>The European Parliament Building in Strasbourg continues this exploration of the symbolic politics of design. The structure&rsquo;s incomplete cylindrical form and transparent facade suggest that European democracy is a work in progress. Architectural critics such as Barbara Miller Lane argue that the building&rsquo;s design functions as a visual metaphor for the project of European integration. The extensive use of glass implies transparency and openness.</p>
+        <p>Yet the interior is notoriously confusing, with labyrinthine corridors and restricted areas that complicate access. The building performs the ideals of democratic governance while masking the bureaucratic complexities and tensions that characterize the European Union. As with Calder&rsquo;s <em>Flamingo</em> or Pei&rsquo;s Pyramid, abstraction becomes a means of reconciling conflicting identities and legitimizing institutional authority.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div class="case-images">
+  <div class="case-img">
+    <img src="politics-of-design-images/slide-9.png" alt="Executive Summary">
+  </div>
+</div>
+<div class="case-content">
+
+  <div class="case-section">
+    <div class="case-section-grid">
+      <p class="case-section-label">Conclusion</p>
+      <div class="case-section-body">
+        <p>Across all of these examples, design emerges as a political technology that shapes how individuals understand themselves and their relationship to the state. Bennett&rsquo;s theological account of dignity highlights the role of institutions in defining intrinsic worth. Stiles&rsquo;s analysis of the economy house shows how domestic architecture can express economic ideology. Sabrin&rsquo;s discussion of arts funding reveals the state&rsquo;s influence on cultural production. Julier&rsquo;s articulation of design culture offers a framework for understanding how aesthetic practices intersect with political meaning.</p>
+        <p>Understanding design as a form of governance allows us to see how spatial and visual systems regulate bodies, construct identities, and shape political reality. In the hands of the state, empathy becomes surveillance, modernism becomes capitalism, and abstraction becomes control. Design&rsquo;s entanglement with governance is structural. From diplomatic facades to authoritarian headquarters, from suburban domesticity to architectural utopianism, design reveals the values and contradictions of its political moment. To analyze design is therefore to interrogate the moral architecture of society itself. Design is policy made visible. Its objects are arguments, its images are ideologies, and its history is inseparable from the governments that shape and are shaped by it.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="case-section">
+    <div class="case-section-grid">
+      <p class="case-section-label">Works Cited</p>
+      <div class="case-section-body">
+        <ul class="works-cited-list">
+          <li>Bennett, Gaymon. <em>Technicians of Human Dignity: Bodies, Souls, and the Making of Intrinsic Worth.</em> New York: Fordham University Press, 2016.</li>
+          <li>Colomina, Beatriz. <em>Privacy and Publicity: Modern Architecture as Mass Media.</em> Cambridge, MA: MIT Press, 1994.</li>
+          <li>Goldhagen, Sarah Williams. &ldquo;Coda: Approaching Architecture from the Standpoint of the Mind.&rdquo; <em>Journal of the Society of Architectural Historians</em> 70, no. 4 (2011): 429&ndash;435.</li>
+          <li>Holston, James. <em>The Modernist City: An Anthropological Critique of Brasilia.</em> Chicago: University of Chicago Press, 1989.</li>
+          <li>Hodsoll, Francis S. M. &ldquo;Supporting the Arts in the Eighties.&rdquo; <em>Annals of the American Academy of Political and Social Science</em> 471 (1984): 84&ndash;88.</li>
+          <li>Julier, Guy. &ldquo;From Visual Culture to Design Culture.&rdquo; <em>Design Issues</em> 22, no. 1 (2006): 64&ndash;76.</li>
+          <li>Koolhaas, Rem. &ldquo;The Generic City.&rdquo; In <em>S, M, L, XL</em>, edited by Rem Koolhaas and Bruce Mau, 1238&ndash;1264. New York: Monacelli Press, 1995.</li>
+          <li>Lane, Barbara Miller. <em>National Romanticism and Modern Architecture in Germany and the Scandinavian Countries.</em> Cambridge: Cambridge University Press, 2000.</li>
+          <li>Levine, Neil. &ldquo;The Architecture of the Louvre Project.&rdquo; <em>Harvard Design Magazine</em> (1998).</li>
+          <li>Lu, Xiaoxuan. &ldquo;Architecture and Power in Contemporary China.&rdquo; <em>Journal of Asian Architecture and Building Engineering</em> 14, no. 2 (2015): 243&ndash;250.</li>
+          <li>Mattelm&auml;ki, Tuuli, Kirsikka Vaajakallio, and Ilpo Koskinen. &ldquo;What Happened to Empathic Design?&rdquo; <em>Design Issues</em> 30, no. 1 (2014): 67&ndash;77.</li>
+          <li>Mitchell, Timothy. <em>Colonising Egypt.</em> Cambridge: Cambridge University Press, 1988.</li>
+          <li>Sabrin, Amy. &ldquo;Thinking about Content: Can It Play an Appropriate Role in Government Funding of the Arts?&rdquo; <em>Yale Law Journal</em> 102, no. 5 (1993): 1209&ndash;1233.</li>
+          <li>Stiles, Elaine B. &ldquo;No Simple Dwelling: Design, Politics, and the Mid-Twentieth-Century American Economy House.&rdquo; <em>Buildings and Landscapes</em> 26, no. 1 (2019): 73&ndash;93.</li>
+          <li>Triggs, Teal. &ldquo;Graphic Design History: Past, Present, and Future.&rdquo; <em>Design Issues</em> 27, no. 1 (2011): 3&ndash;6.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- NEXT PROJECT -->
+  <div class="next-project">
+    <p class="next-label">Next Project</p>
+    <a href="creeping-body.html" class="next-title">The Creeping Body &rarr;</a>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <a href="portfolio.html" class="footer-logo">JKMRY</a>
+    <span class="footer-text">&copy; 2026. All rights reserved.</span>
+  </div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close">ESC to close</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+
+  document.querySelectorAll('.case-img').forEach(el => {
+    el.addEventListener('click', () => {
+      const img = el.querySelector('img');
+      if (!img) return;
+      lightboxImg.src = img.src;
+      lightboxImg.alt = img.alt;
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  function closeLightbox() {
+    lightbox.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  lightbox.addEventListener('click', closeLightbox);
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeLightbox();
+  });
+</script>
+
+</body>
+</html>

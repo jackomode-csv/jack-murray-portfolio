@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stella&rsquo;s Purpose &mdash; JKMRY</title>
+<link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --white: #FFFFFF;
+    --cream: #FAF8F5;
+    --black: #121212;
+    --ink: #1A1A1A;
+    --gray-dark: #3A3A3A;
+    --gray: #6B6B6B;
+    --gray-light: #A8A8A8;
+    --gray-rule: #D6D4D0;
+    --red: #D92B2B;
+    --font-headline: 'Jost', 'Futura', 'Helvetica Neue', sans-serif;
+    --font-body: 'Jost', 'Futura', 'Helvetica Neue', sans-serif;
+    --font-sans: 'Jost', 'Futura', 'Helvetica Neue', sans-serif;
+  }
+
+  html { font-size: 16px; scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: var(--font-body);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection { background: var(--red); color: var(--white); }
+
+  /* ---- NAV ---- */
+  .topbar {
+    border-bottom: 1px solid var(--gray-rule);
+    padding: 0.6rem 0;
+    position: sticky;
+    top: 0;
+    background: var(--cream);
+    z-index: 100;
+  }
+
+  .topbar-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gray);
+  }
+
+  .topbar-inner a {
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .topbar-inner a:hover { color: var(--red); }
+
+  /* ---- HERO ---- */
+  .case-hero {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem 2.5rem;
+    position: relative;
+    display: flex;
+    justify-content: center;
+  }
+
+  .case-hero-wrap {
+    max-width: 400px;
+    border: none;
+  }
+
+  .case-hero-img {
+    max-height: 80vh;
+    width: auto;
+    height: auto;
+    display: block;
+    background: var(--black);
+  }
+
+  /* ---- HEADER ---- */
+  .case-header {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 4rem 2.5rem 0;
+  }
+
+  .case-cat {
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--red);
+    margin-bottom: 1rem;
+  }
+
+  .case-title {
+    font-family: var(--font-headline);
+    font-size: clamp(2.2rem, 4vw, 3.2rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--black);
+    margin-bottom: 1.2rem;
+  }
+
+  .case-subtitle {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--gray-dark);
+    max-width: 600px;
+    margin-bottom: 2.5rem;
+  }
+
+  /* ---- BRIEF METADATA ---- */
+  .case-meta {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border-top: 2px solid var(--black);
+    border-bottom: 1px solid var(--gray-rule);
+  }
+
+  .case-meta-item {
+    padding: 1.2rem 1.5rem 1.2rem 0;
+    border-right: 1px solid var(--gray-rule);
+  }
+
+  .case-meta-item:last-child { border-right: none; }
+
+  .case-meta-label {
+    font-family: var(--font-sans);
+    font-size: 0.6rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--gray-light);
+    margin-bottom: 0.3rem;
+  }
+
+  .case-meta-value {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.4;
+  }
+
+  /* ---- CONTENT SECTIONS ---- */
+  .case-content {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2.5rem;
+  }
+
+  .case-section {
+    padding: 3.5rem 0;
+    border-bottom: 1px solid var(--gray-rule);
+  }
+
+  .case-section:last-child { border-bottom: none; }
+
+  .case-section-grid {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .case-section-label {
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--red);
+    padding-top: 0.3rem;
+  }
+
+  .case-section-body p {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--gray-dark);
+    margin-bottom: 1.2rem;
+  }
+
+  .case-section-body p:last-child { margin-bottom: 0; }
+
+  /* ---- SPREAD IMAGES ---- */
+  .case-images {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 3rem 2.5rem;
+  }
+
+  .case-images-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .case-img {
+    width: 100%;
+    overflow: hidden;
+    background: var(--white);
+    border: 1px solid var(--gray-rule);
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .case-img:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+  }
+
+  .case-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .case-img.full { grid-column: span 2; }
+
+  /* ---- PROUST QUESTIONNAIRE ---- */
+  .proust-list {
+    list-style: none;
+  }
+
+  .proust-item {
+    padding: 1.4rem 0;
+    border-bottom: 1px solid var(--gray-rule);
+  }
+
+  .proust-item:last-child { border-bottom: none; }
+
+  .proust-question {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--gray-light);
+    margin-bottom: 0.4rem;
+  }
+
+  .proust-answer {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--gray-dark);
+  }
+
+  /* ---- PULL QUOTE ---- */
+  .pull-quote {
+    padding: 3rem 0;
+    text-align: center;
+    border-bottom: 1px solid var(--gray-rule);
+  }
+
+  .pull-quote blockquote {
+    font-family: var(--font-headline);
+    font-size: clamp(1.4rem, 2.5vw, 1.8rem);
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--black);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .pull-quote cite {
+    display: block;
+    margin-top: 1rem;
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--red);
+    font-style: normal;
+  }
+
+  /* ---- LIGHTBOX ---- */
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(0,0,0,0.92);
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    cursor: zoom-out;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .lightbox.active {
+    display: flex;
+    opacity: 1;
+  }
+
+  .lightbox img {
+    max-width: 95vw;
+    max-height: 92vh;
+    object-fit: contain;
+    border-radius: 2px;
+    box-shadow: 0 4px 60px rgba(0,0,0,0.5);
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 2rem;
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: rgba(255,255,255,0.5);
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+
+  .lightbox-close:hover { color: var(--white); }
+
+  .lightbox-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: 1px solid rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.6);
+    font-size: 1.4rem;
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s;
+    border-radius: 50%;
+  }
+
+  .lightbox-arrow:hover {
+    color: var(--white);
+    border-color: rgba(255,255,255,0.5);
+  }
+
+  .lightbox-prev { left: 2rem; }
+  .lightbox-next { right: 2rem; }
+
+  .lightbox-counter {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    color: rgba(255,255,255,0.4);
+  }
+
+  .case-images-caption {
+    font-family: var(--font-sans);
+    font-size: 0.68rem;
+    color: var(--gray-light);
+    font-style: italic;
+    text-align: center;
+    margin-top: 0.8rem;
+  }
+
+  /* ---- NEXT PROJECT ---- */
+  .next-project {
+    border-top: 2px solid var(--black);
+    padding: 3rem 0;
+    text-align: center;
+  }
+
+  .next-label {
+    font-family: var(--font-sans);
+    font-size: 0.62rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--gray-light);
+    margin-bottom: 0.8rem;
+  }
+
+  .next-title {
+    font-family: var(--font-headline);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--black);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .next-title:hover { color: var(--red); }
+
+  /* ---- FOOTER ---- */
+  .footer {
+    background: var(--black);
+    color: var(--gray-light);
+    padding: 2.5rem 0;
+  }
+
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-logo {
+    font-family: var(--font-headline);
+    font-size: 1.1rem;
+    font-weight: 300;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--white);
+    text-decoration: none;
+  }
+
+  .footer-text {
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    color: var(--gray);
+  }
+
+  /* ---- RESPONSIVE ---- */
+  @media (max-width: 768px) {
+    .case-header { padding: 3rem 1.5rem 0; }
+    .case-content { padding: 0 1.5rem; }
+    .case-images { padding: 2rem 1.5rem; }
+    .case-meta { grid-template-columns: 1fr 1fr; }
+    .case-meta-item:nth-child(2) { border-right: none; }
+    .case-section-grid { grid-template-columns: 1fr; gap: 0.8rem; }
+    .case-images-grid { grid-template-columns: 1fr; }
+    .case-img.full { grid-column: span 1; }
+    .footer-inner { flex-direction: column; gap: 1rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <a href="portfolio.html">&larr; Back to JKMRY</a>
+    <span>Case Study</span>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="case-hero">
+  <div class="case-img case-hero-wrap">
+    <img class="case-hero-img" src="stella-images/stella-cover.png" alt="Stella's Purpose — What is Stella's Purpose?">
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="case-header">
+  <p class="case-cat">Illustration &middot; Storytelling &middot; Persona Study</p>
+  <h1 class="case-title">Stella&rsquo;s Purpose</h1>
+  <p class="case-subtitle">A collaborative persona study exploring identity, purpose, and what it means to simply be alive &mdash; built from a Proust Questionnaire with an MBTI-opposite partner, told through illustrated photography and hand-lettered typography.</p>
+
+  <div class="case-meta">
+    <div class="case-meta-item">
+      <p class="case-meta-label">Collaborators</p>
+      <p class="case-meta-value">Jack Murray &amp;<br>Stella Zheng</p>
+    </div>
+    <div class="case-meta-item">
+      <p class="case-meta-label">Timeline</p>
+      <p class="case-meta-value">2022</p>
+    </div>
+    <div class="case-meta-item">
+      <p class="case-meta-label">Medium</p>
+      <p class="case-meta-value">Illustrated Photography,<br>Hand Lettering</p>
+    </div>
+    <div class="case-meta-item">
+      <p class="case-meta-label">Deliverables</p>
+      <p class="case-meta-value">Visual Book,<br>Proust Questionnaire</p>
+    </div>
+  </div>
+</header>
+
+<!-- INTRO -->
+<div class="case-content">
+
+  <div class="case-section">
+    <div class="case-section-grid">
+      <p class="case-section-label">The Brief</p>
+      <div class="case-section-body">
+        <p>Profiles &amp; Personas was a collaborative project in which pairs were formed based on MBTI opposites. The goal was to learn the persona of your partner &mdash; someone whose personality type sits at the other end of the spectrum &mdash; and create a visual profile that captures who they are.</p>
+        <p>Stella Zheng and Jack Murray were paired together. Through conversations, a Proust Questionnaire, and time spent exploring New York, the project became a portrait of Stella&rsquo;s identity, values, and quiet philosophy on life.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="case-section">
+    <div class="case-section-grid">
+      <p class="case-section-label">The Story</p>
+      <div class="case-section-body">
+        <p>When Stella was young, her Mother read to her. &ldquo;What is Stella&rsquo;s purpose?&rdquo; &mdash; the meaning of life is to live life with meaning. But as she grew older, she realized that sometimes you don&rsquo;t need a purpose. Sometimes you just want to be alive.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- STORY IMAGES — Pages 1–4 -->
+<div class="case-images">
+  <div class="case-images-grid">
+    <div class="case-img">
+      <img src="stella-images/stella-pg1.png" alt="When Stella was young, her Mother read to her">
+    </div>
+    <div class="case-img">
+      <img src="stella-images/stella-pg2.png" alt="The meaning of life is">
+    </div>
+    <div class="case-img">
+      <img src="stella-images/stella-pg3.png" alt="To live life with meaning">
+    </div>
+    <div class="case-img">
+      <img src="stella-images/stella-pg4.png" alt="But as she grew older">
+    </div>
+  </div>
+  <p class="case-images-caption">Pages 1&ndash;4 &mdash; &ldquo;When Stella was young, her Mother read to her&hellip;&rdquo;</p>
+</div>
+
+<!-- STORY IMAGES — Pages 5–7 -->
+<div class="case-images">
+  <div class="case-images-grid">
+    <div class="case-img">
+      <img src="stella-images/stella-pg5.png" alt="She realized that sometimes you don't need a purpose">
+    </div>
+    <div class="case-img">
+      <img src="stella-images/stella-pg6.png" alt="Sometimes you just">
+    </div>
+    <div class="case-img full">
+      <img src="stella-images/stella-pg7.png" alt="Want to be alive">
+    </div>
+  </div>
+  <p class="case-images-caption">Pages 5&ndash;7 &mdash; &ldquo;&hellip;sometimes you just want to be alive.&rdquo;</p>
+</div>
+
+<!-- PROCESS -->
+<div class="case-content">
+
+  <div class="case-section">
+    <div class="case-section-grid">
+      <p class="case-section-label">Process</p>
+      <div class="case-section-body">
+        <p>The project began with preliminary portrait drawings and an exploration of personality and artistic preferences &mdash; visiting galleries together and documenting Stella&rsquo;s reactions. Inspiration was drawn from an unorthodox source: children&rsquo;s book illustration, particularly Corduroy by Don Freeman and Curious George by H.A. Rey.</p>
+        <p>The narrative was shaped through scrapped ideas, handwritten notes, and hidden gold found in conversation &mdash; before being refined through trials in the design lab, iterating on posterized imagery and script typography to find the right visual language.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- PROCESS IMAGES -->
+<div class="case-images">
+  <div class="case-images-grid">
+    <div class="case-img full">
+      <img src="stella-images/process-cover.png" alt="Profiles & Personas — A Lovely Collab From Stella Zheng and Jack Murray">
+    </div>
+    <div class="case-img">
+      <img src="stella-images/process-drawings.png" alt="Preliminary Drawings — portrait sketches">
+    </div>
+    <div class="case-img">
+      <img src="stella-images/process-exploration.png" alt="An Exploration of Our Personalities">
+    </div>
+    <div class="case-img">
+      <img src="stella-images/process-art.png" alt="Our Artistic Preferences — gallery visits">
+    </div>
+    <div class="case-img">
+      <img src="stella-images/process-inspiration.png" alt="An Unorthodox Inspiration — Corduroy and Curious George">
+    </div>
+    <div class="case-img">
+      <img src="stella-images/process-scrapped.png" alt="Scrapped Ideas — handwritten notes and brainstorming">
+    </div>
+    <div class="case-img">
+      <img src="stella-images/process-gold.png" alt="Hidden Gold — behind the scenes moments">
+    </div>
+    <div class="case-img full">
+      <img src="stella-images/process-trials.png" alt="Trials and Tribulations of the Design Lab — print iterations">
+    </div>
+  </div>
+  <p class="case-images-caption">Process &mdash; from preliminary drawings to design lab iterations</p>
+</div>
+
+<!-- PULL QUOTE -->
+<div class="case-content">
+
+  <div class="pull-quote">
+    <blockquote>&ldquo;Decide for yourself what it means to be happy.&rdquo;</blockquote>
+    <cite>Stella Proust</cite>
+  </div>
+
+  <!-- QUESTIONNAIRE -->
+  <div class="case-section">
+    <div class="case-section-grid">
+      <p class="case-section-label">The Proust<br>Questionnaire</p>
+      <div class="case-section-body">
+        <ul class="proust-list">
+
+          <li class="proust-item">
+            <p class="proust-question">What is your idea of perfect happiness?</p>
+            <p class="proust-answer">Living presently, surrounded by good people.</p>
+          </li>
+
+          <li class="proust-item">
+            <p class="proust-question">What is your greatest fear?</p>
+            <p class="proust-answer">I often feel like I&rsquo;m not enough for myself, for others, or for where I am &mdash; I don&rsquo;t know if this counts as a fear, but it might be better put as fearing that to be my reality.</p>
+          </li>
+
+          <li class="proust-item">
+            <p class="proust-question">What is the trait you most deplore in yourself?</p>
+            <p class="proust-answer">My overthinking. It&rsquo;s really a terrible habit.</p>
+          </li>
+
+          <li class="proust-item">
+            <p class="proust-question">What is the trait you most deplore in others?</p>
+            <p class="proust-answer">Lack of self-awareness, and inconsideration for others &mdash; although it&rsquo;s often not intentional, one of my pet peeves is when people leave someone to walk on their own behind a group of friends, or when people speak to each other and make it actively difficult for someone to join into the conversation.</p>
+          </li>
+
+          <li class="proust-item">
+            <p class="proust-question">Which living person do you most admire?</p>
+            <p class="proust-answer">My mom! I really admire her ability to let things go and unyielding faith in herself.</p>
+          </li>
+
+          <li class="proust-item">
+            <p class="proust-question">What is your greatest extravagance?</p>
+            <p class="proust-answer">I have an outrageously large stationery collection.</p>
+          </li>
+
+          <li class="proust-item">
+            <p class="proust-question">What is your current state of mind?</p>
+            <p class="proust-answer">I&rsquo;m feeling okay! I&rsquo;m still adjusting to New York, but overall I&rsquo;m pretty tired. I don&rsquo;t think I&rsquo;ve gotten proper rest yet.</p>
+          </li>
+
+          <li class="proust-item">
+            <p class="proust-question">On what occasion do you lie?</p>
+            <p class="proust-answer">Recently, I probably lie the most about things I can tolerate, for the sake of others since I&rsquo;m generally quite sensitive to things like light and sound.</p>
+          </li>
+
+          <li class="proust-item">
+            <p class="proust-question">What do you most dislike about your appearance?</p>
+            <p class="proust-answer">My nose. It&rsquo;s an insecurity I&rsquo;m still learning to love. It would be nice if I was a bit taller too.</p>
+          </li>
+
+          <li class="proust-item">
+            <p class="proust-question">What is the quality you most like in a person?</p>
+            <p class="proust-answer">I appreciate people who are very thoughtful with their words and actions &mdash; being able to have comfortable silences is nice too.</p>
+          </li>
+
+          <li class="proust-item">
+            <p class="proust-question">Which words or phrases do you most overuse?</p>
+            <p class="proust-answer">CUTE.</p>
+          </li>
+
+          <li class="proust-item">
+            <p class="proust-question">What or who is the greatest love of your life?</p>
+            <p class="proust-answer">If we&rsquo;re not counting my mom, I haven&rsquo;t found it yet.</p>
+          </li>
+
+          <li class="proust-item">
+            <p class="proust-question">When and where were you happiest?</p>
+            <p class="proust-answer">I was really happy in the summer of 2020 &mdash; I spent a lot of time with myself and with my mom, and rode my bike everyday. I most remember seeing the bright blue sky, which always makes me so grateful to be alive.</p>
+          </li>
+
+          <li class="proust-item">
+            <p class="proust-question">Which talent would you most like to have?</p>
+            <p class="proust-answer">I sincerely wish I was better at drawing! But if we&rsquo;re speaking about talents that aren&rsquo;t learned, it would be nice to be someone with a big social battery, who was good at making conversation.</p>
+          </li>
+
+          <li class="proust-item">
+            <p class="proust-question">If you could change one thing about yourself, what would it be?</p>
+            <p class="proust-answer">I&rsquo;m working on a lot of different aspects of myself, but I think the most important one is improving my work and sleep habit so I can have more time for the things I really want to do.</p>
+          </li>
+
+          <li class="proust-item">
+            <p class="proust-question">What do you consider your greatest achievement?</p>
+            <p class="proust-answer">It is yet to come.</p>
+          </li>
+
+          <li class="proust-item">
+            <p class="proust-question">If you were to die and come back as a person or a thing, what would it be?</p>
+            <p class="proust-answer">I do not want to come back. Let me rest!!!</p>
+          </li>
+
+          <li class="proust-item">
+            <p class="proust-question">Where would you most like to live?</p>
+            <p class="proust-answer">I&rsquo;d love to live back in Canada, around Unionville main street. There&rsquo;s a lovely library and pond, and the area has a lot of history. I grew up in Unionville, and that was my favourite place to visit.</p>
+          </li>
+
+          <li class="proust-item">
+            <p class="proust-question">What is your most treasured possession?</p>
+            <p class="proust-answer">If there was a fire, I&rsquo;d run back to get my childhood blanket.</p>
+          </li>
+
+          <li class="proust-item">
+            <p class="proust-question">What do you regard as the lowest depth of misery?</p>
+            <p class="proust-answer">Not being able to pull yourself out from a spiral.</p>
+          </li>
+
+          <li class="proust-item">
+            <p class="proust-question">What is your favorite occupation?</p>
+            <p class="proust-answer">If we completely disregard the paycheque, I think being a children&rsquo;s book illustrator sounds lovely.</p>
+          </li>
+
+          <li class="proust-item">
+            <p class="proust-question">What is your most marked characteristic?</p>
+            <p class="proust-answer">Maybe my height, but I&rsquo;m also told I am extremely nice pretty often (sometimes too nice).</p>
+          </li>
+
+          <li class="proust-item">
+            <p class="proust-question">What do you most value in your friends?</p>
+            <p class="proust-answer">People who communicate! Communication is so important to me &mdash; if someone cannot communicate how they feel and talk it out, I find it really difficult to be friends, or at least feel very anxious in friendships.</p>
+          </li>
+
+          <li class="proust-item">
+            <p class="proust-question">Who are your favorite writers?</p>
+            <p class="proust-answer">I unfortunately don&rsquo;t have one anymore! I am very fond of Trung Le Nguyen&rsquo;s book &ldquo;The Magic Fish&rdquo; though.</p>
+          </li>
+
+          <li class="proust-item">
+            <p class="proust-question">Who are your heroes in real life?</p>
+            <p class="proust-answer">My mom, and this lovely guy named Kim Namjoon (yes, he is a member of BTS).</p>
+          </li>
+
+          <li class="proust-item">
+            <p class="proust-question">What are your favorite names?</p>
+            <p class="proust-answer">I met someone named Miracle once. I think that was such a lovely name.</p>
+          </li>
+
+          <li class="proust-item">
+            <p class="proust-question">What is it that you most dislike?</p>
+            <p class="proust-answer">Is it childish to say bad smells? I really dislike the stench of stinky tofu. Strong scents make me nauseous, so I&rsquo;m really not a fan. There&rsquo;s definitely more profound things I dislike, but this is what comes to mind first.</p>
+          </li>
+
+          <li class="proust-item">
+            <p class="proust-question">What is your greatest regret?</p>
+            <p class="proust-answer">There were things I regret in the past, but I now appreciate them for what they were. I think everything happens for a reason, and I strongly believe I&rsquo;m on the right path &mdash; I have a lot of faith in fate and the universe.</p>
+          </li>
+
+          <li class="proust-item">
+            <p class="proust-question">How would you like to die?</p>
+            <p class="proust-answer">In my sleep, and also on my birthday. It feels very full circle, dying on your birthday.</p>
+          </li>
+
+          <li class="proust-item">
+            <p class="proust-question">What is your motto?</p>
+            <p class="proust-answer">&ldquo;Decide for yourself what it means to be happy&rdquo; and &ldquo;Every day may not be good, but there is good in everyday.&rdquo;</p>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLOSING QUOTE -->
+  <div class="pull-quote">
+    <blockquote>&ldquo;Every day may not be good, but there is good in everyday.&rdquo;</blockquote>
+    <cite>Stella Proust</cite>
+  </div>
+
+  <!-- NEXT PROJECT -->
+  <div class="next-project">
+    <p class="next-label">Next Project</p>
+    <a href="creeping-body.html" class="next-title">The Creeping Body &rarr;</a>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <a href="portfolio.html" class="footer-logo">JKMRY</a>
+    <span class="footer-text">&copy; 2026. All rights reserved.</span>
+  </div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close">ESC to close</button>
+  <button class="lightbox-arrow lightbox-prev" id="lightbox-prev">&larr;</button>
+  <img id="lightbox-img" src="" alt="">
+  <button class="lightbox-arrow lightbox-next" id="lightbox-next">&rarr;</button>
+  <p class="lightbox-counter" id="lightbox-counter"></p>
+</div>
+
+<script>
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  const lightboxPrev = document.getElementById('lightbox-prev');
+  const lightboxNext = document.getElementById('lightbox-next');
+  const lightboxCounter = document.getElementById('lightbox-counter');
+
+  const allImages = [];
+  document.querySelectorAll('.case-img').forEach(el => {
+    const img = el.querySelector('img');
+    if (img) allImages.push({ src: img.src, alt: img.alt });
+  });
+
+  let currentIndex = 0;
+
+  function showImage(index) {
+    currentIndex = index;
+    lightboxImg.src = allImages[index].src;
+    lightboxImg.alt = allImages[index].alt;
+    lightboxCounter.textContent = (index + 1) + ' / ' + allImages.length;
+    lightboxPrev.style.visibility = index === 0 ? 'hidden' : 'visible';
+    lightboxNext.style.visibility = index === allImages.length - 1 ? 'hidden' : 'visible';
+  }
+
+  document.querySelectorAll('.case-img').forEach((el, i) => {
+    el.addEventListener('click', () => {
+      const img = el.querySelector('img');
+      if (!img) return;
+      showImage(i);
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  function closeLightbox() {
+    lightbox.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  lightboxPrev.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (currentIndex > 0) showImage(currentIndex - 1);
+  });
+
+  lightboxNext.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (currentIndex < allImages.length - 1) showImage(currentIndex + 1);
+  });
+
+  lightboxImg.addEventListener('click', (e) => e.stopPropagation());
+
+  lightbox.addEventListener('click', closeLightbox);
+  document.addEventListener('keydown', e => {
+    if (!lightbox.classList.contains('active')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft' && currentIndex > 0) showImage(currentIndex - 1);
+    if (e.key === 'ArrowRight' && currentIndex < allImages.length - 1) showImage(currentIndex + 1);
+  });
+</script>
+
+</body>
+</html>

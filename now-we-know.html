@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Now We Know Where We're Going — JKMRY</title>
+<link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --white: #FFFFFF;
+    --cream: #FAF8F5;
+    --black: #121212;
+    --ink: #1A1A1A;
+    --gray-dark: #3A3A3A;
+    --gray: #6B6B6B;
+    --gray-light: #A8A8A8;
+    --gray-rule: #D6D4D0;
+    --red: #D92B2B;
+    --font-headline: 'Jost', 'Futura', 'Helvetica Neue', sans-serif;
+    --font-body: 'Jost', 'Futura', 'Helvetica Neue', sans-serif;
+    --font-sans: 'Jost', 'Futura', 'Helvetica Neue', sans-serif;
+  }
+
+  html { font-size: 16px; scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: var(--font-body);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection { background: var(--red); color: var(--white); }
+
+  /* ---- NAV ---- */
+  .topbar {
+    border-bottom: 1px solid var(--gray-rule);
+    padding: 0.6rem 0;
+    position: sticky;
+    top: 0;
+    background: var(--cream);
+    z-index: 100;
+  }
+
+  .topbar-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gray);
+  }
+
+  .topbar-inner a {
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .topbar-inner a:hover { color: var(--red); }
+
+  /* ---- HERO ---- */
+  .case-hero {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem 2.5rem;
+    position: relative;
+  }
+
+  .case-hero-img {
+    width: 100%;
+    display: block;
+    background: var(--black);
+  }
+
+  /* ---- HEADER ---- */
+  .case-header {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 4rem 2.5rem 0;
+  }
+
+  .case-cat {
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--red);
+    margin-bottom: 1rem;
+  }
+
+  .case-title {
+    font-family: var(--font-headline);
+    font-size: clamp(2.2rem, 4vw, 3.2rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--black);
+    margin-bottom: 1.2rem;
+  }
+
+  .case-subtitle {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--gray-dark);
+    max-width: 600px;
+    margin-bottom: 2.5rem;
+  }
+
+  /* ---- BRIEF METADATA ---- */
+  .case-meta {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border-top: 2px solid var(--black);
+    border-bottom: 1px solid var(--gray-rule);
+  }
+
+  .case-meta-item {
+    padding: 1.2rem 1.5rem 1.2rem 0;
+    border-right: 1px solid var(--gray-rule);
+  }
+
+  .case-meta-item:last-child { border-right: none; }
+
+  .case-meta-label {
+    font-family: var(--font-sans);
+    font-size: 0.6rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--gray-light);
+    margin-bottom: 0.3rem;
+  }
+
+  .case-meta-value {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.4;
+  }
+
+  /* ---- IMAGES ---- */
+  .case-images {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 2.5rem;
+  }
+
+  .case-images-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .case-img {
+    width: 100%;
+    overflow: hidden;
+    background: var(--white);
+    border: 1px solid var(--gray-rule);
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .case-img:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+  }
+
+  .case-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .case-img.full { grid-column: span 2; }
+
+  .case-images-caption {
+    font-family: var(--font-sans);
+    font-size: 0.68rem;
+    color: var(--gray-light);
+    font-style: italic;
+    text-align: center;
+    margin-top: 0.8rem;
+  }
+
+  /* ---- LIGHTBOX ---- */
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(0,0,0,0.92);
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    user-select: none;
+  }
+
+  .lightbox.active {
+    display: flex;
+    opacity: 1;
+  }
+
+  .lightbox img {
+    max-width: 90vw;
+    max-height: 88vh;
+    object-fit: contain;
+    border-radius: 2px;
+    box-shadow: 0 4px 60px rgba(0,0,0,0.5);
+    transition: opacity 0.25s ease;
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 2rem;
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: rgba(255,255,255,0.5);
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color 0.2s;
+    z-index: 10;
+  }
+
+  .lightbox-close:hover { color: var(--white); }
+
+  .lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.5);
+    font-size: 2.5rem;
+    cursor: pointer;
+    padding: 1rem;
+    transition: color 0.2s;
+    z-index: 10;
+    font-family: var(--font-sans);
+    line-height: 1;
+  }
+
+  .lightbox-nav:hover { color: var(--white); }
+
+  .lightbox-prev { left: 1rem; }
+  .lightbox-next { right: 1rem; }
+
+  .lightbox-counter {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.5);
+  }
+
+  /* ---- CONTENT SECTIONS ---- */
+  .case-content {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2.5rem;
+  }
+
+  .case-section {
+    padding: 3.5rem 0;
+    border-bottom: 1px solid var(--gray-rule);
+  }
+
+  .case-section:last-child { border-bottom: none; }
+
+  .case-section-grid {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .case-section-label {
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--red);
+    padding-top: 0.3rem;
+  }
+
+  .case-section-body p {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--gray-dark);
+    margin-bottom: 1.2rem;
+  }
+
+  .case-section-body p:last-child { margin-bottom: 0; }
+
+  /* ---- DELIVERABLES LIST ---- */
+  .deliverables-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.8rem 2rem;
+  }
+
+  .deliverable-item {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--ink);
+    padding: 0.6rem 0;
+    border-bottom: 1px solid rgba(214,212,208,0.5);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .deliverable-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--red);
+    flex-shrink: 0;
+  }
+
+  /* ---- NEXT PROJECT ---- */
+  .next-project {
+    border-top: 2px solid var(--black);
+    padding: 3rem 0;
+    text-align: center;
+  }
+
+  .next-label {
+    font-family: var(--font-sans);
+    font-size: 0.62rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--gray-light);
+    margin-bottom: 0.8rem;
+  }
+
+  .next-title {
+    font-family: var(--font-headline);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--black);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .next-title:hover { color: var(--red); }
+
+  /* ---- FOOTER ---- */
+  .footer {
+    background: var(--black);
+    color: var(--gray-light);
+    padding: 2.5rem 0;
+  }
+
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-logo {
+    font-family: var(--font-headline);
+    font-size: 1.1rem;
+    font-weight: 300;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--white);
+    text-decoration: none;
+  }
+
+  .footer-text {
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    color: var(--gray);
+  }
+
+  /* ---- RESPONSIVE ---- */
+  @media (max-width: 768px) {
+    .case-header { padding: 3rem 1.5rem 0; }
+    .case-content { padding: 0 1.5rem; }
+    .case-images { padding: 2rem 1.5rem; }
+    .case-meta { grid-template-columns: 1fr 1fr; }
+    .case-meta-item:nth-child(2) { border-right: none; }
+    .case-section-grid { grid-template-columns: 1fr; gap: 0.8rem; }
+    .case-images-grid { grid-template-columns: 1fr; }
+    .case-img.full { grid-column: span 1; }
+    .deliverables-grid { grid-template-columns: 1fr; }
+    .footer-inner { flex-direction: column; gap: 1rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <a href="portfolio.html">&larr; Back to JKMRY</a>
+    <span>Case Study</span>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="case-hero">
+  <img class="case-hero-img" src="now-wek-know/Cover.jpg" alt="Now We Know Where We're Going — Cover">
+</div>
+
+<!-- HEADER -->
+<header class="case-header">
+  <p class="case-cat">Climate Activism &middot; Zine &middot; Illustration &middot; Campaign Design</p>
+  <h1 class="case-title">Now We Know Where We&rsquo;re Going</h1>
+  <p class="case-subtitle">A climate activism zine proposing a shift from fear-based messaging to positive reinforcement&mdash;showing people the progress they&rsquo;ve already made and how simple changes can build a sustainable future.</p>
+
+  <div class="case-meta">
+    <div class="case-meta-item">
+      <p class="case-meta-label">Role</p>
+      <p class="case-meta-value">Designer, Writer,<br>Illustrator</p>
+    </div>
+    <div class="case-meta-item">
+      <p class="case-meta-label">Timeline</p>
+      <p class="case-meta-value">2024</p>
+    </div>
+    <div class="case-meta-item">
+      <p class="case-meta-label">Deliverables</p>
+      <p class="case-meta-value">Zine, Poster Series,<br>Ad Campaign</p>
+    </div>
+    <div class="case-meta-item">
+      <p class="case-meta-label">Inspiration</p>
+      <p class="case-meta-value">Irving Penn,<br>Wes Anderson</p>
+    </div>
+  </div>
+</header>
+
+<!-- CONTENT -->
+<div class="case-content">
+
+  <div class="case-section">
+    <div class="case-section-grid">
+      <p class="case-section-label">The Brief</p>
+      <div class="case-section-body">
+        <p>Now We Know Where We&rsquo;re Going is the shift climate activists need to bridge the gap to make environmental solutions available to everyone. Since the 1970&rsquo;s, the world has known the threat mankind poses to the planet but now we have forgotten our power to fix and improve it. Negative ad campaigns around the damage done have allowed those willing to make changes by motivating through fear and consequences. This allowed us to begin the long journey to a healthy climate but fear is an emotion that doesn&rsquo;t last forever.</p>
+        <p>There is a psychological phenomenon that when presented with the immediate threat people will make an instantaneous change but to allow this change to persist they must see positive benefits come from that change. We&rsquo;ve spent the last 50 years trying our hardest to undo any damage done but without help from everybody those changes won&rsquo;t last or won&rsquo;t happen which is why we propose a new school of thought in climate activism.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- PAGE 1 — Cape Town -->
+<div class="case-images">
+  <div class="case-img">
+    <img src="now-wek-know/Page 1.jpg" alt="Cape Town water crisis — climate clock illustration">
+  </div>
+</div>
+
+<div class="case-content">
+
+  <div class="case-section">
+    <div class="case-section-grid">
+      <p class="case-section-label">The Clock</p>
+      <div class="case-section-body">
+        <p>Climate scientists often refer to a clock that depicts the amount of time until lasting damage has been done to the planet. What we neglect to reflect on is how far we have pushed its end date back. One of the most powerful examples in recent times would be that of Cape Town, South Africa in which they faced a crisis around their water usage given a date in which they would run out. Suddenly people changed their usage and to show the progress they made the clock was pushed back and then pushed back further until a date could no longer be given. They were continuously shown the progress that they made and it encouraged the people of Cape Town to keep going. To this day Cape Town has a consistent water supply.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- PAGE 2 — Now You Know / Where We're Going -->
+<div class="case-images">
+  <div class="case-img">
+    <img src="now-wek-know/Page 2.jpg" alt="Now You Know / Where We're Going — NYC skyline comparison 1984 vs 2023">
+  </div>
+</div>
+
+<div class="case-content">
+
+  <div class="case-section">
+    <div class="case-section-grid">
+      <p class="case-section-label">Real Progress</p>
+      <div class="case-section-body">
+        <p>We plan to remind people of the progress we&rsquo;ve made through campaigns that show climate disasters and real climate solutions. Areas all around the US have been ravaged by pollution and subsequently fixed by real people. We&rsquo;ve highlighted some of these accomplishments to ensure people everywhere know that they can make a real difference.</p>
+        <p>The Cuyahoga River in Ohio lit on fire five times between 1960 and 1971. Some of these fires occurred in densely populated areas all caused by the immense pollution from factories upstream. Instead of continuing to live with this people made a change through legislation and action and today the Cuyahoga is swimmable and on the path to clean. Once again real problems with real solutions. If we forget our accomplishments we are condemned to make the same mistakes so we must remain optimistic. We have also highlighted the New York City skyline and areas around Lake Erie both of which have made massive changes that will not drastically affect the lives of people there.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- PAGE 3 — Recipes for a Better Future -->
+<div class="case-images">
+  <div class="case-img">
+    <img src="now-wek-know/Page 3.jpg" alt="Recipes for a better future — daffodil illustration">
+  </div>
+</div>
+
+<div class="case-content">
+
+  <div class="case-section">
+    <div class="case-section-grid">
+      <p class="case-section-label">Recipes for<br>a Better Future</p>
+      <div class="case-section-body">
+        <p>Once people know how much they&rsquo;ve done we need to show them how simple it is to do so much more, which will be done through a series of titled recipes for a better future. People don&rsquo;t need to entirely uproot their lives but simple changes that wouldn&rsquo;t even affect your day to day can do a lot more than you think.</p>
+        <p>Food scraps and organic material that end up in landfills no longer serve the life cycle. But simple actions like placing those and other dead plant matter in a box, planting it in the ground, can take nutrient-deprived soil and turn it into fertile land. Additionally some forms of trash have not truly reached the end of their cycle and can be reused or repurposed into new beneficial products. We even bring to your attention the effect that simple changes within your household can have on chemical and energy usage in areas like laundry and cleaning. All of these together create a greener and more sustainable lifestyle all while still allowing the lives we are used to and enjoy.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- PAGE 4 — Positive Messaging -->
+<div class="case-images">
+  <div class="case-img">
+    <img src="now-wek-know/Page 4.jpg" alt="Ed Koch and the pooper scooper — positive change illustration">
+  </div>
+</div>
+
+<div class="case-content">
+
+  <div class="case-section">
+    <div class="case-section-grid">
+      <p class="case-section-label">Positive<br>Messaging</p>
+      <div class="case-section-body">
+        <p>Taking messaging from the negative to the positive is the step we need to ensure everyone gets involved in the climate discussion and solutions. Environmental activism doesn&rsquo;t require that we break every system and build a new one but instead that we change our mindsets and allow the systems to follow us.</p>
+        <p>For a more silly example Ed Koch the mayor of New York City walked on stage with a tool called the pooper scooper in 1978 and told the people we were going to clean these streets up one dog at a time. People were sick of stepping in dog poop and were willing to make a change and today the sidewalks of New York City are much cleaner than they were 45 years ago all because of a silly little change we made in our day to day life. We no longer accepted the status quo and took a large issue and gave it small solutions not through fear but through the promise of a brighter future. All that it takes is a little positivity so now you know where you&rsquo;re going.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- PAGE 5 — Closing Poster -->
+<div class="case-images">
+  <div class="case-img">
+    <img src="now-wek-know/Page 5.jpg" alt="Now We Know Where We're Going — closing poster, bee on flower">
+  </div>
+</div>
+
+<div class="case-content">
+
+  <div class="case-section">
+    <div class="case-section-grid">
+      <p class="case-section-label">Process</p>
+      <div class="case-section-body">
+        <p>Initially in the ideas stage I was racked with a dislike of the messaging that sustainable systems pushes. This led me into deeper thought on the messaging of the environmental movements as a whole and how negative reinforcement is used to scare people away. The problem I faced is that people already are scared&mdash;now we just have to motivate them to fix it. Seminar had me look into academic sources and studies to come to a conclusion backed by science and data. Many theses were written discussing and studying the impacts of language shifts and how well diverse groups of people would respond in terms of climate change. The phenomena discussed earlier is referenced heavily, showing the disparaging gap in climate knowledge and willingness to take action.</p>
+        <p>When choosing a design for the posters, I felt that Irving Penn&rsquo;s work was not suitable for creating a sense of hope. Instead I chose his style of black and white photography to depict the damaged portions of the climate from our past, while juxtaposing it with bright and serene images in full color. As for the style of font and the layouts of the posters and videos I decided to go back to my childhood for inspiration. <em>Fantastic Mr. Fox</em> by Wes Anderson has been my favorite movie since I was 8, so it seemed that taking a graphic design direction from him was most suitable for creating positive feedback through the ad campaign.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="case-section">
+    <div class="case-section-grid">
+      <p class="case-section-label">Deliverables</p>
+      <div class="case-section-body">
+        <div class="deliverables-grid">
+          <div class="deliverable-item"><span class="deliverable-dot"></span>Climate activism zine</div>
+          <div class="deliverable-item"><span class="deliverable-dot"></span>Poster series</div>
+          <div class="deliverable-item"><span class="deliverable-dot"></span>Illustrated photography</div>
+          <div class="deliverable-item"><span class="deliverable-dot"></span>Ad campaign concept</div>
+          <div class="deliverable-item"><span class="deliverable-dot"></span>Research &amp; writing</div>
+          <div class="deliverable-item"><span class="deliverable-dot"></span>Wes Anderson-inspired layouts</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NEXT PROJECT -->
+  <div class="next-project">
+    <p class="next-label">Next Project</p>
+    <a href="politics-of-design.html" class="next-title">The Politics of Design &rarr;</a>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <a href="portfolio.html" class="footer-logo">JKMRY</a>
+    <span class="footer-text">&copy; 2026. All rights reserved.</span>
+  </div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close">ESC to close</button>
+  <button class="lightbox-nav lightbox-prev">&larr;</button>
+  <button class="lightbox-nav lightbox-next">&rarr;</button>
+  <img id="lightbox-img" src="" alt="">
+  <span class="lightbox-counter" id="lightbox-counter"></span>
+</div>
+
+<script>
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  const lightboxCounter = document.getElementById('lightbox-counter');
+  const allImages = Array.from(document.querySelectorAll('.case-img img, .case-hero-img'));
+  let currentIndex = 0;
+
+  function showImage(index) {
+    if (index < 0) index = allImages.length - 1;
+    if (index >= allImages.length) index = 0;
+    currentIndex = index;
+    lightboxImg.src = allImages[currentIndex].src;
+    lightboxImg.alt = allImages[currentIndex].alt;
+    lightboxCounter.textContent = (currentIndex + 1) + ' / ' + allImages.length;
+  }
+
+  // Open on click
+  document.querySelectorAll('.case-img').forEach(el => {
+    el.addEventListener('click', () => {
+      const img = el.querySelector('img');
+      if (!img) return;
+      currentIndex = allImages.indexOf(img);
+      showImage(currentIndex);
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  // Hero image click
+  const heroImg = document.querySelector('.case-hero-img');
+  if (heroImg) {
+    heroImg.style.cursor = 'pointer';
+    heroImg.addEventListener('click', () => {
+      currentIndex = allImages.indexOf(heroImg);
+      showImage(currentIndex);
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  // Nav buttons
+  document.querySelector('.lightbox-prev').addEventListener('click', (e) => {
+    e.stopPropagation();
+    showImage(currentIndex - 1);
+  });
+
+  document.querySelector('.lightbox-next').addEventListener('click', (e) => {
+    e.stopPropagation();
+    showImage(currentIndex + 1);
+  });
+
+  // Close on background click (not on image or buttons)
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) closeLightbox();
+  });
+
+  // Keyboard navigation
+  document.addEventListener('keydown', e => {
+    if (!lightbox.classList.contains('active')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') showImage(currentIndex - 1);
+    if (e.key === 'ArrowRight') showImage(currentIndex + 1);
+  });
+
+  // Touch swipe
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  lightbox.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+  }, { passive: true });
+
+  lightbox.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    const diff = touchStartX - touchEndX;
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) showImage(currentIndex + 1);
+      else showImage(currentIndex - 1);
+    }
+  }, { passive: true });
+</script>
+
+</body>
+</html>
