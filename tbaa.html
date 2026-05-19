@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>To / Be / An American | JKMRY</title>
+<link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --white: #FFFFFF;
+    --cream: #FFFFFF;
+    --black: #121212;
+    --ink: #1A1A1A;
+    --gray-dark: #3A3A3A;
+    --gray: #6B6B6B;
+    --gray-light: #A8A8A8;
+    --gray-rule: #D6D4D0;
+    --red: #D92B2B;
+    --font-headline: 'Jost', 'Futura', 'Helvetica Neue', sans-serif;
+    --font-body: 'Jost', 'Futura', 'Helvetica Neue', sans-serif;
+    --font-sans: 'Jost', 'Futura', 'Helvetica Neue', sans-serif;
+  }
+
+  html { font-size: 16px; scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: var(--font-body);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection { background: var(--red); color: var(--white); }
+
+  /* ---- NAV ---- */
+  .topbar {
+    border-bottom: 1px solid var(--gray-rule);
+    padding: 0.6rem 0;
+    position: sticky;
+    top: 0;
+    background: var(--cream);
+    z-index: 100;
+  }
+
+  .topbar-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gray);
+  }
+
+  .topbar-inner a { color: var(--ink); text-decoration: none; transition: color 0.2s; }
+  .topbar-inner a:hover { color: var(--red); }
+
+  /* ---- HERO ---- */
+  .case-hero {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2.5rem 2.5rem 0;
+    display: flex;
+    justify-content: center;
+  }
+
+  .case-hero-img {
+    max-width: 100%;
+    max-height: 82vh;
+    width: auto;
+    height: auto;
+    display: block;
+    border: 1px solid var(--gray-rule);
+  }
+
+  /* ---- HEADER ---- */
+  .case-header {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 4rem 2.5rem 0;
+  }
+
+  .case-cat {
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--red);
+    margin-bottom: 1rem;
+  }
+
+  .case-title {
+    font-family: var(--font-headline);
+    font-size: clamp(2.2rem, 4vw, 3.2rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--black);
+    margin-bottom: 1.2rem;
+  }
+
+  .case-subtitle {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--gray-dark);
+    max-width: 640px;
+    margin-bottom: 1.5rem;
+  }
+
+  .case-link {
+    display: inline-block;
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--white);
+    background: var(--red);
+    padding: 0.8rem 1.8rem;
+    text-decoration: none;
+    margin-bottom: 2.5rem;
+    transition: opacity 0.2s ease;
+  }
+
+  .case-link:hover { opacity: 0.85; }
+
+  /* ---- METADATA ---- */
+  .case-meta {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border-top: 2px solid var(--black);
+    border-bottom: 1px solid var(--gray-rule);
+  }
+
+  .case-meta-item { padding: 1.2rem 1.5rem 1.2rem 0; border-right: 1px solid var(--gray-rule); }
+  .case-meta-item:last-child { border-right: none; }
+
+  .case-meta-label {
+    font-family: var(--font-sans);
+    font-size: 0.6rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--gray-light);
+    margin-bottom: 0.3rem;
+  }
+
+  .case-meta-value {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.4;
+  }
+
+  /* ---- CONTENT SECTIONS ---- */
+  .case-content { max-width: 1100px; margin: 0 auto; padding: 0 2.5rem; }
+
+  .case-section { padding: 3.5rem 0; border-bottom: 1px solid var(--gray-rule); }
+  .case-section:last-child { border-bottom: none; }
+
+  .case-section-grid {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .case-section-label {
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--red);
+    padding-top: 0.3rem;
+  }
+
+  .case-section-body p {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--gray-dark);
+    margin-bottom: 1.2rem;
+  }
+
+  .case-section-body p:last-child { margin-bottom: 0; }
+
+  .case-section-body h3 {
+    font-family: var(--font-headline);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 1.8rem 0 0.5rem;
+  }
+
+  .case-section-body h3:first-child { margin-top: 0; }
+  .case-section-body em { font-style: italic; }
+
+  /* ---- POSTER EXAMPLES ---- */
+  .poster-ex { border-left: 2px solid var(--gray-rule); padding: 0 0 1.4rem 1.2rem; }
+  .poster-ex:last-child { padding-bottom: 0; }
+
+  .poster-ex strong {
+    display: block;
+    font-family: var(--font-headline);
+    font-size: 0.95rem;
+    color: var(--ink);
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+  }
+
+  .poster-ex span { font-size: 0.92rem; color: var(--gray-dark); }
+
+  /* ---- FULL-PAGE GRAPHICS (large, high-res) ---- */
+  .page-figs {
+    max-width: 1000px;
+    margin: 2.5rem auto 0;
+    padding: 0 2.5rem;
+  }
+
+  .page-fig {
+    width: fit-content;
+    max-width: 100%;
+    margin: 0 auto 1.5rem;
+    background: var(--white);
+    border: 1px solid var(--gray-rule);
+    cursor: zoom-in;
+    transition: box-shadow 0.3s ease;
+  }
+
+  .page-fig:hover { box-shadow: 0 10px 40px rgba(0,0,0,0.12); }
+
+  .page-fig img {
+    display: block;
+    max-width: 100%;
+    max-height: 78vh;
+    width: auto;
+    height: auto;
+    margin: 0 auto;
+  }
+
+  .page-fig figcaption {
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    color: var(--gray-light);
+    font-style: italic;
+    text-align: center;
+    padding: 0.8rem 1rem 1rem;
+  }
+
+  /* ---- SOURCES ---- */
+  .sources-list { list-style: none; border-top: 1px solid var(--gray-rule); }
+
+  .sources-list li {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    color: var(--gray-dark);
+    padding: 0.9rem 0;
+    border-bottom: 1px solid var(--gray-rule);
+    line-height: 1.6;
+  }
+
+  .sources-note {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-top: 1.2rem;
+  }
+
+  .sources-note a { color: var(--red); text-decoration: none; }
+  .sources-note a:hover { text-decoration: underline; }
+
+  /* ---- PULL QUOTE ---- */
+  .pull-quote { padding: 3rem 0; text-align: center; border-bottom: 1px solid var(--gray-rule); }
+
+  .pull-quote blockquote {
+    font-family: var(--font-headline);
+    font-size: clamp(1.4rem, 2.5vw, 1.8rem);
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--black);
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  .pull-quote cite {
+    display: block;
+    margin-top: 1rem;
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--red);
+    font-style: normal;
+  }
+
+  /* ---- LIGHTBOX ---- */
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(0,0,0,0.94);
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    cursor: zoom-out;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .lightbox.active { display: flex; opacity: 1; }
+
+  .lightbox img {
+    max-width: 96vw;
+    max-height: 94vh;
+    object-fit: contain;
+    border-radius: 2px;
+    box-shadow: 0 4px 60px rgba(0,0,0,0.5);
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 2rem;
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: rgba(255,255,255,0.5);
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+
+  .lightbox-close:hover { color: var(--white); }
+
+  .lightbox-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: 1px solid rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.6);
+    font-size: 1.4rem;
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s;
+    border-radius: 50%;
+  }
+
+  .lightbox-arrow:hover { color: var(--white); border-color: rgba(255,255,255,0.5); }
+  .lightbox-prev { left: 2rem; }
+  .lightbox-next { right: 2rem; }
+
+  .lightbox-counter {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    color: rgba(255,255,255,0.4);
+  }
+
+  /* ---- NEXT PROJECT ---- */
+  .next-project { border-top: 2px solid var(--black); padding: 3rem 0; text-align: center; }
+
+  .next-label {
+    font-family: var(--font-sans);
+    font-size: 0.62rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--gray-light);
+    margin-bottom: 0.8rem;
+  }
+
+  .next-title {
+    font-family: var(--font-headline);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--black);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .next-title:hover { color: var(--red); }
+
+  /* ---- FOOTER ---- */
+  .footer { background: var(--black); color: var(--gray-light); padding: 2.5rem 0; }
+
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-logo {
+    font-family: var(--font-headline);
+    font-size: 1.1rem;
+    font-weight: 300;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--white);
+    text-decoration: none;
+  }
+
+  .footer-text { font-family: var(--font-sans); font-size: 0.72rem; color: var(--gray); }
+
+  /* ---- RESPONSIVE ---- */
+  @media (max-width: 768px) {
+    .case-header { padding: 2.5rem 1.5rem 0; }
+    .case-content { padding: 0 1.5rem; }
+    .page-figs { padding: 0 1rem; }
+    .case-meta { grid-template-columns: 1fr 1fr; }
+    .case-meta-item:nth-child(2) { border-right: none; }
+    .case-section-grid { grid-template-columns: 1fr; gap: 0.8rem; }
+    .footer-inner { flex-direction: column; gap: 1rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <a href="index.html">&larr; Back to JKMRY</a>
+    <a href="https://tobanamerican.com" target="_blank" rel="noopener">Visit tobanamerican.com &rarr;</a>
+  </div>
+</div>
+
+<!-- HERO (first page) -->
+<section class="case-hero">
+  <img class="case-hero-img" src="tbaa-images/page-01.jpg" alt="To / Be / An American, project and database overview">
+</section>
+
+<!-- HEADER -->
+<header class="case-header">
+  <p class="case-cat">Political Project &middot; Website &middot; Database</p>
+  <h1 class="case-title">To / Be / An American</h1>
+  <p class="case-subtitle">A political project that presents qualitative data showing that, no matter the politician, these stories exist on both sides, and that we choose to attack each other. To / Be / An American surfaces the biases we hold toward leaders who align with us, through real quotes and newspapers from our shared history.</p>
+
+  <a class="case-link" href="https://tobanamerican.com" target="_blank" rel="noopener">Visit the live database &rarr;</a>
+
+  <div class="case-meta">
+    <div class="case-meta-item">
+      <p class="case-meta-label">Author &amp; Designer</p>
+      <p class="case-meta-value">Jack Murray</p>
+    </div>
+    <div class="case-meta-item">
+      <p class="case-meta-label">Role</p>
+      <p class="case-meta-value">Research, Design,<br>Development</p>
+    </div>
+    <div class="case-meta-item">
+      <p class="case-meta-label">Timeline</p>
+      <p class="case-meta-value">2025-2026</p>
+    </div>
+    <div class="case-meta-item">
+      <p class="case-meta-label">Medium</p>
+      <p class="case-meta-value">Website,<br>Database</p>
+    </div>
+  </div>
+</header>
+
+<!-- CONTENT -->
+<div class="case-content">
+
+  <!-- 1. THE PROJECT -->
+  <div class="case-section">
+    <div class="case-section-grid">
+      <p class="case-section-label">The Project</p>
+      <div class="case-section-body">
+        <p>To / Be / An American is a political project and a database. It presents qualitative data showing that, no matter the politician, these stories exist on both sides, and that we choose to attack each other.</p>
+        <p>The project informs us about the biases we hold toward leaders who align with us, told through real quotes and newspapers drawn from our shared history.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="case-content">
+  <!-- 2. AMERICA'S FOUR STORIES -->
+  <div class="case-section">
+    <div class="case-section-grid">
+      <p class="case-section-label">America&rsquo;s Four Stories</p>
+      <div class="case-section-body">
+        <p>The concept poster frames every political story through four recurring American narratives.</p>
+
+        <h3>The Triumphant Individual</h3>
+        <p>The tale of the little guy who works hard, takes risks, believes in himself, and eventually gains wealth, fame, and honor.</p>
+
+        <h3>The Rot at the Top</h3>
+        <p>A tale of corruption, decadence, and irresponsibility in high places, a conspiracy against the citizen.</p>
+
+        <h3>The Benevolent Community</h3>
+        <p>The story of neighbors and friends who roll up their sleeves and pitch in for the common good.</p>
+
+        <h3>The Mob at the Gates</h3>
+        <p>The United States as a beacon light of virtue in a world of darkness, uniquely blessed but continuously endangered by foreign menaces.</p>
+
+        <h3>Midterm Concept Poster</h3>
+        <div class="poster-ex">
+          <strong>Pearl Harbor, 1941</strong>
+          <span>On December 7th, 1941 a fleet of Japanese warfighters crashed into US Naval ships at Pearl Harbor. Within 24 hours a declaration of war was made, but before a single round was fired, 120,000 Americans of Japanese descent were rounded up and interned for four to five years.</span>
+        </div>
+        <div class="poster-ex">
+          <strong>Marjorie Taylor Greene</strong>
+          <span>One house member claims that whether it is Gaza, whether it is Epstein, or whether it is now the ACA credits, she has been 180 degrees opposite of Trump. Her response, &ldquo;I&rsquo;m sick and tired of Republicans in Congress not passing the agenda.&rdquo;</span>
+        </div>
+        <div class="poster-ex">
+          <strong>Gerald Ford</strong>
+          <span>Ford was seen as a bastion of reason in the Nixon era of craziness, yet his choice to pardon him shortly after taking office left him estranged from his wife and nation, choosing this path to allow the nation to move forward and heal.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page-figs">
+  <figure class="page-fig">
+    <img src="tbaa-images/page-03.jpg" alt="Midterm concept poster, America's four stories">
+    <figcaption>Midterm concept poster, the actual graphic</figcaption>
+  </figure>
+</div>
+
+<div class="case-content">
+  <!-- 3. INSPIRATION -->
+  <div class="case-section">
+    <div class="case-section-grid">
+      <p class="case-section-label">Inspiration</p>
+      <div class="case-section-body">
+        <p>Inspired by Forensic Architecture and the Repression Index databases, methods of holding power to account through structured, public evidence.</p>
+        <p>A study of the importance of the first drafts of history and the complete story, gathered from a wide range of potential sources.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page-figs">
+  <figure class="page-fig">
+    <img src="tbaa-images/page-02.jpg" alt="Inspiration, Forensic Architecture and the Repression Index">
+    <figcaption>Inspiration, Forensic Architecture and the Repression Index</figcaption>
+  </figure>
+  <figure class="page-fig">
+    <img src="tbaa-images/page-04.jpg" alt="Potential sources, first drafts of history">
+    <figcaption>Potential sources, the first drafts of history</figcaption>
+  </figure>
+</div>
+
+<div class="case-content">
+  <!-- 4. HOW MAPS CHANGE -->
+  <div class="case-section">
+    <div class="case-section-grid">
+      <p class="case-section-label">How Maps Change</p>
+      <div class="case-section-body">
+        <p>Pulling back the layers of our own history, maps change like perspectives on history, and this partisan cycle has always been present.</p>
+        <p>The site originally would have used this map of Washington DC, where each line interacted with would bring up a separate story tied to a multitude of politicians. This proved to be a scale far beyond my capabilities, leading me to focus on presidents.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page-figs">
+  <figure class="page-fig">
+    <img src="tbaa-images/page-05.jpg" alt="How maps change, Washington DC, layer one">
+    <figcaption>Washington DC, layer one</figcaption>
+  </figure>
+  <figure class="page-fig">
+    <img src="tbaa-images/page-06.jpg" alt="How maps change, Washington DC, layer two">
+    <figcaption>Washington DC, layer two</figcaption>
+  </figure>
+  <figure class="page-fig">
+    <img src="tbaa-images/page-07.jpg" alt="Washington DC interactive map concept">
+    <figcaption>The interactive map concept, later narrowed to presidents</figcaption>
+  </figure>
+</div>
+
+<div class="case-content">
+  <!-- 5. THE DATABASE -->
+  <div class="case-section">
+    <div class="case-section-grid">
+      <p class="case-section-label">The Database</p>
+      <div class="case-section-body">
+        <p>The goal was to give viewers the first draft of history from different sides of the story, and to show how perspectives shift over time. This was narrowed down into an early rough sketch of the database.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page-figs">
+  <figure class="page-fig">
+    <img src="tbaa-images/page-08.jpg" alt="Rough sketch of the database">
+    <figcaption>Rough sketch, database</figcaption>
+  </figure>
+</div>
+
+<div class="case-content">
+  <!-- 6. WIREFRAMES -->
+  <div class="case-section">
+    <div class="case-section-grid">
+      <p class="case-section-label">Wireframes</p>
+      <div class="case-section-body">
+        <p>Each entry pairs positive coverage from the start of a term with negative coverage from the end, and positive quotes from a president about a group against negative quotes about that same group.</p>
+        <p>From here I recognized my own bias and added midterm coverage of the State of the Unions, since these were the nuts and bolts the president was actually dealing with.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page-figs">
+  <figure class="page-fig">
+    <img src="tbaa-images/page-09.jpg" alt="Mobile wireframes">
+    <figcaption>Mobile wireframes</figcaption>
+  </figure>
+  <figure class="page-fig">
+    <img src="tbaa-images/page-10.jpg" alt="Mobile wireframes, coverage logic">
+    <figcaption>Mobile wireframes, coverage logic</figcaption>
+  </figure>
+  <figure class="page-fig">
+    <img src="tbaa-images/page-11.jpg" alt="Desktop wireframes">
+    <figcaption>Desktop wireframes</figcaption>
+  </figure>
+  <figure class="page-fig">
+    <img src="tbaa-images/page-12.jpg" alt="Desktop wireframes, full layout">
+    <figcaption>Desktop layout</figcaption>
+  </figure>
+</div>
+
+<div class="case-content">
+  <!-- 7. PROGRAMMING -->
+  <div class="case-section">
+    <div class="case-section-grid">
+      <p class="case-section-label">Programming</p>
+      <div class="case-section-body">
+        <p>The project is written in HTML and CSS, with data sourcing done with the aid of Python. Programming was assisted by Claude, across 2,853 lines of code.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page-figs">
+  <figure class="page-fig">
+    <img src="tbaa-images/page-13.jpg" alt="Programming the database">
+    <figcaption>Building the database</figcaption>
+  </figure>
+</div>
+
+<div class="case-content">
+  <!-- 8. SOURCES -->
+  <div class="case-section">
+    <div class="case-section-grid">
+      <p class="case-section-label">Sources</p>
+      <div class="case-section-body">
+        <ul class="sources-list">
+          <li>Forensic Architecture, Goldsmiths, University of London. forensic-architecture.org.</li>
+          <li><em>Index of Repression</em>, Forensic Architecture. www.index-of-repression.org.</li>
+          <li>Presidential quotes and newspaper coverage drawn from the shared American historical record.</li>
+        </ul>
+        <p class="sources-note">Explore the live database at <a href="https://tobanamerican.com" target="_blank" rel="noopener">tobanamerican.com</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page-figs">
+  <figure class="page-fig">
+    <img src="tbaa-images/page-14.jpg" alt="To / Be / An American, tobanamerican.com">
+    <figcaption>tobanamerican.com</figcaption>
+  </figure>
+</div>
+
+<!-- CLOSING -->
+<div class="case-content">
+  <div class="pull-quote">
+    <blockquote>&ldquo;No matter the politician, these stories exist on both sides, and we choose to attack each other.&rdquo;</blockquote>
+    <cite>To / Be / An American</cite>
+  </div>
+
+  <div class="next-project">
+    <p class="next-label">Next Project</p>
+    <a href="farmers-value.html" class="next-title">The Farmer&rsquo;s Value &rarr;</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <a href="index.html" class="footer-logo">JKMRY</a>
+    <span class="footer-text">&copy; 2026. All rights reserved.</span>
+  </div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close">ESC to close</button>
+  <button class="lightbox-arrow lightbox-prev" id="lightbox-prev">&larr;</button>
+  <img id="lightbox-img" src="" alt="">
+  <button class="lightbox-arrow lightbox-next" id="lightbox-next">&rarr;</button>
+  <p class="lightbox-counter" id="lightbox-counter"></p>
+</div>
+
+<script>
+  const figs = Array.from(document.querySelectorAll('.page-fig img'));
+  const items = figs.map(img => ({ src: img.getAttribute('src'), alt: img.alt }));
+
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  const lightboxPrev = document.getElementById('lightbox-prev');
+  const lightboxNext = document.getElementById('lightbox-next');
+  const lightboxCounter = document.getElementById('lightbox-counter');
+  let idx = 0;
+
+  function show(i) {
+    idx = i;
+    lightboxImg.src = items[i].src;
+    lightboxImg.alt = items[i].alt;
+    lightboxCounter.textContent = (i + 1) + ' / ' + items.length;
+    lightboxPrev.style.visibility = i === 0 ? 'hidden' : 'visible';
+    lightboxNext.style.visibility = i === items.length - 1 ? 'hidden' : 'visible';
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  figs.forEach((img, i) => {
+    img.parentElement.addEventListener('click', () => {
+      show(i);
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox || e.target === lightboxImg) closeLightbox();
+  });
+  document.querySelector('.lightbox-close').addEventListener('click', closeLightbox);
+  lightboxPrev.addEventListener('click', (e) => { e.stopPropagation(); if (idx > 0) show(idx - 1); });
+  lightboxNext.addEventListener('click', (e) => { e.stopPropagation(); if (idx < items.length - 1) show(idx + 1); });
+
+  document.addEventListener('keydown', (e) => {
+    if (!lightbox.classList.contains('active')) return;
+    if (e.key === 'Escape') closeLightbox();
+    else if (e.key === 'ArrowLeft' && idx > 0) show(idx - 1);
+    else if (e.key === 'ArrowRight' && idx < items.length - 1) show(idx + 1);
+  });
+</script>
+
+</body>
+</html>
