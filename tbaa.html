@@ -46,7 +46,7 @@
   }
 
   .topbar-inner {
-    max-width: 1200px;
+    max-width: 1440px;
     margin: 0 auto;
     padding: 0 2.5rem;
     display: flex;
@@ -65,7 +65,7 @@
 
   /* ---- HERO ---- */
   .case-hero {
-    max-width: 1200px;
+    max-width: 1440px;
     margin: 0 auto;
     padding: 2.5rem 2.5rem 0;
     display: flex;
@@ -83,7 +83,7 @@
 
   /* ---- HEADER ---- */
   .case-header {
-    max-width: 1100px;
+    max-width: 1280px;
     margin: 0 auto;
     padding: 4rem 2.5rem 0;
   }
@@ -165,7 +165,7 @@
   }
 
   /* ---- CONTENT SECTIONS ---- */
-  .case-content { max-width: 1100px; margin: 0 auto; padding: 0 2.5rem; }
+  .case-content { max-width: 1280px; margin: 0 auto; padding: 0 2.5rem; }
 
   .case-section { padding: 3.5rem 0; border-bottom: 1px solid var(--gray-rule); }
   .case-section:last-child { border-bottom: none; }
@@ -225,7 +225,7 @@
 
   /* ---- FULL-PAGE GRAPHICS (large, high-res) ---- */
   .page-figs {
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 2.5rem auto 0;
     padding: 0 2.5rem;
   }
@@ -414,7 +414,7 @@
   .footer { background: var(--black); color: var(--gray-light); padding: 2.5rem 0; }
 
   .footer-inner {
-    max-width: 1200px;
+    max-width: 1440px;
     margin: 0 auto;
     padding: 0 2.5rem;
     display: flex;
@@ -444,285 +444,337 @@
     .case-section-grid { grid-template-columns: 1fr; gap: 0.8rem; }
     .footer-inner { flex-direction: column; gap: 1rem; text-align: center; }
   }
+
+  /* Cap every content image so no single image overflows the viewport */
+  body img:not(#lightbox-img) {
+    max-height: 86vh;
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ---- TWO-COLUMN PORTFOLIO LAYOUT ---- */
+  .case-layout {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 2rem 2.5rem;
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  .case-text-col {
+    position: sticky;
+    top: 5rem;
+    max-height: calc(100vh - 6rem);
+    overflow-y: auto;
+    padding-right: 0.5rem;
+  }
+  .case-text-col::-webkit-scrollbar { width: 4px; }
+  .case-text-col::-webkit-scrollbar-thumb { background: var(--gray-rule); border-radius: 2px; }
+  .case-text-col > * { max-width: none !important; margin: 0 0 1.4rem !important; padding: 0 !important; }
+  .case-text-col .case-section { padding: 1.4rem 0 !important; }
+  .case-text-col .case-section:first-of-type { padding-top: 0 !important; }
+  .case-text-col .case-section-grid { grid-template-columns: 1fr !important; gap: 0.4rem !important; }
+  .case-text-col .case-meta { grid-template-columns: 1fr 1fr; }
+  .case-text-col .case-meta-item:nth-child(2) { border-right: none; }
+  .case-image-col > * { max-width: 100% !important; margin: 0 0 1.5rem !important; padding: 0 !important; }
+  .case-image-col .book-frame, .case-image-col .page-fig, .case-image-col .case-img, .case-image-col .case-hero-img, .case-image-col .case-hero-wrap {
+    max-width: 100% !important; margin-left: auto !important; margin-right: auto !important;
+  }
+  .case-image-col .proc-fig { margin: 0 auto 1.5rem !important; float: none !important; width: 100% !important; }
+  @media (max-width: 900px) {
+    .case-layout { grid-template-columns: 1fr; gap: 2rem; padding: 1.5rem 1rem; }
+    .case-text-col { position: static; max-height: none; overflow-y: visible; padding-right: 0; }
+  }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <div class="topbar">
-  <div class="topbar-inner">
-    <a href="index.html">&larr; Back to JKMRY</a>
-    <a href="https://tobanamerican.com" target="_blank" rel="noopener">Visit tobanamerican.com &rarr;</a>
-  </div>
+<div class="topbar-inner">
+<a href="index.html">← Back to JKMRY</a>
+<a href="https://tobanamerican.com" rel="noopener" target="_blank">Visit tobanamerican.com →</a>
+</div>
 </div>
 
-<!-- HERO (first page) -->
-<section class="case-hero">
-  <img class="case-hero-img" src="tbaa-images/page-01.jpg" alt="To / Be / An American, project and database overview">
-</section>
+<main class="case-layout">
 
-<!-- HEADER -->
+<aside class="case-text-col">
+
 <header class="case-header">
-  <p class="case-cat">Political Project &middot; Website &middot; Database</p>
-  <h1 class="case-title">To / Be / An American</h1>
-  <p class="case-subtitle">A political project that presents qualitative data showing that, no matter the politician, these stories exist on both sides, and that we choose to attack each other. To / Be / An American surfaces the biases we hold toward leaders who align with us, through real quotes and newspapers from our shared history.</p>
-
-  <a class="case-link" href="https://tobanamerican.com" target="_blank" rel="noopener">Visit the live database &rarr;</a>
-
-  <div class="case-meta">
-    <div class="case-meta-item">
-      <p class="case-meta-label">Author &amp; Designer</p>
-      <p class="case-meta-value">Jack Murray</p>
-    </div>
-    <div class="case-meta-item">
-      <p class="case-meta-label">Role</p>
-      <p class="case-meta-value">Research, Design,<br>Development</p>
-    </div>
-    <div class="case-meta-item">
-      <p class="case-meta-label">Timeline</p>
-      <p class="case-meta-value">2025-2026</p>
-    </div>
-    <div class="case-meta-item">
-      <p class="case-meta-label">Medium</p>
-      <p class="case-meta-value">Website,<br>Database</p>
-    </div>
-  </div>
+<p class="case-cat">Political Project · Website · Database</p>
+<h1 class="case-title">To / Be / An American</h1>
+<p class="case-subtitle">A political project that presents qualitative data showing that, no matter the politician, these stories exist on both sides, and that we choose to attack each other. To / Be / An American surfaces the biases we hold toward leaders who align with us, through real quotes and newspapers from our shared history.</p>
+<a class="case-link" href="https://tobanamerican.com" rel="noopener" target="_blank">Visit the live database →</a>
+<div class="case-meta">
+<div class="case-meta-item">
+<p class="case-meta-label">Author &amp; Designer</p>
+<p class="case-meta-value">Jack Murray</p>
+</div>
+<div class="case-meta-item">
+<p class="case-meta-label">Role</p>
+<p class="case-meta-value">Research, Design,<br/>Development</p>
+</div>
+<div class="case-meta-item">
+<p class="case-meta-label">Timeline</p>
+<p class="case-meta-value">2025-2026</p>
+</div>
+<div class="case-meta-item">
+<p class="case-meta-label">Medium</p>
+<p class="case-meta-value">Website,<br/>Database</p>
+</div>
+</div>
 </header>
 
-<!-- CONTENT -->
 <div class="case-content">
-
-  <!-- 1. THE PROJECT -->
-  <div class="case-section">
-    <div class="case-section-grid">
-      <p class="case-section-label">The Project</p>
-      <div class="case-section-body">
-        <p>To / Be / An American is a political project and a database. It presents qualitative data showing that, no matter the politician, these stories exist on both sides, and that we choose to attack each other.</p>
-        <p>The project informs us about the biases we hold toward leaders who align with us, told through real quotes and newspapers drawn from our shared history.</p>
-      </div>
-    </div>
-  </div>
+<!-- 1. THE PROJECT -->
+<div class="case-section">
+<div class="case-section-grid">
+<p class="case-section-label">The Project</p>
+<div class="case-section-body">
+<p>To / Be / An American is a political project and a database. It presents qualitative data showing that, no matter the politician, these stories exist on both sides, and that we choose to attack each other.</p>
+<p>The project informs us about the biases we hold toward leaders who align with us, told through real quotes and newspapers drawn from our shared history.</p>
+</div>
+</div>
+</div>
 </div>
 
 <div class="case-content">
-  <!-- 2. AMERICA'S FOUR STORIES -->
-  <div class="case-section">
-    <div class="case-section-grid">
-      <p class="case-section-label">America&rsquo;s Four Stories</p>
-      <div class="case-section-body">
-        <p>The concept poster frames every political story through four recurring American narratives.</p>
+<!-- 2. AMERICA'S FOUR STORIES -->
+<div class="case-section">
+<div class="case-section-grid">
+<p class="case-section-label">America’s Four Stories</p>
+<div class="case-section-body">
+<p>The concept poster frames every political story through four recurring American narratives.</p>
+<h3>The Triumphant Individual</h3>
+<p>The tale of the little guy who works hard, takes risks, believes in himself, and eventually gains wealth, fame, and honor.</p>
+<h3>The Rot at the Top</h3>
+<p>A tale of corruption, decadence, and irresponsibility in high places, a conspiracy against the citizen.</p>
+<h3>The Benevolent Community</h3>
+<p>The story of neighbors and friends who roll up their sleeves and pitch in for the common good.</p>
+<h3>The Mob at the Gates</h3>
+<p>The United States as a beacon light of virtue in a world of darkness, uniquely blessed but continuously endangered by foreign menaces.</p>
+<h3>Midterm Concept Poster</h3>
+<div class="poster-ex">
+<strong>Pearl Harbor, 1941</strong>
+<span>On December 7th, 1941 a fleet of Japanese warfighters crashed into US Naval ships at Pearl Harbor. Within 24 hours a declaration of war was made, but before a single round was fired, 120,000 Americans of Japanese descent were rounded up and interned for four to five years.</span>
+</div>
+<div class="poster-ex">
+<strong>Marjorie Taylor Greene</strong>
+<span>One house member claims that whether it is Gaza, whether it is Epstein, or whether it is now the ACA credits, she has been 180 degrees opposite of Trump. Her response, “I’m sick and tired of Republicans in Congress not passing the agenda.”</span>
+</div>
+<div class="poster-ex">
+<strong>Gerald Ford</strong>
+<span>Ford was seen as a bastion of reason in the Nixon era of craziness, yet his choice to pardon him shortly after taking office left him estranged from his wife and nation, choosing this path to allow the nation to move forward and heal.</span>
+</div>
+</div>
+</div>
+</div>
+</div>
 
-        <h3>The Triumphant Individual</h3>
-        <p>The tale of the little guy who works hard, takes risks, believes in himself, and eventually gains wealth, fame, and honor.</p>
+<div class="case-content">
+<!-- 3. INSPIRATION -->
+<div class="case-section">
+<div class="case-section-grid">
+<p class="case-section-label">Inspiration</p>
+<div class="case-section-body">
+<p>Inspired by Forensic Architecture and the Repression Index databases, methods of holding power to account through structured, public evidence.</p>
+<p>A study of the importance of the first drafts of history and the complete story, gathered from a wide range of potential sources.</p>
+</div>
+</div>
+</div>
+</div>
 
-        <h3>The Rot at the Top</h3>
-        <p>A tale of corruption, decadence, and irresponsibility in high places, a conspiracy against the citizen.</p>
+<div class="case-content">
+<!-- 4. HOW MAPS CHANGE -->
+<div class="case-section">
+<div class="case-section-grid">
+<p class="case-section-label">How Maps Change</p>
+<div class="case-section-body">
+<p>Pulling back the layers of our own history, maps change like perspectives on history, and this partisan cycle has always been present.</p>
+<p>The site originally would have used this map of Washington DC, where each line interacted with would bring up a separate story tied to a multitude of politicians. This proved to be a scale far beyond my capabilities, leading me to focus on presidents.</p>
+</div>
+</div>
+</div>
+</div>
 
-        <h3>The Benevolent Community</h3>
-        <p>The story of neighbors and friends who roll up their sleeves and pitch in for the common good.</p>
+<div class="case-content">
+<!-- 5. THE DATABASE -->
+<div class="case-section">
+<div class="case-section-grid">
+<p class="case-section-label">The Database</p>
+<div class="case-section-body">
+<p>The goal was to give viewers the first draft of history from different sides of the story, and to show how perspectives shift over time. This was narrowed down into an early rough sketch of the database.</p>
+</div>
+</div>
+</div>
+</div>
 
-        <h3>The Mob at the Gates</h3>
-        <p>The United States as a beacon light of virtue in a world of darkness, uniquely blessed but continuously endangered by foreign menaces.</p>
+<div class="case-content">
+<!-- 6. WIREFRAMES -->
+<div class="case-section">
+<div class="case-section-grid">
+<p class="case-section-label">Wireframes</p>
+<div class="case-section-body">
+<p>Each entry pairs positive coverage from the start of a term with negative coverage from the end, and positive quotes from a president about a group against negative quotes about that same group.</p>
+<p>From here I recognized my own bias and added midterm coverage of the State of the Unions, since these were the nuts and bolts the president was actually dealing with.</p>
+</div>
+</div>
+</div>
+</div>
 
-        <h3>Midterm Concept Poster</h3>
-        <div class="poster-ex">
-          <strong>Pearl Harbor, 1941</strong>
-          <span>On December 7th, 1941 a fleet of Japanese warfighters crashed into US Naval ships at Pearl Harbor. Within 24 hours a declaration of war was made, but before a single round was fired, 120,000 Americans of Japanese descent were rounded up and interned for four to five years.</span>
-        </div>
-        <div class="poster-ex">
-          <strong>Marjorie Taylor Greene</strong>
-          <span>One house member claims that whether it is Gaza, whether it is Epstein, or whether it is now the ACA credits, she has been 180 degrees opposite of Trump. Her response, &ldquo;I&rsquo;m sick and tired of Republicans in Congress not passing the agenda.&rdquo;</span>
-        </div>
-        <div class="poster-ex">
-          <strong>Gerald Ford</strong>
-          <span>Ford was seen as a bastion of reason in the Nixon era of craziness, yet his choice to pardon him shortly after taking office left him estranged from his wife and nation, choosing this path to allow the nation to move forward and heal.</span>
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="case-content">
+<!-- 7. PROGRAMMING -->
+<div class="case-section">
+<div class="case-section-grid">
+<p class="case-section-label">Programming</p>
+<div class="case-section-body">
+<p>The project is written in HTML and CSS, with data sourcing done with the aid of Python. Programming was assisted by Claude, across 2,853 lines of code.</p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="case-content">
+<!-- 8. SOURCES -->
+<div class="case-section">
+<div class="case-section-grid">
+<p class="case-section-label">Sources</p>
+<div class="case-section-body">
+<ul class="sources-list">
+<li>Forensic Architecture, Goldsmiths, University of London. forensic-architecture.org.</li>
+<li><em>Index of Repression</em>, Forensic Architecture. www.index-of-repression.org.</li>
+<li>Presidential quotes and newspaper coverage drawn from the shared American historical record.</li>
+</ul>
+<p class="sources-note">Explore the live database at <a href="https://tobanamerican.com" rel="noopener" target="_blank">tobanamerican.com</a></p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="case-content">
+<div class="pull-quote">
+<blockquote>“No matter the politician, these stories exist on both sides, and we choose to attack each other.”</blockquote>
+<cite>To / Be / An American</cite>
+</div>
+<div class="next-project">
+<p class="next-label">Next Project</p>
+<a class="next-title" href="farmers-value.html">The Farmer’s Value →</a>
+</div>
+</div>
+
+</aside>
+
+<div class="case-image-col">
+
+<div class="page-figs">
+<figure class="page-fig" style="cursor: default;">
+<video controls preload="metadata" style="width: 100%; height: auto; max-height: 86vh; display: block; background: var(--black);">
+<source src="tbaa-images/tbaa-demo.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
+<figcaption>Walk-through of the live site</figcaption>
+</figure>
+</div>
+
+<section class="case-hero">
+<img alt="To / Be / An American, project and database overview" class="case-hero-img" src="tbaa-images/page-01.jpg"/>
+</section>
+
+<div class="page-figs">
+<figure class="page-fig">
+<img alt="Midterm concept poster, America's four stories" src="tbaa-images/page-03.jpg"/>
+<figcaption>Midterm concept poster, the actual graphic</figcaption>
+</figure>
 </div>
 
 <div class="page-figs">
-  <figure class="page-fig">
-    <img src="tbaa-images/page-03.jpg" alt="Midterm concept poster, America's four stories">
-    <figcaption>Midterm concept poster, the actual graphic</figcaption>
-  </figure>
-</div>
-
-<div class="case-content">
-  <!-- 3. INSPIRATION -->
-  <div class="case-section">
-    <div class="case-section-grid">
-      <p class="case-section-label">Inspiration</p>
-      <div class="case-section-body">
-        <p>Inspired by Forensic Architecture and the Repression Index databases, methods of holding power to account through structured, public evidence.</p>
-        <p>A study of the importance of the first drafts of history and the complete story, gathered from a wide range of potential sources.</p>
-      </div>
-    </div>
-  </div>
+<figure class="page-fig">
+<img alt="Inspiration, Forensic Architecture and the Repression Index" src="tbaa-images/page-02.jpg"/>
+<figcaption>Inspiration, Forensic Architecture and the Repression Index</figcaption>
+</figure>
+<figure class="page-fig">
+<img alt="Potential sources, first drafts of history" src="tbaa-images/page-04.jpg"/>
+<figcaption>Potential sources, the first drafts of history</figcaption>
+</figure>
 </div>
 
 <div class="page-figs">
-  <figure class="page-fig">
-    <img src="tbaa-images/page-02.jpg" alt="Inspiration, Forensic Architecture and the Repression Index">
-    <figcaption>Inspiration, Forensic Architecture and the Repression Index</figcaption>
-  </figure>
-  <figure class="page-fig">
-    <img src="tbaa-images/page-04.jpg" alt="Potential sources, first drafts of history">
-    <figcaption>Potential sources, the first drafts of history</figcaption>
-  </figure>
-</div>
-
-<div class="case-content">
-  <!-- 4. HOW MAPS CHANGE -->
-  <div class="case-section">
-    <div class="case-section-grid">
-      <p class="case-section-label">How Maps Change</p>
-      <div class="case-section-body">
-        <p>Pulling back the layers of our own history, maps change like perspectives on history, and this partisan cycle has always been present.</p>
-        <p>The site originally would have used this map of Washington DC, where each line interacted with would bring up a separate story tied to a multitude of politicians. This proved to be a scale far beyond my capabilities, leading me to focus on presidents.</p>
-      </div>
-    </div>
-  </div>
+<figure class="page-fig">
+<img alt="How maps change, Washington DC, layer one" src="tbaa-images/page-05.jpg"/>
+<figcaption>Washington DC, layer one</figcaption>
+</figure>
+<figure class="page-fig">
+<img alt="How maps change, Washington DC, layer two" src="tbaa-images/page-06.jpg"/>
+<figcaption>Washington DC, layer two</figcaption>
+</figure>
+<figure class="page-fig">
+<img alt="Washington DC interactive map concept" src="tbaa-images/page-07.jpg"/>
+<figcaption>The interactive map concept, later narrowed to presidents</figcaption>
+</figure>
 </div>
 
 <div class="page-figs">
-  <figure class="page-fig">
-    <img src="tbaa-images/page-05.jpg" alt="How maps change, Washington DC, layer one">
-    <figcaption>Washington DC, layer one</figcaption>
-  </figure>
-  <figure class="page-fig">
-    <img src="tbaa-images/page-06.jpg" alt="How maps change, Washington DC, layer two">
-    <figcaption>Washington DC, layer two</figcaption>
-  </figure>
-  <figure class="page-fig">
-    <img src="tbaa-images/page-07.jpg" alt="Washington DC interactive map concept">
-    <figcaption>The interactive map concept, later narrowed to presidents</figcaption>
-  </figure>
-</div>
-
-<div class="case-content">
-  <!-- 5. THE DATABASE -->
-  <div class="case-section">
-    <div class="case-section-grid">
-      <p class="case-section-label">The Database</p>
-      <div class="case-section-body">
-        <p>The goal was to give viewers the first draft of history from different sides of the story, and to show how perspectives shift over time. This was narrowed down into an early rough sketch of the database.</p>
-      </div>
-    </div>
-  </div>
+<figure class="page-fig">
+<img alt="Rough sketch of the database" src="tbaa-images/page-08.jpg"/>
+<figcaption>Rough sketch, database</figcaption>
+</figure>
 </div>
 
 <div class="page-figs">
-  <figure class="page-fig">
-    <img src="tbaa-images/page-08.jpg" alt="Rough sketch of the database">
-    <figcaption>Rough sketch, database</figcaption>
-  </figure>
-</div>
-
-<div class="case-content">
-  <!-- 6. WIREFRAMES -->
-  <div class="case-section">
-    <div class="case-section-grid">
-      <p class="case-section-label">Wireframes</p>
-      <div class="case-section-body">
-        <p>Each entry pairs positive coverage from the start of a term with negative coverage from the end, and positive quotes from a president about a group against negative quotes about that same group.</p>
-        <p>From here I recognized my own bias and added midterm coverage of the State of the Unions, since these were the nuts and bolts the president was actually dealing with.</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="page-figs">
-  <figure class="page-fig">
-    <img src="tbaa-images/page-09.jpg" alt="Mobile wireframes">
-    <figcaption>Mobile wireframes</figcaption>
-  </figure>
-  <figure class="page-fig">
-    <img src="tbaa-images/page-10.jpg" alt="Mobile wireframes, coverage logic">
-    <figcaption>Mobile wireframes, coverage logic</figcaption>
-  </figure>
-  <figure class="page-fig">
-    <img src="tbaa-images/page-11.jpg" alt="Desktop wireframes">
-    <figcaption>Desktop wireframes</figcaption>
-  </figure>
-  <figure class="page-fig">
-    <img src="tbaa-images/page-12.jpg" alt="Desktop wireframes, full layout">
-    <figcaption>Desktop layout</figcaption>
-  </figure>
-</div>
-
-<div class="case-content">
-  <!-- 7. PROGRAMMING -->
-  <div class="case-section">
-    <div class="case-section-grid">
-      <p class="case-section-label">Programming</p>
-      <div class="case-section-body">
-        <p>The project is written in HTML and CSS, with data sourcing done with the aid of Python. Programming was assisted by Claude, across 2,853 lines of code.</p>
-      </div>
-    </div>
-  </div>
+<figure class="page-fig">
+<img alt="Mobile wireframes" src="tbaa-images/page-09.jpg"/>
+<figcaption>Mobile wireframes</figcaption>
+</figure>
+<figure class="page-fig">
+<img alt="Mobile wireframes, coverage logic" src="tbaa-images/page-10.jpg"/>
+<figcaption>Mobile wireframes, coverage logic</figcaption>
+</figure>
+<figure class="page-fig">
+<img alt="Desktop wireframes" src="tbaa-images/page-11.jpg"/>
+<figcaption>Desktop wireframes</figcaption>
+</figure>
+<figure class="page-fig">
+<img alt="Desktop wireframes, full layout" src="tbaa-images/page-12.jpg"/>
+<figcaption>Desktop layout</figcaption>
+</figure>
 </div>
 
 <div class="page-figs">
-  <figure class="page-fig">
-    <img src="tbaa-images/page-13.jpg" alt="Programming the database">
-    <figcaption>Building the database</figcaption>
-  </figure>
-</div>
-
-<div class="case-content">
-  <!-- 8. SOURCES -->
-  <div class="case-section">
-    <div class="case-section-grid">
-      <p class="case-section-label">Sources</p>
-      <div class="case-section-body">
-        <ul class="sources-list">
-          <li>Forensic Architecture, Goldsmiths, University of London. forensic-architecture.org.</li>
-          <li><em>Index of Repression</em>, Forensic Architecture. www.index-of-repression.org.</li>
-          <li>Presidential quotes and newspaper coverage drawn from the shared American historical record.</li>
-        </ul>
-        <p class="sources-note">Explore the live database at <a href="https://tobanamerican.com" target="_blank" rel="noopener">tobanamerican.com</a></p>
-      </div>
-    </div>
-  </div>
+<figure class="page-fig">
+<img alt="Programming the database" src="tbaa-images/page-13.jpg"/>
+<figcaption>Building the database</figcaption>
+</figure>
 </div>
 
 <div class="page-figs">
-  <figure class="page-fig">
-    <img src="tbaa-images/page-14.jpg" alt="To / Be / An American, tobanamerican.com">
-    <figcaption>tobanamerican.com</figcaption>
-  </figure>
+<figure class="page-fig">
+<img alt="To / Be / An American, tobanamerican.com" src="tbaa-images/page-14.jpg"/>
+<figcaption>tobanamerican.com</figcaption>
+</figure>
 </div>
 
-<!-- CLOSING -->
-<div class="case-content">
-  <div class="pull-quote">
-    <blockquote>&ldquo;No matter the politician, these stories exist on both sides, and we choose to attack each other.&rdquo;</blockquote>
-    <cite>To / Be / An American</cite>
-  </div>
-
-  <div class="next-project">
-    <p class="next-label">Next Project</p>
-    <a href="farmers-value.html" class="next-title">The Farmer&rsquo;s Value &rarr;</a>
-  </div>
 </div>
 
-<!-- FOOTER -->
+</main>
+
 <footer class="footer">
-  <div class="footer-inner">
-    <a href="index.html" class="footer-logo">JKMRY</a>
-    <span class="footer-text">&copy; 2026. All rights reserved.</span>
-  </div>
+<div class="footer-inner">
+<a class="footer-logo" href="index.html">JKMRY</a>
+<span class="footer-text">© 2026. All rights reserved.</span>
+</div>
 </footer>
 
-<!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox">
-  <button class="lightbox-close">ESC to close</button>
-  <button class="lightbox-arrow lightbox-prev" id="lightbox-prev">&larr;</button>
-  <img id="lightbox-img" src="" alt="">
-  <button class="lightbox-arrow lightbox-next" id="lightbox-next">&rarr;</button>
-  <p class="lightbox-counter" id="lightbox-counter"></p>
+<button class="lightbox-close">ESC to close</button>
+<button class="lightbox-arrow lightbox-prev" id="lightbox-prev">←</button>
+<img alt="" id="lightbox-img" src=""/>
+<button class="lightbox-arrow lightbox-next" id="lightbox-next">→</button>
+<p class="lightbox-counter" id="lightbox-counter"></p>
 </div>
 
 <script>

@@ -46,7 +46,7 @@
   }
 
   .topbar-inner {
-    max-width: 1200px;
+    max-width: 1440px;
     margin: 0 auto;
     padding: 0 2.5rem;
     display: flex;
@@ -71,7 +71,7 @@
   /* ---- HERO ---- */
   .case-hero {
     width: 100%;
-    max-width: 1400px;
+    max-width: 1600px;
     margin: 0 auto;
     padding: 2rem 2.5rem;
     position: relative;
@@ -85,7 +85,7 @@
 
   /* ---- HEADER ---- */
   .case-header {
-    max-width: 1100px;
+    max-width: 1280px;
     margin: 0 auto;
     padding: 4rem 2.5rem 0;
   }
@@ -281,7 +281,7 @@
 
   /* ---- CONTENT SECTIONS ---- */
   .case-content {
-    max-width: 1100px;
+    max-width: 1280px;
     margin: 0 auto;
     padding: 0 2.5rem;
   }
@@ -382,7 +382,7 @@
   }
 
   .footer-inner {
-    max-width: 1200px;
+    max-width: 1440px;
     margin: 0 auto;
     padding: 0 2.5rem;
     display: flex;
@@ -419,205 +419,237 @@
     .deliverables-grid { grid-template-columns: 1fr; }
     .footer-inner { flex-direction: column; gap: 1rem; text-align: center; }
   }
+
+  /* Cap every content image so no single image overflows the viewport */
+  body img:not(#lightbox-img) {
+    max-height: 86vh;
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ---- TWO-COLUMN PORTFOLIO LAYOUT ---- */
+  .case-layout {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 2rem 2.5rem;
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  .case-text-col {
+    position: sticky;
+    top: 5rem;
+    max-height: calc(100vh - 6rem);
+    overflow-y: auto;
+    padding-right: 0.5rem;
+  }
+  .case-text-col::-webkit-scrollbar { width: 4px; }
+  .case-text-col::-webkit-scrollbar-thumb { background: var(--gray-rule); border-radius: 2px; }
+  .case-text-col > * { max-width: none !important; margin: 0 0 1.4rem !important; padding: 0 !important; }
+  .case-text-col .case-section { padding: 1.4rem 0 !important; }
+  .case-text-col .case-section:first-of-type { padding-top: 0 !important; }
+  .case-text-col .case-section-grid { grid-template-columns: 1fr !important; gap: 0.4rem !important; }
+  .case-text-col .case-meta { grid-template-columns: 1fr 1fr; }
+  .case-text-col .case-meta-item:nth-child(2) { border-right: none; }
+  .case-image-col > * { max-width: 100% !important; margin: 0 0 1.5rem !important; padding: 0 !important; }
+  .case-image-col .book-frame, .case-image-col .page-fig, .case-image-col .case-img, .case-image-col .case-hero-img, .case-image-col .case-hero-wrap {
+    max-width: 100% !important; margin-left: auto !important; margin-right: auto !important;
+  }
+  .case-image-col .proc-fig { margin: 0 auto 1.5rem !important; float: none !important; width: 100% !important; }
+  @media (max-width: 900px) {
+    .case-layout { grid-template-columns: 1fr; gap: 2rem; padding: 1.5rem 1rem; }
+    .case-text-col { position: static; max-height: none; overflow-y: visible; padding-right: 0; }
+  }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <div class="topbar">
-  <div class="topbar-inner">
-    <a href="index.html">&larr; Back to JKMRY</a>
-    <span>Case Study</span>
-  </div>
+<div class="topbar-inner">
+<a href="index.html">← Back to JKMRY</a>
+<span>Case Study</span>
+</div>
 </div>
 
-<!-- HERO -->
-<div class="case-hero">
-  <img class="case-hero-img" src="now-wek-know/Cover.jpg" alt="Now We Know Where We're Going — Cover">
-</div>
+<main class="case-layout">
 
-<!-- HEADER -->
+<aside class="case-text-col">
+
 <header class="case-header">
-  <p class="case-cat">Climate Activism &middot; Zine &middot; Illustration &middot; Campaign Design</p>
-  <h1 class="case-title">Now We Know Where We&rsquo;re Going</h1>
-  <p class="case-subtitle">A climate activism zine proposing a shift from fear-based messaging to positive reinforcement&mdash;showing people the progress they&rsquo;ve already made and how simple changes can build a sustainable future.</p>
-
-  <div class="case-meta">
-    <div class="case-meta-item">
-      <p class="case-meta-label">Role</p>
-      <p class="case-meta-value">Designer, Writer,<br>Illustrator</p>
-    </div>
-    <div class="case-meta-item">
-      <p class="case-meta-label">Timeline</p>
-      <p class="case-meta-value">2024</p>
-    </div>
-    <div class="case-meta-item">
-      <p class="case-meta-label">Deliverables</p>
-      <p class="case-meta-value">Zine, Poster Series,<br>Ad Campaign</p>
-    </div>
-    <div class="case-meta-item">
-      <p class="case-meta-label">Inspiration</p>
-      <p class="case-meta-value">Irving Penn,<br>Wes Anderson</p>
-    </div>
-  </div>
+<p class="case-cat">Climate Activism · Zine · Illustration · Campaign Design</p>
+<h1 class="case-title">Now We Know Where We’re Going</h1>
+<p class="case-subtitle">A climate activism zine proposing a shift from fear-based messaging to positive reinforcement—showing people the progress they’ve already made and how simple changes can build a sustainable future.</p>
+<div class="case-meta">
+<div class="case-meta-item">
+<p class="case-meta-label">Role</p>
+<p class="case-meta-value">Designer, Writer,<br/>Illustrator</p>
+</div>
+<div class="case-meta-item">
+<p class="case-meta-label">Timeline</p>
+<p class="case-meta-value">2024</p>
+</div>
+<div class="case-meta-item">
+<p class="case-meta-label">Deliverables</p>
+<p class="case-meta-value">Zine, Poster Series,<br/>Ad Campaign</p>
+</div>
+<div class="case-meta-item">
+<p class="case-meta-label">Inspiration</p>
+<p class="case-meta-value">Irving Penn,<br/>Wes Anderson</p>
+</div>
+</div>
 </header>
 
-<!-- CONTENT -->
 <div class="case-content">
-
-  <div class="case-section">
-    <div class="case-section-grid">
-      <p class="case-section-label">The Brief</p>
-      <div class="case-section-body">
-        <p>Now We Know Where We&rsquo;re Going is the shift climate activists need to bridge the gap to make environmental solutions available to everyone. Since the 1970&rsquo;s, the world has known the threat mankind poses to the planet but now we have forgotten our power to fix and improve it. Negative ad campaigns around the damage done have allowed those willing to make changes by motivating through fear and consequences. This allowed us to begin the long journey to a healthy climate but fear is an emotion that doesn&rsquo;t last forever.</p>
-        <p>There is a psychological phenomenon that when presented with the immediate threat people will make an instantaneous change but to allow this change to persist they must see positive benefits come from that change. We&rsquo;ve spent the last 50 years trying our hardest to undo any damage done but without help from everybody those changes won&rsquo;t last or won&rsquo;t happen which is why we propose a new school of thought in climate activism.</p>
-      </div>
-    </div>
-  </div>
-
+<div class="case-section">
+<div class="case-section-grid">
+<p class="case-section-label">The Brief</p>
+<div class="case-section-body">
+<p>Now We Know Where We’re Going is the shift climate activists need to bridge the gap to make environmental solutions available to everyone. Since the 1970’s, the world has known the threat mankind poses to the planet but now we have forgotten our power to fix and improve it. Negative ad campaigns around the damage done have allowed those willing to make changes by motivating through fear and consequences. This allowed us to begin the long journey to a healthy climate but fear is an emotion that doesn’t last forever.</p>
+<p>There is a psychological phenomenon that when presented with the immediate threat people will make an instantaneous change but to allow this change to persist they must see positive benefits come from that change. We’ve spent the last 50 years trying our hardest to undo any damage done but without help from everybody those changes won’t last or won’t happen which is why we propose a new school of thought in climate activism.</p>
+</div>
+</div>
+</div>
 </div>
 
-<!-- PAGE 1 — Cape Town -->
+<div class="case-content">
+<div class="case-section">
+<div class="case-section-grid">
+<p class="case-section-label">The Clock</p>
+<div class="case-section-body">
+<p>Climate scientists often refer to a clock that depicts the amount of time until lasting damage has been done to the planet. What we neglect to reflect on is how far we have pushed its end date back. One of the most powerful examples in recent times would be that of Cape Town, South Africa in which they faced a crisis around their water usage given a date in which they would run out. Suddenly people changed their usage and to show the progress they made the clock was pushed back and then pushed back further until a date could no longer be given. They were continuously shown the progress that they made and it encouraged the people of Cape Town to keep going. To this day Cape Town has a consistent water supply.</p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="case-content">
+<div class="case-section">
+<div class="case-section-grid">
+<p class="case-section-label">Real Progress</p>
+<div class="case-section-body">
+<p>We plan to remind people of the progress we’ve made through campaigns that show climate disasters and real climate solutions. Areas all around the US have been ravaged by pollution and subsequently fixed by real people. We’ve highlighted some of these accomplishments to ensure people everywhere know that they can make a real difference.</p>
+<p>The Cuyahoga River in Ohio lit on fire five times between 1960 and 1971. Some of these fires occurred in densely populated areas all caused by the immense pollution from factories upstream. Instead of continuing to live with this people made a change through legislation and action and today the Cuyahoga is swimmable and on the path to clean. Once again real problems with real solutions. If we forget our accomplishments we are condemned to make the same mistakes so we must remain optimistic. We have also highlighted the New York City skyline and areas around Lake Erie both of which have made massive changes that will not drastically affect the lives of people there.</p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="case-content">
+<div class="case-section">
+<div class="case-section-grid">
+<p class="case-section-label">Recipes for<br/>a Better Future</p>
+<div class="case-section-body">
+<p>Once people know how much they’ve done we need to show them how simple it is to do so much more, which will be done through a series of titled recipes for a better future. People don’t need to entirely uproot their lives but simple changes that wouldn’t even affect your day to day can do a lot more than you think.</p>
+<p>Food scraps and organic material that end up in landfills no longer serve the life cycle. But simple actions like placing those and other dead plant matter in a box, planting it in the ground, can take nutrient-deprived soil and turn it into fertile land. Additionally some forms of trash have not truly reached the end of their cycle and can be reused or repurposed into new beneficial products. We even bring to your attention the effect that simple changes within your household can have on chemical and energy usage in areas like laundry and cleaning. All of these together create a greener and more sustainable lifestyle all while still allowing the lives we are used to and enjoy.</p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="case-content">
+<div class="case-section">
+<div class="case-section-grid">
+<p class="case-section-label">Positive<br/>Messaging</p>
+<div class="case-section-body">
+<p>Taking messaging from the negative to the positive is the step we need to ensure everyone gets involved in the climate discussion and solutions. Environmental activism doesn’t require that we break every system and build a new one but instead that we change our mindsets and allow the systems to follow us.</p>
+<p>For a more silly example Ed Koch the mayor of New York City walked on stage with a tool called the pooper scooper in 1978 and told the people we were going to clean these streets up one dog at a time. People were sick of stepping in dog poop and were willing to make a change and today the sidewalks of New York City are much cleaner than they were 45 years ago all because of a silly little change we made in our day to day life. We no longer accepted the status quo and took a large issue and gave it small solutions not through fear but through the promise of a brighter future. All that it takes is a little positivity so now you know where you’re going.</p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="case-content">
+<div class="case-section">
+<div class="case-section-grid">
+<p class="case-section-label">Process</p>
+<div class="case-section-body">
+<p>Initially in the ideas stage I was racked with a dislike of the messaging that sustainable systems pushes. This led me into deeper thought on the messaging of the environmental movements as a whole and how negative reinforcement is used to scare people away. The problem I faced is that people already are scared—now we just have to motivate them to fix it. Seminar had me look into academic sources and studies to come to a conclusion backed by science and data. Many theses were written discussing and studying the impacts of language shifts and how well diverse groups of people would respond in terms of climate change. The phenomena discussed earlier is referenced heavily, showing the disparaging gap in climate knowledge and willingness to take action.</p>
+<p>When choosing a design for the posters, I felt that Irving Penn’s work was not suitable for creating a sense of hope. Instead I chose his style of black and white photography to depict the damaged portions of the climate from our past, while juxtaposing it with bright and serene images in full color. As for the style of font and the layouts of the posters and videos I decided to go back to my childhood for inspiration. <em>Fantastic Mr. Fox</em> by Wes Anderson has been my favorite movie since I was 8, so it seemed that taking a graphic design direction from him was most suitable for creating positive feedback through the ad campaign.</p>
+</div>
+</div>
+</div>
+<div class="case-section">
+<div class="case-section-grid">
+<p class="case-section-label">Deliverables</p>
+<div class="case-section-body">
+<div class="deliverables-grid">
+<div class="deliverable-item"><span class="deliverable-dot"></span>Climate activism zine</div>
+<div class="deliverable-item"><span class="deliverable-dot"></span>Poster series</div>
+<div class="deliverable-item"><span class="deliverable-dot"></span>Illustrated photography</div>
+<div class="deliverable-item"><span class="deliverable-dot"></span>Ad campaign concept</div>
+<div class="deliverable-item"><span class="deliverable-dot"></span>Research &amp; writing</div>
+<div class="deliverable-item"><span class="deliverable-dot"></span>Wes Anderson-inspired layouts</div>
+</div>
+</div>
+</div>
+</div>
+<!-- NEXT PROJECT -->
+<div class="next-project">
+<p class="next-label">Next Project</p>
+<a class="next-title" href="stellas-purpose.html">Stella’s Purpose →</a>
+</div>
+</div>
+
+</aside>
+
+<div class="case-image-col">
+
+<div class="case-hero">
+<img alt="Now We Know Where We're Going — Cover" class="case-hero-img" src="now-wek-know/Cover.jpg"/>
+</div>
+
 <div class="case-images">
-  <div class="case-img">
-    <img src="now-wek-know/Page 1.jpg" alt="Cape Town water crisis — climate clock illustration">
-  </div>
+<div class="case-img">
+<img alt="Cape Town water crisis — climate clock illustration" src="now-wek-know/Page 1.jpg"/>
+</div>
 </div>
 
-<div class="case-content">
-
-  <div class="case-section">
-    <div class="case-section-grid">
-      <p class="case-section-label">The Clock</p>
-      <div class="case-section-body">
-        <p>Climate scientists often refer to a clock that depicts the amount of time until lasting damage has been done to the planet. What we neglect to reflect on is how far we have pushed its end date back. One of the most powerful examples in recent times would be that of Cape Town, South Africa in which they faced a crisis around their water usage given a date in which they would run out. Suddenly people changed their usage and to show the progress they made the clock was pushed back and then pushed back further until a date could no longer be given. They were continuously shown the progress that they made and it encouraged the people of Cape Town to keep going. To this day Cape Town has a consistent water supply.</p>
-      </div>
-    </div>
-  </div>
-
-</div>
-
-<!-- PAGE 2 — Now You Know / Where We're Going -->
 <div class="case-images">
-  <div class="case-img">
-    <img src="now-wek-know/Page 2.jpg" alt="Now You Know / Where We're Going — NYC skyline comparison 1984 vs 2023">
-  </div>
+<div class="case-img">
+<img alt="Now You Know / Where We're Going — NYC skyline comparison 1984 vs 2023" src="now-wek-know/Page 2.jpg"/>
+</div>
 </div>
 
-<div class="case-content">
-
-  <div class="case-section">
-    <div class="case-section-grid">
-      <p class="case-section-label">Real Progress</p>
-      <div class="case-section-body">
-        <p>We plan to remind people of the progress we&rsquo;ve made through campaigns that show climate disasters and real climate solutions. Areas all around the US have been ravaged by pollution and subsequently fixed by real people. We&rsquo;ve highlighted some of these accomplishments to ensure people everywhere know that they can make a real difference.</p>
-        <p>The Cuyahoga River in Ohio lit on fire five times between 1960 and 1971. Some of these fires occurred in densely populated areas all caused by the immense pollution from factories upstream. Instead of continuing to live with this people made a change through legislation and action and today the Cuyahoga is swimmable and on the path to clean. Once again real problems with real solutions. If we forget our accomplishments we are condemned to make the same mistakes so we must remain optimistic. We have also highlighted the New York City skyline and areas around Lake Erie both of which have made massive changes that will not drastically affect the lives of people there.</p>
-      </div>
-    </div>
-  </div>
-
-</div>
-
-<!-- PAGE 3 — Recipes for a Better Future -->
 <div class="case-images">
-  <div class="case-img">
-    <img src="now-wek-know/Page 3.jpg" alt="Recipes for a better future — daffodil illustration">
-  </div>
+<div class="case-img">
+<img alt="Recipes for a better future — daffodil illustration" src="now-wek-know/Page 3.jpg"/>
+</div>
 </div>
 
-<div class="case-content">
-
-  <div class="case-section">
-    <div class="case-section-grid">
-      <p class="case-section-label">Recipes for<br>a Better Future</p>
-      <div class="case-section-body">
-        <p>Once people know how much they&rsquo;ve done we need to show them how simple it is to do so much more, which will be done through a series of titled recipes for a better future. People don&rsquo;t need to entirely uproot their lives but simple changes that wouldn&rsquo;t even affect your day to day can do a lot more than you think.</p>
-        <p>Food scraps and organic material that end up in landfills no longer serve the life cycle. But simple actions like placing those and other dead plant matter in a box, planting it in the ground, can take nutrient-deprived soil and turn it into fertile land. Additionally some forms of trash have not truly reached the end of their cycle and can be reused or repurposed into new beneficial products. We even bring to your attention the effect that simple changes within your household can have on chemical and energy usage in areas like laundry and cleaning. All of these together create a greener and more sustainable lifestyle all while still allowing the lives we are used to and enjoy.</p>
-      </div>
-    </div>
-  </div>
-
-</div>
-
-<!-- PAGE 4 — Positive Messaging -->
 <div class="case-images">
-  <div class="case-img">
-    <img src="now-wek-know/Page 4.jpg" alt="Ed Koch and the pooper scooper — positive change illustration">
-  </div>
+<div class="case-img">
+<img alt="Ed Koch and the pooper scooper — positive change illustration" src="now-wek-know/Page 4.jpg"/>
+</div>
 </div>
 
-<div class="case-content">
-
-  <div class="case-section">
-    <div class="case-section-grid">
-      <p class="case-section-label">Positive<br>Messaging</p>
-      <div class="case-section-body">
-        <p>Taking messaging from the negative to the positive is the step we need to ensure everyone gets involved in the climate discussion and solutions. Environmental activism doesn&rsquo;t require that we break every system and build a new one but instead that we change our mindsets and allow the systems to follow us.</p>
-        <p>For a more silly example Ed Koch the mayor of New York City walked on stage with a tool called the pooper scooper in 1978 and told the people we were going to clean these streets up one dog at a time. People were sick of stepping in dog poop and were willing to make a change and today the sidewalks of New York City are much cleaner than they were 45 years ago all because of a silly little change we made in our day to day life. We no longer accepted the status quo and took a large issue and gave it small solutions not through fear but through the promise of a brighter future. All that it takes is a little positivity so now you know where you&rsquo;re going.</p>
-      </div>
-    </div>
-  </div>
-
-</div>
-
-<!-- PAGE 5 — Closing Poster -->
 <div class="case-images">
-  <div class="case-img">
-    <img src="now-wek-know/Page 5.jpg" alt="Now We Know Where We're Going — closing poster, bee on flower">
-  </div>
+<div class="case-img">
+<img alt="Now We Know Where We're Going — closing poster, bee on flower" src="now-wek-know/Page 5.jpg"/>
 </div>
-
-<div class="case-content">
-
-  <div class="case-section">
-    <div class="case-section-grid">
-      <p class="case-section-label">Process</p>
-      <div class="case-section-body">
-        <p>Initially in the ideas stage I was racked with a dislike of the messaging that sustainable systems pushes. This led me into deeper thought on the messaging of the environmental movements as a whole and how negative reinforcement is used to scare people away. The problem I faced is that people already are scared&mdash;now we just have to motivate them to fix it. Seminar had me look into academic sources and studies to come to a conclusion backed by science and data. Many theses were written discussing and studying the impacts of language shifts and how well diverse groups of people would respond in terms of climate change. The phenomena discussed earlier is referenced heavily, showing the disparaging gap in climate knowledge and willingness to take action.</p>
-        <p>When choosing a design for the posters, I felt that Irving Penn&rsquo;s work was not suitable for creating a sense of hope. Instead I chose his style of black and white photography to depict the damaged portions of the climate from our past, while juxtaposing it with bright and serene images in full color. As for the style of font and the layouts of the posters and videos I decided to go back to my childhood for inspiration. <em>Fantastic Mr. Fox</em> by Wes Anderson has been my favorite movie since I was 8, so it seemed that taking a graphic design direction from him was most suitable for creating positive feedback through the ad campaign.</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="case-section">
-    <div class="case-section-grid">
-      <p class="case-section-label">Deliverables</p>
-      <div class="case-section-body">
-        <div class="deliverables-grid">
-          <div class="deliverable-item"><span class="deliverable-dot"></span>Climate activism zine</div>
-          <div class="deliverable-item"><span class="deliverable-dot"></span>Poster series</div>
-          <div class="deliverable-item"><span class="deliverable-dot"></span>Illustrated photography</div>
-          <div class="deliverable-item"><span class="deliverable-dot"></span>Ad campaign concept</div>
-          <div class="deliverable-item"><span class="deliverable-dot"></span>Research &amp; writing</div>
-          <div class="deliverable-item"><span class="deliverable-dot"></span>Wes Anderson-inspired layouts</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- NEXT PROJECT -->
-  <div class="next-project">
-    <p class="next-label">Next Project</p>
-    <a href="stellas-purpose.html" class="next-title">Stella&rsquo;s Purpose &rarr;</a>
-  </div>
+</div>
 
 </div>
 
-<!-- FOOTER -->
+</main>
+
 <footer class="footer">
-  <div class="footer-inner">
-    <a href="index.html" class="footer-logo">JKMRY</a>
-    <span class="footer-text">&copy; 2026. All rights reserved.</span>
-  </div>
+<div class="footer-inner">
+<a class="footer-logo" href="index.html">JKMRY</a>
+<span class="footer-text">© 2026. All rights reserved.</span>
+</div>
 </footer>
 
-<!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox">
-  <button class="lightbox-close">ESC to close</button>
-  <button class="lightbox-nav lightbox-prev">&larr;</button>
-  <button class="lightbox-nav lightbox-next">&rarr;</button>
-  <img id="lightbox-img" src="" alt="">
-  <span class="lightbox-counter" id="lightbox-counter"></span>
+<button class="lightbox-close">ESC to close</button>
+<button class="lightbox-nav lightbox-prev">←</button>
+<button class="lightbox-nav lightbox-next">→</button>
+<img alt="" id="lightbox-img" src=""/>
+<span class="lightbox-counter" id="lightbox-counter"></span>
 </div>
 
 <script>

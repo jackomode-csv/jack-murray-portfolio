@@ -2,3 +2,12 @@ node_modules/
 .claude/
 .DS_Store
 Thumbs.db
+
+# Adobe project files / autosaves
+Adobe Premiere Pro Auto-Save/
+*.prproj
+*.prin
+
+# Large source gifs (use mp4/webm in markup instead)
+tbaa-intro-clip.gif
+tbaa-intro-clip.original.gif

@@ -46,7 +46,7 @@
   }
 
   .topbar-inner {
-    max-width: 1200px;
+    max-width: 1440px;
     margin: 0 auto;
     padding: 0 2.5rem;
     display: flex;
@@ -71,7 +71,7 @@
   /* ---- HERO ---- */
   .case-hero {
     width: 100%;
-    max-width: 1400px;
+    max-width: 1600px;
     margin: 0 auto;
     padding: 2rem 2.5rem;
     position: relative;
@@ -85,7 +85,7 @@
 
   /* ---- HEADER ---- */
   .case-header {
-    max-width: 1100px;
+    max-width: 1280px;
     margin: 0 auto;
     padding: 4rem 2.5rem 0;
   }
@@ -155,7 +155,7 @@
 
   /* ---- CONTENT SECTIONS ---- */
   .case-content {
-    max-width: 1100px;
+    max-width: 1280px;
     margin: 0 auto;
     padding: 0 2.5rem;
   }
@@ -222,7 +222,7 @@
 
   /* ---- SPREAD IMAGES ---- */
   .case-images {
-    max-width: 1400px;
+    max-width: 1600px;
     margin: 0 auto;
     padding: 3rem 2.5rem;
   }
@@ -373,7 +373,7 @@
   }
 
   .footer-inner {
-    max-width: 1200px;
+    max-width: 1440px;
     margin: 0 auto;
     padding: 0 2.5rem;
     display: flex;
@@ -411,248 +411,281 @@
     .outcome-stats { grid-template-columns: 1fr; gap: 1.2rem; }
     .footer-inner { flex-direction: column; gap: 1rem; text-align: center; }
   }
+
+  /* Cap every content image so no single image overflows the viewport */
+  body img:not(#lightbox-img) {
+    max-height: 86vh;
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ---- TWO-COLUMN PORTFOLIO LAYOUT ---- */
+  .case-layout {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 2rem 2.5rem;
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  .case-text-col {
+    position: sticky;
+    top: 5rem;
+    max-height: calc(100vh - 6rem);
+    overflow-y: auto;
+    padding-right: 0.5rem;
+  }
+  .case-text-col::-webkit-scrollbar { width: 4px; }
+  .case-text-col::-webkit-scrollbar-thumb { background: var(--gray-rule); border-radius: 2px; }
+  .case-text-col > * { max-width: none !important; margin: 0 0 1.4rem !important; padding: 0 !important; }
+  .case-text-col .case-section { padding: 1.4rem 0 !important; }
+  .case-text-col .case-section:first-of-type { padding-top: 0 !important; }
+  .case-text-col .case-section-grid { grid-template-columns: 1fr !important; gap: 0.4rem !important; }
+  .case-text-col .case-meta { grid-template-columns: 1fr 1fr; }
+  .case-text-col .case-meta-item:nth-child(2) { border-right: none; }
+  .case-image-col > * { max-width: 100% !important; margin: 0 0 1.5rem !important; padding: 0 !important; }
+  .case-image-col .book-frame, .case-image-col .page-fig, .case-image-col .case-img, .case-image-col .case-hero-img, .case-image-col .case-hero-wrap {
+    max-width: 100% !important; margin-left: auto !important; margin-right: auto !important;
+  }
+  .case-image-col .proc-fig { margin: 0 auto 1.5rem !important; float: none !important; width: 100% !important; }
+  @media (max-width: 900px) {
+    .case-layout { grid-template-columns: 1fr; gap: 2rem; padding: 1.5rem 1rem; }
+    .case-text-col { position: static; max-height: none; overflow-y: visible; padding-right: 0; }
+  }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <div class="topbar">
-  <div class="topbar-inner">
-    <a href="index.html">&larr; Back to JKMRY</a>
-    <span>Case Study</span>
-  </div>
+<div class="topbar-inner">
+<a href="index.html">← Back to JKMRY</a>
+<span>Case Study</span>
+</div>
 </div>
 
-<!-- HERO — Cover spread -->
-<div class="case-hero">
-  <img class="case-hero-img" src="creeping-body-images/creeping-body-cover.png" alt="The Creeping Body — Cover spread">
-</div>
+<main class="case-layout">
 
-<!-- HEADER -->
+<aside class="case-text-col">
+
 <header class="case-header">
-  <p class="case-cat">Political Science &middot; Editorial Design &middot; Research</p>
-  <h1 class="case-title">The Supreme Court: The Creeping Body</h1>
-  <p class="case-subtitle">A long-form political analysis examining campaign finance, constitutional tradition, and how the Supreme Court has evolved into an unchecked policy-making body.</p>
-
-  <div class="case-meta">
-    <div class="case-meta-item">
-      <p class="case-meta-label">Role</p>
-      <p class="case-meta-value">Author, Designer</p>
-    </div>
-    <div class="case-meta-item">
-      <p class="case-meta-label">Timeline</p>
-      <p class="case-meta-value">2024</p>
-    </div>
-    <div class="case-meta-item">
-      <p class="case-meta-label">Deliverables</p>
-      <p class="case-meta-value">50-Page Publication,<br>Editorial Design</p>
-    </div>
-    <div class="case-meta-item">
-      <p class="case-meta-label">Dedication</p>
-      <p class="case-meta-value">Michael Murray &amp;<br>Theresa Ward</p>
-    </div>
-  </div>
+<p class="case-cat">Political Science · Editorial Design · Research</p>
+<h1 class="case-title">The Supreme Court: The Creeping Body</h1>
+<p class="case-subtitle">A long-form political analysis examining campaign finance, constitutional tradition, and how the Supreme Court has evolved into an unchecked policy-making body.</p>
+<div class="case-meta">
+<div class="case-meta-item">
+<p class="case-meta-label">Role</p>
+<p class="case-meta-value">Author, Designer</p>
+</div>
+<div class="case-meta-item">
+<p class="case-meta-label">Timeline</p>
+<p class="case-meta-value">2024</p>
+</div>
+<div class="case-meta-item">
+<p class="case-meta-label">Deliverables</p>
+<p class="case-meta-value">50-Page Publication,<br/>Editorial Design</p>
+</div>
+<div class="case-meta-item">
+<p class="case-meta-label">Dedication</p>
+<p class="case-meta-value">Michael Murray &amp;<br/>Theresa Ward</p>
+</div>
+</div>
 </header>
 
-<!-- CONTENT -->
 <div class="case-content">
-
-  <div class="case-section">
-    <div class="case-section-grid">
-      <p class="case-section-label">The Brief</p>
-      <div class="case-section-body">
-        <p>Legal cases are some of the most impactful and least understood pieces of political action. Even through writing, it is difficult to convey the impact and course of events that lead to these apolitical bodies creating unwritten laws. By making cases more digestible through mapping and compartmentalizing larger essays, the goal was to allow more readers to understand the value and danger these legal bodies possess.</p>
-        <p>The project spans four essays covering campaign finance law, the Supreme Court&rsquo;s use of &ldquo;history and tradition,&rdquo; the Court as a political body, and a full case analysis of United States v. Rahimi &mdash; all designed as a cohesive editorial piece.</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="case-section">
-    <div class="case-section-grid">
-      <p class="case-section-label">The Challenge</p>
-      <div class="case-section-body">
-        <p>Constitutional law is dense, and the interconnections between campaign finance, judicial philosophy, and democratic erosion are rarely presented together. The challenge was to create a publication that is both rigorous enough for academic review and visually compelling enough to engage a general audience.</p>
-        <p>The design needed to carry the weight of legal citations and historical timelines while maintaining a clean, modern editorial voice &mdash; making complex jurisprudence feel urgent and accessible.</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="case-section">
-    <div class="case-section-grid">
-      <p class="case-section-label">Process</p>
-      <div class="case-section-body">
-        <p>The process began with type exploration &mdash; looking at thinner, more modern fonts to give the text more legibility, a key component when dealing with dense legal language. Helvetica was examined across its full weight range before landing on the final type system. Aesthetic inspiration drew from information design precedents like the NYC Subway Map and data visualization work from Polling Canada, as well as the formal language of curves in modern architecture and furniture design.</p>
-        <p>Material selection was driven by the small format of the book. A stitched binding was chosen for durability at the compact size, paired with semi-gloss paper printed on A3 and trimmed down &mdash; similar in feel to a magazine, keeping the publication approachable and tactile.</p>
-      </div>
-    </div>
-  </div>
-
+<div class="case-section">
+<div class="case-section-grid">
+<p class="case-section-label">The Brief</p>
+<div class="case-section-body">
+<p>Legal cases are some of the most impactful and least understood pieces of political action. Even through writing, it is difficult to convey the impact and course of events that lead to these apolitical bodies creating unwritten laws. By making cases more digestible through mapping and compartmentalizing larger essays, the goal was to allow more readers to understand the value and danger these legal bodies possess.</p>
+<p>The project spans four essays covering campaign finance law, the Supreme Court’s use of “history and tradition,” the Court as a political body, and a full case analysis of United States v. Rahimi — all designed as a cohesive editorial piece.</p>
 </div>
-
-<!-- PROCESS IMAGES — from thesis presentation -->
-<div class="case-images">
-  <div class="case-images-grid">
-    <div class="case-img">
-      <img src="creeping-body-images/process-type.png" alt="Type Exploration — Helvetica weight study">
-    </div>
-    <div class="case-img">
-      <img src="creeping-body-images/process-aesthetic.png" alt="Aesthetic Inspiration — NYC Subway Map and design references">
-    </div>
-    <div class="case-img">
-      <img src="creeping-body-images/process-material.png" alt="Material Selection — stitched binding and semi-gloss paper">
-    </div>
-    <div class="case-img">
-      <img src="creeping-body-images/process-typecolor.png" alt="Type and Color — Helvetica Bold, Lato, and apolitical color palette">
-    </div>
-  </div>
-  <p class="case-images-caption">Design process &mdash; type exploration, aesthetic references, material selection, and color system</p>
 </div>
-
-<!-- SPREAD IMAGES — Most colorful pages -->
-<div class="case-images">
-  <div class="case-images-grid">
-    <!-- pg 6: Campaign Donations timeline — black/orange/green bars -->
-    <div class="case-img full">
-      <img src="creeping-body-images/creeping-body-pg6.png" alt="Campaign Donations & The Supreme Court — timeline spread">
-    </div>
-    <!-- pg 18: History and Tradition — dual timelines with green/orange -->
-    <div class="case-img">
-      <img src="creeping-body-images/creeping-body-pg18.png" alt="The Supreme Court's History and Tradition — dual timeline spread">
-    </div>
-    <!-- pg 28: The Political Body — green/orange timelines -->
-    <div class="case-img">
-      <img src="creeping-body-images/creeping-body-pg28.png" alt="The Supreme Court, The Political Body — timeline spread">
-    </div>
-  </div>
-  <p class="case-images-caption">Select spreads &mdash; timeline design and chapter openers</p>
+</div>
+<div class="case-section">
+<div class="case-section-grid">
+<p class="case-section-label">The Challenge</p>
+<div class="case-section-body">
+<p>Constitutional law is dense, and the interconnections between campaign finance, judicial philosophy, and democratic erosion are rarely presented together. The challenge was to create a publication that is both rigorous enough for academic review and visually compelling enough to engage a general audience.</p>
+<p>The design needed to carry the weight of legal citations and historical timelines while maintaining a clean, modern editorial voice — making complex jurisprudence feel urgent and accessible.</p>
+</div>
+</div>
+</div>
+<div class="case-section">
+<div class="case-section-grid">
+<p class="case-section-label">Process</p>
+<div class="case-section-body">
+<p>The process began with type exploration — looking at thinner, more modern fonts to give the text more legibility, a key component when dealing with dense legal language. Helvetica was examined across its full weight range before landing on the final type system. Aesthetic inspiration drew from information design precedents like the NYC Subway Map and data visualization work from Polling Canada, as well as the formal language of curves in modern architecture and furniture design.</p>
+<p>Material selection was driven by the small format of the book. A stitched binding was chosen for durability at the compact size, paired with semi-gloss paper printed on A3 and trimmed down — similar in feel to a magazine, keeping the publication approachable and tactile.</p>
+</div>
+</div>
+</div>
 </div>
 
 <div class="case-content">
-
-  <div class="case-section">
-    <div class="case-section-grid">
-      <p class="case-section-label">Layout</p>
-      <div class="case-section-body">
-        <p>The publication uses a custom 8.5&Prime;&thinsp;&times;&thinsp;9.5&Prime; page size, allowing for more open space and legibility than a standard format. The grid system is built on 5 columns with 0.25&Prime; gutters and 3 rows with 0.1667&Prime; gutters, with margins of 0.25&Prime; on the top and sides and 0.6875&Prime; on the bottom.</p>
-        <p>Typography pairs Helvetica Bold for headlines with Lato Light and Lato Regular for body text &mdash; chosen for clean, easy reading that contrasts the messy and stuffy language used in legal writing. The color palette centers on orange and green, deliberately apolitical colors in the US context, creating a more playful aesthetic rather than drab, hoping to maintain the reader&rsquo;s attention across dense material.</p>
-      </div>
-    </div>
-  </div>
-
+<div class="case-section">
+<div class="case-section-grid">
+<p class="case-section-label">Layout</p>
+<div class="case-section-body">
+<p>The publication uses a custom 8.5″ × 9.5″ page size, allowing for more open space and legibility than a standard format. The grid system is built on 5 columns with 0.25″ gutters and 3 rows with 0.1667″ gutters, with margins of 0.25″ on the top and sides and 0.6875″ on the bottom.</p>
+<p>Typography pairs Helvetica Bold for headlines with Lato Light and Lato Regular for body text — chosen for clean, easy reading that contrasts the messy and stuffy language used in legal writing. The color palette centers on orange and green, deliberately apolitical colors in the US context, creating a more playful aesthetic rather than drab, hoping to maintain the reader’s attention across dense material.</p>
 </div>
-
-<!-- LAYOUT IMAGE — Grid system -->
-<div class="case-images">
-  <div class="case-images-grid">
-    <div class="case-img full">
-      <img src="creeping-body-images/process-grid.png" alt="Grid System — 5-column, 3-row layout on 8.5 x 9.5 inch page">
-    </div>
-  </div>
-  <p class="case-images-caption">Grid system &mdash; 5-column, 3-row structure on custom 8.5&Prime;&thinsp;&times;&thinsp;9.5&Prime; page</p>
+</div>
+</div>
 </div>
 
 <div class="case-content">
-
-  <div class="case-section">
-    <div class="case-section-grid">
-      <p class="case-section-label">The Approach</p>
-      <div class="case-section-body">
-        <p>The publication traces the evolution of corporate influence in American politics from the Bakeshop Act of 1895 through Citizens United and into the present. Each chapter builds on the last &mdash; moving from campaign finance history to judicial philosophy to the Court&rsquo;s expanding jurisdiction.</p>
-        <p>The design system uses a visual language of colored timelines (black, orange, green) to map legal history across eras. Pull quotes break up dense analysis, and each chapter opens with a full-bleed timeline spread that orients the reader in time before diving into argument.</p>
-        <p>The final section presents a full IRAC-style case analysis of United States v. Rahimi, connecting the theoretical arguments of the first three chapters to a live Supreme Court case.</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="case-section">
-    <div class="case-section-grid">
-      <p class="case-section-label">Deliverables</p>
-      <div class="case-section-body">
-        <div class="deliverables-grid">
-          <div class="deliverable-item"><span class="deliverable-dot"></span>50-page publication</div>
-          <div class="deliverable-item"><span class="deliverable-dot"></span>4 long-form essays</div>
-          <div class="deliverable-item"><span class="deliverable-dot"></span>Custom timeline graphics</div>
-          <div class="deliverable-item"><span class="deliverable-dot"></span>Editorial layout &amp; typesetting</div>
-          <div class="deliverable-item"><span class="deliverable-dot"></span>Case law analysis (US v. Rahimi)</div>
-          <div class="deliverable-item"><span class="deliverable-dot"></span>Works cited &amp; source index</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
+<div class="case-section">
+<div class="case-section-grid">
+<p class="case-section-label">The Approach</p>
+<div class="case-section-body">
+<p>The publication traces the evolution of corporate influence in American politics from the Bakeshop Act of 1895 through Citizens United and into the present. Each chapter builds on the last — moving from campaign finance history to judicial philosophy to the Court’s expanding jurisdiction.</p>
+<p>The design system uses a visual language of colored timelines (black, orange, green) to map legal history across eras. Pull quotes break up dense analysis, and each chapter opens with a full-bleed timeline spread that orients the reader in time before diving into argument.</p>
+<p>The final section presents a full IRAC-style case analysis of United States v. Rahimi, connecting the theoretical arguments of the first three chapters to a live Supreme Court case.</p>
 </div>
-
-<!-- MORE SPREAD IMAGES -->
-<div class="case-images">
-  <div class="case-images-grid">
-    <!-- pg 11: Citizens United — BRCA/Citizens United orange timeline -->
-    <div class="case-img">
-      <img src="creeping-body-images/creeping-body-pg11.png" alt="Citizens United timeline spread">
-    </div>
-    <!-- pg 22: DC v Heller — green vertical timeline -->
-    <div class="case-img">
-      <img src="creeping-body-images/creeping-body-pg22.png" alt="DC v Heller — History and Tradition spread">
-    </div>
-  </div>
-  <p class="case-images-caption">Interior spreads &mdash; Citizens United analysis and Second Amendment history</p>
+</div>
+</div>
+<div class="case-section">
+<div class="case-section-grid">
+<p class="case-section-label">Deliverables</p>
+<div class="case-section-body">
+<div class="deliverables-grid">
+<div class="deliverable-item"><span class="deliverable-dot"></span>50-page publication</div>
+<div class="deliverable-item"><span class="deliverable-dot"></span>4 long-form essays</div>
+<div class="deliverable-item"><span class="deliverable-dot"></span>Custom timeline graphics</div>
+<div class="deliverable-item"><span class="deliverable-dot"></span>Editorial layout &amp; typesetting</div>
+<div class="deliverable-item"><span class="deliverable-dot"></span>Case law analysis (US v. Rahimi)</div>
+<div class="deliverable-item"><span class="deliverable-dot"></span>Works cited &amp; source index</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 
 <div class="case-content">
+<div class="case-section">
+<div class="case-section-grid">
+<p class="case-section-label">Production</p>
+<div class="case-section-body">
+<p>The final publication was printed at 8.5″ × 9.5″ on semi-gloss premium paper at 160gsm, printed in CMYK and coverstitched. The 50-page book was produced at a cost of roughly 90 Euro per copy.</p>
+</div>
+</div>
+</div>
+<div class="case-section">
+<div class="case-section-grid">
+<p class="case-section-label">The Outcome</p>
+<div class="case-section-body">
+<p>The Creeping Body presents the argument that the Supreme Court functions as a policy-making branch — one that can define its own jurisdiction, override state courts, and reshape constitutional rights without meaningful external oversight. From Lochner to Citizens United to Bruen, the pattern is consistent.</p>
+<p>The publication was completed as a long-form editorial project, combining original political analysis with designed timelines and typographic treatment that makes constitutional law tangible and urgent.</p>
+<div class="outcome-stats">
+<div>
+<p class="outcome-stat-number">50</p>
+<p class="outcome-stat-label">Pages of original research and editorial design</p>
+</div>
+<div>
+<p class="outcome-stat-number">4</p>
+<p class="outcome-stat-label">Interconnected essays on judicial overreach</p>
+</div>
+<div>
+<p class="outcome-stat-number">130+</p>
+<p class="outcome-stat-label">Years of legal history traced through visual timelines</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- NEXT PROJECT -->
+<div class="next-project">
+<p class="next-label">Next Project</p>
+<a class="next-title" href="9-teen.html">9-TEEN →</a>
+</div>
+</div>
 
-  <div class="case-section">
-    <div class="case-section-grid">
-      <p class="case-section-label">Production</p>
-      <div class="case-section-body">
-        <p>The final publication was printed at 8.5&Prime;&thinsp;&times;&thinsp;9.5&Prime; on semi-gloss premium paper at 160gsm, printed in CMYK and coverstitched. The 50-page book was produced at a cost of roughly 90 Euro per copy.</p>
-      </div>
-    </div>
-  </div>
+</aside>
 
-  <div class="case-section">
-    <div class="case-section-grid">
-      <p class="case-section-label">The Outcome</p>
-      <div class="case-section-body">
-        <p>The Creeping Body presents the argument that the Supreme Court functions as a policy-making branch &mdash; one that can define its own jurisdiction, override state courts, and reshape constitutional rights without meaningful external oversight. From Lochner to Citizens United to Bruen, the pattern is consistent.</p>
-        <p>The publication was completed as a long-form editorial project, combining original political analysis with designed timelines and typographic treatment that makes constitutional law tangible and urgent.</p>
+<div class="case-image-col">
 
-        <div class="outcome-stats">
-          <div>
-            <p class="outcome-stat-number">50</p>
-            <p class="outcome-stat-label">Pages of original research and editorial design</p>
-          </div>
-          <div>
-            <p class="outcome-stat-number">4</p>
-            <p class="outcome-stat-label">Interconnected essays on judicial overreach</p>
-          </div>
-          <div>
-            <p class="outcome-stat-number">130+</p>
-            <p class="outcome-stat-label">Years of legal history traced through visual timelines</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="case-hero">
+<img alt="The Creeping Body — Cover spread" class="case-hero-img" src="creeping-body-images/creeping-body-cover.png"/>
+</div>
 
-  <!-- NEXT PROJECT -->
-  <div class="next-project">
-    <p class="next-label">Next Project</p>
-    <a href="9-teen.html" class="next-title">9-TEEN &rarr;</a>
-  </div>
+<div class="case-images">
+<div class="case-images-grid">
+<div class="case-img">
+<img alt="Type Exploration — Helvetica weight study" src="creeping-body-images/process-type.png"/>
+</div>
+<div class="case-img">
+<img alt="Aesthetic Inspiration — NYC Subway Map and design references" src="creeping-body-images/process-aesthetic.png"/>
+</div>
+<div class="case-img">
+<img alt="Material Selection — stitched binding and semi-gloss paper" src="creeping-body-images/process-material.png"/>
+</div>
+<div class="case-img">
+<img alt="Type and Color — Helvetica Bold, Lato, and apolitical color palette" src="creeping-body-images/process-typecolor.png"/>
+</div>
+</div>
+<p class="case-images-caption">Design process — type exploration, aesthetic references, material selection, and color system</p>
+</div>
+
+<div class="case-images">
+<div class="case-images-grid">
+<!-- pg 6: Campaign Donations timeline — black/orange/green bars -->
+<div class="case-img full">
+<img alt="Campaign Donations &amp; The Supreme Court — timeline spread" src="creeping-body-images/creeping-body-pg6.png"/>
+</div>
+<!-- pg 18: History and Tradition — dual timelines with green/orange -->
+<div class="case-img">
+<img alt="The Supreme Court's History and Tradition — dual timeline spread" src="creeping-body-images/creeping-body-pg18.png"/>
+</div>
+<!-- pg 28: The Political Body — green/orange timelines -->
+<div class="case-img">
+<img alt="The Supreme Court, The Political Body — timeline spread" src="creeping-body-images/creeping-body-pg28.png"/>
+</div>
+</div>
+<p class="case-images-caption">Select spreads — timeline design and chapter openers</p>
+</div>
+
+<div class="case-images">
+<div class="case-images-grid">
+<div class="case-img full">
+<img alt="Grid System — 5-column, 3-row layout on 8.5 x 9.5 inch page" src="creeping-body-images/process-grid.png"/>
+</div>
+</div>
+<p class="case-images-caption">Grid system — 5-column, 3-row structure on custom 8.5″ × 9.5″ page</p>
+</div>
+
+<div class="case-images">
+<div class="case-images-grid">
+<!-- pg 11: Citizens United — BRCA/Citizens United orange timeline -->
+<div class="case-img">
+<img alt="Citizens United timeline spread" src="creeping-body-images/creeping-body-pg11.png"/>
+</div>
+<!-- pg 22: DC v Heller — green vertical timeline -->
+<div class="case-img">
+<img alt="DC v Heller — History and Tradition spread" src="creeping-body-images/creeping-body-pg22.png"/>
+</div>
+</div>
+<p class="case-images-caption">Interior spreads — Citizens United analysis and Second Amendment history</p>
+</div>
 
 </div>
 
-<!-- FOOTER -->
+</main>
+
 <footer class="footer">
-  <div class="footer-inner">
-    <a href="index.html" class="footer-logo">JKMRY</a>
-    <span class="footer-text">&copy; 2026. All rights reserved.</span>
-  </div>
+<div class="footer-inner">
+<a class="footer-logo" href="index.html">JKMRY</a>
+<span class="footer-text">© 2026. All rights reserved.</span>
+</div>
 </footer>
 
-<!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox">
-  <button class="lightbox-close">ESC to close</button>
-  <img id="lightbox-img" src="" alt="">
+<button class="lightbox-close">ESC to close</button>
+<img alt="" id="lightbox-img" src=""/>
 </div>
 
 <script>

@@ -46,7 +46,7 @@
   }
 
   .topbar-inner {
-    max-width: 1200px;
+    max-width: 1440px;
     margin: 0 auto;
     padding: 0 2.5rem;
     display: flex;
@@ -71,7 +71,7 @@
   /* ---- HERO ---- */
   .case-hero {
     width: 100%;
-    max-width: 1400px;
+    max-width: 1600px;
     margin: 0 auto;
     padding: 2rem 2.5rem;
     position: relative;
@@ -80,7 +80,7 @@
   }
 
   .case-hero-wrap {
-    max-width: 1100px;
+    max-width: 1280px;
     border: none;
   }
 
@@ -108,7 +108,7 @@
 
   /* ---- HEADER ---- */
   .case-header {
-    max-width: 1100px;
+    max-width: 1280px;
     margin: 0 auto;
     padding: 4rem 2.5rem 0;
   }
@@ -178,7 +178,7 @@
 
   /* ---- CONTENT SECTIONS ---- */
   .case-content {
-    max-width: 1100px;
+    max-width: 1280px;
     margin: 0 auto;
     padding: 0 2.5rem;
   }
@@ -219,7 +219,7 @@
 
   /* ---- SPREAD IMAGES ---- */
   .case-images {
-    max-width: 1400px;
+    max-width: 1600px;
     margin: 0 auto;
     padding: 3rem 2.5rem;
   }
@@ -412,7 +412,7 @@
   }
 
   .footer-inner {
-    max-width: 1200px;
+    max-width: 1440px;
     margin: 0 auto;
     padding: 0 2.5rem;
     display: flex;
@@ -448,170 +448,210 @@
     .case-img.full { grid-column: span 1; }
     .footer-inner { flex-direction: column; gap: 1rem; text-align: center; }
   }
+
+  /* Cap every content image so no single image overflows the viewport */
+  body img:not(#lightbox-img) {
+    max-height: 86vh;
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ---- TWO-COLUMN PORTFOLIO LAYOUT ---- */
+  .case-layout {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 2rem 2.5rem;
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  .case-text-col {
+    position: sticky;
+    top: 5rem;
+    max-height: calc(100vh - 6rem);
+    overflow-y: auto;
+    padding-right: 0.5rem;
+  }
+  .case-text-col::-webkit-scrollbar { width: 4px; }
+  .case-text-col::-webkit-scrollbar-thumb { background: var(--gray-rule); border-radius: 2px; }
+  .case-text-col > * { max-width: none !important; margin: 0 0 1.4rem !important; padding: 0 !important; }
+  .case-text-col .case-section { padding: 1.4rem 0 !important; }
+  .case-text-col .case-section:first-of-type { padding-top: 0 !important; }
+  .case-text-col .case-section-grid { grid-template-columns: 1fr !important; gap: 0.4rem !important; }
+  .case-text-col .case-meta { grid-template-columns: 1fr 1fr; }
+  .case-text-col .case-meta-item:nth-child(2) { border-right: none; }
+  .case-image-col > * { max-width: 100% !important; margin: 0 0 1.5rem !important; padding: 0 !important; }
+  .case-image-col .book-frame, .case-image-col .page-fig, .case-image-col .case-img, .case-image-col .case-hero-img, .case-image-col .case-hero-wrap {
+    max-width: 100% !important; margin-left: auto !important; margin-right: auto !important;
+  }
+  .case-image-col .proc-fig { margin: 0 auto 1.5rem !important; float: none !important; width: 100% !important; }
+  @media (max-width: 900px) {
+    .case-layout { grid-template-columns: 1fr; gap: 2rem; padding: 1.5rem 1rem; }
+    .case-text-col { position: static; max-height: none; overflow-y: visible; padding-right: 0; }
+  }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <div class="topbar">
-  <div class="topbar-inner">
-    <a href="index.html">&larr; Back to JKMRY</a>
-    <span>Case Study</span>
-  </div>
+<div class="topbar-inner">
+<a href="index.html">← Back to JKMRY</a>
+<span>Case Study</span>
+</div>
 </div>
 
-<!-- HERO -->
-<div class="case-hero">
-  <div class="case-img case-hero-wrap">
-    <img class="case-hero-img" src="9-teen-images/IMG_9272-1.jpg" alt="9-TEEN — image 1">
-  </div>
-</div>
+<main class="case-layout">
 
-<!-- HEADER -->
+<aside class="case-text-col">
+
 <header class="case-header">
-  <p class="case-cat">Pop-Up &middot; Paper Engineering &middot; Photography</p>
-  <h1 class="case-title">9-TEEN</h1>
-  <p class="case-subtitle">A handcrafted pop-up book using photographic imagery, paper-cut silhouettes, and sculptural paper engineering &mdash; exploring identity, place, and scale through the architecture of Flushing Meadows&rsquo; Unisphere.</p>
-
-  <div class="case-meta">
-    <div class="case-meta-item">
-      <p class="case-meta-label">Designer</p>
-      <p class="case-meta-value">Jack Murray</p>
-    </div>
-    <div class="case-meta-item">
-      <p class="case-meta-label">Timeline</p>
-      <p class="case-meta-value">2022</p>
-    </div>
-    <div class="case-meta-item">
-      <p class="case-meta-label">Medium</p>
-      <p class="case-meta-value">Pop-Up Book,<br>CT Photography</p>
-    </div>
-    <div class="case-meta-item">
-      <p class="case-meta-label">Deliverables</p>
-      <p class="case-meta-value">Handcrafted Book,<br>Typography, Pop-Ups</p>
-    </div>
-  </div>
+<p class="case-cat">Pop-Up · Paper Engineering · Photography</p>
+<h1 class="case-title">9-TEEN</h1>
+<p class="case-subtitle">A handcrafted pop-up book using photographic imagery, paper-cut silhouettes, and sculptural paper engineering — exploring identity, place, and scale through the architecture of Flushing Meadows’ Unisphere.</p>
+<div class="case-meta">
+<div class="case-meta-item">
+<p class="case-meta-label">Designer</p>
+<p class="case-meta-value">Jack Murray</p>
+</div>
+<div class="case-meta-item">
+<p class="case-meta-label">Timeline</p>
+<p class="case-meta-value">2022</p>
+</div>
+<div class="case-meta-item">
+<p class="case-meta-label">Medium</p>
+<p class="case-meta-value">Pop-Up Book,<br/>CT Photography</p>
+</div>
+<div class="case-meta-item">
+<p class="case-meta-label">Deliverables</p>
+<p class="case-meta-value">Handcrafted Book,<br/>Typography, Pop-Ups</p>
+</div>
+</div>
 </header>
 
-<!-- INTRO -->
 <div class="case-content">
-
-  <div class="case-section">
-    <div class="case-section-grid">
-      <p class="case-section-label">The Brief</p>
-      <div class="case-section-body">
-        <p>9-TEEN is a handmade pop-up book that uses photographic imagery and paper engineering to create three-dimensional narratives from flat pages. The project merges CT scan imagery, architectural photography of New York&rsquo;s Unisphere, and hand-cut silhouette figures into a sculptural book form &mdash; bound in a silver metallic cover.</p>
-        <p>Each spread transforms when opened, with pop-up mechanisms bringing photographic scenes to life. The book explores the relationship between the human figure and monumental architecture, placing silhouettes against expansive landscapes that dwarf and frame them.</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="case-section">
-    <div class="case-section-grid">
-      <p class="case-section-label">Concept</p>
-      <div class="case-section-body">
-        <p>The title 9-TEEN speaks to the threshold of adulthood &mdash; a moment of standing at the edge of something vast, looking up. The Unisphere, a relic of the 1964 World&rsquo;s Fair, becomes a recurring symbol: a monument to possibility built from steel and ambition, now standing quietly in Queens.</p>
-        <p>The silhouette figures are deliberately anonymous &mdash; cut from dark card stock, they could be anyone. One holds their arms up to the sky; another stands with a camera on a tripod. They are observers, participants, and stand-ins for the viewer.</p>
-      </div>
-    </div>
-  </div>
-
+<div class="case-section">
+<div class="case-section-grid">
+<p class="case-section-label">The Brief</p>
+<div class="case-section-body">
+<p>9-TEEN is a handmade pop-up book that uses photographic imagery and paper engineering to create three-dimensional narratives from flat pages. The project merges CT scan imagery, architectural photography of New York’s Unisphere, and hand-cut silhouette figures into a sculptural book form — bound in a silver metallic cover.</p>
+<p>Each spread transforms when opened, with pop-up mechanisms bringing photographic scenes to life. The book explores the relationship between the human figure and monumental architecture, placing silhouettes against expansive landscapes that dwarf and frame them.</p>
+</div>
+</div>
+</div>
+<div class="case-section">
+<div class="case-section-grid">
+<p class="case-section-label">Concept</p>
+<div class="case-section-body">
+<p>The title 9-TEEN speaks to the threshold of adulthood — a moment of standing at the edge of something vast, looking up. The Unisphere, a relic of the 1964 World’s Fair, becomes a recurring symbol: a monument to possibility built from steel and ambition, now standing quietly in Queens.</p>
+<p>The silhouette figures are deliberately anonymous — cut from dark card stock, they could be anyone. One holds their arms up to the sky; another stands with a camera on a tripod. They are observers, participants, and stand-ins for the viewer.</p>
+</div>
+</div>
+</div>
 </div>
 
-<!-- ALL SPREADS -->
+<div class="case-content">
+<div class="case-section">
+<div class="case-section-grid">
+<p class="case-section-label">Process</p>
+<div class="case-section-body">
+<p>The book was constructed entirely by hand. Each pop-up mechanism was prototyped in plain card before being transferred to photographic prints. The Unisphere was photographed from multiple angles to create panoramic and perspective-shifted compositions that fold and rise from the page.</p>
+<p>Silhouette figures were hand-cut from dark card stock and integrated into the pop-up structures, creating layered scenes with depth and narrative. The silver metallic cover was chosen to echo the Unisphere’s stainless steel surface, grounding the book’s material language in its subject.</p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="case-content">
+<div class="pull-quote">
+<blockquote>“Standing at the edge of something vast, looking up.”</blockquote>
+<cite>9-TEEN</cite>
+</div>
+<!-- NEXT PROJECT -->
+<div class="next-project">
+<p class="next-label">Next Project</p>
+<a class="next-title" href="now-we-know.html">Now We Know Where We’re Going →</a>
+</div>
+</div>
+
+</aside>
+
+<div class="case-image-col">
+
+<div class="case-hero">
+<div class="case-img case-hero-wrap">
+<img alt="9-TEEN — image 1" class="case-hero-img" src="9-teen-images/IMG_9272-1.jpg"/>
+</div>
+</div>
+
 <div class="case-images">
-  <div class="case-images-grid">
-    <div class="case-img">
-      <img src="9-teen-images/IMG_9273-2.jpg" alt="9-TEEN — image 2">
-    </div>
-    <div class="case-img">
-      <img src="9-teen-images/IMG_9275-3.jpg" alt="9-TEEN — image 3">
-    </div>
-    <div class="case-img">
-      <img src="9-teen-images/IMG_9276-4.jpg" alt="9-TEEN — image 4">
-    </div>
-    <div class="case-img">
-      <img src="9-teen-images/IMG_9279-5.jpg" alt="9-TEEN — image 5">
-    </div>
-    <div class="case-img">
-      <img src="9-teen-images/IMG_9280-6.jpg" alt="9-TEEN — image 6">
-    </div>
-    <div class="case-img">
-      <img src="9-teen-images/IMG_9281-7.jpg" alt="9-TEEN — image 7">
-    </div>
-    <div class="case-img">
-      <img src="9-teen-images/IMG_9282-8.jpg" alt="9-TEEN — image 8">
-    </div>
-    <div class="case-img">
-      <img src="9-teen-images/IMG_9283-9.jpg" alt="9-TEEN — image 9">
-    </div>
-    <div class="case-img">
-      <img src="9-teen-images/IMG_9284-10.jpg" alt="9-TEEN — image 10">
-    </div>
-    <div class="case-img">
-      <img src="9-teen-images/IMG_9285-11.jpg" alt="9-TEEN — image 11">
-    </div>
-    <div class="case-img">
-      <img src="9-teen-images/IMG_9286-12.jpg" alt="9-TEEN — image 12">
-    </div>
-    <div class="case-img">
-      <img src="9-teen-images/IMG_9290-13.jpg" alt="9-TEEN — image 13">
-    </div>
-    <div class="case-img">
-      <img src="9-teen-images/IMG_9293-14.jpg" alt="9-TEEN — image 14">
-    </div>
-    <div class="case-img">
-      <img src="9-teen-images/IMG_9294-15.jpg" alt="9-TEEN — image 15">
-    </div>
-  </div>
+<div class="case-images-grid">
+<div class="case-img">
+<img alt="9-TEEN — image 2" src="9-teen-images/IMG_9273-2.jpg"/>
 </div>
-
-<!-- PROCESS -->
-<div class="case-content">
-
-  <div class="case-section">
-    <div class="case-section-grid">
-      <p class="case-section-label">Process</p>
-      <div class="case-section-body">
-        <p>The book was constructed entirely by hand. Each pop-up mechanism was prototyped in plain card before being transferred to photographic prints. The Unisphere was photographed from multiple angles to create panoramic and perspective-shifted compositions that fold and rise from the page.</p>
-        <p>Silhouette figures were hand-cut from dark card stock and integrated into the pop-up structures, creating layered scenes with depth and narrative. The silver metallic cover was chosen to echo the Unisphere&rsquo;s stainless steel surface, grounding the book&rsquo;s material language in its subject.</p>
-      </div>
-    </div>
-  </div>
+<div class="case-img">
+<img alt="9-TEEN — image 3" src="9-teen-images/IMG_9275-3.jpg"/>
+</div>
+<div class="case-img">
+<img alt="9-TEEN — image 4" src="9-teen-images/IMG_9276-4.jpg"/>
+</div>
+<div class="case-img">
+<img alt="9-TEEN — image 5" src="9-teen-images/IMG_9279-5.jpg"/>
+</div>
+<div class="case-img">
+<img alt="9-TEEN — image 6" src="9-teen-images/IMG_9280-6.jpg"/>
+</div>
+<div class="case-img">
+<img alt="9-TEEN — image 7" src="9-teen-images/IMG_9281-7.jpg"/>
+</div>
+<div class="case-img">
+<img alt="9-TEEN — image 8" src="9-teen-images/IMG_9282-8.jpg"/>
+</div>
+<div class="case-img">
+<img alt="9-TEEN — image 9" src="9-teen-images/IMG_9283-9.jpg"/>
+</div>
+<div class="case-img">
+<img alt="9-TEEN — image 10" src="9-teen-images/IMG_9284-10.jpg"/>
+</div>
+<div class="case-img">
+<img alt="9-TEEN — image 11" src="9-teen-images/IMG_9285-11.jpg"/>
+</div>
+<div class="case-img">
+<img alt="9-TEEN — image 12" src="9-teen-images/IMG_9286-12.jpg"/>
+</div>
+<div class="case-img">
+<img alt="9-TEEN — image 13" src="9-teen-images/IMG_9290-13.jpg"/>
+</div>
+<div class="case-img">
+<img alt="9-TEEN — image 14" src="9-teen-images/IMG_9293-14.jpg"/>
+</div>
+<div class="case-img">
+<img alt="9-TEEN — image 15" src="9-teen-images/IMG_9294-15.jpg"/>
+</div>
+</div>
+</div>
 
 </div>
 
-<!-- CLOSING -->
-<div class="case-content">
+</main>
 
-  <div class="pull-quote">
-    <blockquote>&ldquo;Standing at the edge of something vast, looking up.&rdquo;</blockquote>
-    <cite>9-TEEN</cite>
-  </div>
-
-  <!-- NEXT PROJECT -->
-  <div class="next-project">
-    <p class="next-label">Next Project</p>
-    <a href="now-we-know.html" class="next-title">Now We Know Where We&rsquo;re Going &rarr;</a>
-  </div>
-
-</div>
-
-<!-- FOOTER -->
 <footer class="footer">
-  <div class="footer-inner">
-    <a href="index.html" class="footer-logo">JKMRY</a>
-    <span class="footer-text">&copy; 2026. All rights reserved.</span>
-  </div>
+<div class="footer-inner">
+<a class="footer-logo" href="index.html">JKMRY</a>
+<span class="footer-text">© 2026. All rights reserved.</span>
+</div>
 </footer>
 
-<!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox">
-  <button class="lightbox-close">ESC to close</button>
-  <button class="lightbox-arrow lightbox-prev" id="lightbox-prev">&larr;</button>
-  <img id="lightbox-img" src="" alt="">
-  <button class="lightbox-arrow lightbox-next" id="lightbox-next">&rarr;</button>
-  <p class="lightbox-counter" id="lightbox-counter"></p>
+<button class="lightbox-close">ESC to close</button>
+<button class="lightbox-arrow lightbox-prev" id="lightbox-prev">←</button>
+<img alt="" id="lightbox-img" src=""/>
+<button class="lightbox-arrow lightbox-next" id="lightbox-next">→</button>
+<p class="lightbox-counter" id="lightbox-counter"></p>
 </div>
 
 <script>

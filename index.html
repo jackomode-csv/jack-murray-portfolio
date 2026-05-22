@@ -24,7 +24,7 @@
     --font-body: 'Jost', 'Futura', 'Helvetica Neue', sans-serif;
     --font-sans: 'Jost', 'Futura', 'Helvetica Neue', sans-serif;
     --font-condensed: 'Jost', 'Futura', 'Helvetica Neue', sans-serif;
-    --max-width: 1200px;
+    --max-width: none;
     --col-gap: 2rem;
   }
 
@@ -67,12 +67,12 @@
   /* ---- MASTHEAD ---- */
   .masthead {
     text-align: center;
-    padding: 2rem 0 0.8rem;
+    padding: 0.9rem 0 0.4rem;
   }
 
   .masthead-title {
     font-family: var(--font-headline);
-    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    font-size: clamp(1.5rem, 3vw, 2.4rem);
     font-weight: 300;
     color: var(--black);
     letter-spacing: 0.12em;
@@ -90,7 +90,7 @@
 
   /* ---- INTRO (compact about) ---- */
   .intro {
-    padding: 1.6rem 0 0;
+    padding: 0.8rem 0 0 6rem;
   }
 
   .intro-inner {
@@ -258,7 +258,7 @@
   }
 
   /* ---- ARTICLES ---- */
-  .articles { padding: 3rem 0 2rem; }
+  .articles { padding-top: 1.2rem; padding-bottom: 2rem; }
 
   .article-lead-link {
     text-decoration: none;
@@ -816,6 +816,74 @@
     .nav-main a { font-size: 0.65rem; }
     .letters-links { flex-wrap: wrap; gap: 1.2rem; }
   }
+
+  /* ---- ARTICLES GRID (unified card grid) ---- */
+  .articles-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6rem 9rem;
+    margin-top: 1.5rem;
+  }
+  .article-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+  }
+  .article-card-image {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: var(--paper);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.4rem;
+  }
+  .article-card-image img,
+  .article-card-image video {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    display: block;
+    transition: opacity 0.3s;
+  }
+  .article-card:hover .article-card-image img,
+  .article-card:hover .article-card-image video { opacity: 0.85; }
+  .article-card-title {
+    font-family: var(--font-headline);
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--ink);
+    margin-bottom: 0.4rem;
+    transition: color 0.2s;
+  }
+  .article-card:hover .article-card-title { color: var(--red-dark); }
+  .article-card-deck {
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    color: var(--gray);
+    line-height: 1.6;
+    margin-bottom: 0.6rem;
+  }
+  .article-card-byline {
+    font-family: var(--font-condensed);
+    font-size: 0.65rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gray-light);
+  }
+  @media (max-width: 900px) {
+    .articles-grid { grid-template-columns: repeat(2, 1fr); gap: 2.5rem 1.5rem; }
+  }
+  @media (max-width: 600px) {
+    .articles-grid { grid-template-columns: 1fr; gap: 2rem; }
+  }
 </style>
 </head>
 <body>
@@ -844,131 +912,80 @@
 
 <!-- ARTICLES -->
 <section class="articles container" id="articles">
-  <hr class="rule-thick" style="margin-bottom: 2rem;">
+  <hr class="rule-thick" style="margin-bottom: 1.5rem;">
 
-  <!-- Lead Article — ReflectUS -->
-  <a href="reflectus.html" class="article-lead-link">
-  <div class="article-lead">
-    <div class="article-lead-grid" style="grid-template-columns: 1fr 1.4fr;">
-      <div class="article-lead-text">
-        <p class="article-cat">Political Project · Book</p>
-        <h2 class="article-lead-title">ReflectUS</h2>
-        <p class="article-lead-deck">A political project and a book, inspired by Robert Reich. A children's book style story that mocks the cyclical nature of the American government, a culture failing to self reflect and so forced to repeat the same patterns.</p>
-        <p class="article-lead-byline"><strong>Author, Designer</strong> &nbsp;·&nbsp; 2025-2026</p>
-      </div>
-      <div class="article-lead-image">
-        <img src="reflectus-images/reflectus-01.jpg" alt="ReflectUS" style="width:100%; height:100%; object-fit:cover; display:block;">
-      </div>
-    </div>
-  </div>
-  </a>
+  <div class="articles-grid">
 
-  <hr class="rule" style="margin: 2.5rem 0;">
-
-  <!-- Lead Article — To / Be / An American -->
-  <a href="tbaa.html" class="article-lead-link">
-  <div class="article-lead">
-    <div class="article-lead-grid" style="grid-template-columns: 1fr 1.4fr;">
-      <div class="article-lead-text">
-        <p class="article-cat">Political Project · Website · Database</p>
-        <h2 class="article-lead-title">To / Be / An American</h2>
-        <p class="article-lead-deck">A political project and database showing that, no matter the politician, these stories exist on both sides, and that we choose to attack each other. Real quotes and newspapers from our shared history surface the biases we hold toward leaders who align with us.</p>
-        <p class="article-lead-byline"><strong>Research, Design, Development</strong> &nbsp;·&nbsp; 2025-2026</p>
-      </div>
-      <div class="article-lead-image">
-        <img src="tbaa-images/page-01.jpg" alt="To / Be / An American" style="width:100%; height:100%; object-fit:cover; display:block;">
-      </div>
-    </div>
-  </div>
-  </a>
-
-  <hr class="rule" style="margin: 2.5rem 0;">
-
-  <!-- Lead Article -->
-  <a href="farmers-value.html" class="article-lead-link">
-  <div class="article-lead">
-    <div class="article-lead-grid" style="grid-template-columns: 1fr 1.6fr;">
-      <div class="article-lead-text">
-        <p class="article-cat">Documentary · Video · Research</p>
-        <h2 class="article-lead-title">The Farmer's Value</h2>
-        <p class="article-lead-deck">A short documentary exploring the economic challenges facing small American farmers — built on USDA data, real stories, and a mathematical framework for change.</p>
-        <p class="article-lead-byline"><strong>Role:</strong> Director, Writer, Editor &nbsp;·&nbsp; 2026</p>
-      </div>
-      <div class="article-lead-image">
-        <img src="farmers-value-images/still-first-frame.jpg" alt="The Farmer's Value — title card">
-      </div>
-    </div>
-  </div>
-  </a>
-
-  <hr class="rule" style="margin: 2.5rem 0;">
-
-  <!-- Lead Article 2 -->
-  <a href="creeping-body.html" class="article-lead-link">
-  <div class="article-lead">
-    <div class="article-lead-grid" style="grid-template-columns: 1fr 1.4fr;">
-      <div class="article-lead-text">
-        <p class="article-cat">Political Science · Editorial Design · Research</p>
-        <h2 class="article-lead-title">The Creeping Body</h2>
-        <p class="article-lead-deck">A long-form political analysis examining the Supreme Court as a policy-making body — campaign finance, constitutional tradition, and the erosion of democratic norms.</p>
-        <p class="article-lead-byline"><strong>Role:</strong> Author, Designer &nbsp;·&nbsp; 2024</p>
-      </div>
-      <div class="article-lead-image">
-        <img src="creeping-body-images/creeping-body-cover.png" alt="The Creeping Body" style="width:100%; height:100%; object-fit:cover; display:block;">
-      </div>
-    </div>
-  </div>
-  </a>
-
-  <hr class="rule" style="margin: 2.5rem 0;">
-
-  <!-- Lead Article 4 -->
-  <a href="9-teen.html" class="article-lead-link">
-  <div class="article-lead">
-    <div class="article-lead-grid" style="grid-template-columns: 1fr 1.4fr;">
-      <div class="article-lead-text">
-        <p class="article-cat">Pop-Up · Paper Engineering · Photography</p>
-        <h2 class="article-lead-title">9-TEEN</h2>
-        <p class="article-lead-deck">A handcrafted pop-up book using photographic imagery, paper-cut silhouettes, and sculptural paper engineering — exploring identity, place, and scale through the architecture of Flushing Meadows' Unisphere.</p>
-        <p class="article-lead-byline"><strong>Role:</strong> Designer, Paper Engineer, Photographer &nbsp;·&nbsp; 2022</p>
-      </div>
-      <div class="article-lead-image">
-        <img src="9-teen-images/IMG_9272-1.jpg" alt="9-TEEN" style="width:100%; height:100%; object-fit:cover; display:block;">
-      </div>
-    </div>
-  </div>
-  </a>
-
-  <hr class="rule" style="margin: 2.5rem 0;">
-
-  <!-- Secondary Articles Row -->
-  <div class="articles-row">
-    <a href="now-we-know.html" class="article-secondary" style="text-decoration:none; color:inherit;">
-      <div class="article-lead-image" style="margin-bottom:1rem;">
-        <img src="now-wek-know/Cover.jpg" alt="Now We Know Where We're Going" style="width:100%; aspect-ratio:4/3; object-fit:cover; display:block;">
-      </div>
-      <p class="article-cat">Climate Activism · Zine · Illustration</p>
-      <h3 class="article-secondary-title">Now We Know Where We&rsquo;re Going</h3>
-      <p class="article-secondary-deck">A climate activism zine proposing a shift from fear-based messaging to positive reinforcement — showing people the progress they've already made.</p>
-      <p class="article-secondary-byline">Designer, Writer, Illustrator &nbsp;·&nbsp; 2024</p>
+    <a href="reflectus.html" class="article-card">
+      <div class="article-card-image"><img src="reflectus-images/reflectus-01.jpg" alt="ReflectUS"></div>
+      <p class="article-cat">Political Project &middot; Book</p>
+      <h3 class="article-card-title">ReflectUS</h3>
+      <p class="article-card-byline">Author, Designer &nbsp;&middot;&nbsp; 2025-2026</p>
     </a>
-    <div class="articles-row-divider"></div>
-    <a href="stellas-purpose.html" class="article-secondary" style="text-decoration:none; color:inherit;">
-      <div class="article-lead-image" style="margin-bottom:1rem;">
-        <img src="stella-images/stella-cover.png" alt="Stella's Purpose" style="width:100%; aspect-ratio:4/3; object-fit:cover; display:block;">
-      </div>
-      <p class="article-cat">Illustration · Storytelling · Persona Study</p>
-      <h3 class="article-secondary-title">Stella's Purpose</h3>
-      <p class="article-secondary-deck">A zine-format persona study tracing a narrative from childhood wonder to the quiet realization that sometimes you just want to be alive.</p>
-      <p class="article-secondary-byline">Designer, Illustrator, Photographer &nbsp;·&nbsp; 2022</p>
+
+    <a href="tbaa.html" class="article-card">
+      <div class="article-card-image"><video autoplay muted loop playsinline aria-label="To / Be / An American"><source src="tbaa-intro-clip.webm" type="video/webm"><source src="tbaa-intro-clip.mp4" type="video/mp4"></video></div>
+      <p class="article-cat">Political Project &middot; Website &middot; Database</p>
+      <h3 class="article-card-title">To / Be / An American</h3>
+      <p class="article-card-byline">Research, Design, Development &nbsp;&middot;&nbsp; 2025-2026</p>
     </a>
-    <div class="articles-row-divider"></div>
-    <a href="politics-of-design.html" class="article-secondary" style="text-decoration:none; color:inherit;">
-      <p class="article-cat">Architecture · Political Theory · Design Culture</p>
-      <h3 class="article-secondary-title">The Politics of Design</h3>
-      <p class="article-secondary-deck">An investigation into how architecture, urban planning, fashion, and public art operate as instruments of governance.</p>
-      <p class="article-secondary-byline">Author, Researcher &nbsp;·&nbsp; 2025</p>
+
+    <a href="farmers-value.html" class="article-card">
+      <div class="article-card-image"><img src="farmers-value-images/still-first-frame.jpg" alt="The Farmer's Value"></div>
+      <p class="article-cat">Documentary &middot; Video &middot; Research</p>
+      <h3 class="article-card-title">The Farmer's Value</h3>
+      <p class="article-card-byline">Director, Writer, Editor &nbsp;&middot;&nbsp; 2026</p>
     </a>
+
+    <a href="creeping-body.html" class="article-card">
+      <div class="article-card-image"><img src="creeping-body-images/creeping-body-cover.png" alt="The Creeping Body"></div>
+      <p class="article-cat">Political Science &middot; Editorial Design &middot; Research</p>
+      <h3 class="article-card-title">The Creeping Body</h3>
+      <p class="article-card-byline">Author, Designer &nbsp;&middot;&nbsp; 2024</p>
+    </a>
+
+    <a href="9-teen.html" class="article-card">
+      <div class="article-card-image"><img src="9-teen-images/IMG_9272-1.jpg" alt="9-TEEN"></div>
+      <p class="article-cat">Pop-Up &middot; Paper Engineering &middot; Photography</p>
+      <h3 class="article-card-title">9-TEEN</h3>
+      <p class="article-card-byline">Designer, Paper Engineer, Photographer &nbsp;&middot;&nbsp; 2022</p>
+    </a>
+
+    <a href="now-we-know.html" class="article-card">
+      <div class="article-card-image"><img src="now-wek-know/Cover.jpg" alt="Now We Know Where We're Going"></div>
+      <p class="article-cat">Climate Activism &middot; Zine &middot; Illustration</p>
+      <h3 class="article-card-title">Now We Know Where We&rsquo;re Going</h3>
+      <p class="article-card-byline">Designer, Writer, Illustrator &nbsp;&middot;&nbsp; 2024</p>
+    </a>
+
+    <a href="pippas-passport.html" class="article-card">
+      <div class="article-card-image"><img src="pippas-passport-images/pippas-passport-01.jpg" alt="Pippa&rsquo;s Passport"></div>
+      <p class="article-cat">Gift Book &middot; Illustration &middot; Editorial Design</p>
+      <h3 class="article-card-title">Pippa&rsquo;s Passport</h3>
+      <p class="article-card-byline">Designer, Writer, Illustrator &nbsp;&middot;&nbsp; 2023</p>
+    </a>
+
+    <a href="stellas-purpose.html" class="article-card">
+      <div class="article-card-image"><img src="stella-images/stella-cover.png" alt="Stella's Purpose"></div>
+      <p class="article-cat">Illustration &middot; Storytelling &middot; Persona Study</p>
+      <h3 class="article-card-title">Stella&rsquo;s Purpose</h3>
+      <p class="article-card-byline">Designer, Illustrator, Photographer &nbsp;&middot;&nbsp; 2022</p>
+    </a>
+
+    <a href="politics-of-design.html" class="article-card">
+      <div class="article-card-image"><img src="politics-of-design-images/slide-1.png" alt="The Politics of Design"></div>
+      <p class="article-cat">Architecture &middot; Political Theory &middot; Design Culture</p>
+      <h3 class="article-card-title">The Politics of Design</h3>
+      <p class="article-card-byline">Author, Researcher &nbsp;&middot;&nbsp; 2025</p>
+    </a>
+
+    <a href="leaving-queens.html" class="article-card">
+      <div class="article-card-image"><img src="leaving-queens-images/IMG_9211.jpg" alt="Leaving Queens"></div>
+      <p class="article-cat">Photography &middot; Self-Portrait</p>
+      <h3 class="article-card-title">Leaving Queens</h3>
+      <p class="article-card-byline">Photographer &nbsp;&middot;&nbsp; 2023</p>
+    </a>
+
   </div>
 
 </section>

@@ -46,7 +46,7 @@
   }
 
   .topbar-inner {
-    max-width: 1200px;
+    max-width: 1440px;
     margin: 0 auto;
     padding: 0 2.5rem;
     display: flex;
@@ -71,7 +71,7 @@
   /* ---- HERO ---- */
   .case-hero {
     width: 100%;
-    max-width: 1400px;
+    max-width: 1600px;
     margin: 0 auto;
     padding: 2rem 2.5rem;
     position: relative;
@@ -85,7 +85,7 @@
 
   /* ---- HEADER ---- */
   .case-header {
-    max-width: 1100px;
+    max-width: 1280px;
     margin: 0 auto;
     padding: 4rem 2.5rem 0;
   }
@@ -155,7 +155,7 @@
 
   /* ---- CONTENT SECTIONS ---- */
   .case-content {
-    max-width: 1100px;
+    max-width: 1280px;
     margin: 0 auto;
     padding: 0 2.5rem;
   }
@@ -222,7 +222,7 @@
 
   /* ---- IMAGE PLACEHOLDERS ---- */
   .case-images {
-    max-width: 1400px;
+    max-width: 1600px;
     margin: 0 auto;
     padding: 3rem 2.5rem;
   }
@@ -387,7 +387,7 @@
   }
 
   .footer-inner {
-    max-width: 1200px;
+    max-width: 1440px;
     margin: 0 auto;
     padding: 0 2.5rem;
     display: flex;
@@ -427,234 +427,208 @@
     .outcome-stats { grid-template-columns: 1fr; gap: 1.2rem; }
     .footer-inner { flex-direction: column; gap: 1rem; text-align: center; }
   }
+
+  /* Cap every content image so no single image overflows the viewport */
+  body img:not(#lightbox-img) {
+    max-height: 86vh;
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ---- TWO-COLUMN PORTFOLIO LAYOUT ---- */
+  .case-layout {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 2rem 2.5rem;
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  .case-text-col {
+    position: sticky;
+    top: 5rem;
+    max-height: calc(100vh - 6rem);
+    overflow-y: auto;
+    padding-right: 0.5rem;
+  }
+  .case-text-col::-webkit-scrollbar { width: 4px; }
+  .case-text-col::-webkit-scrollbar-thumb { background: var(--gray-rule); border-radius: 2px; }
+  .case-text-col > * { max-width: none !important; margin: 0 0 1.4rem !important; padding: 0 !important; }
+  .case-text-col .case-section { padding: 1.4rem 0 !important; }
+  .case-text-col .case-section:first-of-type { padding-top: 0 !important; }
+  .case-text-col .case-section-grid { grid-template-columns: 1fr !important; gap: 0.4rem !important; }
+  .case-text-col .case-meta { grid-template-columns: 1fr 1fr; }
+  .case-text-col .case-meta-item:nth-child(2) { border-right: none; }
+  .case-image-col > * { max-width: 100% !important; margin: 0 0 1.5rem !important; padding: 0 !important; }
+  .case-image-col .book-frame, .case-image-col .page-fig, .case-image-col .case-img, .case-image-col .case-hero-img, .case-image-col .case-hero-wrap {
+    max-width: 100% !important; margin-left: auto !important; margin-right: auto !important;
+  }
+  .case-image-col .proc-fig { margin: 0 auto 1.5rem !important; float: none !important; width: 100% !important; }
+  @media (max-width: 900px) {
+    .case-layout { grid-template-columns: 1fr; gap: 2rem; padding: 1.5rem 1rem; }
+    .case-text-col { position: static; max-height: none; overflow-y: visible; padding-right: 0; }
+  }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <div class="topbar">
-  <div class="topbar-inner">
-    <a href="index.html">← Back to JKMRY</a>
-    <span>Case Study</span>
-  </div>
+<div class="topbar-inner">
+<a href="index.html">← Back to JKMRY</a>
+<span>Case Study</span>
+</div>
 </div>
 
-<!-- HERO VIDEO -->
-<div class="case-hero">
-  <video class="case-hero-video" controls preload="metadata" poster="farmers-value-images/still-first-frame.jpg">
-    <source src="Farmer's Value.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
-</div>
+<main class="case-layout">
 
-<!-- HEADER -->
+<aside class="case-text-col">
+
 <header class="case-header">
-  <p class="case-cat">Documentary · Video · Research</p>
-  <h1 class="case-title">The Farmer's Value</h1>
-  <p class="case-subtitle">A short documentary exploring the economic challenges facing small American farmers — and a mathematical framework for how we can fix it.</p>
+<p class="case-cat">Documentary · Video · Research</p>
+<h1 class="case-title">The Farmer's Value</h1>
+<p class="case-subtitle">A short documentary exploring the economic challenges facing small American farmers — and a mathematical framework for how we can fix it.</p>
+<div class="case-meta">
+<div class="case-meta-item">
+<p class="case-meta-label">Role</p>
+<p class="case-meta-value">Director, Writer,<br/>Editor</p>
+</div>
+<div class="case-meta-item">
+<p class="case-meta-label">Timeline</p>
+<p class="case-meta-value">May 2024</p>
+</div>
+<div class="case-meta-item">
+<p class="case-meta-label">Deliverables</p>
+<p class="case-meta-value">Short Film, Research<br/>Report, Campaign</p>
+</div>
+</div></header>
 
-  <div class="case-meta">
-    <div class="case-meta-item">
-      <p class="case-meta-label">Role</p>
-      <p class="case-meta-value">Director, Writer,<br>Editor</p>
-    </div>
-    <div class="case-meta-item">
-      <p class="case-meta-label">Timeline</p>
-      <p class="case-meta-value">May 2024</p>
-    </div>
-    <div class="case-meta-item">
-      <p class="case-meta-label">Deliverables</p>
-      <p class="case-meta-value">Short Film, Research<br>Report, Campaign</p>
-  </div>
-</header>
-
-<!-- CONTENT -->
 <div class="case-content">
-
-  <div class="case-section">
-    <div class="case-section-grid">
-      <p class="case-section-label">The Brief</p>
-      <div class="case-section-body">
-        <p>In late 2023, Well&rsquo;s Potato Farm left Long Island after hundreds of years &mdash; selling 236 acres in Suffolk County to purchase 1,000 in Maine because they could no longer afford the land they cultivated. The Long Island potato, once a regional staple, is no longer grown on Long Island. Their story is one example of a systemic crisis facing small American farms.</p>
-        <p>The goal was to create a documentary that traces this problem from a single farm to the national scale &mdash; using USDA data, carbon math, and subsidy analysis to build a clear, evidence-based case for structural change.</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="case-section">
-    <div class="case-section-grid">
-      <p class="case-section-label">The Challenge</p>
-      <div class="case-section-body">
-        <p>When the Wells were in Riverhead, every truckload of potatoes sent to NYC produced roughly 440 lbs of carbon per round trip. From Maine, that number jumps to approximately 3,000 lbs &mdash; over 6 times the original output, from just one farm. Local produce is both an economic engine and a carbon solution, and losing it has consequences most people never see.</p>
-        <p>Meanwhile, the federal subsidy system meant to help is deeply skewed: of the $10.4 billion forecasted in direct farming subsidies this year, the top 9% of farms receive 60% of all funding while the bottom 78% receive just 10%. The challenge was to make this math accessible without losing the human stories behind it.</p>
-      </div>
-    </div>
-  </div>
-
+<div class="case-section">
+<div class="case-section-grid">
+<p class="case-section-label">The Brief</p>
+<div class="case-section-body">
+<p>In late 2023, Well’s Potato Farm left Long Island after hundreds of years — selling 236 acres in Suffolk County to purchase 1,000 in Maine because they could no longer afford the land they cultivated. The Long Island potato, once a regional staple, is no longer grown on Long Island. Their story is one example of a systemic crisis facing small American farms.</p>
+<p>The goal was to create a documentary that traces this problem from a single farm to the national scale — using USDA data, carbon math, and subsidy analysis to build a clear, evidence-based case for structural change.</p>
 </div>
-
-<!-- PROJECT ILLUSTRATIONS — THE STORY -->
-<div class="case-images">
-  <div class="case-images-grid">
-    <div class="case-img full">
-      <img src="farmers-value-images/Artboard 1 copy.png" alt="Barn with silo">
-    </div>
-    <div class="case-img">
-      <img src="farmers-value-images/Artboard 2.png" alt="Long Island outline">
-    </div>
-    <div class="case-img">
-      <img src="farmers-value-images/Artboard 37.png" alt="A potato">
-    </div>
-  </div>
-  <p class="case-images-caption">The classic American farm, Long Island, and the crop that started it all</p>
 </div>
-
-<!-- ILLUSTRATIONS — THE CHALLENGE -->
-<div class="case-images">
-  <div class="case-images-grid">
-    <div class="case-img">
-      <img src="farmers-value-images/Artboard 1 copy 3.png" alt="Stack of dollar bills">
-    </div>
-    <div class="case-img">
-      <img src="farmers-value-images/Artboard 1.png" alt="U.S. Capitol building">
-    </div>
-  </div>
-  <p class="case-images-caption">The economics of farming and the policy that shapes it</p>
 </div>
-
-<!-- FILM STILLS -->
-<div class="case-images">
-  <div class="case-images-grid">
-    <div class="case-img full cover">
-      <img src="farmers-value-images/still-longisland.jpg" alt="Standing on Long Island — Agriculture">
-    </div>
-    <div class="case-img cover">
-      <img src="farmers-value-images/still-barn-window.jpg" alt="Peeking through the barn window">
-    </div>
-    <div class="case-img cover">
-      <img src="farmers-value-images/still-vertical-farm.jpg" alt="Barn sketch filled with vertical farm photography">
-    </div>
-    <div class="case-img full cover">
-      <img src="farmers-value-images/still-farmland-vision.jpg" alt="Farmland composite with transformed farm structures">
-    </div>
-  </div>
-  <p class="case-images-caption">Film stills — illustration meets live action</p>
+<div class="case-section">
+<div class="case-section-grid">
+<p class="case-section-label">The Challenge</p>
+<div class="case-section-body">
+<p>When the Wells were in Riverhead, every truckload of potatoes sent to NYC produced roughly 440 lbs of carbon per round trip. From Maine, that number jumps to approximately 3,000 lbs — over 6 times the original output, from just one farm. Local produce is both an economic engine and a carbon solution, and losing it has consequences most people never see.</p>
+<p>Meanwhile, the federal subsidy system meant to help is deeply skewed: of the $10.4 billion forecasted in direct farming subsidies this year, the top 9% of farms receive 60% of all funding while the bottom 78% receive just 10%. The challenge was to make this math accessible without losing the human stories behind it.</p>
+</div>
+</div>
+</div>
 </div>
 
 <div class="case-content">
-
-  <div class="case-section">
-    <div class="case-section-grid">
-      <p class="case-section-label">The Approach</p>
-      <div class="case-section-body">
-        <p>The film examines three potential solutions. First, the University of Vermont&rsquo;s research suggests consumers must pay more for local produce &mdash; a non-solution for the majority of the population that cannot afford any price increase. Second, hoop houses could extend a farm&rsquo;s growing season from roughly 90 days to 365, multiplying yield by over 5 times, but face resistance from communities that reject the aesthetic of greenhouse farming.</p>
-        <p>The most promising path is vertical farming within existing farm structures. A standard 3,200 square foot barn could use vertical growing to increase output by up to 240 times while using 70&ndash;95% less water &mdash; maintaining the classic American farm silhouette while making the economics work. The film builds this argument visually, pairing agricultural landscapes with precise data graphics.</p>
-      </div>
-    </div>
-  </div>
-
+<div class="case-section">
+<div class="case-section-grid">
+<p class="case-section-label">The Approach</p>
+<div class="case-section-body">
+<p>The film examines three potential solutions. First, the University of Vermont’s research suggests consumers must pay more for local produce — a non-solution for the majority of the population that cannot afford any price increase. Second, hoop houses could extend a farm’s growing season from roughly 90 days to 365, multiplying yield by over 5 times, but face resistance from communities that reject the aesthetic of greenhouse farming.</p>
+<p>The most promising path is vertical farming within existing farm structures. A standard 3,200 square foot barn could use vertical growing to increase output by up to 240 times while using 70–95% less water — maintaining the classic American farm silhouette while making the economics work. The film builds this argument visually, pairing agricultural landscapes with precise data graphics.</p>
+</div>
+</div>
+</div>
 <!-- ILLUSTRATIONS — THE SOLUTIONS -->
 <div class="case-images">
-  <div class="case-images-grid">
-    <div class="case-img">
-      <img src="farmers-value-images/Artboard 1 copy 2.png" alt="Hoop house greenhouse">
-    </div>
-    <div class="case-img">
-      <img src="farmers-value-images/Artboard 1 copy 9.png" alt="Vertical farming rows, isometric view">
-    </div>
-    <div class="case-img full">
-      <img src="farmers-value-images/Artboard 1 copy 6.png" alt="Barn, side view">
-    </div>
-  </div>
-  <p class="case-images-caption">Hoop houses, vertical farming, and the structures that could make it work</p>
+<div class="case-images-grid">
+<div class="case-img">
+<img alt="Hoop house greenhouse" src="farmers-value-images/Artboard 1 copy 2.png"/>
 </div>
-
+<div class="case-img">
+<img alt="Vertical farming rows, isometric view" src="farmers-value-images/Artboard 1 copy 9.png"/>
+</div>
+<div class="case-img full">
+<img alt="Barn, side view" src="farmers-value-images/Artboard 1 copy 6.png"/>
+</div>
+</div>
+<p class="case-images-caption">Hoop houses, vertical farming, and the structures that could make it work</p>
+</div>
 <!-- ILLUSTRATIONS — THE MOVEMENT -->
 <div class="case-images">
-  <div class="case-images-grid">
-    <div class="case-img">
-      <img src="farmers-value-images/Artboard 1 copy 8.png" alt="Semi truck and trailer">
-    </div>
-    <div class="case-img">
-      <img src="farmers-value-images/Artboard 3.png" alt="State of Maine outline">
-    </div>
-  </div>
-  <p class="case-images-caption">The carbon cost of moving farming 600 miles north</p>
+<div class="case-images-grid">
+<div class="case-img">
+<img alt="Semi truck and trailer" src="farmers-value-images/Artboard 1 copy 8.png"/>
 </div>
-
+<div class="case-img">
+<img alt="State of Maine outline" src="farmers-value-images/Artboard 3.png"/>
+</div>
+</div>
+<p class="case-images-caption">The carbon cost of moving farming 600 miles north</p>
+</div>
 <!-- ILLUSTRATIONS — COMMUNITY & CONTEXT -->
 <div class="case-images">
-  <div class="case-illustrations-grid">
-    <div class="case-img">
-      <img src="farmers-value-images/Artboard 1 copy 5.png" alt="Crowd of people">
-    </div>
-    <div class="case-img">
-      <img src="farmers-value-images/Artboard 36.png" alt="New York City boroughs map">
-    </div>
-    <div class="case-img">
-      <img src="farmers-value-images/Artboard 1 copy 4.png" alt="Building interior">
-    </div>
-  </div>
-  <p class="case-images-caption">The people, places, and structures at the heart of the story</p>
+<div class="case-illustrations-grid">
+<div class="case-img">
+<img alt="Crowd of people" src="farmers-value-images/Artboard 1 copy 5.png"/>
 </div>
-
+<div class="case-img">
+<img alt="New York City boroughs map" src="farmers-value-images/Artboard 36.png"/>
+</div>
+<div class="case-img">
+<img alt="Building interior" src="farmers-value-images/Artboard 1 copy 4.png"/>
+</div>
+</div>
+<p class="case-images-caption">The people, places, and structures at the heart of the story</p>
+</div>
 <!-- THESIS STILL -->
 <div class="case-images">
-  <div class="case-images-grid">
-    <div class="case-img full cover">
-      <img src="farmers-value-images/still-thesis.jpg" alt="For the farmer to persist, we must value what comes from the land more than the land itself">
-    </div>
-  </div>
+<div class="case-images-grid">
+<div class="case-img full cover">
+<img alt="For the farmer to persist, we must value what comes from the land more than the land itself" src="farmers-value-images/still-thesis.jpg"/>
 </div>
-
+</div>
+</div>
 <div class="case-content">
-
-  <div class="case-section">
-    <div class="case-section-grid">
-      <p class="case-section-label">The Outcome</p>
-      <div class="case-section-body">
-        <p>The film argues that none of these changes can happen in isolation &mdash; we cannot expect farmers to suddenly invest in new infrastructure alone. It requires collective investment in the systems our most important industry needs. The accompanying research report makes the economic case with USDA data and carbon modeling.</p>
-
-        <div class="outcome-stats">
-          <div>
-            <p class="outcome-stat-number">6&times;</p>
-            <p class="outcome-stat-label">Increase in carbon output when Well&rsquo;s Farm moved from LI to Maine</p>
-          </div>
-          <div>
-            <p class="outcome-stat-number">240&times;</p>
-            <p class="outcome-stat-label">Potential output increase with vertical farming in existing structures</p>
-          </div>
-          <div>
-            <p class="outcome-stat-number">95%</p>
-            <p class="outcome-stat-label">Less water usage with vertical farming vs. traditional methods</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- NEXT PROJECT -->
-  <div class="next-project">
-    <p class="next-label">Next Project</p>
-    <a href="creeping-body.html" class="next-title">The Creeping Body →</a>
-  </div>
-
+<div class="case-section">
+<div class="case-section-grid">
+<p class="case-section-label">The Outcome</p>
+<div class="case-section-body">
+<p>The film argues that none of these changes can happen in isolation — we cannot expect farmers to suddenly invest in new infrastructure alone. It requires collective investment in the systems our most important industry needs. The accompanying research report makes the economic case with USDA data and carbon modeling.</p>
+<div class="outcome-stats">
+<div>
+<p class="outcome-stat-number">6×</p>
+<p class="outcome-stat-label">Increase in carbon output when Well’s Farm moved from LI to Maine</p>
 </div>
-
+<div>
+<p class="outcome-stat-number">240×</p>
+<p class="outcome-stat-label">Potential output increase with vertical farming in existing structures</p>
+</div>
+<div>
+<p class="outcome-stat-number">95%</p>
+<p class="outcome-stat-label">Less water usage with vertical farming vs. traditional methods</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- NEXT PROJECT -->
+<div class="next-project">
+<p class="next-label">Next Project</p>
+<a class="next-title" href="creeping-body.html">The Creeping Body →</a>
+</div>
+</div>
 <!-- FOOTER -->
 <footer class="footer">
-  <div class="footer-inner">
-    <a href="index.html" class="footer-logo">JKMRY</a>
-    <span class="footer-text">© 2026. All rights reserved.</span>
-  </div>
+<div class="footer-inner">
+<a class="footer-logo" href="index.html">JKMRY</a>
+<span class="footer-text">© 2026. All rights reserved.</span>
+</div>
 </footer>
-
 <!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox">
-  <button class="lightbox-close">ESC to close</button>
-  <img id="lightbox-img" src="" alt="">
+<button class="lightbox-close">ESC to close</button>
+<img alt="" id="lightbox-img" src=""/>
 </div>
-
 <script>
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = document.getElementById('lightbox-img');
@@ -680,6 +654,67 @@
     if (e.key === 'Escape') closeLightbox();
   });
 </script>
+</div>
+
+</aside>
+
+<div class="case-image-col">
+
+<div class="case-hero">
+<video class="case-hero-video" controls="" poster="farmers-value-images/still-first-frame.jpg" preload="metadata">
+<source src="Farmer's Value.mp4" type="video/mp4"/>
+    Your browser does not support the video tag.
+  </video>
+</div>
+
+<div class="case-images">
+<div class="case-images-grid">
+<div class="case-img full">
+<img alt="Barn with silo" src="farmers-value-images/Artboard 1 copy.png"/>
+</div>
+<div class="case-img">
+<img alt="Long Island outline" src="farmers-value-images/Artboard 2.png"/>
+</div>
+<div class="case-img">
+<img alt="A potato" src="farmers-value-images/Artboard 37.png"/>
+</div>
+</div>
+<p class="case-images-caption">The classic American farm, Long Island, and the crop that started it all</p>
+</div>
+
+<div class="case-images">
+<div class="case-images-grid">
+<div class="case-img">
+<img alt="Stack of dollar bills" src="farmers-value-images/Artboard 1 copy 3.png"/>
+</div>
+<div class="case-img">
+<img alt="U.S. Capitol building" src="farmers-value-images/Artboard 1.png"/>
+</div>
+</div>
+<p class="case-images-caption">The economics of farming and the policy that shapes it</p>
+</div>
+
+<div class="case-images">
+<div class="case-images-grid">
+<div class="case-img full cover">
+<img alt="Standing on Long Island — Agriculture" src="farmers-value-images/still-longisland.jpg"/>
+</div>
+<div class="case-img cover">
+<img alt="Peeking through the barn window" src="farmers-value-images/still-barn-window.jpg"/>
+</div>
+<div class="case-img cover">
+<img alt="Barn sketch filled with vertical farm photography" src="farmers-value-images/still-vertical-farm.jpg"/>
+</div>
+<div class="case-img full cover">
+<img alt="Farmland composite with transformed farm structures" src="farmers-value-images/still-farmland-vision.jpg"/>
+</div>
+</div>
+<p class="case-images-caption">Film stills — illustration meets live action</p>
+</div>
+
+</div>
+
+</main>
 
 </body>
 </html>

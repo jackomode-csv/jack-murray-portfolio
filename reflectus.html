@@ -46,7 +46,7 @@
   }
 
   .topbar-inner {
-    max-width: 1200px;
+    max-width: 1440px;
     margin: 0 auto;
     padding: 0 2.5rem;
     display: flex;
@@ -65,7 +65,7 @@
 
   /* ---- BOOK READER (top gallery) ---- */
   .book-reader {
-    max-width: 1200px;
+    max-width: 1440px;
     margin: 0 auto;
     padding: 2.5rem 2.5rem 1rem;
   }
@@ -98,7 +98,7 @@
 
   .book-frame {
     flex: 1;
-    max-width: 1000px;
+    max-width: 1200px;
     background: var(--white);
     border: 1px solid var(--gray-rule);
     padding: 0.6rem;
@@ -140,7 +140,7 @@
 
   /* ---- HEADER ---- */
   .case-header {
-    max-width: 1100px;
+    max-width: 1280px;
     margin: 0 auto;
     padding: 3rem 2.5rem 0;
   }
@@ -205,7 +205,7 @@
   }
 
   /* ---- CONTENT SECTIONS ---- */
-  .case-content { max-width: 1100px; margin: 0 auto; padding: 0 2.5rem; }
+  .case-content { max-width: 1280px; margin: 0 auto; padding: 0 2.5rem; }
 
   .case-section { padding: 3.5rem 0; border-bottom: 1px solid var(--gray-rule); }
   .case-section:last-child { border-bottom: none; }
@@ -469,7 +469,7 @@
   .footer { background: var(--black); color: var(--gray-light); padding: 2.5rem 0; }
 
   .footer-inner {
-    max-width: 1200px;
+    max-width: 1440px;
     margin: 0 auto;
     padding: 0 2.5rem;
     display: flex;
@@ -504,275 +504,330 @@
     .proc-inline { float: none; width: 100%; margin: 1.2rem 0; }
     .footer-inner { flex-direction: column; gap: 1rem; text-align: center; }
   }
+
+  /* Cap every content image so no single image overflows the viewport */
+  body img:not(#lightbox-img) {
+    max-height: 86vh;
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ---- TWO-COLUMN PORTFOLIO LAYOUT ---- */
+  .case-layout {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 2rem 2.5rem;
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  .case-text-col {
+    position: sticky;
+    top: 5rem;
+    max-height: calc(100vh - 6rem);
+    overflow-y: auto;
+    padding-right: 0.5rem;
+  }
+  .case-text-col::-webkit-scrollbar { width: 4px; }
+  .case-text-col::-webkit-scrollbar-thumb { background: var(--gray-rule); border-radius: 2px; }
+  .case-text-col > * { max-width: none !important; margin: 0 0 1.4rem !important; padding: 0 !important; }
+  .case-text-col .case-section { padding: 1.4rem 0 !important; }
+  .case-text-col .case-section:first-of-type { padding-top: 0 !important; }
+  .case-text-col .case-section-grid { grid-template-columns: 1fr !important; gap: 0.4rem !important; }
+  .case-text-col .case-meta { grid-template-columns: 1fr 1fr; }
+  .case-text-col .case-meta-item:nth-child(2) { border-right: none; }
+  .case-image-col > * { max-width: 100% !important; margin: 0 0 1.5rem !important; padding: 0 !important; }
+  .case-image-col .book-frame, .case-image-col .page-fig, .case-image-col .case-img, .case-image-col .case-hero-img, .case-image-col .case-hero-wrap {
+    max-width: 100% !important; margin-left: auto !important; margin-right: auto !important;
+  }
+  .case-image-col .proc-fig { margin: 0 auto 1.5rem !important; float: none !important; width: 100% !important; }
+  @media (max-width: 900px) {
+    .case-layout { grid-template-columns: 1fr; gap: 2rem; padding: 1.5rem 1rem; }
+    .case-text-col { position: static; max-height: none; overflow-y: visible; padding-right: 0; }
+  }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <div class="topbar">
-  <div class="topbar-inner">
-    <a href="index.html">&larr; Back to JKMRY</a>
-    <span>Case Study</span>
-  </div>
+<div class="topbar-inner">
+<a href="index.html">← Back to JKMRY</a>
+<span>Case Study</span>
+</div>
 </div>
 
-<!-- BOOK READER (top gallery, the whole book) -->
-<section class="book-reader">
-  <div class="book-reader-head">
-    <p class="label">The Book</p>
-    <h2>Read ReflectUS, spread by spread</h2>
-  </div>
-  <div class="book-stage">
-    <button class="book-arrow" id="book-prev" aria-label="Previous spread">&larr;</button>
-    <div class="book-frame" id="book-frame">
-      <img id="book-img" src="reflectus-images/reflectus-01.jpg" alt="ReflectUS, cover">
-    </div>
-    <button class="book-arrow" id="book-next" aria-label="Next spread">&rarr;</button>
-  </div>
-  <p class="book-counter" id="book-counter">1 / 19</p>
-</section>
+<main class="case-layout">
 
-<!-- HEADER -->
+<aside class="case-text-col">
+
 <header class="case-header">
-  <p class="case-cat">Political Project &middot; Book</p>
-  <h1 class="case-title">ReflectUS</h1>
-  <p class="case-subtitle">A political project and a book, inspired by Robert Reich. A children&rsquo;s book style story that mocks the cyclical nature of the American government, a culture failing to self reflect and so forced to repeat the same patterns.</p>
-
-  <div class="case-meta">
-    <div class="case-meta-item">
-      <p class="case-meta-label">Author &amp; Designer</p>
-      <p class="case-meta-value">Jack Murray</p>
-    </div>
-    <div class="case-meta-item">
-      <p class="case-meta-label">Illustrator</p>
-      <p class="case-meta-value">Jaja Riley</p>
-    </div>
-    <div class="case-meta-item">
-      <p class="case-meta-label">Timeline</p>
-      <p class="case-meta-value">2025-2026</p>
-    </div>
-    <div class="case-meta-item">
-      <p class="case-meta-label">Medium</p>
-      <p class="case-meta-value">Children&rsquo;s Book</p>
-    </div>
-  </div>
+<p class="case-cat">Political Project · Book</p>
+<h1 class="case-title">ReflectUS</h1>
+<p class="case-subtitle">A political project and a book, inspired by Robert Reich. A children’s book style story that mocks the cyclical nature of the American government, a culture failing to self reflect and so forced to repeat the same patterns.</p>
+<div class="case-meta">
+<div class="case-meta-item">
+<p class="case-meta-label">Author &amp; Designer</p>
+<p class="case-meta-value">Jack Murray</p>
+</div>
+<div class="case-meta-item">
+<p class="case-meta-label">Illustrator</p>
+<p class="case-meta-value">Jaja Riley</p>
+</div>
+<div class="case-meta-item">
+<p class="case-meta-label">Timeline</p>
+<p class="case-meta-value">2025-2026</p>
+</div>
+<div class="case-meta-item">
+<p class="case-meta-label">Medium</p>
+<p class="case-meta-value">Children’s Book</p>
+</div>
+</div>
 </header>
 
-<!-- CONTENT -->
 <div class="case-content">
+<!-- 1. THE PROJECT -->
+<div class="case-section">
+<div class="case-section-grid">
+<p class="case-section-label">The Project</p>
+<div class="case-section-body">
+<p>ReflectUS is a political project and a book, inspired by Robert Reich.</p>
+<p>An essay from the mid 1980s outlines four groups that politicians use to categorize and frame the stories they tell about the American people.</p>
+<p>ReflectUS is a children’s book style story that mocks the cyclical nature of the American government, a culture failing to self reflect and thus forced to repeat the same patterns.</p>
+<p>If the project truly resonates, voters can walk away with <strong>the tool to make decisions that truly benefit them</strong>, not harm others.</p>
+</div>
+</div>
+</div>
+<!-- 2. AMERICA'S FOUR STORIES -->
+<div class="case-section">
+<div class="case-section-grid">
+<p class="case-section-label">America’s Four Stories</p>
+<div class="case-section-body">
+<p>There are four essential American stories. The first two are about hope, the second two are about fear.</p>
+<h3>The Triumphant Individual</h3>
+<p>The tale of the little guy who works hard, takes risks, believes in himself, and eventually gains wealth, fame, and honor. Self-made people who buck the odds, spurn the naysayers, and show what can be done with enough gumption and guts, plainspoken and self-reliant underdogs who make it through hard work and faith in themselves. The same theme runs through Horatio Alger’s hundred-odd novellas, whose heroes all rise from rags to riches. The moral is that with enough effort and courage, anyone can make it in the United States.</p>
+<h3>The Benevolent Community</h3>
+<p>The story of neighbors and friends who roll up their sleeves and pitch in for the common good. The same communitarian and religious images were used by the abolitionists, suffragettes, and civil-rights activists of the 1950s and 1960s. “I have a dream that every valley shall be exalted, every hill and mountain shall be made low,” said Martin Luther King Jr., extolling the ideal of the national community.</p>
+<h3>The Mob at the Gates</h3>
+<p>The United States as a beacon of virtue in a world of darkness, uniquely blessed but continuously endangered by foreign menaces. It animates modern epics about space explorers battling alien creatures, and gave special force to Cold War tales of an international plot to undermine U.S. democracy, and later of “evil” empires and axes. The lesson is that we must maintain vigilance, lest diabolical forces overwhelm us.</p>
+<h3>The Rot at the Top</h3>
+<p>The malevolence of powerful elites, a tale of corruption, decadence, and conspiracy against the common citizen. It started with King George III and, to this day, shapes the way we view government, mostly with distrust. It inspired what historian Richard Hofstadter called the paranoid style in U.S. politics, from the pre-Civil-War Know-Nothings and Anti-Masonic movements through the Ku Klux Klan and Senator Joseph McCarthy’s witch hunts.</p>
+<div class="proc-fig-row">
 
-  <!-- 1. THE PROJECT -->
-  <div class="case-section">
-    <div class="case-section-grid">
-      <p class="case-section-label">The Project</p>
-      <div class="case-section-body">
-        <p>ReflectUS is a political project and a book, inspired by Robert Reich.</p>
-        <p>An essay from the mid 1980s outlines four groups that politicians use to categorize and frame the stories they tell about the American people.</p>
-        <p>ReflectUS is a children&rsquo;s book style story that mocks the cyclical nature of the American government, a culture failing to self reflect and thus forced to repeat the same patterns.</p>
-        <p>If the project truly resonates, voters can walk away with <strong>the tool to make decisions that truly benefit them</strong>, not harm others.</p>
-      </div>
-    </div>
-  </div>
 
-  <!-- 2. AMERICA'S FOUR STORIES -->
-  <div class="case-section">
-    <div class="case-section-grid">
-      <p class="case-section-label">America&rsquo;s Four Stories</p>
-      <div class="case-section-body">
-        <p>There are four essential American stories. The first two are about hope, the second two are about fear.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- 3. DETAILS -->
+<div class="case-section">
+<div class="case-section-grid">
+<p class="case-section-label">Details</p>
+<div class="case-section-body">
+<div class="detail-cols">
+<div>
+<h3>Timeline</h3>
+<div class="timeline-beat">
+<strong>LIER’s new policy</strong>
+<span>His cabinet, then the Mirror Throne.</span>
+</div>
+<div class="timeline-beat">
+<strong>Meet the Town</strong>
+<span>The Triumphant Individual, and the issues the locals face.</span>
+</div>
+<div class="timeline-beat">
+<strong>March to the Castle</strong>
+<span>The redirected enemy, and the march of the locals begins.</span>
+</div>
+<div class="timeline-beat">
+<strong>Realization</strong>
+<span>The enemy army shattered, the Triumphant becomes King.</span>
+</div>
+</div>
+<div>
+<h3>Characters</h3>
+<div class="char-item">
+<strong>LIER</strong>
+<span>Leader in Exceptional Results, leader of Usonia, who installs mirrors around the town.</span>
+</div>
+<div class="char-item">
+<strong>The “Hero”</strong>
+<span>A man in town, slightly better than the rest, willing to sacrifice and help.</span>
+</div>
+<div class="char-item">
+<strong>US</strong>
+<span>Members of Usonia, suffering under the policy, trying to meet with LIER.</span>
+</div>
+<div class="char-item">
+<strong>THEM</strong>
+<span>An enigmatic enemy that suddenly appears outside of Usonia.</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- 4. MAPPING THE STORY -->
+<div class="case-section">
+<div class="case-section-grid">
+<p class="case-section-label">Mapping the Story</p>
+<div class="case-section-body">
+<p>The narrative is staged across a single site read three ways, the Castle, the Town, and the Mirror, mapping where each beat of the story takes place.</p>
+<div class="proc-fig-row">
 
-        <h3>The Triumphant Individual</h3>
-        <p>The tale of the little guy who works hard, takes risks, believes in himself, and eventually gains wealth, fame, and honor. Self-made people who buck the odds, spurn the naysayers, and show what can be done with enough gumption and guts, plainspoken and self-reliant underdogs who make it through hard work and faith in themselves. The same theme runs through Horatio Alger&rsquo;s hundred-odd novellas, whose heroes all rise from rags to riches. The moral is that with enough effort and courage, anyone can make it in the United States.</p>
 
-        <h3>The Benevolent Community</h3>
-        <p>The story of neighbors and friends who roll up their sleeves and pitch in for the common good. The same communitarian and religious images were used by the abolitionists, suffragettes, and civil-rights activists of the 1950s and 1960s. &ldquo;I have a dream that every valley shall be exalted, every hill and mountain shall be made low,&rdquo; said Martin Luther King Jr., extolling the ideal of the national community.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- 5. ROCKWELL LAYOUT -->
+<div class="case-section">
+<div class="case-section-grid">
+<p class="case-section-label">Rockwell Layout</p>
+<div class="case-section-body">
+<p>Adapting a technique Norman Rockwell used to lay out his paintings, I photographed myself and blocked the story out, scene by scene.</p>
 
-        <h3>The Mob at the Gates</h3>
-        <p>The United States as a beacon of virtue in a world of darkness, uniquely blessed but continuously endangered by foreign menaces. It animates modern epics about space explorers battling alien creatures, and gave special force to Cold War tales of an international plot to undermine U.S. democracy, and later of &ldquo;evil&rdquo; empires and axes. The lesson is that we must maintain vigilance, lest diabolical forces overwhelm us.</p>
 
-        <h3>The Rot at the Top</h3>
-        <p>The malevolence of powerful elites, a tale of corruption, decadence, and conspiracy against the common citizen. It started with King George III and, to this day, shapes the way we view government, mostly with distrust. It inspired what historian Richard Hofstadter called the paranoid style in U.S. politics, from the pre-Civil-War Know-Nothings and Anti-Masonic movements through the Ku Klux Klan and Senator Joseph McCarthy&rsquo;s witch hunts.</p>
+</div>
+</div>
+</div>
+<!-- 6. CASE ANALYSIS -->
+<div class="case-section">
+<div class="case-section-grid">
+<p class="case-section-label">Case Analysis</p>
+<div class="case-section-body">
+<h3>Political Parables for Today</h3>
 
-        <div class="proc-fig-row">
-          <figure class="proc-fig">
-            <img src="reflectus-images/process/p02-img1.jpg" alt="Illustrator Jaja Riley's Instagram">
-            <figcaption>Illustrator Jaja Riley&rsquo;s Instagram</figcaption>
-          </figure>
-          <figure class="proc-fig">
-            <img src="reflectus-images/process/p03-img1.jpg" alt="George Orwell, Animal Farm, reference">
-            <figcaption>Reference, George Orwell&rsquo;s <em>Animal Farm</em></figcaption>
-          </figure>
-        </div>
-      </div>
-    </div>
-  </div>
+<p>Robert Reich, political economist, Ivy professor, and former U.S. Secretary of Labor, analyzed campaigns and the shifting narratives woven through the American political tapestry. His four parables map directly onto the structure of ReflectUS.</p>
+<p><strong>Rot at the Top</strong>, malevolence by powerful elites. <strong>The Triumphant Individual</strong>, the little person who works hard. <strong>The Benign Community</strong>, neighbors and friends rolling up their sleeves and pitching in. <strong>The Mob at the Gates</strong>, society coming apart from an excess of democratic permissiveness.</p>
 
-  <!-- 3. DETAILS -->
-  <div class="case-section">
-    <div class="case-section-grid">
-      <p class="case-section-label">Details</p>
-      <div class="case-section-body">
-        <div class="detail-cols">
-          <div>
-            <h3>Timeline</h3>
-            <div class="timeline-beat">
-              <strong>LIER&rsquo;s new policy</strong>
-              <span>His cabinet, then the Mirror Throne.</span>
-            </div>
-            <div class="timeline-beat">
-              <strong>Meet the Town</strong>
-              <span>The Triumphant Individual, and the issues the locals face.</span>
-            </div>
-            <div class="timeline-beat">
-              <strong>March to the Castle</strong>
-              <span>The redirected enemy, and the march of the locals begins.</span>
-            </div>
-            <div class="timeline-beat">
-              <strong>Realization</strong>
-              <span>The enemy army shattered, the Triumphant becomes King.</span>
-            </div>
-          </div>
-          <div>
-            <h3>Characters</h3>
-            <div class="char-item">
-              <strong>LIER</strong>
-              <span>Leader in Exceptional Results, leader of Usonia, who installs mirrors around the town.</span>
-            </div>
-            <div class="char-item">
-              <strong>The &ldquo;Hero&rdquo;</strong>
-              <span>A man in town, slightly better than the rest, willing to sacrifice and help.</span>
-            </div>
-            <div class="char-item">
-              <strong>US</strong>
-              <span>Members of Usonia, suffering under the policy, trying to meet with LIER.</span>
-            </div>
-            <div class="char-item">
-              <strong>THEM</strong>
-              <span>An enigmatic enemy that suddenly appears outside of Usonia.</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+<h3>Era Context</h3>
+<p>Ronald Reagan, the 40th President of the United States, began his second election cycle in 1986, reshaping the era’s prevailing opinions on social topics, the backdrop against which these parables were sharpened.</p>
+<div class="proc-fig-row">
 
-  <!-- 4. MAPPING THE STORY -->
-  <div class="case-section">
-    <div class="case-section-grid">
-      <p class="case-section-label">Mapping the Story</p>
-      <div class="case-section-body">
-        <p>The narrative is staged across a single site read three ways, the Castle, the Town, and the Mirror, mapping where each beat of the story takes place.</p>
-        <div class="proc-fig-row">
-          <figure class="proc-fig">
-            <img src="reflectus-images/process/p05-img1.png" alt="Story map, base plan">
-            <figcaption>Base plan</figcaption>
-          </figure>
-          <figure class="proc-fig">
-            <img src="reflectus-images/process/p05-img2.png" alt="Story map, Castle, Town, Mirror">
-            <figcaption>Castle, Town, Mirror</figcaption>
-          </figure>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <!-- 5. ROCKWELL LAYOUT -->
-  <div class="case-section">
-    <div class="case-section-grid">
-      <p class="case-section-label">Rockwell Layout</p>
-      <div class="case-section-body">
-        <p>Adapting a technique Norman Rockwell used to lay out his paintings, I photographed myself and blocked the story out, scene by scene.</p>
-        <figure class="proc-fig">
-          <img src="reflectus-images/process/p06-img1.png" alt="Rockwell-style layout block, the LIER and his monument">
-          <figcaption>&ldquo;The LIER would meet with his advisors every day for a piece of yellow cake, but on this day he noticed a crowd approaching the HOLIER, his own monument, making it seem as if thousands were surrounding him, bearing unhappy faces, expressions he had never seen in his cabinet.&rdquo;</figcaption>
-        </figure>
-        <figure class="proc-fig">
-          <img src="reflectus-images/process/p07-img1.png" alt="Rockwell-style layout block, turn to see the enemy">
-          <figcaption>He begins to hear their cries for help, &ldquo;we&rsquo;re sick, hungry, and need more jobs.&rdquo; The LIER could never believe this would happen to us, and it hits him. &ldquo;It was THEM, turn to see the face of your enemy, they have robbed us of what we are.&rdquo;</figcaption>
-        </figure>
-      </div>
-    </div>
-  </div>
+</div>
+</div>
+</div>
+</div>
+<!-- SOURCES -->
+<div class="case-section">
+<div class="case-section-grid">
+<p class="case-section-label">Sources</p>
+<div class="case-section-body">
+<ul class="sources-list">
+<li>“America’s Four Stories (Part 1).” Robert Reich, 12 Dec. 2024, robertreich.substack.com/p/the-four-stories-of-america.</li>
+<li>“A Database on the Systematic Repression of Palestinian Solidarity in Germany.” <em>Index of Repression</em>, Forensic Architecture, Oct. 2023, www.index-of-repression.org.</li>
+<li>“Forensic Architecture.” Forensic Architecture, Goldsmiths, University of London, 2010, forensic-architecture.org.</li>
+<li>Hennessy, Tatty, and George Orwell. <em>Animal Farm.</em> Nick Hern, 2025.</li>
+</ul>
+<p class="sources-note">Plus 90 additional cited sources.</p>
+</div>
+</div>
+</div>
+</div>
 
-  <!-- 6. CASE ANALYSIS -->
-  <div class="case-section">
-    <div class="case-section-grid">
-      <p class="case-section-label">Case Analysis</p>
-      <div class="case-section-body">
-        <h3>Political Parables for Today</h3>
-        <figure class="proc-fig proc-inline" style="width:200px;">
-          <img src="reflectus-images/process/p08-img1.jpg" alt="Robert Reich">
-          <figcaption>Robert Reich</figcaption>
-        </figure>
-        <p>Robert Reich, political economist, Ivy professor, and former U.S. Secretary of Labor, analyzed campaigns and the shifting narratives woven through the American political tapestry. His four parables map directly onto the structure of ReflectUS.</p>
-        <p><strong>Rot at the Top</strong>, malevolence by powerful elites. <strong>The Triumphant Individual</strong>, the little person who works hard. <strong>The Benign Community</strong>, neighbors and friends rolling up their sleeves and pitching in. <strong>The Mob at the Gates</strong>, society coming apart from an excess of democratic permissiveness.</p>
-        <figure class="proc-fig" style="max-width:420px;">
-          <img src="reflectus-images/process/p09-img2.png" alt="Political Parables for Today, Robert Reich, original article">
-          <figcaption>Robert Reich, &ldquo;Political Parables for Today&rdquo;</figcaption>
-        </figure>
+<div class="case-content">
+<div class="pull-quote">
+<blockquote>“A culture failing to self reflect is forced to repeat the same patterns.”</blockquote>
+<cite>ReflectUS</cite>
+</div>
+<div class="next-project">
+<p class="next-label">Next Project</p>
+<a class="next-title" href="tbaa.html">To / Be / An American →</a>
+</div>
+</div>
 
-        <h3>Era Context</h3>
-        <p>Ronald Reagan, the 40th President of the United States, began his second election cycle in 1986, reshaping the era&rsquo;s prevailing opinions on social topics, the backdrop against which these parables were sharpened.</p>
-        <div class="proc-fig-row">
-          <figure class="proc-fig">
-            <img src="reflectus-images/process/p10-img1.jpg" alt="Ronald Reagan, official portrait">
-            <figcaption>Ronald Reagan</figcaption>
-          </figure>
-          <figure class="proc-fig">
-            <img src="reflectus-images/process/p10-img2.jpg" alt="Reagan-era political cartoon">
-            <figcaption>Reagan-era political cartoon</figcaption>
-          </figure>
-        </div>
-      </div>
-    </div>
-  </div>
+</aside>
 
-  <!-- SOURCES -->
-  <div class="case-section">
-    <div class="case-section-grid">
-      <p class="case-section-label">Sources</p>
-      <div class="case-section-body">
-        <ul class="sources-list">
-          <li>&ldquo;America&rsquo;s Four Stories (Part 1).&rdquo; Robert Reich, 12 Dec. 2024, robertreich.substack.com/p/the-four-stories-of-america.</li>
-          <li>&ldquo;A Database on the Systematic Repression of Palestinian Solidarity in Germany.&rdquo; <em>Index of Repression</em>, Forensic Architecture, Oct. 2023, www.index-of-repression.org.</li>
-          <li>&ldquo;Forensic Architecture.&rdquo; Forensic Architecture, Goldsmiths, University of London, 2010, forensic-architecture.org.</li>
-          <li>Hennessy, Tatty, and George Orwell. <em>Animal Farm.</em> Nick Hern, 2025.</li>
-        </ul>
-        <p class="sources-note">Plus 90 additional cited sources.</p>
-      </div>
-    </div>
-  </div>
+<div class="case-image-col">
+
+<section class="book-reader">
+<div class="book-reader-head">
+<p class="label">The Book</p>
+<h2>Read ReflectUS, spread by spread</h2>
+</div>
+<div class="book-stage">
+<button aria-label="Previous spread" class="book-arrow" id="book-prev">←</button>
+<div class="book-frame" id="book-frame">
+<img alt="ReflectUS, cover" id="book-img" src="reflectus-images/reflectus-01.jpg"/>
+</div>
+<button aria-label="Next spread" class="book-arrow" id="book-next">→</button>
+</div>
+<p class="book-counter" id="book-counter">1 / 19</p>
+</section>
+
+<figure class="proc-fig">
+<img alt="Illustrator Jaja Riley's Instagram" src="reflectus-images/process/p02-img1.jpg"/>
+<figcaption>Illustrator Jaja Riley’s Instagram</figcaption>
+</figure>
+
+<figure class="proc-fig">
+<img alt="George Orwell, Animal Farm, reference" src="reflectus-images/process/p03-img1.jpg"/>
+<figcaption>Reference, George Orwell’s <em>Animal Farm</em></figcaption>
+</figure>
+
+<figure class="proc-fig">
+<img alt="Story map, base plan" src="reflectus-images/process/p05-img1.png"/>
+<figcaption>Base plan</figcaption>
+</figure>
+
+<figure class="proc-fig">
+<img alt="Story map, Castle, Town, Mirror" src="reflectus-images/process/p05-img2.png"/>
+<figcaption>Castle, Town, Mirror</figcaption>
+</figure>
+
+<figure class="proc-fig">
+<img alt="Rockwell-style layout block, the LIER and his monument" src="reflectus-images/process/p06-img1.png"/>
+<figcaption>“The LIER would meet with his advisors every day for a piece of yellow cake, but on this day he noticed a crowd approaching the HOLIER, his own monument, making it seem as if thousands were surrounding him, bearing unhappy faces, expressions he had never seen in his cabinet.”</figcaption>
+</figure>
+
+<figure class="proc-fig">
+<img alt="Rockwell-style layout block, turn to see the enemy" src="reflectus-images/process/p07-img1.png"/>
+<figcaption>He begins to hear their cries for help, “we’re sick, hungry, and need more jobs.” The LIER could never believe this would happen to us, and it hits him. “It was THEM, turn to see the face of your enemy, they have robbed us of what we are.”</figcaption>
+</figure>
+
+<figure class="proc-fig proc-inline" style="width:200px;">
+<img alt="Robert Reich" src="reflectus-images/process/p08-img1.jpg"/>
+<figcaption>Robert Reich</figcaption>
+</figure>
+
+<figure class="proc-fig" style="max-width:420px;">
+<img alt="Political Parables for Today, Robert Reich, original article" src="reflectus-images/process/p09-img2.png"/>
+<figcaption>Robert Reich, “Political Parables for Today”</figcaption>
+</figure>
+
+<figure class="proc-fig">
+<img alt="Ronald Reagan, official portrait" src="reflectus-images/process/p10-img1.jpg"/>
+<figcaption>Ronald Reagan</figcaption>
+</figure>
+
+<figure class="proc-fig">
+<img alt="Reagan-era political cartoon" src="reflectus-images/process/p10-img2.jpg"/>
+<figcaption>Reagan-era political cartoon</figcaption>
+</figure>
 
 </div>
 
-<!-- CLOSING -->
-<div class="case-content">
-  <div class="pull-quote">
-    <blockquote>&ldquo;A culture failing to self reflect is forced to repeat the same patterns.&rdquo;</blockquote>
-    <cite>ReflectUS</cite>
-  </div>
+</main>
 
-  <div class="next-project">
-    <p class="next-label">Next Project</p>
-    <a href="tbaa.html" class="next-title">To / Be / An American &rarr;</a>
-  </div>
-</div>
-
-<!-- FOOTER -->
 <footer class="footer">
-  <div class="footer-inner">
-    <a href="index.html" class="footer-logo">JKMRY</a>
-    <span class="footer-text">&copy; 2026. All rights reserved.</span>
-  </div>
+<div class="footer-inner">
+<a class="footer-logo" href="index.html">JKMRY</a>
+<span class="footer-text">© 2026. All rights reserved.</span>
+</div>
 </footer>
 
-<!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox">
-  <button class="lightbox-close">ESC to close</button>
-  <button class="lightbox-arrow lightbox-prev" id="lightbox-prev">&larr;</button>
-  <img id="lightbox-img" src="" alt="">
-  <button class="lightbox-arrow lightbox-next" id="lightbox-next">&rarr;</button>
-  <p class="lightbox-counter" id="lightbox-counter"></p>
+<button class="lightbox-close">ESC to close</button>
+<button class="lightbox-arrow lightbox-prev" id="lightbox-prev">←</button>
+<img alt="" id="lightbox-img" src=""/>
+<button class="lightbox-arrow lightbox-next" id="lightbox-next">→</button>
+<p class="lightbox-counter" id="lightbox-counter"></p>
 </div>
 
 <script>
