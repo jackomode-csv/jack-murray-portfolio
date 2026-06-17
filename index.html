@@ -112,6 +112,47 @@
   }
   .hero-nav a:hover { color: #fff; background: var(--accent); }
 
+  /* Work nav: hover dropdown to jump to a work section */
+  .nav-dropdown { position: relative; }
+  .nav-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 11rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 6px;
+    background: rgba(0,0,0,0.5);
+    border: 1px solid rgba(255,255,255,0.16);
+    border-radius: 16px;
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+    z-index: 6;
+  }
+  .nav-dropdown:hover .nav-menu,
+  .nav-dropdown:focus-within .nav-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  .nav-menu a {
+    padding: 11px 18px;
+    border-radius: 999px;
+    font-size: var(--t-label);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: rgba(255,255,255,0.85);
+    white-space: nowrap;
+    transition: color 0.2s ease, background 0.2s ease;
+  }
+  .nav-menu a:hover { color: #fff; background: var(--accent); }
+
   /* unmute / mute toggle */
   .unmute-btn {
     position: absolute;
@@ -455,6 +496,12 @@
   .video-grid .work-item:hover .work-media img { filter: none; }
 
   .work-caption { padding: 1rem 0.15rem 0; }
+  .cap-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+  }
   .cap-title {
     font-size: 1.12rem;
     font-weight: 500;
@@ -462,19 +509,22 @@
     letter-spacing: -0.005em;
     color: var(--ink);
   }
-  .cap-meta {
-    margin-top: 0.4rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 1rem;
+  .cap-time {
+    font-size: var(--t-label);
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    color: var(--soft);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  .cap-desc {
+    margin-top: 0.35rem;
     font-size: var(--t-label);
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0.13em;
     color: var(--muted);
   }
-  .cap-time { font-variant-numeric: tabular-nums; white-space: nowrap; color: var(--soft); }
 
   /* ---- SECTION SUBHEADERS ---- */
   .work-section {
@@ -486,6 +536,7 @@
     padding: 0 0 1.1rem;
     margin: 0 0 var(--tile-gap);
     border-bottom: 1px solid var(--line);
+    scroll-margin-top: 1.5rem;
   }
   /* spacing when a new section follows a block of tiles */
   .work-section + .work-grid { margin-top: 0; }
@@ -550,7 +601,13 @@
   <header class="hero-header">
     <a class="wordmark" href="index.html">JKMRY</a>
     <nav class="hero-nav">
-      <a href="#work">Work</a>
+      <div class="nav-dropdown">
+        <a href="#work" aria-haspopup="true">Work</a>
+        <div class="nav-menu">
+          <a href="#video">Video</a>
+          <a href="#books">Books</a>
+        </div>
+      </div>
       <a href="https://instagram.com/jackomode" target="_blank" rel="noopener">Instagram</a>
       <a href="mailto:jackwardmurray@gmail.com">Contact</a>
     </nav>
@@ -589,7 +646,7 @@
 <!-- WORK -->
 <main class="work" id="work">
 
-  <h2 class="work-section">Video</h2>
+  <h2 class="work-section" id="video">Video</h2>
   <ul class="work-grid video-grid">
 
       <li>
@@ -598,8 +655,11 @@
             <img src="video-logos/travel-lite.png" alt="Travel Lite">
           </div>
           <div class="work-caption">
-            <h3 class="cap-title">Travel Lite</h3>
-            <p class="cap-meta"><span class="cap-desc">Cinematic Art Film</span><span class="cap-time">6:26</span></p>
+            <div class="cap-head">
+              <h3 class="cap-title">Travel Lite</h3>
+              <span class="cap-time">6:26</span>
+            </div>
+            <p class="cap-desc">Cinematic Art Film</p>
           </div>
         </a>
       </li>
@@ -610,8 +670,11 @@
             <img src="farmers-value-images/still-first-frame.jpg" alt="The Farmer's Value">
           </div>
           <div class="work-caption">
-            <h3 class="cap-title">The Farmer&rsquo;s Value</h3>
-            <p class="cap-meta"><span class="cap-desc">Research Video Essay</span><span class="cap-time">6:18</span></p>
+            <div class="cap-head">
+              <h3 class="cap-title">The Farmer&rsquo;s Value</h3>
+              <span class="cap-time">6:18</span>
+            </div>
+            <p class="cap-desc">Research Video Essay</p>
           </div>
         </a>
       </li>
@@ -622,8 +685,11 @@
             <img src="video/i-cant-write.jpg" alt="I Can't Write">
           </div>
           <div class="work-caption">
-            <h3 class="cap-title">I Can&rsquo;t Write</h3>
-            <p class="cap-meta"><span class="cap-desc">Experimental Animation</span><span class="cap-time">2:56</span></p>
+            <div class="cap-head">
+              <h3 class="cap-title">I Can&rsquo;t Write</h3>
+              <span class="cap-time">2:56</span>
+            </div>
+            <p class="cap-desc">Experimental Animation</p>
           </div>
         </a>
       </li>
@@ -634,8 +700,11 @@
             <img src="video-logos/you-dont-know-jack.png" alt="You Don't Know Jack">
           </div>
           <div class="work-caption">
-            <h3 class="cap-title">You Don&rsquo;t Know Jack</h3>
-            <p class="cap-meta"><span class="cap-desc">Satirical Mockumentary</span><span class="cap-time">4:46</span></p>
+            <div class="cap-head">
+              <h3 class="cap-title">You Don&rsquo;t Know Jack</h3>
+              <span class="cap-time">4:46</span>
+            </div>
+            <p class="cap-desc">Satirical Mockumentary</p>
           </div>
         </a>
       </li>
@@ -646,8 +715,11 @@
             <img src="video-logos/now-we-know.png" alt="Now We Know Where We're Going">
           </div>
           <div class="work-caption">
-            <h3 class="cap-title">Now We Know Where We&rsquo;re Going</h3>
-            <p class="cap-meta"><span class="cap-desc">Video Campaign</span><span class="cap-time">3 films</span></p>
+            <div class="cap-head">
+              <h3 class="cap-title">Now We Know Where We&rsquo;re Going</h3>
+              <span class="cap-time">3 films</span>
+            </div>
+            <p class="cap-desc">Video Campaign</p>
           </div>
         </a>
       </li>
@@ -658,8 +730,11 @@
             <img src="video/cargo-jort-interview.jpg" alt="Cargo Jort Interview">
           </div>
           <div class="work-caption">
-            <h3 class="cap-title">Cargo Jort Interview</h3>
-            <p class="cap-meta"><span class="cap-desc">Documentary Interview</span><span class="cap-time">5:59</span></p>
+            <div class="cap-head">
+              <h3 class="cap-title">Cargo Jort Interview</h3>
+              <span class="cap-time">5:59</span>
+            </div>
+            <p class="cap-desc">Documentary Interview</p>
           </div>
         </a>
       </li>
@@ -670,8 +745,11 @@
             <img src="video/red-scare.jpg" alt="Red Scare">
           </div>
           <div class="work-caption">
-            <h3 class="cap-title">Red Scare</h3>
-            <p class="cap-meta"><span class="cap-desc">Essay Film</span><span class="cap-time">3:04</span></p>
+            <div class="cap-head">
+              <h3 class="cap-title">Red Scare</h3>
+              <span class="cap-time">3:04</span>
+            </div>
+            <p class="cap-desc">Essay Film</p>
           </div>
         </a>
       </li>
@@ -682,15 +760,18 @@
             <img src="video/social-bot.jpg" alt="Social Bot">
           </div>
           <div class="work-caption">
-            <h3 class="cap-title">Social Bot</h3>
-            <p class="cap-meta"><span class="cap-desc">Satirical Short</span><span class="cap-time">0:14</span></p>
+            <div class="cap-head">
+              <h3 class="cap-title">Social Bot</h3>
+              <span class="cap-time">0:14</span>
+            </div>
+            <p class="cap-desc">Satirical Short</p>
           </div>
         </a>
       </li>
 
     </ul>
 
-  <h2 class="work-section">Selected Work</h2>
+  <h2 class="work-section" id="books">Books</h2>
   <ul class="work-grid">
 
       <li class="full">
