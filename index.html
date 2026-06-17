@@ -289,7 +289,7 @@
 
   /* ---- WORK (full-bleed, image-forward) ---- */
   .work {
-    max-width: 1280px;
+    max-width: 1600px;
     margin: 0 auto;
     padding: 0 var(--edge) 2rem;
   }
@@ -449,6 +449,33 @@
   .work-media--blank .work-title { color: rgba(255,255,255,0.92); }
   .work-media--blank .work-desc  { color: rgba(255,255,255,0.55); }
 
+  /* ---- VIDEO CARD CAPTIONS (title · description · runtime under each tile) ---- */
+  .video-grid .work-overlay { display: none; }   /* captions live under the card instead */
+  /* keep video stills full-color on hover — just the gentle lift */
+  .video-grid .work-item:hover .work-media img { filter: none; }
+
+  .work-caption { padding: 1rem 0.15rem 0; }
+  .cap-title {
+    font-size: 1.12rem;
+    font-weight: 500;
+    line-height: 1.25;
+    letter-spacing: -0.005em;
+    color: var(--ink);
+  }
+  .cap-meta {
+    margin-top: 0.4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    font-size: var(--t-label);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.13em;
+    color: var(--muted);
+  }
+  .cap-time { font-variant-numeric: tabular-nums; white-space: nowrap; color: var(--soft); }
+
   /* ---- SECTION SUBHEADERS ---- */
   .work-section {
     font-size: 0.72rem;
@@ -559,29 +586,20 @@
   </a>
 </section>
 
-<div class="shell">
-
-  <!-- INTRO -->
-  <section class="intro">
-    <p class="intro-lead"><span class="name">Jack Murray</span> — designer working across graphic design and data visualization, bridging politics and visual culture to make complex ideas clear.</p>
-  </section>
-
-</div>
-
 <!-- WORK -->
 <main class="work" id="work">
 
   <h2 class="work-section">Video</h2>
-  <ul class="work-grid">
+  <ul class="work-grid video-grid">
 
       <li>
         <a class="work-item" href="travel-lite.html">
           <div class="work-media work-media--logo">
             <img src="video-logos/travel-lite.png" alt="Travel Lite">
-            <div class="work-overlay">
-              <h2 class="work-title">Travel Lite</h2>
-              <p class="work-desc">Cinematic Art Film</p>
-            </div>
+          </div>
+          <div class="work-caption">
+            <h3 class="cap-title">Travel Lite</h3>
+            <p class="cap-meta"><span class="cap-desc">Cinematic Art Film</span><span class="cap-time">6:26</span></p>
           </div>
         </a>
       </li>
@@ -590,10 +608,10 @@
         <a class="work-item" href="farmers-value.html">
           <div class="work-media">
             <img src="farmers-value-images/still-first-frame.jpg" alt="The Farmer's Value">
-            <div class="work-overlay">
-              <h2 class="work-title">The Farmer&rsquo;s Value</h2>
-              <p class="work-desc">Research Video Essay</p>
-            </div>
+          </div>
+          <div class="work-caption">
+            <h3 class="cap-title">The Farmer&rsquo;s Value</h3>
+            <p class="cap-meta"><span class="cap-desc">Research Video Essay</span><span class="cap-time">6:18</span></p>
           </div>
         </a>
       </li>
@@ -602,10 +620,10 @@
         <a class="work-item" href="i-cant-write.html">
           <div class="work-media work-media--logo">
             <img src="video/i-cant-write.jpg" alt="I Can't Write">
-            <div class="work-overlay">
-              <h2 class="work-title">I Can&rsquo;t Write</h2>
-              <p class="work-desc">Experimental Animation</p>
-            </div>
+          </div>
+          <div class="work-caption">
+            <h3 class="cap-title">I Can&rsquo;t Write</h3>
+            <p class="cap-meta"><span class="cap-desc">Experimental Animation</span><span class="cap-time">2:56</span></p>
           </div>
         </a>
       </li>
@@ -614,10 +632,10 @@
         <a class="work-item" href="you-dont-know-jack.html">
           <div class="work-media work-media--logo">
             <img src="video-logos/you-dont-know-jack.png" alt="You Don't Know Jack">
-            <div class="work-overlay">
-              <h2 class="work-title">You Don&rsquo;t Know Jack</h2>
-              <p class="work-desc">Satirical Mockumentary</p>
-            </div>
+          </div>
+          <div class="work-caption">
+            <h3 class="cap-title">You Don&rsquo;t Know Jack</h3>
+            <p class="cap-meta"><span class="cap-desc">Satirical Mockumentary</span><span class="cap-time">4:46</span></p>
           </div>
         </a>
       </li>
@@ -626,10 +644,10 @@
         <a class="work-item" href="now-we-know-campaign.html">
           <div class="work-media work-media--logo">
             <img src="video-logos/now-we-know.png" alt="Now We Know Where We're Going">
-            <div class="work-overlay">
-              <h2 class="work-title">Now We Know Where We&rsquo;re Going</h2>
-              <p class="work-desc">Video Campaign</p>
-            </div>
+          </div>
+          <div class="work-caption">
+            <h3 class="cap-title">Now We Know Where We&rsquo;re Going</h3>
+            <p class="cap-meta"><span class="cap-desc">Video Campaign</span><span class="cap-time">3 films</span></p>
           </div>
         </a>
       </li>
@@ -638,10 +656,10 @@
         <a class="work-item" href="cargo-jort-interview.html">
           <div class="work-media">
             <img src="video/cargo-jort-interview.jpg" alt="Cargo Jort Interview">
-            <div class="work-overlay">
-              <h2 class="work-title">Cargo Jort Interview</h2>
-              <p class="work-desc">Documentary Interview</p>
-            </div>
+          </div>
+          <div class="work-caption">
+            <h3 class="cap-title">Cargo Jort Interview</h3>
+            <p class="cap-meta"><span class="cap-desc">Documentary Interview</span><span class="cap-time">5:59</span></p>
           </div>
         </a>
       </li>
@@ -650,21 +668,22 @@
         <a class="work-item" href="red-scare.html">
           <div class="work-media">
             <img src="video/red-scare.jpg" alt="Red Scare">
-            <div class="work-overlay">
-              <h2 class="work-title">Red Scare</h2>
-              <p class="work-desc">Video</p>
-            </div>
+          </div>
+          <div class="work-caption">
+            <h3 class="cap-title">Red Scare</h3>
+            <p class="cap-meta"><span class="cap-desc">Essay Film</span><span class="cap-time">3:04</span></p>
           </div>
         </a>
       </li>
 
       <li>
         <a class="work-item" href="social-bot.html">
-          <div class="work-media work-media--blank">
-            <div class="work-overlay">
-              <h2 class="work-title">Social Bot</h2>
-              <p class="work-desc">Video</p>
-            </div>
+          <div class="work-media work-media--logo">
+            <img src="video/social-bot.jpg" alt="Social Bot">
+          </div>
+          <div class="work-caption">
+            <h3 class="cap-title">Social Bot</h3>
+            <p class="cap-meta"><span class="cap-desc">Satirical Short</span><span class="cap-time">0:14</span></p>
           </div>
         </a>
       </li>
