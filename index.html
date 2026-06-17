@@ -511,6 +511,8 @@
   }
   .work-item:hover .card-teaser,
   .work-item:focus-within .card-teaser { opacity: 1; }
+  /* vertical clips show whole-frame on white instead of cropping */
+  .work-media .card-teaser--contain { object-fit: contain; background: #FFFFFF; }
   @media (hover: none) { .card-teaser { display: none; } }
 
   .work-caption { padding: 1rem 0.15rem 0; }
@@ -799,7 +801,7 @@
         <a class="work-item" href="social-bot.html">
           <div class="work-media work-media--logo">
             <img src="video/social-bot.jpg" alt="Social Bot">
-            <img class="card-teaser" alt="" aria-hidden="true" data-teaser="video/teasers/social-bot.webp">
+            <img class="card-teaser card-teaser--contain" alt="" aria-hidden="true" data-teaser="video/teasers/social-bot.webp">
           </div>
           <div class="work-caption">
             <div class="cap-head">
