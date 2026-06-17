@@ -42,6 +42,12 @@
     font-size: clamp(1.1rem, 2vw, 1.45rem); font-weight: 300;
     color: var(--soft); max-width: 46ch; line-height: 1.45;
   }
+  .meta {
+    margin-top: 2rem; display: flex; gap: 0.6rem; align-items: center;
+    flex-wrap: wrap; font-size: 0.66rem; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.14em; color: var(--muted);
+  }
+  .meta .sep { color: var(--line); }
   .status {
     margin-top: 2.4rem; align-self: flex-start; font-size: 0.66rem;
     font-weight: 500; text-transform: uppercase; letter-spacing: 0.16em;
@@ -68,8 +74,10 @@
     <span>Video</span>
   </header>
   <main class="stage">
-    <p class="eyebrow">Video</p>
+    <p class="eyebrow">Video &middot; Satirical Short</p>
     <h1>Social Bot</h1>
+    <p class="premise">A fourteen-second satire staged inside a vintage BlackBerry &mdash; an inbox of absurd political notifications opening onto a foil-suited homemade robot loose in the backyard. A deadpan jab at bots, feeds, and political noise.</p>
+    <div class="meta"><span>Run time 0:14</span><span class="sep">/</span><span>Satire &middot; Motion graphics</span></div>
     <figure class="video-player">
       <video controls preload="none" playsinline poster="video/social-bot.jpg">
         <source src="https://video.jkmry.com/social-bot.mp4" type="video/mp4">
