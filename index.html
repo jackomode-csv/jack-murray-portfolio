@@ -495,6 +495,24 @@
   /* keep video stills full-color on hover — just the gentle lift */
   .video-grid .work-item:hover .work-media img { filter: none; }
 
+  /* hover teaser — a few frames clipped from the video, looping */
+  .work-media .card-teaser {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    opacity: 0;
+    z-index: 2;
+    background: #000;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+  .work-item:hover .card-teaser,
+  .work-item:focus-within .card-teaser { opacity: 1; }
+  @media (hover: none) { .card-teaser { display: none; } }
+
   .work-caption { padding: 1rem 0.15rem 0; }
   .cap-head {
     display: flex;
@@ -662,6 +680,7 @@
         <a class="work-item" href="travel-lite.html">
           <div class="work-media work-media--logo">
             <img src="video-logos/travel-lite.png" alt="Travel Lite">
+            <img class="card-teaser" alt="" aria-hidden="true" data-teaser="video/teasers/travel-lite.webp">
           </div>
           <div class="work-caption">
             <div class="cap-head">
@@ -678,6 +697,7 @@
         <a class="work-item" href="farmers-value.html">
           <div class="work-media">
             <img src="farmers-value-images/still-first-frame.jpg" alt="The Farmer's Value">
+            <img class="card-teaser" alt="" aria-hidden="true" data-teaser="video/teasers/farmers-value.webp">
           </div>
           <div class="work-caption">
             <div class="cap-head">
@@ -694,6 +714,7 @@
         <a class="work-item" href="i-cant-write.html">
           <div class="work-media work-media--logo">
             <img src="video/i-cant-write.jpg" alt="I Can't Write">
+            <img class="card-teaser" alt="" aria-hidden="true" data-teaser="video/teasers/i-cant-write.webp">
           </div>
           <div class="work-caption">
             <div class="cap-head">
@@ -710,6 +731,7 @@
         <a class="work-item" href="you-dont-know-jack.html">
           <div class="work-media work-media--logo">
             <img src="video-logos/you-dont-know-jack.png" alt="You Don't Know Jack">
+            <img class="card-teaser" alt="" aria-hidden="true" data-teaser="video/teasers/you-dont-know-jack.webp">
           </div>
           <div class="work-caption">
             <div class="cap-head">
@@ -726,6 +748,7 @@
         <a class="work-item" href="now-we-know-campaign.html">
           <div class="work-media work-media--logo">
             <img src="video-logos/now-we-know.png" alt="Now We Know Where We're Going">
+            <img class="card-teaser" alt="" aria-hidden="true" data-teaser="video/teasers/now-we-know.webp">
           </div>
           <div class="work-caption">
             <div class="cap-head">
@@ -742,6 +765,7 @@
         <a class="work-item" href="cargo-jort-interview.html">
           <div class="work-media">
             <img src="video/cargo-jort-interview.jpg" alt="Cargo Jort Interview">
+            <img class="card-teaser" alt="" aria-hidden="true" data-teaser="video/teasers/cargo-jort-interview.webp">
           </div>
           <div class="work-caption">
             <div class="cap-head">
@@ -758,6 +782,7 @@
         <a class="work-item" href="red-scare.html">
           <div class="work-media">
             <img src="video/red-scare.jpg" alt="Red Scare">
+            <img class="card-teaser" alt="" aria-hidden="true" data-teaser="video/teasers/red-scare.webp">
           </div>
           <div class="work-caption">
             <div class="cap-head">
@@ -774,6 +799,7 @@
         <a class="work-item" href="social-bot.html">
           <div class="work-media work-media--logo">
             <img src="video/social-bot.jpg" alt="Social Bot">
+            <img class="card-teaser" alt="" aria-hidden="true" data-teaser="video/teasers/social-bot.webp">
           </div>
           <div class="work-caption">
             <div class="cap-head">
@@ -1015,6 +1041,17 @@
       pct = Math.min(1, Math.max(0, pct));
       video.currentTime = pct * (video.duration || 0);
       atEnd = false;   // a manual seek cancels the poster state
+    });
+  })();
+
+  // Lazy-load each card's hover teaser the first time it's hovered/focused.
+  (function () {
+    document.querySelectorAll('.card-teaser[data-teaser]').forEach(function (img) {
+      var item = img.closest('.work-item');
+      if (!item) return;
+      var load = function () { if (!img.getAttribute('src')) { img.src = img.dataset.teaser; } };
+      item.addEventListener('mouseenter', load, { once: true });
+      item.addEventListener('focusin', load, { once: true });
     });
   })();
 </script>
