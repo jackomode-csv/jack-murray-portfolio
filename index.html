@@ -498,9 +498,9 @@
   .work-caption { padding: 1rem 0.15rem 0; }
   .cap-head {
     display: flex;
-    justify-content: space-between;
     align-items: baseline;
-    gap: 1rem;
+    gap: 0.6rem;
+    flex-wrap: wrap;
   }
   .cap-title {
     font-size: 1.12rem;
@@ -509,21 +509,30 @@
     letter-spacing: -0.005em;
     color: var(--ink);
   }
+  /* time reads as part of the title — same weight and color */
   .cap-time {
-    font-size: var(--t-label);
+    font-size: 1.12rem;
     font-weight: 500;
-    letter-spacing: 0.1em;
-    color: var(--soft);
+    line-height: 1.25;
+    color: var(--ink);
     font-variant-numeric: tabular-nums;
     white-space: nowrap;
   }
   .cap-desc {
-    margin-top: 0.35rem;
+    margin-top: 0.4rem;
     font-size: var(--t-label);
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0.13em;
     color: var(--muted);
+  }
+  .cap-blurb {
+    margin-top: 0.55rem;
+    font-size: 0.92rem;
+    font-weight: 300;
+    line-height: 1.5;
+    color: var(--soft);
+    max-width: 48ch;
   }
 
   /* ---- SECTION SUBHEADERS ---- */
@@ -660,6 +669,7 @@
               <span class="cap-time">6:26</span>
             </div>
             <p class="cap-desc">Cinematic Art Film</p>
+            <p class="cap-blurb">Three braided stories of creative commitment. Jamie Thomas skating, Midori&rsquo;s 1986 Tanglewood violin, and a 62-ft violin built from barn trash, visible only from the air.</p>
           </div>
         </a>
       </li>
@@ -675,6 +685,7 @@
               <span class="cap-time">6:18</span>
             </div>
             <p class="cap-desc">Research Video Essay</p>
+            <p class="cap-blurb">A sourced argument for saving small family farms &mdash; the carbon cost of relocating, broken subsidy math, and greenhouse and vertical-farming fixes &mdash; told as hand-drawn whiteboard animation.</p>
           </div>
         </a>
       </li>
@@ -690,6 +701,7 @@
               <span class="cap-time">2:56</span>
             </div>
             <p class="cap-desc">Experimental Animation</p>
+            <p class="cap-blurb">An After Effects piece &mdash; a scribbled DoodleBob figure, rotoscoped footage, a French ballad, and dark, ironic text.</p>
           </div>
         </a>
       </li>
@@ -705,6 +717,7 @@
               <span class="cap-time">4:46</span>
             </div>
             <p class="cap-desc">Satirical Mockumentary</p>
+            <p class="cap-blurb">A fake <em>E! True Hollywood Story</em>&ndash;style retrospective that turns the art-school work into one self-aware joke about scrambling a portfolio together in three weeks.</p>
           </div>
         </a>
       </li>
@@ -720,6 +733,7 @@
               <span class="cap-time">3 films</span>
             </div>
             <p class="cap-desc">Video Campaign</p>
+            <p class="cap-blurb">A sustainability video campaign &mdash; short, deadpan how-tos and promos (Dryer Balls, Skateboard Chair, Compost Lasagna) that make everyday eco-swaps worth watching.</p>
           </div>
         </a>
       </li>
@@ -735,6 +749,7 @@
               <span class="cap-time">5:59</span>
             </div>
             <p class="cap-desc">Documentary Interview</p>
+            <p class="cap-blurb">An interview with Landon Lawrence &mdash; &ldquo;Cargo Jort,&rdquo; founder of Viewfinder &mdash; on the streets of Bushwick during a game of S.K.A.T.E.</p>
           </div>
         </a>
       </li>
@@ -750,6 +765,7 @@
               <span class="cap-time">3:04</span>
             </div>
             <p class="cap-desc">Essay Film</p>
+            <p class="cap-blurb">Edward R. Murrow&rsquo;s 1954 anti-McCarthy broadcast set to seven young artists projected against his image, his words as kinetic type &mdash; reframed for these divisive times.</p>
           </div>
         </a>
       </li>
@@ -765,6 +781,7 @@
               <span class="cap-time">0:14</span>
             </div>
             <p class="cap-desc">Satirical Short</p>
+            <p class="cap-blurb">A satire staged as a vintage BlackBerry: an inbox of absurd political spam opening onto a homemade tin-foil robot loose in the suburbs.</p>
           </div>
         </a>
       </li>
