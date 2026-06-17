@@ -80,7 +80,7 @@
     inset: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;   /* show the whole frame — never crop */
     object-position: center;
     display: block;
   }
@@ -142,6 +142,65 @@
   .unmute-btn .icon-on  { display: none; }
   .unmute-btn.is-on .icon-off { display: none; }
   .unmute-btn.is-on .icon-on  { display: block; }
+
+  /* click target hint — whole video toggles play/pause */
+  .hero-video { cursor: pointer; }
+
+  /* centered play indicator — shown only while paused */
+  .play-btn {
+    position: absolute;
+    z-index: 4;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 90px; height: 90px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.32);
+    background: rgba(0,0,0,0.18);
+    color: rgba(255,255,255,0.88);
+    -webkit-backdrop-filter: blur(3px);
+    backdrop-filter: blur(3px);
+    pointer-events: none;   /* clicks fall through to the video */
+  }
+  .hero.is-paused .play-btn { display: flex; }
+  .play-btn svg { width: 36px; height: 36px; margin-left: 5px; }  /* optical-center the triangle */
+
+  /* timer / scrubber bar — shown only while paused */
+  .video-timeline {
+    position: absolute;
+    z-index: 5;
+    left: var(--edge); right: var(--edge);
+    bottom: 1.6rem;
+    display: none;
+    align-items: center;
+    gap: 0.9rem;
+    color: rgba(255,255,255,0.85);
+    font-size: var(--t-label);
+    font-weight: 500;
+    letter-spacing: 0.06em;
+  }
+  .hero.is-paused .video-timeline { display: flex; }
+  /* when paused, the scroll cue would collide with the timeline */
+  .hero.is-paused .hero-scroll { display: none; }
+
+  .video-track {
+    position: relative;
+    flex: 1;
+    height: 4px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.28);
+    cursor: pointer;
+  }
+  .video-fill {
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 0%;
+    border-radius: 999px;
+    background: #fff;
+  }
+  .video-time { font-variant-numeric: tabular-nums; white-space: nowrap; }
 
   /* scroll-down cue */
   .hero-scroll {
@@ -314,6 +373,27 @@
   }
   .work-item:hover .work-media--blank { background: #1C1C19; }
 
+  /* logo tile — title-treatment PNG centered on white */
+  .work-media--logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #FFFFFF;
+    padding: 12% 14%;
+  }
+  .work-media--logo img {
+    position: static;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+  }
+  /* keep the logo's real colors on hover (no grey-out) — just a gentle lift */
+  .work-item:hover .work-media--logo img {
+    transform: scale(1.04);
+    filter: none;
+  }
+
   /* title overlay — hidden until hover, then rises up over the image */
   .work-overlay {
     position: absolute;
@@ -365,6 +445,26 @@
   .work-item:has(.work-media--blank) .work-title,
   .work-item:has(.work-media--blank) .work-desc { transform: none; }
 
+  /* placeholder tiles (work yet to come) read a touch dimmer */
+  .work-media--blank .work-title { color: rgba(255,255,255,0.92); }
+  .work-media--blank .work-desc  { color: rgba(255,255,255,0.55); }
+
+  /* ---- SECTION SUBHEADERS ---- */
+  .work-section {
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    padding: 0 0 1.1rem;
+    margin: 0 0 var(--tile-gap);
+    border-bottom: 1px solid var(--line);
+  }
+  /* spacing when a new section follows a block of tiles */
+  .work-section + .work-grid { margin-top: 0; }
+  .work-grid + .work-section,
+  .work-inset + .work-section { margin-top: calc(var(--tile-gap) + 1rem); }
+
   /* ---- FOOTER ---- */
   .site-footer {
     border-top: 1px solid var(--line);
@@ -415,7 +515,7 @@
 
 <!-- HERO VIDEO -->
 <section class="hero">
-  <video class="hero-video" id="heroVideo" autoplay muted loop playsinline
+  <video class="hero-video" id="heroVideo" autoplay muted playsinline
          preload="auto" aria-label="Jack Murray — demo reel">
     <source src="jackM-demo-reel-web.mp4" type="video/mp4">
   </video>
@@ -441,6 +541,16 @@
     <span class="unmute-label">Unmute</span>
   </button>
 
+  <div class="play-btn" id="playBtn" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+  </div>
+
+  <div class="video-timeline" id="videoTimeline">
+    <span class="video-time" id="videoTime">0:00</span>
+    <div class="video-track" id="videoTrack"><div class="video-fill" id="videoFill"></div></div>
+    <span class="video-time" id="videoDuration">0:00</span>
+  </div>
+
   <a class="hero-scroll" href="#work" aria-label="Scroll to work">
     <span>Work</span>
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -460,6 +570,105 @@
 
 <!-- WORK -->
 <main class="work" id="work">
+
+  <h2 class="work-section">Video</h2>
+  <ul class="work-grid">
+
+      <li>
+        <a class="work-item" href="travel-lite.html">
+          <div class="work-media work-media--logo">
+            <img src="video-logos/travel-lite.png" alt="Travel Lite">
+            <div class="work-overlay">
+              <h2 class="work-title">Travel Lite</h2>
+              <p class="work-desc">Cinematic Art Film</p>
+            </div>
+          </div>
+        </a>
+      </li>
+
+      <li>
+        <a class="work-item" href="farmers-value.html">
+          <div class="work-media">
+            <img src="farmers-value-images/still-first-frame.jpg" alt="The Farmer's Value">
+            <div class="work-overlay">
+              <h2 class="work-title">The Farmer&rsquo;s Value</h2>
+              <p class="work-desc">Research Video Essay</p>
+            </div>
+          </div>
+        </a>
+      </li>
+
+      <li>
+        <a class="work-item" href="i-cant-write.html">
+          <div class="work-media work-media--blank">
+            <div class="work-overlay">
+              <h2 class="work-title">I Can&rsquo;t Write</h2>
+              <p class="work-desc">Experimental Animation</p>
+            </div>
+          </div>
+        </a>
+      </li>
+
+      <li>
+        <a class="work-item" href="you-dont-know-jack.html">
+          <div class="work-media work-media--logo">
+            <img src="video-logos/you-dont-know-jack.png" alt="You Don't Know Jack">
+            <div class="work-overlay">
+              <h2 class="work-title">You Don&rsquo;t Know Jack</h2>
+              <p class="work-desc">Satirical Mockumentary</p>
+            </div>
+          </div>
+        </a>
+      </li>
+
+      <li>
+        <a class="work-item" href="now-we-know-campaign.html">
+          <div class="work-media work-media--logo">
+            <img src="video-logos/now-we-know.png" alt="Now We Know Where We're Going">
+            <div class="work-overlay">
+              <h2 class="work-title">Now We Know Where We&rsquo;re Going</h2>
+              <p class="work-desc">Video Campaign</p>
+            </div>
+          </div>
+        </a>
+      </li>
+
+      <li>
+        <a class="work-item" href="cargo-jort-interview.html">
+          <div class="work-media work-media--blank">
+            <div class="work-overlay">
+              <h2 class="work-title">Cargo Jort Interview</h2>
+              <p class="work-desc">Documentary Interview</p>
+            </div>
+          </div>
+        </a>
+      </li>
+
+      <li>
+        <a class="work-item" href="red-scare.html">
+          <div class="work-media work-media--blank">
+            <div class="work-overlay">
+              <h2 class="work-title">Red Scare</h2>
+              <p class="work-desc">Video</p>
+            </div>
+          </div>
+        </a>
+      </li>
+
+      <li>
+        <a class="work-item" href="social-bot.html">
+          <div class="work-media work-media--blank">
+            <div class="work-overlay">
+              <h2 class="work-title">Social Bot</h2>
+              <p class="work-desc">Video</p>
+            </div>
+          </div>
+        </a>
+      </li>
+
+    </ul>
+
+  <h2 class="work-section">Selected Work</h2>
   <ul class="work-grid">
 
       <li class="full">
@@ -490,12 +699,12 @@
       </li>
 
       <li>
-        <a class="work-item" href="farmers-value.html">
+        <a class="work-item" href="creeping-body.html">
           <div class="work-media">
-            <img src="farmers-value-images/still-first-frame.jpg" alt="The Farmer's Value">
+            <img src="creeping-body-images/creeping-body-cover.png" alt="The Creeping Body">
             <div class="work-overlay">
-              <h2 class="work-title">The Farmer&rsquo;s Value</h2>
-              <p class="work-desc">Documentary Film</p>
+              <h2 class="work-title">The Creeping Body</h2>
+              <p class="work-desc">Editorial &amp; Research</p>
             </div>
           </div>
         </a>
@@ -547,19 +756,7 @@
 
     <ul class="work-grid">
 
-      <li>
-        <a class="work-item" href="creeping-body.html">
-          <div class="work-media">
-            <img src="creeping-body-images/creeping-body-cover.png" alt="The Creeping Body">
-            <div class="work-overlay">
-              <h2 class="work-title">The Creeping Body</h2>
-              <p class="work-desc">Editorial &amp; Research</p>
-            </div>
-          </div>
-        </a>
-      </li>
-
-      <li>
+      <li class="full">
         <a class="work-item" href="politics-of-design.html">
           <div class="work-media">
             <img src="politics-of-design-images/slide-1.png" alt="The Politics of Design">
@@ -645,6 +842,60 @@
     });
 
     sync();
+
+    // Click anywhere on the video to toggle play/pause.
+    // The play indicator + timer bar show only while paused (via .is-paused).
+    var hero  = document.querySelector('.hero');
+    var track = document.getElementById('videoTrack');
+    var fill  = document.getElementById('videoFill');
+    var timeEl = document.getElementById('videoTime');
+    var durEl  = document.getElementById('videoDuration');
+
+    function fmt(t) {
+      t = Math.max(0, Math.floor(t || 0));
+      var m = Math.floor(t / 60), s = t % 60;
+      return m + ':' + (s < 10 ? '0' : '') + s;
+    }
+
+    // when the reel finishes it parks on the 00:14 frame as a poster
+    var POSTER_FRAME = 14;
+    var atEnd = false;
+
+    function toggle() {
+      if (video.paused || video.ended) {
+        if (video.ended || atEnd) { video.currentTime = 0; }   // replay from the start
+        atEnd = false;
+        var p = video.play();
+        if (p && p.catch) { p.catch(function () {}); }
+      } else {
+        video.pause();
+      }
+    }
+
+    video.addEventListener('click', toggle);
+    video.addEventListener('play',  function () { hero.classList.remove('is-paused'); });
+    video.addEventListener('pause', function () { hero.classList.add('is-paused'); });
+    video.addEventListener('ended', function () {
+      atEnd = true;
+      try { video.currentTime = POSTER_FRAME; } catch (e) {}   // settle on the 00:14 still
+      hero.classList.add('is-paused');
+    });
+
+    video.addEventListener('loadedmetadata', function () { durEl.textContent = fmt(video.duration); });
+    video.addEventListener('timeupdate', function () {
+      var d = video.duration || 0;
+      fill.style.width = d ? (video.currentTime / d * 100) + '%' : '0%';
+      timeEl.textContent = fmt(video.currentTime);
+    });
+
+    // click the bar to seek
+    track.addEventListener('click', function (e) {
+      var r = track.getBoundingClientRect();
+      var pct = (e.clientX - r.left) / r.width;
+      pct = Math.min(1, Math.max(0, pct));
+      video.currentTime = pct * (video.duration || 0);
+      atEnd = false;   // a manual seek cancels the poster state
+    });
   })();
 </script>
 

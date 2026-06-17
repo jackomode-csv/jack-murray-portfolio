@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Now We Know Where We&rsquo;re Going &mdash; Video Campaign &mdash; JKMRY</title>
+<link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #FFFFFF; --ink: #161614; --soft: #4A4A46; --muted: #8C8C84;
+    --line: #DCDBD4; --accent: #3E7D5A;
+    --font: 'Jost', 'Futura', 'Helvetica Neue', Arial, sans-serif;
+  }
+  html { font-size: 16px; }
+  body {
+    background: var(--bg); color: var(--ink); font-family: var(--font);
+    font-weight: 400; line-height: 1.6; min-height: 100vh;
+    display: flex; flex-direction: column; -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+  .topbar {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 2.2rem 4.5rem; font-size: 0.66rem; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.16em; color: var(--muted);
+  }
+  .topbar a { transition: color 0.2s ease; }
+  .topbar a:hover { color: var(--accent); }
+  .stage {
+    max-width: 1280px; margin: 0 auto; width: 100%; padding: 3rem 4.5rem 1rem;
+  }
+  .eyebrow {
+    font-size: 0.66rem; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.2em; color: var(--accent); margin-bottom: 1.4rem;
+  }
+  .logo-title { margin: 0 0 1.4rem; }
+  .logo-title img { display: block; width: 100%; max-width: 520px; height: auto; }
+  .premise {
+    font-size: clamp(1.1rem, 2vw, 1.45rem); font-weight: 300;
+    color: var(--soft); max-width: 52ch; line-height: 1.45;
+  }
+  /* ---- PIECES ---- */
+  .pieces { max-width: 1280px; margin: 0 auto; width: 100%; padding: 3rem 4.5rem 4rem; }
+  .pieces-head {
+    font-size: 0.66rem; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.2em; color: var(--muted);
+    padding-bottom: 1.1rem; margin-bottom: 2rem; border-bottom: 1px solid var(--line);
+  }
+  .piece-list { list-style: none; display: flex; flex-direction: column; gap: 2.4rem; }
+  .piece {
+    display: grid; grid-template-columns: 3rem 1fr; gap: 1.4rem;
+    padding-bottom: 2.4rem; border-bottom: 1px solid var(--line);
+  }
+  .piece:last-child { border-bottom: none; padding-bottom: 0; }
+  .piece-num {
+    font-size: 1.4rem; font-weight: 300; color: var(--muted); line-height: 1.2;
+  }
+  .piece-body h3 {
+    font-size: clamp(1.4rem, 2.4vw, 2rem); font-weight: 500;
+    letter-spacing: -0.01em; line-height: 1.15; margin-bottom: 0.5rem;
+  }
+  .piece-type {
+    font-size: 0.66rem; font-weight: 500; text-transform: uppercase;
+    letter-spacing: 0.14em; color: var(--accent); margin-bottom: 0.9rem;
+  }
+  .piece-desc {
+    font-size: 1rem; font-weight: 300; color: var(--soft);
+    max-width: 60ch; line-height: 1.55;
+  }
+  .video-player { width: 100%; margin: 1.5rem 0 0; background: #000; border: 1px solid var(--line); }
+  .video-player video { display: block; width: 100%; height: auto; max-height: 80vh; background: #000; }
+  .site-footer {
+    margin-top: auto; border-top: 1px solid var(--line); padding: 2.2rem 4.5rem;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.66rem; font-weight: 500; text-transform: uppercase;
+    letter-spacing: 0.16em; color: var(--soft);
+  }
+  .site-footer a:hover { color: var(--accent); }
+  @media (max-width: 600px) {
+    .topbar, .stage, .pieces, .site-footer { padding-left: 1.25rem; padding-right: 1.25rem; }
+    .piece { grid-template-columns: 1fr; gap: 0.4rem; }
+  }
+</style>
+</head>
+<body>
+  <header class="topbar">
+    <a href="index.html">&larr; JKMRY</a>
+    <span>Video</span>
+  </header>
+
+  <main class="stage">
+    <p class="eyebrow">Video Campaign</p>
+    <h1 class="logo-title"><img src="video-logos/now-we-know.png" alt="Now We Know Where We're Going"></h1>
+    <p class="premise">A sustainability video campaign &mdash; short, deadpan how-tos and promos that make everyday eco-swaps worth watching. The moving-image counterpart to the climate zine of the same name.</p>
+  </main>
+
+  <section class="pieces">
+    <h2 class="pieces-head">In the campaign</h2>
+    <ul class="piece-list">
+
+      <li class="piece">
+        <span class="piece-num">01</span>
+        <div class="piece-body">
+          <h3>Wool Dryer Balls</h3>
+          <p class="piece-type">Short-form sustainability promo &middot; 0:43</p>
+          <p class="piece-desc">A punchy eco-pitch for wool dryer balls versus disposable sheets, cut to Manu Chao&rsquo;s &ldquo;King of Bongo,&rdquo; with an on-camera demo, stat captions, and deadpan humor.</p>
+          <figure class="video-player">
+            <video controls preload="none" playsinline poster="video/dryer-balls.jpg">
+              <source src="https://video.jkmry.com/dryer-balls.mp4" type="video/mp4">
+            </video>
+          </figure>
+        </div>
+      </li>
+
+      <li class="piece">
+        <span class="piece-num">02</span>
+        <div class="piece-body">
+          <h3>Skateboard Chair</h3>
+          <p class="piece-type">Maker / product-design build &middot; 0:40</p>
+          <p class="piece-desc">A captioned time-lapse building a functional cantilever chair out of skateboard decks &mdash; bolt, cut the tongue, drill, assemble, &ldquo;Sit!&rdquo;</p>
+          <figure class="video-player">
+            <video controls preload="none" playsinline poster="video/skateboard-chair.jpg">
+              <source src="https://video.jkmry.com/skateboard-chair.mp4" type="video/mp4">
+            </video>
+          </figure>
+        </div>
+      </li>
+
+      <li class="piece">
+        <span class="piece-num">03</span>
+        <div class="piece-body">
+          <h3>Compost Lasagna</h3>
+          <p class="piece-type">Sustainability how-to &middot; 1:17</p>
+          <p class="piece-desc">An instructional guide to lasagna-method composting &mdash; weeds, leaves, and dead plants, dug in and mulched, then six months&rsquo; wait &mdash; shot with shallow-depth-of-field outdoor cinematography.</p>
+          <figure class="video-player">
+            <video controls preload="none" playsinline poster="video/compost-lasagna.jpg">
+              <source src="https://video.jkmry.com/compost-lasagna.mp4" type="video/mp4">
+            </video>
+          </figure>
+        </div>
+      </li>
+
+    </ul>
+  </section>
+
+  <footer class="site-footer">
+    <span>JKMRY</span>
+    <a href="index.html">&larr; Back to work</a>
+  </footer>
+</body>
+</html>

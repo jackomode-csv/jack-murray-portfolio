@@ -11,3 +11,9 @@ Adobe Premiere Pro Auto-Save/
 # Large source gifs (use mp4/webm in markup instead)
 tbaa-intro-clip.gif
 tbaa-intro-clip.original.gif
+
+# Project videos are hosted on Cloudflare R2, not committed (posters stay in repo)
+video/*.mp4
+video/*.log
+encode-all.sh
+fix-two.sh
