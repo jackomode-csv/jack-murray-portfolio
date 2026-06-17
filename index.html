@@ -422,6 +422,8 @@
     background: #FFFFFF;
     padding: 12% 14%;
   }
+  /* vertical tiles fill the frame (no logo padding) to match their teaser */
+  .work-media--logo.work-media--nopad { padding: 0; }
   .work-media--logo img {
     position: static;
     width: 100%;
@@ -799,7 +801,7 @@
 
       <li>
         <a class="work-item" href="social-bot.html">
-          <div class="work-media work-media--logo">
+          <div class="work-media work-media--logo work-media--nopad">
             <img src="video/social-bot.jpg" alt="Social Bot">
             <img class="card-teaser card-teaser--contain" alt="" aria-hidden="true" data-teaser="video/teasers/social-bot.webp">
           </div>
