@@ -18,9 +18,10 @@ video/*.log
 encode-all.sh
 fix-two.sh
 
-# Homepage hero reel now served from R2 (video.jkmry.com/jackM-demo-reel-web.mp4)
+# Homepage hero reel now served from R2 (video.jkmry.com/demo_reel_workspace.mp4)
 jackM-demo-reel-web.mp4
 jackM-demo-reel.mp4
+demo_reel_workspace.mp4
 
 # Layered source files — export flattened jpg/png for the web instead
 *.psd

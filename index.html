@@ -648,7 +648,7 @@
 <section class="hero">
   <video class="hero-video" id="heroVideo" autoplay muted playsinline
          preload="auto" aria-label="Jack Murray — demo reel">
-    <source src="https://video.jkmry.com/jackM-demo-reel-web.mp4" type="video/mp4">
+    <source src="https://video.jkmry.com/demo_reel_workspace.mp4" type="video/mp4">
   </video>
 
   <header class="hero-header">
@@ -957,39 +957,9 @@
 
     sync();
 
-    function enableSound() {
-      video.muted = false;
-      video.volume = 1;
-      var p = video.play();
-      if (p && p.then) {
-        p.then(sync).catch(function () {
-          // audio still not permitted — stay muted but keep playing (never pause)
-          video.muted = true;
-          var p2 = video.play();
-          if (p2 && p2.catch) { p2.catch(function () {}); }
-          sync();
-        });
-      } else {
-        sync();
-      }
-    }
-
-    // If audible autoplay is refused, unmute on the first real interaction —
-    // a click, key, or tap. (Scrolling is intentionally excluded: a passive
-    // scroll isn't a valid gesture for audio, so attempting it there pauses
-    // the reel.) This keeps a reload from being stuck muted.
-    function armFirstGesture() {
-      var events = ['pointerdown', 'keydown', 'touchstart'];
-      function go() {
-        events.forEach(function (ev) { window.removeEventListener(ev, go); });
-        if (wantsSound() && video.muted) { enableSound(); }
-      }
-      events.forEach(function (ev) { window.addEventListener(ev, go, { passive: true }); });
-    }
-
-    // Start with sound on. Browsers only permit audible autoplay when the site
-    // has enough media engagement / prior interaction; if it's blocked we keep
-    // playing muted and arm the first-gesture unmute above.
+    // Start with sound on where the browser permits audible autoplay (only
+    // allowed with enough media engagement / prior interaction). If it's
+    // blocked, keep playing muted — the visitor turns sound on with the button.
     (function startWithSound() {
       if (!wantsSound()) { sync(); return; }   // visitor chose mute last time
       video.muted = false;
@@ -1001,11 +971,9 @@
           var p2 = video.play();
           if (p2 && p2.catch) { p2.catch(function () {}); }
           sync();
-          armFirstGesture();
         });
       } else {
         sync();
-        armFirstGesture();
       }
     })();
 
