@@ -929,6 +929,25 @@
 
     sync();
 
+    // Start with sound on. Browsers only permit audible autoplay when the site
+    // has enough media engagement / prior interaction; if it's blocked we fall
+    // back to muted playback and the Unmute button stays available.
+    (function startWithSound() {
+      video.muted = false;
+      video.volume = 1;
+      var p = video.play();
+      if (p && p.then) {
+        p.then(sync).catch(function () {
+          video.muted = true;
+          var p2 = video.play();
+          if (p2 && p2.catch) { p2.catch(function () {}); }
+          sync();
+        });
+      } else {
+        sync();
+      }
+    })();
+
     // Click anywhere on the video to toggle play/pause.
     // The play indicator + timer bar show only while paused (via .is-paused).
     var hero  = document.querySelector('.hero');
