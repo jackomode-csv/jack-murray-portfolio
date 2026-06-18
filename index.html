@@ -153,18 +153,28 @@
   }
   .nav-menu a:hover { color: #fff; background: var(--accent); }
 
-  /* unmute / mute toggle */
-  .unmute-btn {
+  /* split control pill — mute toggle on one half, restart on the other */
+  .hero-controls {
     position: absolute;
     z-index: 3;
     bottom: 2.6rem; right: var(--edge);
     display: inline-flex;
-    align-items: center;
-    gap: 0.55rem;
-    padding: 13px 22px;
+    align-items: stretch;
     border: 1px solid rgba(255,255,255,0.55);
     border-radius: 999px;
     background: rgba(0,0,0,0.32);
+    overflow: hidden;
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    transition: border-color 0.2s ease;
+  }
+  .hero-ctrl {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 13px 22px;
+    border: 0;
+    background: transparent;
     color: #fff;
     font-family: var(--font);
     font-size: var(--t-label);
@@ -173,13 +183,12 @@
     text-transform: uppercase;
     line-height: 1;
     cursor: pointer;
-    -webkit-backdrop-filter: blur(6px);
-    backdrop-filter: blur(6px);
-    transition: background 0.2s ease, border-color 0.2s ease;
+    transition: background 0.2s ease;
   }
-  .unmute-btn:hover { background: var(--accent); border-color: var(--accent); }
-  .unmute-btn svg { width: 17px; height: 17px; display: block; }
-  /* show the matching icon for the current state */
+  .hero-ctrl:hover { background: var(--accent); }
+  .hero-ctrl + .hero-ctrl { border-left: 1px solid rgba(255,255,255,0.32); }
+  .hero-ctrl svg { width: 17px; height: 17px; display: block; }
+  /* show the matching sound icon for the current state */
   .unmute-btn .icon-on  { display: none; }
   .unmute-btn.is-on .icon-off { display: none; }
   .unmute-btn.is-on .icon-on  { display: block; }
@@ -658,17 +667,26 @@
     </nav>
   </header>
 
-  <button class="unmute-btn" id="unmuteBtn" type="button" aria-pressed="false" aria-label="Unmute video">
-    <!-- muted icon -->
-    <svg class="icon-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <path d="M11 5 6 9H2v6h4l5 4z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>
-    </svg>
-    <!-- sound-on icon -->
-    <svg class="icon-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a9 9 0 0 1 0 14"/>
-    </svg>
-    <span class="unmute-label">Unmute</span>
-  </button>
+  <div class="hero-controls">
+    <button class="hero-ctrl unmute-btn" id="unmuteBtn" type="button" aria-pressed="false" aria-label="Unmute video">
+      <!-- muted icon -->
+      <svg class="icon-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M11 5 6 9H2v6h4l5 4z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>
+      </svg>
+      <!-- sound-on icon -->
+      <svg class="icon-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a9 9 0 0 1 0 14"/>
+      </svg>
+      <span class="unmute-label">Unmute</span>
+    </button>
+    <button class="hero-ctrl restart-btn" id="restartBtn" type="button" aria-label="Restart video">
+      <!-- restart icon -->
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+      </svg>
+      <span>Restart</span>
+    </button>
+  </div>
 
   <div class="play-btn" id="playBtn" aria-hidden="true">
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
@@ -916,6 +934,15 @@
       label.textContent = on ? 'Mute' : 'Unmute';
     }
 
+    // Remember the visitor's sound choice across reloads (default: sound on).
+    var STORE_KEY = 'jkmry-hero-sound';
+    function wantsSound() {
+      try { return localStorage.getItem(STORE_KEY) !== 'off'; } catch (e) { return true; }
+    }
+    function rememberSound(on) {
+      try { localStorage.setItem(STORE_KEY, on ? 'on' : 'off'); } catch (e) {}
+    }
+
     btn.addEventListener('click', function () {
       video.muted = !video.muted;
       if (!video.muted) {
@@ -924,15 +951,47 @@
         var p = video.play();
         if (p && p.catch) { p.catch(function () {}); }
       }
+      rememberSound(!video.muted);
       sync();
     });
 
     sync();
 
+    function enableSound() {
+      video.muted = false;
+      video.volume = 1;
+      var p = video.play();
+      if (p && p.then) {
+        p.then(sync).catch(function () {
+          // audio still not permitted — stay muted but keep playing (never pause)
+          video.muted = true;
+          var p2 = video.play();
+          if (p2 && p2.catch) { p2.catch(function () {}); }
+          sync();
+        });
+      } else {
+        sync();
+      }
+    }
+
+    // If audible autoplay is refused, unmute on the first real interaction —
+    // a click, key, or tap. (Scrolling is intentionally excluded: a passive
+    // scroll isn't a valid gesture for audio, so attempting it there pauses
+    // the reel.) This keeps a reload from being stuck muted.
+    function armFirstGesture() {
+      var events = ['pointerdown', 'keydown', 'touchstart'];
+      function go() {
+        events.forEach(function (ev) { window.removeEventListener(ev, go); });
+        if (wantsSound() && video.muted) { enableSound(); }
+      }
+      events.forEach(function (ev) { window.addEventListener(ev, go, { passive: true }); });
+    }
+
     // Start with sound on. Browsers only permit audible autoplay when the site
-    // has enough media engagement / prior interaction; if it's blocked we fall
-    // back to muted playback and the Unmute button stays available.
+    // has enough media engagement / prior interaction; if it's blocked we keep
+    // playing muted and arm the first-gesture unmute above.
     (function startWithSound() {
+      if (!wantsSound()) { sync(); return; }   // visitor chose mute last time
       video.muted = false;
       video.volume = 1;
       var p = video.play();
@@ -942,9 +1001,11 @@
           var p2 = video.play();
           if (p2 && p2.catch) { p2.catch(function () {}); }
           sync();
+          armFirstGesture();
         });
       } else {
         sync();
+        armFirstGesture();
       }
     })();
 
@@ -1001,6 +1062,17 @@
       video.currentTime = pct * (video.duration || 0);
       atEnd = false;   // a manual seek cancels the poster state
     });
+
+    // Restart — jump to the start and play (keeps the current sound state).
+    var restartBtn = document.getElementById('restartBtn');
+    if (restartBtn) {
+      restartBtn.addEventListener('click', function () {
+        atEnd = false;
+        video.currentTime = 0;
+        var p = video.play();
+        if (p && p.catch) { p.catch(function () {}); }
+      });
+    }
   })();
 
   // Lazy-load each card's hover teaser the first time it's hovered/focused.
