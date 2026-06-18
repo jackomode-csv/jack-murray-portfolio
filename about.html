@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About &mdash; JKMRY</title>
+<meta name="description" content="Jack Murray is a New York–based designer, filmmaker, and bookmaker who turns dense ideas into films, books, and websites you can watch, hold, and walk through.">
+<link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #FFFFFF; --ink: #161614; --soft: #4A4A46; --muted: #8C8C84;
+    --line: #DCDBD4; --accent: #3E7D5A;
+    --font: 'Jost', 'Futura', 'Helvetica Neue', Arial, sans-serif;
+  }
+  html { font-size: 16px; scroll-behavior: smooth; }
+  body {
+    background: var(--bg); color: var(--ink); font-family: var(--font);
+    font-weight: 400; line-height: 1.6; min-height: 100vh;
+    display: flex; flex-direction: column; -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection { background: var(--ink); color: var(--bg); }
+  a { color: inherit; text-decoration: none; }
+
+  /* ---- TOP BAR ---- */
+  .topbar {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 2.2rem 4.5rem; font-size: 0.66rem; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.16em; color: var(--muted);
+  }
+  .topbar a { transition: color 0.2s ease; }
+  .topbar a:hover { color: var(--accent); }
+
+  /* ---- LAYOUT ---- */
+  .about {
+    flex: 1; width: 100%; max-width: 1100px; margin: 0 auto;
+    padding: 3.5rem 4.5rem 5rem;
+  }
+  .eyebrow {
+    font-size: 0.66rem; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.2em; color: var(--accent); margin-bottom: 1.4rem;
+  }
+
+  /* ---- HERO ---- */
+  .about-hero { text-align: right; }
+  .about-hero h1 {
+    font-size: clamp(2.3rem, 5.5vw, 4.6rem); font-weight: 500; line-height: 1.04;
+    letter-spacing: -0.02em; max-width: 18ch; margin-left: auto;
+  }
+  .lead {
+    margin-top: 1.8rem; margin-left: auto; font-size: clamp(1.12rem, 2vw, 1.5rem); font-weight: 300;
+    line-height: 1.45; color: var(--soft); max-width: 48ch;
+  }
+  .lead .name { font-weight: 500; color: var(--ink); }
+
+  /* ---- SECTION RHYTHM ---- */
+  .sec { margin-top: 4.5rem; }
+  .sec-label {
+    font-size: 0.66rem; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.18em; color: var(--muted);
+    padding-bottom: 1rem; margin-bottom: 2rem; border-bottom: 1px solid var(--line);
+  }
+
+  /* ---- BIO PROSE ---- */
+  .bio { display: grid; gap: 1.5rem; max-width: 62ch; }
+  .bio p { font-size: 1.08rem; font-weight: 300; line-height: 1.75; color: #2B2B28; }
+  .bio strong { font-weight: 500; color: var(--ink); }
+
+  /* ---- DISCIPLINES ---- */
+  .disciplines {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 2.6rem 3.2rem;
+  }
+  .disc-tag {
+    font-size: 0.6rem; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.18em; color: var(--accent);
+  }
+  .disc h3 {
+    margin: 0.55rem 0 0.5rem; font-size: 1.22rem; font-weight: 500;
+    letter-spacing: -0.005em;
+  }
+  .disc p { font-size: 0.96rem; font-weight: 300; line-height: 1.55; color: var(--soft); }
+
+  /* ---- SELECTED WORK ---- */
+  .work-links { display: flex; flex-direction: column; }
+  .work-link {
+    display: flex; align-items: baseline; gap: 1.2rem;
+    padding: 1.15rem 0; border-top: 1px solid var(--line);
+    transition: padding-left 0.25s ease, color 0.2s ease;
+  }
+  .work-links li:last-child .work-link { border-bottom: 1px solid var(--line); }
+  .work-link:hover { padding-left: 0.5rem; color: var(--accent); }
+  .wl-title { font-size: 1.12rem; font-weight: 500; flex: 1; }
+  .wl-role {
+    font-size: 0.64rem; font-weight: 500; text-transform: uppercase;
+    letter-spacing: 0.14em; color: var(--muted); white-space: nowrap;
+  }
+  .work-link:hover .wl-role { color: var(--accent); }
+  .wl-arrow { color: var(--muted); transition: transform 0.25s ease, color 0.2s ease; }
+  .work-link:hover .wl-arrow { color: var(--accent); transform: translate(3px, -3px); }
+
+  /* ---- CONTACT ---- */
+  .contact-line {
+    font-size: clamp(1.3rem, 3vw, 2.1rem); font-weight: 300; line-height: 1.35;
+    letter-spacing: -0.01em; max-width: 26ch;
+  }
+  .contact-links {
+    margin-top: 2rem; display: flex; flex-wrap: wrap; gap: 0.7rem;
+    font-size: 0.66rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.14em;
+  }
+  .contact-links a {
+    border: 1px solid var(--line); border-radius: 999px; padding: 12px 22px;
+    color: var(--soft); transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+  }
+  .contact-links a:hover { color: #fff; background: var(--accent); border-color: var(--accent); }
+
+  /* ---- FOOTER ---- */
+  .site-footer {
+    border-top: 1px solid var(--line); padding: 2.2rem 4.5rem;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.66rem; font-weight: 500; text-transform: uppercase;
+    letter-spacing: 0.16em; color: var(--soft);
+  }
+  .site-footer a:hover { color: var(--accent); }
+
+  @media (max-width: 720px) {
+    .topbar, .site-footer { padding-left: 1.25rem; padding-right: 1.25rem; }
+    .about { padding: 2.5rem 1.25rem 3.5rem; }
+    .disciplines { grid-template-columns: 1fr; gap: 2rem; }
+    .wl-role { display: none; }
+  }
+</style>
+</head>
+<body>
+  <header class="topbar">
+    <a href="index.html">&larr; JKMRY</a>
+    <span>About</span>
+  </header>
+
+  <main class="about">
+
+    <section class="about-hero">
+      <p class="eyebrow">About</p>
+      <h1>I make dense ideas into things you can hold.</h1>
+      <p class="lead"><span class="name">Jack Murray</span> is a New York&ndash;based designer, filmmaker, and bookmaker working in the space between an argument and an image.</p>
+    </section>
+
+    <section class="sec bio-sec">
+      <div class="bio">
+        <p>I make films, books, and websites that take a dense idea &mdash; a Supreme Court ruling, a farm subsidy, the stories a country keeps telling about itself &mdash; and turn it into something you can watch, hold, or walk through. The work moves between motion, print, photography, and code, but it always starts the same way: with reading. I research a subject until I understand the argument, then look for the form that makes it <strong>felt</strong> rather than just explained.</p>
+        <p>That has meant hand-binding a fifty-page publication on the Supreme Court, flying a drone over a violin built from barn trash, engineering a pop-up book out of flat photographs, and building a political database from real quotes and newspapers. I earned my degree at Parsons School of Design in New York, with a semester at Paris College of Art, and I work across whatever craft a project demands &mdash; direction and cinematography, editorial and type design, animation, paper engineering, photography, and front-end development. I believe in earning real expertise &mdash; going deep enough in each medium to be trusted with the work and to deliver craft that holds up.</p>
+        <p>Most of what I make circles the same questions: identity and place, power and persuasion, and the distance between what America says and what it does. I&rsquo;m drawn to ideas that are usually kept dry &mdash; policy, law, design history &mdash; and to the problem of making them land for someone who never meant to care.</p>
+      </div>
+    </section>
+
+    <section class="sec">
+      <h2 class="sec-label">What I make</h2>
+      <div class="disciplines">
+        <div class="disc">
+          <p class="disc-tag">Film &amp; Motion</p>
+          <h3>Films that argue</h3>
+          <p>Cinematic art film, essay film, animation, documentary, and satire &mdash; from drone cinematography and land art to After&nbsp;Effects and kinetic type.</p>
+        </div>
+        <div class="disc">
+          <p class="disc-tag">Books &amp; Print</p>
+          <h3>Things you can hold</h3>
+          <p>Editorial and publication design, hand binding, pop-up and paper engineering, children&rsquo;s books, and zines &mdash; written, set, and built by hand.</p>
+        </div>
+        <div class="disc">
+          <p class="disc-tag">Writing &amp; Research</p>
+          <h3>The argument first</h3>
+          <p>Essays and research on design history and political theory &mdash; the reading that every project is built on top of.</p>
+        </div>
+        <div class="disc">
+          <p class="disc-tag">Photography</p>
+          <h3>Identity &amp; place</h3>
+          <p>Self-portraiture and photographic series rooted in the places I come from &mdash; Queens, Long&nbsp;Island, and the corners in between.</p>
+        </div>
+        <div class="disc">
+          <p class="disc-tag">Web &amp; Data</p>
+          <h3>Research you can use</h3>
+          <p>Database-driven websites and interactive tools &mdash; research, design, and development that turn an archive into something you can explore.</p>
+        </div>
+        <div class="disc">
+          <p class="disc-tag">Branding</p>
+          <h3>Systems &amp; identity</h3>
+          <p>Identity work and the visual languages that hold a project together across every surface it touches.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <h2 class="sec-label">Selected work</h2>
+      <ul class="work-links">
+        <li><a class="work-link" href="travel-lite.html">
+          <span class="wl-title">Travel Lite</span>
+          <span class="wl-role">Cinematic Art Film</span>
+          <span class="wl-arrow">&nearr;</span>
+        </a></li>
+        <li><a class="work-link" href="creeping-body.html">
+          <span class="wl-title">The Creeping Body</span>
+          <span class="wl-role">Hand-bound Publication</span>
+          <span class="wl-arrow">&nearr;</span>
+        </a></li>
+        <li><a class="work-link" href="tbaa.html">
+          <span class="wl-title">To / Be / An American</span>
+          <span class="wl-role">Database &amp; Website</span>
+          <span class="wl-arrow">&nearr;</span>
+        </a></li>
+        <li><a class="work-link" href="reflectus.html">
+          <span class="wl-title">ReflectUS</span>
+          <span class="wl-role">Children&rsquo;s Book</span>
+          <span class="wl-arrow">&nearr;</span>
+        </a></li>
+        <li><a class="work-link" href="9-teen.html">
+          <span class="wl-title">9-TEEN</span>
+          <span class="wl-role">Pop-Up &amp; Paper</span>
+          <span class="wl-arrow">&nearr;</span>
+        </a></li>
+        <li><a class="work-link" href="red-scare.html">
+          <span class="wl-title">Red Scare</span>
+          <span class="wl-role">Essay Film</span>
+          <span class="wl-arrow">&nearr;</span>
+        </a></li>
+      </ul>
+    </section>
+
+    <section class="sec contact-sec" id="contact">
+      <h2 class="sec-label">Contact</h2>
+      <p class="contact-line">Have a project, a question, or just want to talk shop? Get in touch.</p>
+      <div class="contact-links">
+        <a href="mailto:jackwardmurray@gmail.com">Email</a>
+        <a href="https://instagram.com/jackomode" target="_blank" rel="noopener">Instagram</a>
+        <a href="index.html">View the work</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <span>JKMRY</span>
+    <a href="index.html">&larr; Back to work</a>
+  </footer>
+</body>
+</html>

@@ -359,6 +359,19 @@
     align-items: start;     /* true-ratio tiles keep their own height */
   }
 
+  /* Books: video-style cards (cover + caption below), one per row,
+     centered at a medium width — larger than a video tile, well under full bleed */
+  .book-stack {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--tile-gap) + 1.2rem);
+    align-items: center;
+  }
+  .book-card { width: 100%; max-width: 800px; }
+  /* covers stay full-color on hover (caption carries the title), keep the gentle lift */
+  .book-stack .work-item:hover .work-media img { filter: none; }
+
   /* full-bleed rows: span both columns. Order is full, pair, full, pair… */
   .work-grid > li.full { grid-column: 1 / -1; }
   .work-grid > li.full .work-media { aspect-ratio: 16 / 9; }
@@ -639,8 +652,9 @@
           <a href="#books">Books</a>
         </div>
       </div>
+      <a href="about.html">About</a>
       <a href="https://instagram.com/jackomode" target="_blank" rel="noopener">Instagram</a>
-      <a href="mailto:jackwardmurray@gmail.com">Contact</a>
+      <a href="about.html#contact">Contact</a>
     </nav>
   </header>
 
@@ -819,93 +833,57 @@
     </ul>
 
   <h2 class="work-section" id="books">Books</h2>
-  <ul class="work-grid">
+  <ul class="book-stack">
 
       <li>
-        <a class="work-item" href="reflectus.html">
-          <div class="work-media">
+        <a class="work-item book-card" href="reflectus.html">
+          <div class="work-media fit">
             <img src="reflectus-images/reflectus-01.jpg" alt="ReflectUS">
-            <div class="work-overlay">
-              <h2 class="work-title">ReflectUS</h2>
-              <p class="work-desc">Political Book</p>
+          </div>
+          <div class="work-caption">
+            <div class="cap-head">
+              <h3 class="cap-title">ReflectUS</h3>
+              <span class="cap-time">36 pages</span>
             </div>
+            <p class="cap-desc">Political Book</p>
+            <p class="cap-blurb">A children&rsquo;s book about the stories America keeps telling itself &mdash; written, staged, and designed from a self-made dataset, brought to life in the simple, effective illustration of Jaja Riley.</p>
           </div>
         </a>
       </li>
 
       <li>
-        <a class="work-item" href="creeping-body.html">
-          <div class="work-media">
+        <a class="work-item book-card" href="creeping-body.html">
+          <div class="work-media fit">
             <img src="creeping-body-images/creeping-body-cover.png" alt="The Creeping Body">
-            <div class="work-overlay">
-              <h2 class="work-title">The Creeping Body</h2>
-              <p class="work-desc">Editorial &amp; Research</p>
+          </div>
+          <div class="work-caption">
+            <div class="cap-head">
+              <h3 class="cap-title">The Creeping Body</h3>
+              <span class="cap-time">50 pages</span>
             </div>
+            <p class="cap-desc">Editorial &amp; Research</p>
+            <p class="cap-blurb">A hand-bound, 50-page publication written, designed, and printed during an intensive semester at Paris College of Art &mdash; four essays that turn dense Supreme Court argument into something you can hold and actually read.</p>
+          </div>
+        </a>
+      </li>
+
+      <li>
+        <a class="work-item book-card" href="9-teen.html">
+          <div class="work-media fit">
+            <img src="9-teen-images/IMG_9272-1.jpg" alt="9-TEEN">
+          </div>
+          <div class="work-caption">
+            <div class="cap-head">
+              <h3 class="cap-title">9-TEEN</h3>
+              <span class="cap-time">6 pages &middot; 3 pop-ups</span>
+            </div>
+            <p class="cap-desc">Pop-Up &amp; Paper</p>
+            <p class="cap-blurb">A handcrafted pop-up book that turns flat photography into sculptural, three-dimensional scenes &mdash; exploring identity, place, and scale through the Unisphere in Flushing Meadows.</p>
           </div>
         </a>
       </li>
 
     </ul>
-
-    <div class="work-inset">
-      <ul class="work-pair">
-
-      <li>
-        <a class="work-item" href="pippas-passport.html">
-          <div class="work-media">
-            <img src="pippas-passport-images/pippas-passport-01.jpg" alt="Pippa's Passport">
-            <div class="work-overlay">
-              <h2 class="work-title">Pippa&rsquo;s Passport</h2>
-              <p class="work-desc">Gift Book</p>
-            </div>
-          </div>
-        </a>
-      </li>
-
-      <li>
-        <a class="work-item" href="now-we-know.html">
-          <div class="work-media">
-            <img src="now-wek-know/Cover.jpg" alt="Now We Know Where We're Going">
-            <div class="work-overlay">
-              <h2 class="work-title">Now We Know Where We&rsquo;re Going</h2>
-              <p class="work-desc">Climate Zine</p>
-            </div>
-          </div>
-        </a>
-      </li>
-
-      </ul>
-    </div>
-
-    <div class="work-inset">
-      <ul class="work-pair">
-
-      <li>
-        <a class="work-item" href="9-teen.html">
-          <div class="work-media fit">
-            <img src="9-teen-images/IMG_9272-1.jpg" alt="9-TEEN">
-            <div class="work-overlay">
-              <h2 class="work-title">9-TEEN</h2>
-              <p class="work-desc">Pop-Up &amp; Paper</p>
-            </div>
-          </div>
-        </a>
-      </li>
-
-      <li>
-        <a class="work-item" href="stellas-purpose.html">
-          <div class="work-media fit">
-            <img src="stella-images/stella-cover.png" alt="Stella's Purpose">
-            <div class="work-overlay">
-              <h2 class="work-title">Stella&rsquo;s Purpose</h2>
-              <p class="work-desc">Illustration</p>
-            </div>
-          </div>
-        </a>
-      </li>
-
-      </ul>
-    </div>
 
   </main>
 
@@ -915,6 +893,7 @@
   <footer class="site-footer">
     <span class="wordmark">JKMRY</span>
     <div class="footer-links">
+      <a href="about.html"><span class="label">About</span></a>
       <a href="https://instagram.com/jackomode" target="_blank" rel="noopener"><span class="label">Instagram</span></a>
       <a href="mailto:jackwardmurray@gmail.com"><span class="label">Email</span></a>
     </div>
