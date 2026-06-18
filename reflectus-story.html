@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ReflectUS — The Full Story &mdash; JKMRY</title>
+<link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --white: #FFFFFF;
+    --cream: #FFFFFF;
+    --black: #121212;
+    --ink: #1A1A1A;
+    --gray-dark: #3A3A3A;
+    --gray: #6B6B6B;
+    --gray-light: #A8A8A8;
+    --gray-rule: #D6D4D0;
+    --red: #161614;
+    --font-headline: 'Jost', 'Futura', 'Helvetica Neue', sans-serif;
+    --font-body: 'Jost', 'Futura', 'Helvetica Neue', sans-serif;
+    --font-sans: 'Jost', 'Futura', 'Helvetica Neue', sans-serif;
+
+    /* ---- LAYOUT GRID ---- */
+    --grid-max: 1000px;    /* content width the grid spans */
+    --grid-pad: 2.5rem;    /* outer margin (page edge → grid) */
+    --grid-gap: 8px;       /* spacing between cells */
+    --grid-mid: 20px;      /* wider gutter between the two middle columns */
+    --grid-cols: 4;
+    --grid-rows: 8;
+    /* height of one grid row (matches the overlay's row tracks) */
+    --grid-row: calc((100vh - (var(--grid-rows) + 1) * var(--grid-gap)) / var(--grid-rows));
+  }
+
+  html { font-size: 16px; scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: var(--font-body);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection { background: var(--red); color: var(--white); }
+
+  img { display: block; max-width: 100%; height: auto; }
+
+  /* ---- NAV ---- */
+  .topbar {
+    border: none;
+    padding: 0.6rem 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: transparent;
+    z-index: 100;
+  }
+
+  .topbar-inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gray);
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+  }
+
+  .topbar-inner a {
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .topbar-inner a:hover { color: var(--red); }
+
+  /* light text when floating over a dark background */
+  .topbar.on-dark .topbar-inner {
+    color: rgba(255,255,255,0.7);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+  }
+  .topbar.on-dark .topbar-inner a { color: var(--white); }
+  .topbar.on-dark .topbar-inner a:hover { color: var(--white); opacity: 0.7; }
+
+  /* ---- HERO (full-bleed) ---- */
+  .hero {
+    width: 100%;
+    background: var(--black);
+  }
+
+  .hero-fig {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .hero-fig img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .hero-head {
+    width: 100%;
+    margin: var(--grid-row) 0 0;   /* one grid row below the hero image */
+    padding: var(--grid-gap);   /* same 8px inset as the grid overlay */
+    display: grid;
+    grid-template-columns: 1fr var(--grid-gap) 1fr var(--grid-mid) 1fr var(--grid-gap) 1fr;
+    grid-auto-rows: min-content;
+    column-gap: 0;
+    row-gap: var(--grid-gap);
+  }
+
+  .hero-title {
+    grid-column: 1 / 2;       /* leftmost column */
+    grid-row: 1 / 2;
+    align-self: start;
+    white-space: nowrap;
+    font-family: var(--font-headline);
+    font-size: clamp(2rem, 4.5vw, 4rem);   /* fits within column 1 */
+    font-weight: 700;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    color: var(--black);
+    margin: 0;
+    min-width: 0;
+  }
+
+  .hero-premise {
+    grid-column: 3 / 6;       /* middle two columns */
+    grid-row: 2 / 3;          /* one row below the title */
+    align-self: start;
+    min-width: 0;
+    font-family: var(--font-body);
+    font-size: clamp(1.15rem, 2vw, 1.5rem);
+    font-weight: 300;
+    line-height: 1.5;
+    color: var(--gray-dark);
+    margin: 0;
+  }
+
+  .hero-credits {
+    grid-column: 3 / 6;       /* aligned under the body text */
+    grid-row: 3 / 4;
+    align-self: start;
+    min-width: 0;
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--gray);
+    padding-top: 1.4rem;
+    border-top: 1px solid var(--gray-rule);
+    margin: 0;
+  }
+
+  .hero-credits strong { color: var(--ink); font-weight: 600; }
+  .hero-credits .sep { color: var(--gray-light); padding: 0 0.55rem; }
+
+  /* ---- EDITORIAL FLOW ---- */
+  .editorial {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* staggered cascade — 4-col grid, left column offset 4 rows below right */
+  .cascade {
+    width: 100%;
+    padding: var(--grid-gap);
+    display: grid;
+    grid-template-columns: 1fr var(--grid-gap) 1fr var(--grid-mid) 1fr var(--grid-gap) 1fr;
+    grid-auto-rows: var(--grid-row);
+    column-gap: 0;
+    row-gap: var(--grid-gap);
+  }
+
+  .cascade .c-media { margin: 0; height: 100%; overflow: hidden; }
+  .cascade .c-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  /* full-bleed image break (like the hero) */
+  .bleed { width: 100%; }
+  .bleed .case-img { width: 100%; height: 100vh; overflow: hidden; margin: 0; background: var(--white); }
+  .bleed .case-img img { width: 100%; height: 100%; object-fit: contain; display: block; }
+  .bleed .case-img:hover { transform: none; box-shadow: none; }
+
+  .c-text { align-self: center; min-width: 0; }
+  /* text on the left column aligns right, text on the right column aligns left */
+  .c-text[style*="grid-column:1/4"] { text-align: right; }
+  .c-text[style*="grid-column:5/8"] { text-align: left; }
+  .c-text .section-label { margin-bottom: 0.6rem; }
+  .c-text h3 {
+    font-family: var(--font-headline);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--black);
+    line-height: 1.25;
+    margin-bottom: 0.5rem;
+  }
+  .c-text p {
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: var(--gray-dark);
+    margin: 0;
+  }
+
+  .section-label {
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--red);
+    margin-bottom: 1.2rem;
+  }
+
+  .feature-text p {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--gray-dark);
+    margin-bottom: 1.2rem;
+  }
+
+  .feature-text p:last-child { margin-bottom: 0; }
+
+  .case-img {
+    width: 100%;
+    overflow: hidden;
+    background: var(--white);
+  }
+
+  .case-img img { width: 100%; }
+
+  /* scroll fade-in (class added by JS so images stay visible if JS is off) */
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.9s ease, transform 0.9s ease; }
+  .reveal.in-view { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1 !important; transform: none !important; transition: none; }
+  }
+
+  figcaption {
+    font-family: var(--font-sans);
+    font-size: 0.68rem;
+    color: var(--gray-light);
+    font-style: italic;
+    margin-top: 0.7rem;
+    line-height: 1.5;
+  }
+
+  /* ---- PROCESS (interleaved) ---- */
+  .process {
+    padding: 0;
+  }
+
+  .process-intro {
+    max-width: 640px;
+    padding: 5rem var(--grid-pad) 1rem;
+  }
+
+  .process-intro p {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--gray-dark);
+  }
+
+  /* each step on the 4×8 grid */
+  .process-step {
+    width: 100%;
+    min-height: 100vh;
+    padding: var(--grid-gap);
+    display: grid;
+    grid-template-columns: repeat(var(--grid-cols), 1fr);
+    grid-template-rows: repeat(var(--grid-rows), 1fr);
+    gap: var(--grid-gap);
+  }
+
+  .ps-text  { grid-column: 1 / 3; grid-row: 2 / 8; align-self: start; min-width: 0; }
+  .ps-media { grid-column: 3 / 5; grid-row: 2 / 8; min-width: 0;
+              display: flex; flex-direction: column; }
+
+  .process-step.flip .ps-text  { grid-column: 3 / 5; }
+  .process-step.flip .ps-media { grid-column: 1 / 3; }
+
+  .ps-media .case-img { flex: 1 1 auto; height: 100%; min-height: 0; }
+  .ps-media .case-img img { width: 100%; height: 100%; object-fit: cover; }
+  .ps-media figcaption { flex: 0 0 auto; }
+
+  .ps-num {
+    font-family: var(--font-headline);
+    font-size: 2rem;
+    font-weight: 300;
+    color: var(--gray-light);
+    line-height: 1;
+    margin-bottom: 0.8rem;
+  }
+
+  .ps-text h3 {
+    font-family: var(--font-headline);
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--black);
+    margin-bottom: 0.8rem;
+    line-height: 1.25;
+  }
+
+  .ps-text p {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--gray-dark);
+  }
+
+  /* ---- SELECT SPREADS ---- */
+  .spreads {
+    padding: 5rem var(--grid-pad) 2rem;
+  }
+
+  .spreads-head {
+    text-align: center;
+    margin-bottom: 3.5rem;
+  }
+
+  .spreads-head h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--black);
+    margin-bottom: 0.8rem;
+  }
+
+  .spreads-head p {
+    font-family: var(--font-body);
+    font-size: 1.02rem;
+    color: var(--gray);
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  .spread {
+    margin-bottom: 5rem;
+  }
+
+  .spread:last-child { margin-bottom: 0; }
+
+  /* ---- PULL QUOTE ---- */
+  .pull-quote {
+    padding: 6rem 2.5rem;
+    text-align: center;
+    background: var(--black);
+  }
+
+  .pull-quote blockquote {
+    font-family: var(--font-headline);
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.4;
+    color: var(--white);
+    max-width: 820px;
+    margin: 0 auto;
+  }
+
+  .pull-quote cite {
+    display: block;
+    margin-top: 1.6rem;
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--gray-light);
+    font-style: normal;
+  }
+
+  /* ---- NEXT PROJECT ---- */
+  .next-project {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 4rem 2.5rem;
+    text-align: center;
+  }
+
+  .next-label {
+    font-family: var(--font-sans);
+    font-size: 0.62rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--gray-light);
+    margin-bottom: 0.8rem;
+  }
+
+  .next-title {
+    font-family: var(--font-headline);
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-weight: 700;
+    color: var(--black);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .next-title:hover { color: var(--red); }
+
+  /* ---- FOOTER ---- */
+  .footer {
+    background: var(--black);
+    color: var(--gray-light);
+    padding: 2.5rem 0;
+  }
+
+  .footer-inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-logo {
+    font-family: var(--font-headline);
+    font-size: 1.1rem;
+    font-weight: 300;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--white);
+    text-decoration: none;
+  }
+
+  .footer-text {
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    color: var(--gray);
+  }
+
+  /* ---- PAGE FRAME (8px mat around the viewport) ---- */
+  .page-frame {
+    position: fixed;
+    inset: 0;
+    z-index: 9500;
+    pointer-events: none;
+    border: var(--grid-gap) solid var(--cream);
+  }
+
+  /* ---- GRID OVERLAY (toggle with G) ---- */
+  .grid-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9000;
+    pointer-events: none;
+    display: none;
+  }
+  .grid-overlay.active { display: block; }
+
+  .grid-overlay-inner {
+    width: 100%;
+    height: 100vh;
+    margin: 0;
+    padding: var(--grid-gap);
+    display: grid;
+    grid-template-columns: 1fr var(--grid-gap) 1fr var(--grid-mid) 1fr var(--grid-gap) 1fr;
+    grid-template-rows: repeat(var(--grid-rows), 1fr);
+    column-gap: 0;
+    row-gap: var(--grid-gap);
+  }
+
+  .grid-overlay-cell {
+    background: rgba(214, 51, 51, 0.07);
+    outline: 1px solid rgba(214, 51, 51, 0.22);
+    outline-offset: -1px;
+  }
+
+  .grid-badge {
+    position: fixed;
+    bottom: 1rem;
+    left: 1rem;
+    z-index: 9001;
+    font-family: var(--font-sans);
+    font-size: 0.6rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--gray);
+    background: rgba(255,255,255,0.92);
+    border: 1px solid var(--gray-rule);
+    padding: 0.4rem 0.6rem;
+    border-radius: 3px;
+    pointer-events: none;
+  }
+
+  /* ---- RESPONSIVE ---- */
+  @media (max-width: 768px) {
+    .hero-head {
+      display: block;
+      width: 100%;
+      min-height: 0;
+      margin-top: 0;
+      padding: 2.5rem 1.5rem 0;
+    }
+    .hero-title, .hero-premise, .hero-credits {
+      white-space: normal;
+      margin-bottom: 1.4rem;
+    }
+    .hero-premise { font-size: 1.2rem; }
+    .cascade { display: block; padding: 3rem 1.5rem; }
+    .cascade .c-text { margin: 1.5rem 0; text-align: left; }
+    .cascade .c-text p { font-size: 1rem; }
+    .cascade .c-media { height: auto; margin-bottom: 1.5rem; }
+    .cascade .c-media img { height: auto; object-fit: contain; }
+    .bleed .case-img { height: 60vh; }
+    .spreads { padding: 3rem 1.5rem 1rem; }
+    .spread { margin-bottom: 2.5rem; }
+    .pull-quote { padding: 4rem 1.5rem; }
+    .footer-inner { flex-direction: column; gap: 1rem; text-align: center; }
+    .pbook { padding: 3rem 1.5rem 1rem; }
+    .pb-row { grid-template-columns: 1fr; gap: 2rem; }
+  }
+
+  /* ---- PROCESS BOOK ---- */
+  .pbook {
+    max-width: var(--grid-max);
+    margin: 0 auto;
+    padding: 5rem var(--grid-pad) 2rem;
+  }
+  .pb-group { margin-bottom: 3.5rem; }
+  .pb-group:last-child { margin-bottom: 0; }
+  .pb-group .section-label { margin-bottom: 1.4rem; }
+  .pb-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem;
+    align-items: start;
+  }
+  .pb-item { margin: 0; }
+  .pb-item img {
+    width: 100%;
+    border: 1px solid var(--gray-rule);
+    background: var(--white);
+  }
+  .pb-item figcaption { margin-top: 0.7rem; }
+
+  /* book pages lift off the page */
+  .cascade .c-media,
+  .spreads .spread { box-shadow: 0 10px 30px rgba(0, 0, 0, 0.13); }
+</style>
+</head>
+<body>
+
+<div class="page-frame" aria-hidden="true"></div>
+
+<div class="topbar">
+<div class="topbar-inner">
+<a href="reflectus.html">← Back to ReflectUS</a>
+<span>The Full Story</span>
+</div>
+</div>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+<figure class="case-img hero-fig">
+<img alt="ReflectUS — the front cover of the children's-book parable" src="reflectus-images/reflectus-01.jpg"/>
+</figure>
+</section>
+
+<div class="hero-head">
+<h1 class="hero-title">ReflectUS</h1>
+<p class="hero-premise">A children’s-book parable that exposes how American politics keeps recycling the same four stories — and fails to learn from any of them.</p>
+<p class="hero-credits">
+<strong>Designer — Jack Murray</strong><span class="sep">·</span>2025–2026<span class="sep">·</span>Children’s book, illustrated parable<span class="sep">·</span>Author, narrative direction, illustration with Jaja Riley
+</p>
+</div>
+
+<main class="editorial">
+
+<!-- ===== CASCADE A · Brief + Concept ===== -->
+<section class="cascade">
+<div class="c-text" style="grid-column:1/4;grid-row:1/5;">
+<p class="section-label">The Brief</p>
+<p>Reich names four stories American politicians tell on a loop. I wanted to make those stories visible — so I built them into a children’s book, the one format that gets away with repeating itself until you can’t unsee the pattern.</p>
+</div>
+<figure class="c-media case-img" style="grid-column:5/8;grid-row:1/7;">
+<img alt="ReflectUS — opening spread introducing the town of Usonia" src="reflectus-images/reflectus-02-03.jpg"/>
+</figure>
+<figure class="c-media case-img" style="grid-column:1/4;grid-row:5/11;">
+<img alt="ReflectUS — back cover closing the parable" src="reflectus-images/reflectus-36.jpg"/>
+</figure>
+<div class="c-text" style="grid-column:5/8;grid-row:7/9;">
+<p class="section-label">Concept</p>
+<p>I set the whole book in one town, Usonia, governed by LIER, and drew it three ways — Castle, Town, Mirror. Same place, three faces. That constraint did the heavy lifting: US and THEM, hope and fear, all play out on one stage.</p>
+</div>
+</section>
+
+<!-- ===== FULL-BLEED BREAK 1 ===== -->
+<section class="bleed">
+<figure class="case-img">
+<img alt="ReflectUS — spread where LIER installs mirrors around the town" src="reflectus-images/reflectus-08-09.jpg"/>
+</figure>
+</section>
+
+<!-- ===== CASCADE B · Process 01 + 02 + 03 ===== -->
+<section class="cascade">
+<div class="c-text" style="grid-column:1/4;grid-row:1/5;">
+<p class="section-label">Process · 01</p>
+<h3>Mapping one place, read three ways</h3>
+<p>Before drawing a single page, I mapped every beat to one of three views of the town. If a scene didn’t fit Castle, Town, or Mirror, it didn’t belong in the book.</p>
+</div>
+<figure class="c-media case-img" style="grid-column:5/8;grid-row:1/7;">
+<img alt="ReflectUS — spread where the crowd gathers at the HOLIER monument" src="reflectus-images/reflectus-12-13.jpg"/>
+</figure>
+<figure class="c-media case-img" style="grid-column:1/4;grid-row:5/11;">
+<img alt="ReflectUS — spread turning to see the face of THEM, the enemy" src="reflectus-images/reflectus-18-19.jpg"/>
+</figure>
+<div class="c-text" style="grid-column:5/8;grid-row:7/9;">
+<p class="section-label">Process · 02</p>
+<h3>The Rockwell method</h3>
+<p>Adapting Norman Rockwell’s blocking technique, I photographed and staged each scene, then handed the layout to illustrator Jaja Riley to bring the characters to life.</p>
+</div>
+<figure class="c-media case-img" style="grid-column:5/8;grid-row:9/15;">
+<img alt="ReflectUS — spread drawing on the visual language of Animal Farm" src="reflectus-images/reflectus-22-23.jpg"/>
+</figure>
+<div class="c-text" style="grid-column:1/4;grid-row:11/15;">
+<p class="section-label">Process · 03</p>
+<h3>A tone borrowed from the fable</h3>
+<p>I pulled the voice from Orwell’s <em>Animal Farm</em> and mid-century political illustration, rewriting lines until they passed both tests: a kid could read them aloud, and an adult would flinch.</p>
+</div>
+</section>
+
+<!-- ===== SELECT SPREADS ===== -->
+<section class="spreads">
+<div class="spreads-head">
+<h2>Select Spreads</h2>
+<p>Turning the pages — each story opening, building, and turning on itself in sequence.</p>
+</div>
+
+<figure class="spread case-img">
+<img alt="ReflectUS — The Triumphant Individual rises from the crowd" src="reflectus-images/reflectus-04-05.jpg"/>
+</figure>
+
+<figure class="spread case-img">
+<img alt="ReflectUS — The Benevolent Community pitches in for the common good" src="reflectus-images/reflectus-10-11.jpg"/>
+</figure>
+
+<figure class="spread case-img">
+<img alt="ReflectUS — The Mob at the Gates appears outside Usonia" src="reflectus-images/reflectus-16-17.jpg"/>
+</figure>
+
+<figure class="spread case-img">
+<img alt="ReflectUS — The Rot at the Top, corruption of the elites revealed" src="reflectus-images/reflectus-24-25.jpg"/>
+</figure>
+
+<figure class="spread case-img">
+<img alt="ReflectUS — the town confronts its own reflection in the Mirror" src="reflectus-images/reflectus-30-31.jpg"/>
+</figure>
+</section>
+
+<!-- ===== FULL-BLEED CLOSING IMAGE ===== -->
+<section class="bleed">
+<figure class="case-img">
+<img alt="ReflectUS — the closing spread that asks the reader to reflect" src="reflectus-images/reflectus-34-35.jpg"/>
+</figure>
+</section>
+
+</main>
+
+<!-- ===== PROCESS BOOK ===== -->
+<section class="pbook spreads">
+<div class="spreads-head">
+<h2>From the Process Book</h2>
+<p>The research, mapping, and staging behind ReflectUS.</p>
+</div>
+
+<div class="pb-group">
+<p class="section-label">Mapping the Story</p>
+<div class="pb-row">
+<figure class="pb-item">
+<img src="reflectus-images/process/p05-img1.png" alt="Story map, base plan">
+<figcaption>Base plan</figcaption>
+</figure>
+<figure class="pb-item">
+<img src="reflectus-images/process/p05-img2.png" alt="Story map, Castle, Town, Mirror">
+<figcaption>Castle, Town, Mirror</figcaption>
+</figure>
+</div>
+</div>
+
+<div class="pb-group">
+<p class="section-label">Rockwell Layout</p>
+<div class="pb-row">
+<figure class="pb-item">
+<img src="reflectus-images/process/p06-img1.png" alt="Rockwell-style layout block, the LIER and his monument">
+<figcaption>“The LIER would meet with his advisors every day for a piece of yellow cake, but on this day he noticed a crowd approaching the HOLIER, his own monument, making it seem as if thousands were surrounding him, bearing unhappy faces, expressions he had never seen in his cabinet.”</figcaption>
+</figure>
+<figure class="pb-item">
+<img src="reflectus-images/process/p07-img1.png" alt="Rockwell-style layout block, turn to see the enemy">
+<figcaption>He begins to hear their cries for help, “we’re sick, hungry, and need more jobs.” The LIER could never believe this would happen to us, and it hits him. “It was THEM, turn to see the face of your enemy, they have robbed us of what we are.”</figcaption>
+</figure>
+</div>
+</div>
+
+<div class="pb-group">
+<p class="section-label">References</p>
+<div class="pb-row">
+<figure class="pb-item">
+<img src="reflectus-images/process/p02-img1.jpg" alt="Illustrator Jaja Riley's Instagram">
+<figcaption>Illustrator Jaja Riley’s Instagram</figcaption>
+</figure>
+<figure class="pb-item">
+<img src="reflectus-images/process/p03-img1.jpg" alt="George Orwell, Animal Farm, reference">
+<figcaption>Reference, George Orwell’s <em>Animal Farm</em></figcaption>
+</figure>
+</div>
+</div>
+
+<div class="pb-group">
+<p class="section-label">Case Analysis &amp; Era Context</p>
+<div class="pb-row">
+<figure class="pb-item">
+<img src="reflectus-images/process/p08-img1.jpg" alt="Robert Reich">
+<figcaption>Robert Reich</figcaption>
+</figure>
+<figure class="pb-item">
+<img src="reflectus-images/process/p09-img2.png" alt="Political Parables for Today, Robert Reich, original article">
+<figcaption>Robert Reich, “Political Parables for Today”</figcaption>
+</figure>
+<figure class="pb-item">
+<img src="reflectus-images/process/p10-img1.jpg" alt="Ronald Reagan, official portrait">
+<figcaption>Ronald Reagan</figcaption>
+</figure>
+<figure class="pb-item">
+<img src="reflectus-images/process/p10-img2.jpg" alt="Reagan-era political cartoon">
+<figcaption>Reagan-era political cartoon</figcaption>
+</figure>
+</div>
+</div>
+</section>
+
+<!-- ===== PULL QUOTE ===== -->
+<div class="pull-quote">
+<blockquote>“A culture failing to self-reflect is forced to repeat the same patterns.”</blockquote>
+<cite>ReflectUS</cite>
+</div>
+
+<!-- ===== NEXT PROJECT ===== -->
+<div class="next-project">
+<p class="next-label">Next Project</p>
+<a class="next-title" href="tbaa.html">To / Be / An American →</a>
+</div>
+
+<footer class="footer">
+<div class="footer-inner">
+<a class="footer-logo" href="index.html">JKMRY</a>
+<span class="footer-text">© 2026. All rights reserved.</span>
+</div>
+</footer>
+
+<div class="grid-overlay" id="grid-overlay" aria-hidden="true"><div class="grid-overlay-inner" id="grid-overlay-inner"></div></div>
+<div class="grid-badge" id="grid-badge">Grid: off · press G</div>
+
+<script>
+  /* ---- GRID OVERLAY ---- */
+  const gridOverlay = document.getElementById('grid-overlay');
+  const gridBadge = document.getElementById('grid-badge');
+  const gridInner = document.getElementById('grid-overlay-inner');
+  const cssNum = name => parseInt(getComputedStyle(document.documentElement).getPropertyValue(name), 10);
+  const realCols = [1, 3, 5, 7]; // skip the gutter tracks
+  const gridRows = cssNum('--grid-rows');
+  for (let r = 1; r <= gridRows; r++) {
+    realCols.forEach(c => {
+      const cell = document.createElement('div');
+      cell.className = 'grid-overlay-cell';
+      cell.style.gridColumn = c + ' / ' + (c + 1);
+      cell.style.gridRow = r + ' / ' + (r + 1);
+      gridInner.appendChild(cell);
+    });
+  }
+  function toggleGrid() {
+    const on = gridOverlay.classList.toggle('active');
+    gridBadge.textContent = on ? 'Grid: on · press G' : 'Grid: off · press G';
+  }
+
+  /* ---- NAV ADAPTS TO BACKGROUND UNDER IT ---- */
+  const topbar = document.querySelector('.topbar');
+  const darkZones = document.querySelectorAll('.hero, .pull-quote, .footer');
+  function syncNav() {
+    const navY = topbar.offsetHeight / 2;
+    let onDark = false;
+    darkZones.forEach(z => {
+      const r = z.getBoundingClientRect();
+      if (r.top <= navY && r.bottom > navY) onDark = true;
+    });
+    topbar.classList.toggle('on-dark', onDark);
+  }
+  syncNav();
+  window.addEventListener('scroll', syncNav, { passive: true });
+  window.addEventListener('resize', syncNav);
+
+  /* ---- GRID TOGGLE (G) ---- */
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'g' || e.key === 'G') toggleGrid();
+  });
+
+  /* ---- SCROLL FADE-IN ---- */
+  const fadeEls = document.querySelectorAll('.case-img');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    fadeEls.forEach(el => { el.classList.add('reveal'); io.observe(el); });
+  }
+</script>
+
+</body>
+</html>

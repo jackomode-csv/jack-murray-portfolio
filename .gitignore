@@ -20,6 +20,18 @@ fix-two.sh
 
 # Homepage hero reel now served from R2 (video.jkmry.com/jackM-demo-reel-web.mp4)
 jackM-demo-reel-web.mp4
+jackM-demo-reel.mp4
+
+# Layered source files — export flattened jpg/png for the web instead
+*.psd
+
+# Large source media — hosted on R2 / kept local, not committed (exceeds GitHub's 100MB limit)
+farmers-value.mp4
+intro-gif-tbaa.gif
+intro-tbaa-cut.gif
+
+# Adobe Premiere generated audio-preview cache
+Adobe Premiere Pro Audio Previews/
 
 # Internal planning / skills doc — local only, not published
 jack-murray-portfolio-skills.md

@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Branding — JKMRY</title>
+<link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --white: #FFFFFF;
+    --cream: #FFFFFF;
+    --black: #121212;
+    --ink: #1A1A1A;
+    --gray-dark: #3A3A3A;
+    --gray: #6B6B6B;
+    --gray-light: #A8A8A8;
+    --gray-rule: #D6D4D0;
+    --red: #161614;
+    --font-headline: 'Jost', 'Futura', 'Helvetica Neue', sans-serif;
+    --font-body: 'Jost', 'Futura', 'Helvetica Neue', sans-serif;
+    --font-sans: 'Jost', 'Futura', 'Helvetica Neue', sans-serif;
+  }
+
+  html { font-size: 16px; scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: var(--font-body);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection { background: var(--red); color: var(--white); }
+
+  /* ---- NAV ---- */
+  .topbar {
+    border-bottom: 1px solid var(--gray-rule);
+    padding: 0.6rem 0;
+    position: sticky;
+    top: 0;
+    background: var(--cream);
+    z-index: 100;
+  }
+
+  .topbar-inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gray);
+  }
+
+  .topbar-inner a {
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .topbar-inner a:hover { color: var(--red); }
+
+  /* ---- HEADER ---- */
+  .case-header {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 5rem 2.5rem 0;
+  }
+
+  .case-cat {
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--red);
+    margin-bottom: 1rem;
+  }
+
+  .case-title {
+    font-family: var(--font-headline);
+    font-size: clamp(2.2rem, 4vw, 3.2rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--black);
+    margin-bottom: 1.2rem;
+  }
+
+  .case-subtitle {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--gray-dark);
+    max-width: 600px;
+    margin-bottom: 2.5rem;
+  }
+
+  /* ---- BRIEF METADATA ---- */
+  .case-meta {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border-top: 2px solid var(--black);
+    border-bottom: 1px solid var(--gray-rule);
+  }
+
+  .case-meta-item {
+    padding: 1.2rem 1.5rem 1.2rem 0;
+    border-right: 1px solid var(--gray-rule);
+  }
+
+  .case-meta-item:last-child { border-right: none; }
+
+  .case-meta-label {
+    font-family: var(--font-sans);
+    font-size: 0.6rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--gray-light);
+    margin-bottom: 0.3rem;
+  }
+
+  .case-meta-value {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.4;
+  }
+
+  /* ---- IMAGES ---- */
+  .case-images {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 3rem 2.5rem;
+  }
+
+  .case-img {
+    width: 100%;
+    overflow: hidden;
+    background: var(--white);
+    border: 1px solid var(--gray-rule);
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .case-img:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+  }
+
+  .case-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Placeholder shown while real artwork has not been dropped in yet. */
+  .case-img-placeholder {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: repeating-linear-gradient(45deg, #F2F0EC, #F2F0EC 12px, #ECE9E3 12px, #ECE9E3 24px);
+    border: 1px dashed var(--gray-rule);
+    font-family: var(--font-sans);
+    font-size: 0.62rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--gray-light);
+    text-align: center;
+    padding: 1rem;
+  }
+
+  .case-images-caption {
+    font-family: var(--font-sans);
+    font-size: 0.68rem;
+    color: var(--gray-light);
+    font-style: italic;
+    text-align: center;
+    margin-top: 0.8rem;
+  }
+
+  /* ---- LIGHTBOX ---- */
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(0,0,0,0.92);
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    cursor: zoom-out;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .lightbox.active {
+    display: flex;
+    opacity: 1;
+  }
+
+  .lightbox img {
+    max-width: 95vw;
+    max-height: 92vh;
+    object-fit: contain;
+    border-radius: 2px;
+    box-shadow: 0 4px 60px rgba(0,0,0,0.5);
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 2rem;
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: rgba(255,255,255,0.5);
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+
+  .lightbox-close:hover { color: var(--white); }
+
+  /* ---- CONTENT SECTIONS ---- */
+  .case-content {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 2.5rem;
+  }
+
+  .case-section {
+    padding: 3.5rem 0;
+    border-bottom: 1px solid var(--gray-rule);
+  }
+
+  .case-section:last-child { border-bottom: none; }
+
+  .case-section-grid {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .case-section-label {
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--red);
+    padding-top: 0.3rem;
+  }
+
+  .case-section-body p {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--gray-dark);
+    margin-bottom: 1.2rem;
+  }
+
+  .case-section-body p:last-child { margin-bottom: 0; }
+
+  /* ---- NEXT PROJECT ---- */
+  .next-project {
+    border-top: 2px solid var(--black);
+    padding: 3rem 0;
+    text-align: center;
+  }
+
+  .next-label {
+    font-family: var(--font-sans);
+    font-size: 0.62rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--gray-light);
+    margin-bottom: 0.8rem;
+  }
+
+  .next-title {
+    font-family: var(--font-headline);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--black);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .next-title:hover { color: var(--red); }
+
+  /* ---- FOOTER ---- */
+  .footer {
+    background: var(--black);
+    color: var(--gray-light);
+    padding: 2.5rem 0;
+  }
+
+  .footer-inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-logo {
+    font-family: var(--font-headline);
+    font-size: 1.1rem;
+    font-weight: 300;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--white);
+    text-decoration: none;
+  }
+
+  .footer-text {
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    color: var(--gray);
+  }
+
+  /* ---- RESPONSIVE ---- */
+  @media (max-width: 768px) {
+    .case-header { padding: 3rem 1.5rem 0; }
+    .case-content { padding: 0 1.5rem; }
+    .case-meta { grid-template-columns: 1fr 1fr; }
+    .case-meta-item:nth-child(2) { border-right: none; }
+    .case-section-grid { grid-template-columns: 1fr; gap: 0.8rem; }
+    .footer-inner { flex-direction: column; gap: 1rem; text-align: center; }
+  }
+
+  /* Cap every content image so no single image overflows the viewport */
+  body img:not(#lightbox-img) {
+    max-height: 86vh;
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ---- TWO-COLUMN PORTFOLIO LAYOUT ---- */
+  .case-layout {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 2rem 2.5rem;
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  .case-text-col {
+    position: sticky;
+    top: 5rem;
+    max-height: calc(100vh - 6rem);
+    overflow-y: auto;
+    padding-right: 0.5rem;
+  }
+  .case-text-col::-webkit-scrollbar { width: 4px; }
+  .case-text-col::-webkit-scrollbar-thumb { background: var(--gray-rule); border-radius: 2px; }
+  .case-text-col > * { max-width: none !important; margin: 0 0 1.4rem !important; padding: 0 !important; }
+  .case-text-col .case-section { padding: 1.4rem 0 !important; }
+  .case-text-col .case-section:first-of-type { padding-top: 0 !important; }
+  .case-text-col .case-section-grid { grid-template-columns: 1fr !important; gap: 0.4rem !important; }
+  .case-text-col .case-meta { grid-template-columns: 1fr 1fr; }
+  .case-text-col .case-meta-item:nth-child(2) { border-right: none; }
+  .case-image-col > * { max-width: 100% !important; margin: 0 0 1.5rem !important; padding: 0 !important; }
+  .case-image-col .case-img, .case-image-col .case-img-placeholder {
+    max-width: 100% !important; margin-left: auto !important; margin-right: auto !important;
+  }
+  @media (max-width: 900px) {
+    .case-layout { grid-template-columns: 1fr; gap: 2rem; padding: 1.5rem 1rem; }
+    .case-text-col { position: static; max-height: none; overflow-y: visible; padding-right: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+<div class="topbar-inner">
+<a href="index.html">← Back to JKMRY</a>
+<span>Branding &amp; Identity</span>
+</div>
+</div>
+
+<main class="case-layout">
+
+<aside class="case-text-col">
+
+<header class="case-header">
+<p class="case-cat">Branding · Visual Identity</p>
+<h1 class="case-title">Branding</h1>
+<p class="case-subtitle">Identity systems built around a clear idea — logo, color, type, and the rules that hold them together across every application.</p>
+<div class="case-meta">
+<div class="case-meta-item">
+<p class="case-meta-label">Role</p>
+<p class="case-meta-value">Designer</p>
+</div>
+<div class="case-meta-item">
+<p class="case-meta-label">Discipline</p>
+<p class="case-meta-value">Brand Identity,<br/>Art Direction</p>
+</div>
+<div class="case-meta-item">
+<p class="case-meta-label">Deliverables</p>
+<p class="case-meta-value">Logo, Palette,<br/>Type, Guidelines</p>
+</div>
+<div class="case-meta-item">
+<p class="case-meta-label">Timeline</p>
+<p class="case-meta-value">2026</p>
+</div>
+</div>
+</header>
+
+<div class="case-content">
+<div class="case-section">
+<div class="case-section-grid">
+<p class="case-section-label">Overview</p>
+<div class="case-section-body">
+<p>A short framing of the brief: who the brand is for, the problem the identity needs to solve, and the idea the system is built around. Replace this paragraph with the project's own story.</p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="case-content">
+<div class="case-section">
+<div class="case-section-grid">
+<p class="case-section-label">Logo</p>
+<div class="case-section-body">
+<p>The mark and its construction — primary lockup, secondary marks, and clear-space and minimum-size rules. Describe the reasoning behind the form here.</p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="case-content">
+<div class="case-section">
+<div class="case-section-grid">
+<p class="case-section-label">Color</p>
+<div class="case-section-body">
+<p>The palette and how it is applied — primary, secondary, and neutral roles, plus any accessibility or contrast constraints the brand follows.</p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="case-content">
+<div class="case-section">
+<div class="case-section-grid">
+<p class="case-section-label">Typography</p>
+<div class="case-section-body">
+<p>The typeface choices and the hierarchy they create — display, body, and supporting weights, and the voice they give the brand.</p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="case-content">
+<div class="case-section">
+<div class="case-section-grid">
+<p class="case-section-label">Applications</p>
+<div class="case-section-body">
+<p>The system in use — stationery, signage, digital, packaging, or whatever the brand lives on. This is where the rules prove they hold together.</p>
+</div>
+</div>
+</div>
+<!-- NEXT PROJECT -->
+<div class="next-project">
+<p class="next-label">Next Project</p>
+<a class="next-title" href="reflectus.html">ReflectUS →</a>
+</div>
+</div>
+
+</aside>
+
+<div class="case-image-col">
+
+<div class="case-images">
+<div class="case-img-placeholder">Drop logo artwork in branding-images/</div>
+</div>
+
+<div class="case-images">
+<div class="case-img-placeholder">Color palette</div>
+</div>
+
+<div class="case-images">
+<div class="case-img-placeholder">Type specimen</div>
+</div>
+
+<div class="case-images">
+<div class="case-img-placeholder">Applications / mockups</div>
+</div>
+
+</div>
+
+</main>
+
+<footer class="footer">
+<div class="footer-inner">
+<a class="footer-logo" href="index.html">JKMRY</a>
+<span class="footer-text">© 2026. All rights reserved.</span>
+</div>
+</footer>
+
+<div class="lightbox" id="lightbox">
+<button class="lightbox-close">ESC to close</button>
+<img alt="" id="lightbox-img" src=""/>
+</div>
+
+<script>
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+
+  document.querySelectorAll('.case-img').forEach(el => {
+    el.addEventListener('click', () => {
+      const img = el.querySelector('img');
+      if (!img) return;
+      lightboxImg.src = img.src;
+      lightboxImg.alt = img.alt;
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  function closeLightbox() {
+    lightbox.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  lightbox.addEventListener('click', closeLightbox);
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeLightbox();
+  });
+</script>
+
+</body>
+</html>
