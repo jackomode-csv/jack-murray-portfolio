@@ -7,6 +7,7 @@ Thumbs.db
 Adobe Premiere Pro Auto-Save/
 *.prproj
 *.prin
+*.aep
 
 # Large source gifs (use mp4/webm in markup instead)
 tbaa-intro-clip.gif
@@ -33,6 +34,9 @@ intro-tbaa-cut.gif
 
 # Adobe Premiere generated audio-preview cache
 Adobe Premiere Pro Audio Previews/
+
+# Raw export of the Books banner clip (committed as reflectus-banner.mp4 instead)
+reflectus_animation*.mp4
 
 # Internal planning / skills doc — local only, not published
 jack-murray-portfolio-skills.md
