@@ -35,8 +35,9 @@ intro-tbaa-cut.gif
 # Adobe Premiere generated audio-preview cache
 Adobe Premiere Pro Audio Previews/
 
-# Raw export of the Books banner clip (committed as reflectus-banner.mp4 instead)
+# Books banner clip — served from R2 (GitHub Pages can't serve LFS mp4s)
 reflectus_animation*.mp4
+reflectus-banner.mp4
 
 # Internal planning / skills doc — local only, not published
 jack-murray-portfolio-skills.md
