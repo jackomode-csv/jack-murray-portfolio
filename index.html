@@ -392,6 +392,7 @@
     height: 100svh;
     overflow: hidden;
     background: #FFFFFF;
+    cursor: pointer;   /* click toggles play/pause, like the hero */
   }
   .book-banner-video {
     position: absolute;
@@ -400,8 +401,20 @@
     height: 100%;
     object-fit: contain;   /* show the whole frame — never crop (matches hero) */
     object-position: center;
-    pointer-events: none;   /* not interactive — can't be paused */
   }
+  /* centered play indicator — shown only while the banner is paused */
+  .banner-play {
+    position: absolute; z-index: 2; top: 50%; left: 50%;
+    transform: translate(-50%, -50%); display: none;
+    align-items: center; justify-content: center;
+    width: 84px; height: 84px; border-radius: 50%;
+    border: 1px solid rgba(0,0,0,0.18);
+    background: rgba(255,255,255,0.55); color: var(--ink);
+    -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px);
+    pointer-events: none;
+  }
+  .book-banner.is-paused .banner-play { display: flex; }
+  .banner-play svg { width: 34px; height: 34px; margin-left: 4px; }
 
   /* full-bleed rows: span both columns. Order is full, pair, full, pair… */
   .work-grid > li.full { grid-column: 1 / -1; }
@@ -877,6 +890,9 @@
     <video class="book-banner-video" autoplay muted loop playsinline preload="auto" aria-hidden="true" tabindex="-1" disablepictureinpicture>
       <source src="https://video.jkmry.com/reflectus-banner.mp4" type="video/mp4">
     </video>
+    <div class="banner-play" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+    </div>
   </div>
   <ul class="book-stack">
 
@@ -1079,6 +1095,28 @@
       item.addEventListener('mouseenter', load, { once: true });
       item.addEventListener('focusin', load, { once: true });
     });
+  })();
+
+  // Books banner — click to toggle play/pause, like the hero. Also nudge
+  // playback in JS in case a browser stalls the muted autoplay.
+  (function () {
+    var banner = document.querySelector('.book-banner');
+    if (!banner) return;
+    var bv = banner.querySelector('.book-banner-video');
+    if (!bv) return;
+    function bToggle() {
+      if (bv.paused) {
+        var p = bv.play();
+        if (p && p.catch) { p.catch(function () {}); }
+      } else {
+        bv.pause();
+      }
+    }
+    banner.addEventListener('click', bToggle);
+    bv.addEventListener('play',  function () { banner.classList.remove('is-paused'); });
+    bv.addEventListener('pause', function () { banner.classList.add('is-paused'); });
+    var p = bv.play();
+    if (p && p.catch) { p.catch(function () {}); }
   })();
 </script>
 
