@@ -94,7 +94,7 @@
   /* ---- HERO (full-bleed) ---- */
   .hero {
     width: 100%;
-    background: var(--black);
+    background: #000;   /* pure black — matches the photo backdrop seamlessly */
   }
 
   .hero-fig {
@@ -580,6 +580,26 @@
   @media (max-width: 768px) {
     .book-pair { grid-template-columns: 1fr; gap: 2.5rem; }
   }
+
+  /* ---- BLACK PAGE THEME — the book photos dissolve into the page ---- */
+  body { background: #000; }
+  .page-frame { border-color: #000; }
+  .topbar-inner { color: rgba(255,255,255,0.72); }
+  .topbar-inner a { color: #fff; }
+  .topbar-inner a:hover { color: rgba(255,255,255,0.72); }
+  .hero-title { color: #fff; }
+  .hero-premise { color: #C9C9C9; }
+  .hero-credits { color: #909090; border-top-color: #2A2A2A; }
+  .hero-credits strong { color: #fff; }
+  .case-img, .bleed .case-img { background: #000; }
+  .spreads .spread { box-shadow: none; }
+  .section-label { color: #909090; }
+  .skill-grid li { color: #EDEDED; border-top-color: #2A2A2A; }
+  .skill-grid li span { color: #909090; }
+  figcaption { color: #909090; }
+  .story-btn { background: #fff; color: #000; }
+  .story-btn:hover { background: #D6D4D0; }
+  .read-more .read-more-note { color: #909090; }
 </style>
 </head>
 <body>
@@ -596,7 +616,7 @@
 <!-- ===== HERO ===== -->
 <section class="hero">
 <figure class="case-img hero-fig">
-<img alt="ReflectUS — the front cover of the children's-book parable" src="reflectus-images/reflectus-01.jpg"/>
+<img alt="ReflectUS — printed copies of the book, one standing against the fanned stack" src="reflectus-images/reflectus-book-stack.jpg"/>
 </figure>
 </section>
 
@@ -614,15 +634,15 @@
 <section class="spreads">
 
 <figure class="spread case-img">
-<img alt="ReflectUS — spread where the crowd gathers at the HOLIER monument" src="reflectus-images/reflectus-12-13.jpg"/>
+<img alt="ReflectUS — the printed book open to the spread where the crowd gathers at the HOLIER monument" src="reflectus-images/reflectus-book-12-13.jpg"/>
 </figure>
 
 <div class="book-pair">
 <figure class="spread case-img">
-<img alt="ReflectUS — The Mob at the Gates appears outside Usonia" src="reflectus-images/reflectus-16-17.jpg"/>
+<img alt="ReflectUS — The Mob at the Gates appears outside Usonia" src="reflectus-images/reflectus-book-16-17.jpg"/>
 </figure>
 <figure class="spread case-img">
-<img alt="ReflectUS — spread turning to see the face of THEM, the enemy" src="reflectus-images/reflectus-18-19.jpg"/>
+<img alt="ReflectUS — spread where the people look down at their shattered enemy" src="reflectus-images/reflectus-book-shattered.jpg"/>
 </figure>
 </div>
 </section>

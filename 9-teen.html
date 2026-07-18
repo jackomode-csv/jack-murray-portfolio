@@ -94,7 +94,7 @@
   /* ---- HERO (full-bleed) ---- */
   .hero {
     width: 100%;
-    background: var(--black);
+    background: #000;   /* pure black — matches the photo backdrop seamlessly */
   }
 
   .hero-fig {
@@ -106,7 +106,7 @@
   .hero-fig img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     object-position: center;
   }
 
@@ -560,6 +560,26 @@
     letter-spacing: 0.14em;
     color: var(--gray-light);
   }
+
+  /* ---- BLACK PAGE THEME — the book photos dissolve into the page ---- */
+  body { background: #000; }
+  .page-frame { border-color: #000; }
+  .topbar-inner { color: rgba(255,255,255,0.72); }
+  .topbar-inner a { color: #fff; }
+  .topbar-inner a:hover { color: rgba(255,255,255,0.72); }
+  .hero-title { color: #fff; }
+  .hero-premise { color: #C9C9C9; }
+  .hero-credits { color: #909090; border-top-color: #2A2A2A; }
+  .hero-credits strong { color: #fff; }
+  .case-img, .bleed .case-img { background: #000; }
+  .spreads .spread { box-shadow: none; }
+  .section-label { color: #909090; }
+  .skill-grid li { color: #EDEDED; border-top-color: #2A2A2A; }
+  .skill-grid li span { color: #909090; }
+  figcaption { color: #909090; }
+  .story-btn { background: #fff; color: #000; }
+  .story-btn:hover { background: #D6D4D0; }
+  .read-more .read-more-note { color: #909090; }
 </style>
 </head>
 <body>
@@ -576,7 +596,7 @@
 <!-- ===== HERO ===== -->
 <section class="hero">
 <figure class="case-img hero-fig">
-<img alt="9-TEEN — the Unisphere pop-up rising from the page" src="9-teen-images/IMG_9284-10_1.jpg"/>
+<img alt="9-TEEN — the Unisphere pop-up mid-open, rising from the fountain spread" src="9-teen-images/9-teen-popup-mechanism.jpg"/>
 </figure>
 </section>
 
@@ -594,15 +614,15 @@
 <section class="spreads">
 
 <figure class="spread case-img">
-<img alt="9-TEEN — side-on view of the pop-up mechanism partly open" src="9-teen-images/IMG_9290-13_1.jpg"/>
+<img alt="9-TEEN — a paper figure standing beneath the Unisphere’s ribs as the spread opens" src="9-teen-images/9-teen-popup-figure.jpg"/>
 </figure>
 
 <div class="book-pair">
 <figure class="spread case-img">
-<img alt="9-TEEN — flat overhead photographic spread of the Unisphere fountain ring" src="9-teen-images/IMG_9275-3_1-crop.jpg"/>
+<img alt="9-TEEN — the Unisphere pop-up raised to full height" src="9-teen-images/9-teen-popup-unisphere.jpg"/>
 </figure>
 <figure class="spread case-img">
-<img alt="9-TEEN — spread from the pop-up book" src="9-teen-images/IMG_9272-1_1.jpg"/>
+<img alt="9-TEEN — pop-up of a shadow figure on the museum steps beneath a black arch" src="9-teen-images/9-teen-popup-steps.jpg"/>
 </figure>
 </div>
 </section>

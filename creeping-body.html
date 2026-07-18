@@ -94,7 +94,7 @@
   /* ---- HERO (full-bleed) ---- */
   .hero {
     width: 100%;
-    background: var(--black);
+    background: #000;   /* pure black — matches the photo backdrop seamlessly */
   }
 
   .hero-fig {
@@ -561,6 +561,26 @@
     letter-spacing: 0.14em;
     color: var(--gray-light);
   }
+
+  /* ---- BLACK PAGE THEME — the book photos dissolve into the page ---- */
+  body { background: #000; }
+  .page-frame { border-color: #000; }
+  .topbar-inner { color: rgba(255,255,255,0.72); }
+  .topbar-inner a { color: #fff; }
+  .topbar-inner a:hover { color: rgba(255,255,255,0.72); }
+  .hero-title { color: #fff; }
+  .hero-premise { color: #C9C9C9; }
+  .hero-credits { color: #909090; border-top-color: #2A2A2A; }
+  .hero-credits strong { color: #fff; }
+  .case-img, .bleed .case-img { background: #000; }
+  .spreads .spread { box-shadow: none; }
+  .section-label { color: #909090; }
+  .skill-grid li { color: #EDEDED; border-top-color: #2A2A2A; }
+  .skill-grid li span { color: #909090; }
+  figcaption { color: #909090; }
+  .story-btn { background: #fff; color: #000; }
+  .story-btn:hover { background: #D6D4D0; }
+  .read-more .read-more-note { color: #909090; }
 </style>
 </head>
 <body>
@@ -577,7 +597,7 @@
 <!-- ===== HERO ===== -->
 <section class="hero">
 <figure class="case-img hero-fig">
-<img alt="The Creeping Body — cover spread of the 50-page Supreme Court publication" src="creeping-body-images/creeping-body-cover.png"/>
+<img alt="The Creeping Body — the hand-painted cover of the hand-bound Supreme Court publication" src="creeping-body-images/creeping-body-book-cover.jpg"/>
 </figure>
 </section>
 
@@ -595,24 +615,24 @@
 <section class="spreads">
 
 <figure class="spread case-img">
-<img alt="The Creeping Body — Citizens United campaign finance timeline spread" src="creeping-body-images/creeping-body-pg11.png"/>
+<img alt="The Creeping Body — the printed book open to the Citizens United campaign finance timeline spread" src="creeping-body-images/creeping-body-book-10-11.jpg"/>
 </figure>
 
 <div class="book-pair">
 <figure class="spread case-img">
-<img alt="The Creeping Body — dual timeline spread on the Court’s use of history and tradition" src="creeping-body-images/creeping-body-pg18.png"/>
+<img alt="The Creeping Body — dual timeline spread on the Court’s use of history and tradition" src="creeping-body-images/creeping-body-book-18-19.jpg"/>
 </figure>
 <figure class="spread case-img">
-<img alt="The Creeping Body — D.C. v. Heller history and tradition spread from the case analysis" src="creeping-body-images/creeping-body-pg22.png"/>
+<img alt="The Creeping Body — Kennedy v. Bremerton and NYSRPA v. Bruen spread from the case analysis" src="creeping-body-images/creeping-body-book-20-21.jpg"/>
 </figure>
 </div>
 
 <div class="book-pair">
 <figure class="spread case-img">
-<img alt="The Creeping Body — chapter opener on the Supreme Court as a political body" src="creeping-body-images/creeping-body-pg28.png"/>
+<img alt="The Creeping Body — chapter opener on the Supreme Court as a political body" src="creeping-body-images/creeping-body-book-28-29.jpg"/>
 </figure>
 <figure class="spread case-img">
-<img alt="The Creeping Body — interior timeline spread on Campaign Donations and the Supreme Court" src="creeping-body-images/creeping-body-pg6.png"/>
+<img alt="The Creeping Body — Due Process Era timeline spread on the Bakeshop Act and Lochner v. New York" src="creeping-body-images/creeping-body-book-8-9.jpg"/>
 </figure>
 </div>
 </section>
