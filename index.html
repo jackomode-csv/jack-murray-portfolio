@@ -1138,12 +1138,46 @@
         var ctx = c.getContext('2d');
         ctx.drawImage(img, 0, 0, w, h);
         var d = ctx.getImageData(0, 0, w, h).data;
+        var at = function (x, y) { return (y * w + x) * 4; };
+        var paint = function (r, g, b) {
+          media.style.setProperty('--tile-bg',
+            'rgb(' + Math.round(r) + ',' + Math.round(g) + ',' + Math.round(b) + ')');
+        };
+
+        // A title card or a mockup sits on a ground of its own, and the four
+        // corners are where that ground is least likely to be interrupted. If
+        // they agree, that is the real answer. Social Bot is why: the phone
+        // runs down both sides of the frame, so averaging the whole edge came
+        // out blue-grey when the artwork actually sits on white.
+        var cor = [at(0, 0), at(w - 1, 0), at(0, h - 1), at(w - 1, h - 1)];
+        var solid = cor.every(function (i) { return d[i + 3] >= 128; });
+        if (solid) {
+          var lo = [255, 255, 255], hi = [0, 0, 0], sum = [0, 0, 0];
+          cor.forEach(function (i) {
+            for (var k = 0; k < 3; k++) {
+              var v = d[i + k];
+              if (v < lo[k]) lo[k] = v;
+              if (v > hi[k]) hi[k] = v;
+              sum[k] += v;
+            }
+          });
+          // 24 of 255 — tight enough to mean one ground, loose enough for the
+          // noise a downscaled jpg leaves behind
+          if (Math.max(hi[0] - lo[0], hi[1] - lo[1], hi[2] - lo[2]) <= 24) {
+            paint(sum[0] / 4, sum[1] / 4, sum[2] / 4);
+            return;
+          }
+        }
+
+        // Corners disagree, so it is a photograph with no ground of its own.
+        // Fall back to the whole edge, which blends the thin letterbox bands
+        // into the picture.
         var r = 0, g = 0, b = 0, n = 0;
         for (var y = 0; y < h; y++) {
           for (var x = 0; x < w; x++) {
             // outer ring only — the frame's border color, not its subject
             if (x > 1 && x < w - 2 && y > 1 && y < h - 2) continue;
-            var i = (y * w + x) * 4;
+            var i = at(x, y);
             if (d[i + 3] < 128) continue;   // transparent PNG edge — skip
             r += d[i]; g += d[i + 1]; b += d[i + 2]; n++;
           }
@@ -1155,8 +1189,7 @@
         // most of the ring is actually artwork.
         var ring = w * h - (w - 4) * (h - 4);
         if (n < ring * 0.6) return;   // no real edge color to extend — keep the default
-        media.style.setProperty('--tile-bg',
-          'rgb(' + Math.round(r / n) + ',' + Math.round(g / n) + ',' + Math.round(b / n) + ')');
+        paint(r / n, g / n, b / n);
       } catch (e) {
         /* tainted canvas (file:// or cross-origin) — keep the default background */
       }
