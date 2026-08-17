@@ -371,6 +371,30 @@
     align-items: start;
   }
 
+  /* ---- BOOKS: the section carries the covers' own black ----
+     Every cover is photographed on black, so running the band edge to edge
+     means the covers meet their surround with no seam at all, instead of each
+     one sitting in a black box on a white page. Type inverts to match. */
+  .books-band {
+    background: #000;
+    padding: var(--tile-gap) 0 calc(var(--tile-gap) + 2rem);
+    margin-bottom: 2rem;
+  }
+  .books-band .work-section {
+    color: rgba(255,255,255,0.58);
+    border-bottom-color: rgba(255,255,255,0.18);
+  }
+  .books-band .cap-title,
+  .books-band .cap-time { color: #FFFFFF; }
+  .books-band .cap-desc { color: rgba(255,255,255,0.58); }
+  .books-band .cap-blurb { color: rgba(255,255,255,0.74); }
+  /* The band is the ground now, so a cover needs no box of its own. Written
+     past .book-stack .work-media, which sets the sampled color and would
+     otherwise win on source order at equal specificity. */
+  .books-band .book-stack .work-media { background: #000; }
+  /* white-on-black selection, since the page default is the other way round */
+  .books-band ::selection { background: #FFFFFF; color: #000000; }
+
   /* Books: full-bleed cards (cover + caption below), one per row */
   .book-stack {
     list-style: none;
@@ -913,6 +937,9 @@
 
     </ul>
 
+  <!-- The covers are photographed on black, so the section carries that ground
+       rather than sitting each cover in its own black box on a white page. -->
+  <section class="books-band">
   <h2 class="work-section" id="books">Books</h2>
   <div class="book-banner">
     <video class="book-banner-video" autoplay muted loop playsinline preload="auto" aria-hidden="true" tabindex="-1" disablepictureinpicture>
@@ -973,6 +1000,7 @@
       </li>
 
     </ul>
+  </section>
 
   </main>
 
