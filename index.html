@@ -1148,7 +1148,13 @@
             r += d[i]; g += d[i + 1]; b += d[i + 2]; n++;
           }
         }
-        if (!n) return;   // fully transparent edges — keep the default white
+        // A letterboxed photo fills the whole ring. A transparent PNG may leave
+        // two or three stray opaque pixels where a letterform clips the edge,
+        // and averaging only those paints the tile with an arbitrary color
+        // (Travel Lite went yellow off 3 pixels). Trust the sample only when
+        // most of the ring is actually artwork.
+        var ring = w * h - (w - 4) * (h - 4);
+        if (n < ring * 0.6) return;   // no real edge color to extend — keep the default
         media.style.setProperty('--tile-bg',
           'rgb(' + Math.round(r / n) + ',' + Math.round(g / n) + ',' + Math.round(b / n) + ')');
       } catch (e) {
