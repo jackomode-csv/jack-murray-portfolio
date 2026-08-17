@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- Unlisted until launch: reachable on a direct link, kept out of search. -->
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Big Apple Greeter, Turning 35: A Design Report | JKMRY</title>
+<meta name="description" content="A design report on the Big Apple Greeter 35th anniversary rebuild: the mark, the type, the system, and the campaign.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inclusive+Sans:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --white: #FFFFFF;
+    --black: #121212;
+    --ink: #1A1A1A;
+    --gray-dark: #3A3A3A;
+    --gray: #6B6B6B;
+    --gray-light: #A8A8A8;
+    --gray-rule: #D6D4D0;
+    --red: #DE5447;
+    --accent: #3E7D5A;    /* the homepage green, so the nav behaves as it does there */
+    --font: 'Inclusive Sans', 'Helvetica Neue', Arial, sans-serif;
+    --measure: 76ch;      /* reading width for body copy */
+    --page: 1240px;       /* full width for plates */
+  }
+
+  html { font-size: 16px; scroll-behavior: smooth; }
+  body {
+    background: var(--white);
+    color: var(--ink);
+    font-family: var(--font);
+    line-height: 1.85;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection { background: var(--red); color: var(--white); }
+  img { display: block; max-width: 100%; height: auto; }
+  /* Inclusive Sans stops at 700, so display type takes a hairline stroke the
+     way the case study does, to hold the same weight. */
+  h1, h2 { -webkit-text-stroke: 0.5px currentColor; }
+
+  /* ---- NAV: the homepage bar, carried through ----
+     On the homepage it sits transparent over the hero video with white type.
+     This is a light page, so the bar itself takes the sticky white ground and
+     the links flip to ink. The pills, the accent and the dropdown are the
+     homepage's own. */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(255,255,255,0.92);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--gray-rule);
+  }
+  .topbar-inner {
+    max-width: var(--page);
+    margin: 0 auto;
+    padding: 0.9rem 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+  .topbar a { text-decoration: none; }
+  .wordmark {
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink);
+    transition: color 0.2s ease;
+  }
+  .wordmark:hover { color: var(--accent); }
+
+  .site-nav { display: flex; align-items: center; gap: 0.25rem; flex-wrap: wrap; }
+  .site-nav > a, .nav-dropdown > a {
+    font-size: 0.66rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--gray-dark);
+    display: inline-block;
+    padding: 12px 18px;
+    border-radius: 999px;
+    transition: color 0.2s ease, background 0.2s ease;
+  }
+  .site-nav > a:hover,
+  .nav-dropdown > a:hover,
+  .nav-dropdown:focus-within > a { color: var(--white); background: var(--accent); }
+
+  /* Work: the same hover dropdown, pointing back at the homepage sections */
+  .nav-dropdown { position: relative; }
+  .nav-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 11rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 6px;
+    background: rgba(0,0,0,0.72);
+    border: 1px solid rgba(255,255,255,0.16);
+    border-radius: 16px;
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+    z-index: 6;
+  }
+  .nav-dropdown:hover .nav-menu,
+  .nav-dropdown:focus-within .nav-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  .nav-menu a {
+    padding: 11px 18px;
+    border-radius: 999px;
+    font-size: 0.66rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: rgba(255,255,255,0.85);
+    white-space: nowrap;
+    transition: color 0.2s ease, background 0.2s ease;
+  }
+  .nav-menu a:hover { color: #fff; background: var(--accent); }
+
+  .report { max-width: var(--page); margin: 0 auto; padding: 0 2.5rem 9rem; }
+
+  /* ---- COVER ---- */
+  .cover { padding: 7rem 0 5.5rem; border-bottom: 1px solid var(--gray-rule); }
+  .cover img { width: min(440px, 66%); margin-bottom: 4rem; }
+  .cover h1 {
+    font-size: clamp(2.8rem, 7vw, 5.4rem);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--black);
+  }
+  .cover .turning {
+    font-size: clamp(1.5rem, 3.4vw, 2.4rem);
+    font-weight: 300;
+    color: var(--red);
+    line-height: 1.15;
+    /* the h1 sits on line-height 1, so the gap has to be put here on purpose,
+       and it scales with the title rather than staying a fixed step */
+    margin-top: clamp(1rem, 1.8vw, 1.8rem);
+    margin-bottom: 2.6rem;
+  }
+  .cover .standfirst {
+    max-width: var(--measure);
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: var(--gray-dark);
+  }
+  .cover .byline {
+    margin-top: 3rem;
+    padding-top: 1.8rem;
+    border-top: 1px solid var(--gray-rule);
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--gray);
+  }
+  .cover .byline strong { color: var(--ink); font-weight: 700; }
+  .cover .byline .sep { color: var(--gray-light); padding: 0 0.6rem; }
+
+  /* ---- CONTENTS ---- */
+  .contents { padding: 4.5rem 0; border-bottom: 1px solid var(--gray-rule); }
+  .contents h2 {
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--gray);
+    margin-bottom: 2rem;
+    -webkit-text-stroke: 0;
+  }
+  .contents ol { list-style: none; }
+  .contents li { border-top: 1px solid var(--gray-rule); }
+  .contents li:first-child { border-top: 0; }
+  /* Three columns across the full page width, baselines lined up, so the
+     contents reads as a table rather than three runs of text in a row. */
+  .contents a {
+    display: grid;
+    grid-template-columns: 8.5rem minmax(0, 15rem) minmax(0, 1fr);
+    align-items: baseline;
+    column-gap: 3rem;
+    padding: 1.6rem 0;
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+  .contents a:hover { color: var(--red); }
+  .contents .num {
+    font-size: 0.66rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--red);
+  }
+  .contents .name { font-size: 1.3rem; font-weight: 600; line-height: 1.35; }
+  .contents .blurb { font-size: 0.9rem; color: var(--gray); line-height: 1.65; }
+
+  /* ---- SECTIONS ---- */
+  .section { padding: 7.5rem 0 2rem; }
+  .section > h2 {
+    font-size: clamp(2rem, 4.6vw, 3.4rem);
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -0.025em;
+    color: var(--black);
+  }
+  .section .kicker {
+    display: block;
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--red);
+    margin-bottom: 1.2rem;
+    -webkit-text-stroke: 0;
+  }
+  .section .lede {
+    margin-top: 1.8rem;
+    max-width: var(--measure);
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: var(--gray-dark);
+  }
+  .section h3 {
+    margin: 5rem 0 2rem;
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--black);
+  }
+  .section p { max-width: var(--measure); margin-bottom: 1.6rem; }
+  .section p strong { font-weight: 600; }
+
+  /* ---- PLATES ---- */
+  figure { margin: 3rem 0 3.5rem; }
+  .plate img { border: 1px solid var(--gray-rule); border-radius: 2px; }
+  .label {
+    font-size: 0.62rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--gray);
+    margin-bottom: 0.9rem;
+  }
+  .label.after { color: var(--red); }
+  .trio { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.4rem; }
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 2.4rem; }
+  .stack { display: grid; gap: 3rem; }
+  /* The figures inside carry no margin of their own, so the group holds the
+     space off the subhead above and the commentary below. The top margin
+     collapses with the h3's, so the gap above stays 3rem rather than stacking. */
+  .trio, .pair, .stack { margin: 3rem 0 3.4rem; }
+  .trio figure, .pair figure, .stack figure { margin: 0; }
+  /* the marks sit on their own white ground, so no frame around them */
+  .trio .plate img, .stack.lockups .plate img { border: 0; background: none; }
+
+  /* ---- LISTS ---- */
+  .notes { list-style: none; max-width: var(--measure); margin: 2.8rem 0 2rem; }
+  .notes li {
+    position: relative;
+    padding-left: 1.4rem;
+    margin-bottom: 1.3rem;
+  }
+  .notes li::before {
+    content: "\2022";
+    position: absolute;
+    left: 0;
+    color: var(--red);
+  }
+  .notes strong { font-weight: 600; }
+
+  /* ---- CLOSE ---- */
+  .disclaimer {
+    margin-top: 7rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--gray-rule);
+    max-width: var(--measure);
+    font-size: 0.78rem;
+    line-height: 1.75;
+    color: var(--gray);
+  }
+  .footer { background: var(--black); color: var(--gray-light); padding: 3rem 0; }
+  .footer-inner {
+    max-width: var(--page);
+    margin: 0 auto;
+    padding: 0 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .footer a {
+    color: var(--white);
+    text-decoration: none;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+  }
+  .footer span { font-size: 0.72rem; color: var(--gray); }
+  /* the way back to the case study, since the nav now points at the site */
+  .footer a.footer-back {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gray-light);
+    transition: color 0.2s ease;
+  }
+  .footer a.footer-back::before { content: "\2190"; padding-right: 0.5rem; }
+  .footer a.footer-back:hover { color: var(--white); }
+
+  @media (max-width: 860px) {
+    .trio, .pair { grid-template-columns: 1fr; gap: 2rem; }
+    /* Too narrow for three columns: keep the number in its own rail and let
+       the title and blurb stack beside it. */
+    .contents a {
+      grid-template-columns: 7rem minmax(0, 1fr);
+      column-gap: 2rem;
+      row-gap: 0.45rem;
+    }
+    .contents .blurb { grid-column: 2; }
+  }
+  @media (max-width: 700px) {
+    body { line-height: 1.75; }
+    .contents a { grid-template-columns: 1fr; row-gap: 0.4rem; padding: 1.3rem 0; }
+    .contents .blurb { grid-column: 1; }
+    .report { padding: 0 1.4rem 5rem; }
+    .topbar-inner { padding: 0.7rem 1.4rem; gap: 0.5rem; }
+    .site-nav > a, .nav-dropdown > a { padding: 10px 11px; letter-spacing: 0.1em; }
+    .wordmark { font-size: 0.85rem; letter-spacing: 0.18em; }
+    .nav-menu { left: auto; right: 0; }
+    .cover { padding: 3.5rem 0 3rem; }
+    .cover img { width: 68%; margin-bottom: 2.4rem; }
+    .section { padding: 4.5rem 0 1rem; }
+    .section h3 { margin: 3.2rem 0 1.4rem; }
+    .trio, .pair, .stack { margin: 2rem 0 2.2rem; }
+    .footer-inner { padding: 0 1.4rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+<div class="topbar-inner">
+<a class="wordmark" href="index.html">JKMRY</a>
+<nav class="site-nav" aria-label="Main">
+<div class="nav-dropdown">
+<a href="index.html#work" aria-haspopup="true">Work</a>
+<div class="nav-menu">
+<a href="index.html#video">Video</a>
+<a href="index.html#books">Books</a>
+</div>
+</div>
+<a href="about.html">About</a>
+<a href="https://instagram.com/jackomode" target="_blank" rel="noopener">Instagram</a>
+<a href="about.html#contact">Contact</a>
+</nav>
+</div>
+</div>
+
+<article class="report">
+
+<header class="cover">
+<img src="bag-images/report/cover.webp" alt="The Big Apple Greeter anniversary mark: the apple with the handshake cutout, its leaf replaced by a numeral 35">
+<h1>Big Apple Greeter</h1>
+<p class="turning">Turning 35</p>
+<p class="standfirst">A 35 year old New York nonprofit with a logo worth keeping, a website that asked visitors to please use a laptop, and an anniversary to mark. This is the long version of that project: what changed, what I deliberately left alone, and the reasoning behind both. Every screenshot here is a real page, not a comp.</p>
+<p class="byline"><strong>Jack Murray</strong><span class="sep">&middot;</span>Sole designer<span class="sep">&middot;</span>Brand, motion, and the build<span class="sep">&middot;</span>July 2026</p>
+</header>
+
+<nav class="contents" aria-label="Contents">
+<h2>Contents</h2>
+<ol>
+<li><a href="#mark"><span class="num">Section 1</span><span class="name">The mark</span><span class="blurb">Thirty years of equity, rebuilt as something that can move, and set in Inclusive Sans</span></a></li>
+<li><a href="#system"><span class="num">Section 2</span><span class="name">The system in use</span><span class="blurb">Eight pages, before and after, on a desktop and on a phone</span></a></li>
+<li><a href="#campaign"><span class="num">Section 3</span><span class="name">The campaign</span><span class="blurb">A living map that already works, and the afternoon that would fill it</span></a></li>
+<li><a href="#production"><span class="num">Section 4</span><span class="name">Production notes</span><span class="blurb">What was finished and handed over</span></a></li>
+</ol>
+</nav>
+
+<!-- ===== SECTION 1 ===== -->
+<section class="section" id="mark">
+<h2><span class="kicker">Section 1</span>The mark</h2>
+<p class="lede">Thirty years of equity, rebuilt as an object that can move, and set beside the name in three lockups.</p>
+
+<h3>1 &middot; The evolution</h3>
+<div class="trio">
+<figure class="plate">
+<figcaption class="label">Before &middot; circa 1993</figcaption>
+<img src="bag-images/report/evolution-1993.webp" alt="The original 1993 Big Apple Greeter apple: a flat red apple with a white handshake cut into it and a green leaf">
+</figure>
+<figure class="plate">
+<figcaption class="label">Modernized</figcaption>
+<img src="bag-images/report/evolution-modernized.webp" alt="The same apple rebuilt as a three-dimensional object with cel shading, the handshake and leaf in their original positions">
+</figure>
+<figure class="plate">
+<figcaption class="label after">The new logo</figcaption>
+<img src="bag-images/report/evolution-new-logo.webp" alt="The anniversary mark: the apple in jade green with a red numeral 35 in place of the leaf and stem">
+</figure>
+</div>
+
+<p>The starting point was a logo that did not need saving. A handshake cut into an apple, drawn well enough in 1993 that it still holds up. So the brief I ended up arguing for was not a redesign. It was a refresh with one job: mark 35 years without throwing away the recognition built over the previous 34.</p>
+<p><strong>Left</strong> is the apple as it has stood for three decades. The file doing that job on the live site was a PNG named &ldquo;Screen Shot 2020-07-14&rdquo;, which tells you most of what you need to know about the state of the asset library.</p>
+<p><strong>Middle</strong> is the same apple rebuilt as a true three-dimensional object, cel-shaded so it keeps its flat character. The handshake and the leaf sit exactly where they always sat. The equity is untouched. What changed is the resolution of the thinking behind it.</p>
+<p><strong>Right</strong> is the anniversary mark: the leaf becoming a 35, the apple turning jade green for the 35th anniversary stone.</p>
+<p>On the homepage these are not three pictures but one continuous turn, the apple rotating as the old mark becomes the new one. Because it renders to transparent frames, any format needed later (a square social crop, a vertical story, a print-quality still) is a render rather than a new commission. That mattered more than it sounds: this is an organization that cannot phone a designer every time it needs a new crop.</p>
+
+<h3>2 &middot; The lockups, typeset</h3>
+<div class="stack lockups">
+<figure class="plate">
+<figcaption class="label">Everyday</figcaption>
+<img src="bag-images/report/lockup-everyday.webp" alt="The everyday lockup: the red apple mark beside the words Big Apple Greeter, A Welcoming Friend in New York City">
+</figure>
+<figure class="plate">
+<figcaption class="label">Anniversary</figcaption>
+<img src="bag-images/report/lockup-anniversary.webp" alt="The anniversary lockup: the jade apple carrying the numeral 35 beside the Big Apple Greeter wordmark">
+</figure>
+<figure class="plate">
+<figcaption class="label">Campaign</figcaption>
+<img src="bag-images/report/lockup-campaign.webp" alt="The campaign lockup: the mark set beside the line Big Apple Greeter, New York Icon">
+</figure>
+</div>
+
+<p>The mark with the name beside it, in the three combinations the year actually needs: everyday, anniversary, campaign. The anniversary lockup is built to sunset gracefully, leaving the refreshed apple as the permanent mark once the year is over.</p>
+<p>All three are set in <strong>Inclusive Sans</strong>. It is a free Google Font, so licensing never becomes a line item, but that is not really the argument for it. It was drawn for legibility: open apertures, generous sidebearings, letterforms that do not collapse into one another at small sizes or in a second language. For an organization whose entire proposition is that everyone is welcome, a typeface engineered for exactly that beats a fashionable one.</p>
+<p>Arial stayed available as a fallback, since it is already on every machine the staff use. During the decision I built a switch into the prototype so the committee could compare typefaces across real pages rather than on swatches, which turned a taste argument into something people could actually see.</p>
+</section>
+
+<!-- ===== SECTION 2 ===== -->
+<section class="section" id="system">
+<h2><span class="kicker">Section 2</span>The system in use</h2>
+<p class="lede">Eight pages, before and after. What existed on the left, the new work on the right. Every image is a real screenshot, desktop and mobile.</p>
+
+<h3>1 &middot; The homepage</h3>
+<div class="pair">
+<figure class="plate"><figcaption class="label">Before</figcaption><img src="bag-images/report/homepage-before.webp" alt="The Big Apple Greeter homepage before the rebuild"></figure>
+<figure class="plate"><figcaption class="label after">After</figcaption><img src="bag-images/report/homepage-after.webp" alt="The rebuilt homepage leading with the anniversary line and the animated mark as its hero"></figure>
+</div>
+<p>The anniversary leads with the line, &ldquo;We&rsquo;re Turning 35. Celebrate with us.&rdquo; and the mark itself as the hero, animated in place. Request a Greeter moves into the persistent nav, so it is one click from anywhere on the site instead of buried where it used to sit.</p>
+
+<h3>2 &middot; About us</h3>
+<div class="pair">
+<figure class="plate"><figcaption class="label">Before</figcaption><img src="bag-images/report/about-before.webp" alt="The old about section spread across three separate text pages"></figure>
+<figure class="plate"><figcaption class="label after">After</figcaption><img src="bag-images/report/about-after.webp" alt="The rebuilt about page opening on Lynn Brooks's promise over a photograph of a greet in progress"></figure>
+</div>
+<p>Three text pages collapse into one story. It opens on founder Lynn Brooks&rsquo;s own promise, &ldquo;Unite the world in friendship. One person at a time.&rdquo; set over a real greet in progress, with the mission, the history and the board following in a single scroll. Her line does the work the mission statement had been failing to do for years.</p>
+
+<h3>3 &middot; Visitors</h3>
+<div class="pair">
+<figure class="plate"><figcaption class="label">Before</figcaption><img src="bag-images/report/visitors-before.webp" alt="The old visitors page, a list of ten rules"></figure>
+<figure class="plate"><figcaption class="label after">After</figcaption><img src="bag-images/report/visitors-after.webp" alt="The rebuilt visitors page led by the line Don't tour New York, hang out in it"></figure>
+</div>
+<p>&ldquo;Don&rsquo;t tour New York. Hang out in it.&rdquo; replaces a page of ten rules, one of which was &ldquo;no emojis anywhere on the form, please.&rdquo; The rules did not disappear; they moved into the form itself, where they are enforced instead of requested. Copy carries the invitation, the interface carries the constraints.</p>
+
+<h3>4 &middot; Volunteers</h3>
+<div class="pair">
+<figure class="plate"><figcaption class="label">Before</figcaption><img src="bag-images/report/volunteers-before.webp" alt="The old volunteers page, a bulleted list of requirements"></figure>
+<figure class="plate"><figcaption class="label after">After</figcaption><img src="bag-images/report/volunteers-after.webp" alt="The rebuilt volunteers page leading with a film and the line You're already one of us"></figure>
+</div>
+<p>&ldquo;You&rsquo;re already one of us. The only thing left is making it official.&rdquo; The bullet list becomes a film. &ldquo;Meet the Family&rdquo; plays it, and &ldquo;Pull Up a Chair&rdquo; opens a real application on the organization&rsquo;s own domain rather than a third-party form.</p>
+
+<h3>5 &middot; Support us</h3>
+<div class="pair">
+<figure class="plate"><figcaption class="label">Before</figcaption><img src="bag-images/report/support-before.webp" alt="The old support section, three pages of paragraphs"></figure>
+<figure class="plate"><figcaption class="label after">After</figcaption><img src="bag-images/report/support-after.webp" alt="The rebuilt support page opening on the line May we have your attention please, it's showtime"></figure>
+</div>
+<p>Three pages of paragraphs become one showman&rsquo;s ask, &ldquo;May we have your attention please. It&rsquo;s showtime.&rdquo; with every way to give up front and Lester Barnett&rsquo;s story closing the page. Asking for money is a performance, so the page finally behaves like one.</p>
+
+<h3>6 &middot; Requesting a Greeter</h3>
+<div class="pair">
+<figure class="plate"><figcaption class="label">Before</figcaption><img src="bag-images/report/request-before.webp" alt="The old visitor request form hosted on a separate .net domain"></figure>
+<figure class="plate"><figcaption class="label after">After</figcaption><img src="bag-images/report/request-after.webp" alt="The new request form built as a seven-stop subway ride with a line-map progress stepper"></figure>
+</div>
+<p>The old form lived on a separate .net site: different look, different domain, and a note advising that it &ldquo;works best on a laptop.&rdquo; The new one is a seven-stop subway ride, about five minutes, phone first, checking the rules as you go rather than listing them first and hoping. The subway line is the navigational metaphor and the progress indicator at the same time, which is the sort of thing that only works if you are in a city where everyone already reads that diagram fluently.</p>
+
+<h3>7 &middot; Applying to volunteer</h3>
+<div class="pair">
+<figure class="plate"><figcaption class="label">Before</figcaption><img src="bag-images/report/apply-before.webp" alt="The old volunteer application form"></figure>
+<figure class="plate"><figcaption class="label after">After</figcaption><img src="bag-images/report/apply-after.webp" alt="The new volunteer application in the same subway treatment, five stops"></figure>
+</div>
+<p>&ldquo;Pull up a chair.&rdquo; The same subway treatment, five stops and about four minutes, so the visitor journey and the volunteer journey finally read as one organization. First click to Welcome to the Family.</p>
+
+<h3>8 &middot; On a phone</h3>
+<div class="pair">
+<figure class="plate"><figcaption class="label">Before</figcaption><img src="bag-images/report/phone-before.webp" alt="The old site on a phone, with form step tabs collapsed into a pile of links"></figure>
+<figure class="plate"><figcaption class="label after">After</figcaption><img src="bag-images/report/phone-after.webp" alt="The rebuilt site on a phone, one page per topic with the subway stepper fitting the screen"></figure>
+</div>
+<p>This is the change most visitors will actually feel, because people plan trips on their phones. On the old site the visitors page asked for a laptop, and the form arrived with its step tabs collapsed into a pile of links. On the new one the same journey is one page per topic, read with one thumb, and the subway stepper fits a phone screen as though it had been drawn for one. It had been.</p>
+</section>
+
+<!-- ===== SECTION 3 ===== -->
+<section class="section" id="campaign">
+<h2><span class="kicker">Section 3</span>The campaign</h2>
+<p class="lede">One half of this is already built and running. The other half is an afternoon in a train station that would fill it.</p>
+
+<h3>1 &middot; The living map</h3>
+<p>The homepage pairs a carousel of greeter videos with a live map. Each fifteen-second clip drops its own pin, and the first ones are already up: Penn Station, the United Nations, Astoria. The final slide is a QR code set inside the apple, taking a phone straight to the videos. A partner shop puts that sticker in its window, and a greeter&rsquo;s clip plays right at the spot they are talking about.</p>
+
+<figure class="plate">
+<img src="bag-images/report/living-map.webp" alt="The living map on the homepage: apple-shaped pins dropped across the city, one for each greeter clip">
+</figure>
+
+<p>What makes it worth building is that growth costs almost nothing. More clips, more pins. A pilot needs a sheet of stickers, a shared inbox and ten willing greeters, and it scales from there without a budget line.</p>
+
+<h3>2 &middot; The kickoff</h3>
+<p>To start the series, run an event at a major transit hub, the places visitors actually arrive: Grand Central, Moynihan, Port Authority, the Oculus. Build a video booth. Invite a New Yorker who already tells these stories on air. NY1&rsquo;s Roger Clark is the obvious ask, since neighborhood features and local nonprofits are his whole beat, he has been covering all five boroughs since 2001, and he has lived in four of them.</p>
+<p>Then put one question to everyone walking past: <strong>what is your favorite spot in this city?</strong> Every answer becomes a fifteen-second clip, and every clip goes up on the map live, during the event, so the crowd watches New York fill in in front of them.</p>
+<p>What it starts is the real point. Greeters keep filming afterward and so does the public. Every clip is another pin, and every pin is another shop that wants a sticker in its window. That is the founding promise at a scale this organization has never been able to reach: a visitor standing anywhere in this city is never alone, because a New Yorker is already there telling them where to go.</p>
+
+</section>
+
+<!-- ===== SECTION 4 ===== -->
+<section class="section" id="production">
+<h2><span class="kicker">Section 4</span>Production notes</h2>
+<p class="lede">What was finished and handed over. Budget, hosting and launch sequencing lived in a separate operations memo, and none of it changes the work above.</p>
+
+<ul class="notes">
+<li><strong>The brand kit:</strong> vector logo files, all three lockups, social cards, a one-color version and a favicon-scale test.</li>
+<li><strong>The 3D masters:</strong> the apple re-renders to any crop, ratio or resolution in minutes, so new formats are a render rather than a commission.</li>
+<li><strong>Seven pages, built.</strong> Not comps. Every screenshot in this document is a real page you can click through.</li>
+<li><strong>The video library:</strong> shot and cut, waiting on final encodes.</li>
+<li><strong>Type:</strong> Inclusive Sans, free and permanently licence-free, with Arial as the fallback that is already on every machine.</li>
+</ul>
+
+<p class="disclaimer">Photographs belong to their owners and appear here as documentation of the work. Screenshots taken July 2026.</p>
+</section>
+
+</article>
+
+<footer class="footer">
+<div class="footer-inner">
+<a href="index.html">JKMRY</a>
+<a class="footer-back" href="big-apple-greeter.html">Back to the case study</a>
+<span>&copy; 2026. All rights reserved.</span>
+</div>
+</footer>
+
+</body>
+</html>

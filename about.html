@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>About &mdash; JKMRY</title>
-<meta name="description" content="Jack Murray is a New York–based designer, filmmaker, and bookmaker who turns dense ideas into films, books, and websites you can watch, hold, and walk through.">
+<meta name="description" content="Jack Murray is a New York based brand designer who takes an identity from the mark through to the motion, the site, and the words on it.">
 <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -26,7 +26,7 @@
   /* ---- TOP BAR ---- */
   .topbar {
     display: flex; justify-content: space-between; align-items: center;
-    padding: 2.2rem 4.5rem; font-size: 0.66rem; font-weight: 500;
+    padding: 1.3rem 4.5rem; font-size: 0.66rem; font-weight: 500;
     text-transform: uppercase; letter-spacing: 0.16em; color: var(--muted);
   }
   .topbar a { transition: color 0.2s ease; }
@@ -130,27 +130,122 @@
     .disciplines { grid-template-columns: 1fr; gap: 2rem; }
     .wl-role { display: none; }
   }
+
+  /* ---- SITE NAV: the homepage bar, carried across every page ----
+     Selectors are written to hit both templates: the case-study pages nest the
+     row inside .topbar-inner, the video pages make .topbar the row itself. */
+  .topbar .wordmark {
+    font-family: var(--font);
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+  .topbar .wordmark:hover { color: var(--accent); }
+
+  .topbar .site-nav { display: flex; align-items: center; gap: 0.25rem; flex-wrap: wrap; }
+  .topbar .site-nav > a, .topbar .nav-dropdown > a {
+    font-family: var(--font);
+    font-size: 0.66rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--soft);
+    text-decoration: none;
+    display: inline-block;
+    padding: 12px 18px;
+    border-radius: 999px;
+    transition: color 0.2s ease, background 0.2s ease;
+  }
+  .topbar .site-nav > a:hover,
+  .topbar .nav-dropdown > a:hover,
+  .topbar .nav-dropdown:focus-within > a { color: #fff; background: var(--accent); }
+  .topbar .site-nav > a[aria-current="page"] { color: var(--accent); }
+
+  /* Work: the same hover dropdown, pointing back at the homepage sections */
+  .topbar .nav-dropdown { position: relative; }
+  .topbar .nav-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 11rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 6px;
+    background: rgba(0,0,0,0.72);
+    border: 1px solid rgba(255,255,255,0.16);
+    border-radius: 16px;
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+    z-index: 6;
+  }
+  .topbar .nav-dropdown:hover .nav-menu,
+  .topbar .nav-dropdown:focus-within .nav-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  .topbar .nav-menu a {
+    padding: 11px 18px;
+    border-radius: 999px;
+    font-family: var(--font);
+    font-size: 0.66rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: rgba(255,255,255,0.85);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color 0.2s ease, background 0.2s ease;
+  }
+  .topbar .nav-menu a:hover { color: #fff; background: var(--accent); }
+
+  @media (max-width: 720px) {
+    .topbar .wordmark { font-size: 0.85rem; letter-spacing: 0.18em; }
+    .topbar .site-nav { gap: 0; }
+    .topbar .site-nav > a, .topbar .nav-dropdown > a { padding: 10px 11px; letter-spacing: 0.1em; }
+    .topbar .nav-menu { left: auto; right: 0; }
+  }
 </style>
 </head>
 <body>
   <header class="topbar">
-    <a href="index.html">&larr; JKMRY</a>
-    <span>About</span>
-  </header>
+<a class="wordmark" href="index.html">JKMRY</a>
+<nav class="site-nav" aria-label="Main">
+<div class="nav-dropdown">
+<a href="index.html#work" aria-haspopup="true">Work</a>
+<div class="nav-menu">
+<a href="index.html#video">Video</a>
+<a href="index.html#books">Books</a>
+</div>
+</div>
+<a href="about.html" aria-current="page">About</a>
+<a href="https://instagram.com/jackomode" target="_blank" rel="noopener">Instagram</a>
+<a href="about.html#contact">Contact</a>
+</nav>
+</header>
 
   <main class="about">
 
     <section class="about-hero">
       <p class="eyebrow">About</p>
-      <h1>I make dense ideas into things you can hold.</h1>
-      <p class="lead"><span class="name">Jack Murray</span> is a New York&ndash;based designer, filmmaker, and bookmaker working in the space between an argument and an image.</p>
+      <h1>I design identities, then build everything they live on.</h1>
+      <p class="lead"><span class="name">Jack Murray</span> is a New York based brand designer who carries a project from the first sketch of a mark through to the films, the site, and the words on it.</p>
     </section>
 
     <section class="sec bio-sec">
       <div class="bio">
-        <p>I make films, books, and websites that take a dense idea &mdash; a Supreme Court ruling, a farm subsidy, the stories a country keeps telling about itself &mdash; and turn it into something you can watch, hold, or walk through. The work moves between motion, print, photography, and code, but it always starts the same way: with reading. I research a subject until I understand the argument, then look for the form that makes it <strong>felt</strong> rather than just explained.</p>
-        <p>That has meant hand-binding a fifty-page publication on the Supreme Court, flying a drone over a violin built from barn trash, engineering a pop-up book out of flat photographs, and building a political database from real quotes and newspapers. I earned my degree at Parsons School of Design in New York, with a semester at Paris College of Art, and I work across whatever craft a project demands &mdash; direction and cinematography, editorial and type design, animation, paper engineering, photography, and front-end development. I believe in earning real expertise &mdash; going deep enough in each medium to be trusted with the work and to deliver craft that holds up.</p>
-        <p>Most of what I make circles the same questions: identity and place, power and persuasion, and the distance between what America says and what it does. I&rsquo;m drawn to ideas that are usually kept dry &mdash; policy, law, design history &mdash; and to the problem of making them land for someone who never meant to care.</p>
+        <p>A logo is the part of a brand people can picture. It is rarely the part that decides whether the brand works. What decides it is everything after: whether the mark still reads at the size a volunteer will actually use it, whether the type holds on a phone, whether the person running the site six months from now can post to it without calling a designer. So I start with reading. I research a subject until I understand the argument it is making, then build the system that has to <strong>survive contact</strong> with all of that.</p>
+        <p>I work across the whole thing rather than handing pieces off: identity and art direction, 3D and motion, type, photography, copy, and front-end development. For Big Apple Greeter, a New York nonprofit turning 35, that meant rebuilding a mark drawn in 1993 as a three-dimensional object that re-renders to any crop or ratio in minutes, cutting the films around it, writing the pages, and building the site they run on, paired with a headless CMS so the staff can maintain it without touching code. The identity arrives whole, and nothing gets lost in a handoff between specialists.</p>
+        <p>I earned my degree at Parsons School of Design in New York, with a semester at Paris College of Art. Most of my work circles the same questions: identity and place, power and persuasion, and the distance between what an institution says and what it does. That is not a detour from brand work. Positioning is an argument, naming is a claim, and a visual system is how an organization tells you who it thinks it is. Learning to read that is most of the job.</p>
       </div>
     </section>
 
@@ -158,34 +253,34 @@
       <h2 class="sec-label">What I make</h2>
       <div class="disciplines">
         <div class="disc">
-          <p class="disc-tag">Film &amp; Motion</p>
-          <h3>Films that argue</h3>
-          <p>Cinematic art film, essay film, animation, documentary, and satire &mdash; from drone cinematography and land art to After&nbsp;Effects and kinetic type.</p>
+          <p class="disc-tag">Brand &amp; Identity</p>
+          <h3>Marks and systems</h3>
+          <p>Logos, lockups, palette, and the rules that keep an identity intact across every application it has to survive.</p>
         </div>
         <div class="disc">
-          <p class="disc-tag">Books &amp; Print</p>
-          <h3>Things you can hold</h3>
-          <p>Editorial and publication design, hand binding, pop-up and paper engineering, children&rsquo;s books, and zines &mdash; written, set, and built by hand.</p>
-        </div>
-        <div class="disc">
-          <p class="disc-tag">Writing &amp; Research</p>
+          <p class="disc-tag">Strategy &amp; Naming</p>
           <h3>The argument first</h3>
-          <p>Essays and research on design history and political theory &mdash; the reading that every project is built on top of.</p>
+          <p>Positioning, naming, and voice. The claim a brand is making before it makes a single mark.</p>
         </div>
         <div class="disc">
-          <p class="disc-tag">Photography</p>
-          <h3>Identity &amp; place</h3>
-          <p>Self-portraiture and photographic series rooted in the places I come from &mdash; Queens, Long&nbsp;Island, and the corners in between.</p>
+          <p class="disc-tag">Motion &amp; 3D</p>
+          <h3>Marks that move</h3>
+          <p>Blender and After&nbsp;Effects. Identities built as objects rather than pictures, so a new format is a render instead of a commission.</p>
         </div>
         <div class="disc">
-          <p class="disc-tag">Web &amp; Data</p>
-          <h3>Research you can use</h3>
-          <p>Database-driven websites and interactive tools &mdash; research, design, and development that turn an archive into something you can explore.</p>
+          <p class="disc-tag">Web Design &amp; Build</p>
+          <h3>Drawn, then built</h3>
+          <p>HTML, CSS, and JavaScript. I design the site and then build it, paired with a headless CMS so a client can run it without code.</p>
         </div>
         <div class="disc">
-          <p class="disc-tag">Branding</p>
-          <h3>Systems &amp; identity</h3>
-          <p>Identity work and the visual languages that hold a project together across every surface it touches.</p>
+          <p class="disc-tag">Type &amp; Editorial</p>
+          <h3>Hierarchy that holds</h3>
+          <p>Typeface selection, specimens, and print. Hand-bound publications through to the body copy a brand ships every day.</p>
+        </div>
+        <div class="disc">
+          <p class="disc-tag">Film &amp; Photography</p>
+          <h3>The brand somewhere real</h3>
+          <p>Direction, cinematography, and editing. The footage that puts an identity in the world instead of on a swatch.</p>
         </div>
       </div>
     </section>
@@ -193,14 +288,14 @@
     <section class="sec">
       <h2 class="sec-label">Selected work</h2>
       <ul class="work-links">
-        <li><a class="work-link" href="travel-lite.html">
-          <span class="wl-title">Travel Lite</span>
-          <span class="wl-role">Cinematic Art Film</span>
+        <li><a class="work-link" href="now-we-know-campaign.html">
+          <span class="wl-title">Now We Know Where We&rsquo;re Going</span>
+          <span class="wl-role">Video Campaign</span>
           <span class="wl-arrow">&nearr;</span>
         </a></li>
         <li><a class="work-link" href="creeping-body.html">
           <span class="wl-title">The Creeping Body</span>
-          <span class="wl-role">Hand-bound Publication</span>
+          <span class="wl-role">Editorial &amp; Type</span>
           <span class="wl-arrow">&nearr;</span>
         </a></li>
         <li><a class="work-link" href="reflectus.html">
@@ -208,14 +303,14 @@
           <span class="wl-role">Children&rsquo;s Book</span>
           <span class="wl-arrow">&nearr;</span>
         </a></li>
+        <li><a class="work-link" href="travel-lite.html">
+          <span class="wl-title">Travel Lite</span>
+          <span class="wl-role">Direction &amp; Cinematography</span>
+          <span class="wl-arrow">&nearr;</span>
+        </a></li>
         <li><a class="work-link" href="9-teen.html">
           <span class="wl-title">9-TEEN</span>
           <span class="wl-role">Pop-Up &amp; Paper</span>
-          <span class="wl-arrow">&nearr;</span>
-        </a></li>
-        <li><a class="work-link" href="red-scare.html">
-          <span class="wl-title">Red Scare</span>
-          <span class="wl-role">Essay Film</span>
           <span class="wl-arrow">&nearr;</span>
         </a></li>
       </ul>
@@ -223,7 +318,7 @@
 
     <section class="sec contact-sec" id="contact">
       <h2 class="sec-label">Contact</h2>
-      <p class="contact-line">Have a project, a question, or just want to talk shop? Get in touch.</p>
+      <p class="contact-line">Have a brand to build, rebuild, or argue about? Get in touch.</p>
       <div class="contact-links">
         <a href="mailto:jackwardmurray@gmail.com">Email</a>
         <a href="https://instagram.com/jackomode" target="_blank" rel="noopener">Instagram</a>

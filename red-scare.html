@@ -15,13 +15,13 @@
   html { font-size: 16px; }
   body {
     background: var(--bg); color: var(--ink); font-family: var(--font);
-    font-weight: 400; line-height: 1.6; min-height: 100vh;
+    font-weight: 400; line-height: 1.6; min-height: 100vh; overflow-x: clip;
     display: flex; flex-direction: column; -webkit-font-smoothing: antialiased;
   }
   a { color: inherit; text-decoration: none; }
   .topbar {
     display: flex; justify-content: space-between; align-items: center;
-    padding: 2.2rem 4.5rem; font-size: 0.66rem; font-weight: 500;
+    padding: 1.3rem 4.5rem; font-size: 0.66rem; font-weight: 500;
     text-transform: uppercase; letter-spacing: 0.16em; color: var(--muted);
   }
   .topbar a { transition: color 0.2s ease; }
@@ -58,8 +58,8 @@
     color: var(--muted); border: 1px solid var(--line); border-radius: 999px;
     padding: 12px 22px;
   }
-  .video-player { width: 100%; margin: 2.2rem 0 0; background: #000; border: 1px solid var(--line); }
-  .video-player video { display: block; width: 100%; height: auto; max-height: 82vh; background: #000; }
+  .video-player { width: 100vw; margin: 3rem 0 0; margin-left: calc(50% - 50vw); background: #000; border: 0; }
+  .video-player video { display: block; width: 100%; height: auto; max-height: 100svh; background: #000; }
   .site-footer {
     border-top: 1px solid var(--line); padding: 2.2rem 4.5rem;
     display: flex; justify-content: space-between; align-items: center;
@@ -70,13 +70,108 @@
   @media (max-width: 600px) {
     .topbar, .stage, .site-footer { padding-left: 1.25rem; padding-right: 1.25rem; }
   }
+
+  /* ---- SITE NAV: the homepage bar, carried across every page ----
+     Selectors are written to hit both templates: the case-study pages nest the
+     row inside .topbar-inner, the video pages make .topbar the row itself. */
+  .topbar .wordmark {
+    font-family: var(--font);
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+  .topbar .wordmark:hover { color: var(--accent); }
+
+  .topbar .site-nav { display: flex; align-items: center; gap: 0.25rem; flex-wrap: wrap; }
+  .topbar .site-nav > a, .topbar .nav-dropdown > a {
+    font-family: var(--font);
+    font-size: 0.66rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--soft);
+    text-decoration: none;
+    display: inline-block;
+    padding: 12px 18px;
+    border-radius: 999px;
+    transition: color 0.2s ease, background 0.2s ease;
+  }
+  .topbar .site-nav > a:hover,
+  .topbar .nav-dropdown > a:hover,
+  .topbar .nav-dropdown:focus-within > a { color: #fff; background: var(--accent); }
+  .topbar .site-nav > a[aria-current="page"] { color: var(--accent); }
+
+  /* Work: the same hover dropdown, pointing back at the homepage sections */
+  .topbar .nav-dropdown { position: relative; }
+  .topbar .nav-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 11rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 6px;
+    background: rgba(0,0,0,0.72);
+    border: 1px solid rgba(255,255,255,0.16);
+    border-radius: 16px;
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+    z-index: 6;
+  }
+  .topbar .nav-dropdown:hover .nav-menu,
+  .topbar .nav-dropdown:focus-within .nav-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  .topbar .nav-menu a {
+    padding: 11px 18px;
+    border-radius: 999px;
+    font-family: var(--font);
+    font-size: 0.66rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: rgba(255,255,255,0.85);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color 0.2s ease, background 0.2s ease;
+  }
+  .topbar .nav-menu a:hover { color: #fff; background: var(--accent); }
+
+  @media (max-width: 720px) {
+    .topbar .wordmark { font-size: 0.85rem; letter-spacing: 0.18em; }
+    .topbar .site-nav { gap: 0; }
+    .topbar .site-nav > a, .topbar .nav-dropdown > a { padding: 10px 11px; letter-spacing: 0.1em; }
+    .topbar .nav-menu { left: auto; right: 0; }
+  }
 </style>
 </head>
 <body>
   <header class="topbar">
-    <a href="index.html">&larr; JKMRY</a>
-    <span>Video</span>
-  </header>
+<a class="wordmark" href="index.html">JKMRY</a>
+<nav class="site-nav" aria-label="Main">
+<div class="nav-dropdown">
+<a href="index.html#work" aria-haspopup="true">Work</a>
+<div class="nav-menu">
+<a href="index.html#video">Video</a>
+<a href="index.html#books">Books</a>
+</div>
+</div>
+<a href="about.html">About</a>
+<a href="https://instagram.com/jackomode" target="_blank" rel="noopener">Instagram</a>
+<a href="about.html#contact">Contact</a>
+</nav>
+</header>
   <main class="stage">
     <p class="eyebrow">Video &middot; Black-and-White Essay Film</p>
     <h1>Red Scare</h1>

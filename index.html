@@ -30,6 +30,7 @@
     --gutter: 3rem;
     --edge:   4.5rem;
     --tile-gap: 56px;
+    --text-inset: 1.9rem;   /* captions + section rules, measured from a tile's edge */
   }
 
   html { font-size: 16px; scroll-behavior: smooth; }
@@ -340,9 +341,9 @@
 
   /* ---- WORK (full-bleed, image-forward) ---- */
   .work {
-    max-width: 1600px;
-    margin: 0 auto;
-    padding: 0 var(--edge) 2rem;
+    max-width: none;
+    margin: 0;
+    padding: 0 0 2rem;   /* tiles run edge to edge — only text is inset */
   }
 
   /* contained, shorter band that breaks the full-bleed rhythm */
@@ -365,28 +366,34 @@
     list-style: none;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: var(--tile-gap);   /* 40px between every image */
-    align-items: start;     /* true-ratio tiles keep their own height */
+    column-gap: 0;                            /* split tiles meet in the middle */
+    row-gap: calc(var(--tile-gap) + 1.2rem);  /* room for the caption under each card */
+    align-items: start;
   }
 
-  /* Books: video-style cards (cover + caption below), one per row,
-     centered at a medium width — larger than a video tile, well under full bleed */
+  /* Books: full-bleed cards (cover + caption below), one per row */
   .book-stack {
     list-style: none;
     display: flex;
     flex-direction: column;
     gap: calc(var(--tile-gap) + 1.2rem);
-    align-items: center;
   }
-  .book-card { width: 100%; max-width: 800px; }
+  .book-card { display: block; width: 100%; }
+  /* covers are portrait — hold a viewport-tall band and let the background extend.
+     The covers are photographed on black, so the band falls back to black (not the
+     page white) whenever the sampled color isn't available. */
+  .book-stack .work-media {
+    aspect-ratio: auto;
+    height: 86svh;
+    background: var(--tile-bg, #000);
+  }
   /* covers stay full-color on hover (caption carries the title), keep the gentle lift */
   .book-stack .work-item:hover .work-media img { filter: none; }
 
   /* Books banner — full-screen autoplaying silent loop, like the hero */
   .book-banner {
     position: relative;
-    width: 100vw;
-    margin-left: calc(50% - 50vw);   /* break out of .work to full-bleed */
+    width: 100%;
     margin-bottom: calc(var(--tile-gap) + 0.6rem);
     height: 100vh;
     height: 100svh;
@@ -418,7 +425,12 @@
 
   /* full-bleed rows: span both columns. Order is full, pair, full, pair… */
   .work-grid > li.full { grid-column: 1 / -1; }
-  .work-grid > li.full .work-media { aspect-ratio: 16 / 9; }
+  /* explicit height, not aspect-ratio — a ratio + max-height makes the box
+     narrow itself, and a full-bleed tile must always span the screen */
+  .work-grid > li.full .work-media {
+    aspect-ratio: auto;
+    height: min(56vw, 86svh);   /* 16:9 until it would out-run the screen */
+  }
 
   /* tiles that display at the image's true aspect ratio (no crop) */
   .work-media.fit { aspect-ratio: auto; }
@@ -436,10 +448,12 @@
 
   .work-media {
     position: relative;
-    aspect-ratio: 3 / 2;   /* uniform box for standard tiles — light crop */
+    aspect-ratio: 3 / 2;   /* uniform box for split tiles */
     overflow: hidden;
-    background: var(--tile);
-    border: 1px solid var(--accent);   /* green frame separates images from the page */
+    /* --tile-bg is sampled from the image's own edge in JS, so the band
+       reads as an extension of the artwork rather than a box around it */
+    background: var(--tile-bg, var(--tile));
+    border: 0;             /* no frame — the tiles run to the screen edge */
   }
 
   .work-media img,
@@ -448,7 +462,7 @@
     inset: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;   /* show the whole frame — the background fills the rest */
     object-position: center;
     display: block;
     transition: transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
@@ -476,8 +490,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #FFFFFF;
-    padding: 12% 14%;
+    background: var(--tile-bg, #FFFFFF);
+    padding: 5% 7%;
   }
   /* vertical tiles fill the frame (no logo padding) to match their teaser */
   .work-media--logo.work-media--nopad { padding: 0; }
@@ -560,21 +574,21 @@
     inset: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;   /* never crop — the tile background carries the rest */
     object-position: center;
     opacity: 0;
     z-index: 2;
-    background: #000;
+    background: var(--tile-bg, #000);
     transition: opacity 0.3s ease;
     pointer-events: none;
   }
   .work-item:hover .card-teaser,
   .work-item:focus-within .card-teaser { opacity: 1; }
-  /* vertical clips show whole-frame on white instead of cropping */
-  .work-media .card-teaser--contain { object-fit: contain; background: #FFFFFF; }
+  .work-media .card-teaser--contain { object-fit: contain; background: var(--tile-bg, #FFFFFF); }
   @media (hover: none) { .card-teaser { display: none; } }
 
-  .work-caption { padding: 1rem 0.15rem 0; }
+  /* tiles are edge-to-edge, so captions carry their own inset */
+  .work-caption { padding: 1.15rem var(--text-inset) 0; }
   .cap-head {
     display: flex;
     align-items: baseline;
@@ -622,13 +636,14 @@
     letter-spacing: 0.2em;
     color: var(--muted);
     padding: 0 0 1.1rem;
-    margin: 0 0 var(--tile-gap);
+    margin: 0 var(--text-inset) var(--tile-gap);
     border-bottom: 1px solid var(--line);
     scroll-margin-top: 1.5rem;
   }
   /* spacing when a new section follows a block of tiles */
   .work-section + .work-grid { margin-top: 0; }
   .work-grid + .work-section,
+  .book-stack + .work-section,
   .work-inset + .work-section { margin-top: calc(var(--tile-gap) + 1rem); }
 
   /* ---- FOOTER ---- */
@@ -656,10 +671,12 @@
 
   /* ---- RESPONSIVE ---- */
   @media (max-width: 900px) {
-    :root { --edge: 2rem; --gutter: 1.75rem; --tile-gap: 24px; }
+    :root { --edge: 2rem; --gutter: 1.75rem; --tile-gap: 24px; --text-inset: 1.25rem; }
     .work-grid { grid-template-columns: 1fr; }
-    /* single column — full and paired tiles share one aspect ratio */
-    .work-grid > li.full .work-media:not(.fit) { aspect-ratio: 4 / 3; }
+    /* single column — every tile is full-bleed, so they share one ratio */
+    .work-grid > li .work-media,
+    .work-grid > li.full .work-media { aspect-ratio: 4 / 3; height: auto; }
+    .book-stack .work-media { aspect-ratio: 4 / 3; height: auto; }
     .intro { padding: 2.5rem 0 3.5rem; }
     /* on touch, overlays can't hover — keep titles legible */
     .work-overlay { opacity: 1; }
@@ -671,6 +688,11 @@
     :root { --edge: 1.25rem; }
     .site-header { padding: 1.6rem 0; }
     .site-nav { gap: 1.2rem; }
+    /* The controls pill reaches past the middle of a phone, so the centered
+       scroll cue lands on top of Unmute. Send it to the left edge instead,
+       and trim the pill so the two clear each other even at 320px. */
+    .hero-scroll { left: var(--edge); transform: none; align-items: flex-start; }
+    .hero-ctrl { padding: 12px 16px; gap: 0.45rem; }
     .work-grid { grid-template-columns: 1fr; }
     .work-pair { grid-template-columns: 1fr; }
     .intro-lead { max-width: none; }
@@ -744,14 +766,20 @@
 <!-- WORK -->
 <main class="work" id="work">
 
-  <h2 class="work-section" id="video">Video</h2>
+  <!-- Branding and Identity is held back until Big Apple Greeter launches
+       (September 2026). It was the only project in the section, so the whole
+       section is out rather than left standing empty, and the nav drops its
+       entry to match. The page itself still works on a direct link.
+       To restore: put this section back and re-add the nav item on every page. -->
+
+<h2 class="work-section" id="video">Video</h2>
   <ul class="work-grid video-grid">
 
-      <li>
+      <li class="full">
         <a class="work-item" href="travel-lite.html">
           <div class="work-media work-media--logo">
             <img src="video-logos/travel-lite.png" alt="Travel Lite">
-            <img class="card-teaser" alt="" aria-hidden="true" data-teaser="video/teasers/travel-lite.webp">
+            <img class="card-teaser" alt="" aria-hidden="true" data-teaser="video/teasers/travel-lite.webp?v=2">
           </div>
           <div class="work-caption">
             <div class="cap-head">
@@ -768,7 +796,7 @@
         <a class="work-item" href="farmers-value.html">
           <div class="work-media">
             <img src="farmers-value-images/still-first-frame.jpg" alt="The Farmer's Value">
-            <img class="card-teaser" alt="" aria-hidden="true" data-teaser="video/teasers/farmers-value.webp">
+            <img class="card-teaser" alt="" aria-hidden="true" data-teaser="video/teasers/farmers-value.webp?v=2">
           </div>
           <div class="work-caption">
             <div class="cap-head">
@@ -785,7 +813,7 @@
         <a class="work-item" href="i-cant-write.html">
           <div class="work-media work-media--logo">
             <img src="video/i-cant-write.jpg" alt="I Can't Write">
-            <img class="card-teaser" alt="" aria-hidden="true" data-teaser="video/teasers/i-cant-write.webp">
+            <img class="card-teaser" alt="" aria-hidden="true" data-teaser="video/teasers/i-cant-write.webp?v=2">
           </div>
           <div class="work-caption">
             <div class="cap-head">
@@ -798,11 +826,11 @@
         </a>
       </li>
 
-      <li>
+      <li class="full">
         <a class="work-item" href="you-dont-know-jack.html">
           <div class="work-media work-media--logo">
             <img src="video-logos/you-dont-know-jack.png" alt="You Don't Know Jack">
-            <img class="card-teaser" alt="" aria-hidden="true" data-teaser="video/teasers/you-dont-know-jack.webp">
+            <img class="card-teaser" alt="" aria-hidden="true" data-teaser="video/teasers/you-dont-know-jack.webp?v=2">
           </div>
           <div class="work-caption">
             <div class="cap-head">
@@ -819,7 +847,7 @@
         <a class="work-item" href="now-we-know-campaign.html">
           <div class="work-media work-media--logo">
             <img src="video-logos/now-we-know.png" alt="Now We Know Where We're Going">
-            <img class="card-teaser" alt="" aria-hidden="true" data-teaser="video/teasers/now-we-know.webp">
+            <img class="card-teaser" alt="" aria-hidden="true" data-teaser="video/teasers/now-we-know.webp?v=2">
           </div>
           <div class="work-caption">
             <div class="cap-head">
@@ -836,7 +864,7 @@
         <a class="work-item" href="cargo-jort-interview.html">
           <div class="work-media">
             <img src="video/cargo-jort-interview.jpg" alt="Cargo Jort Interview">
-            <img class="card-teaser" alt="" aria-hidden="true" data-teaser="video/teasers/cargo-jort-interview.webp">
+            <img class="card-teaser" alt="" aria-hidden="true" data-teaser="video/teasers/cargo-jort-interview.webp?v=2">
           </div>
           <div class="work-caption">
             <div class="cap-head">
@@ -849,11 +877,11 @@
         </a>
       </li>
 
-      <li>
+      <li class="full">
         <a class="work-item" href="red-scare.html">
           <div class="work-media">
             <img src="video/red-scare.jpg" alt="Red Scare">
-            <img class="card-teaser" alt="" aria-hidden="true" data-teaser="video/teasers/red-scare.webp">
+            <img class="card-teaser" alt="" aria-hidden="true" data-teaser="video/teasers/red-scare.webp?v=2">
           </div>
           <div class="work-caption">
             <div class="cap-head">
@@ -866,11 +894,11 @@
         </a>
       </li>
 
-      <li>
+      <li class="full">
         <a class="work-item" href="social-bot.html">
           <div class="work-media work-media--logo work-media--nopad">
             <img src="video/social-bot.jpg" alt="Social Bot">
-            <img class="card-teaser card-teaser--contain" alt="" aria-hidden="true" data-teaser="video/teasers/social-bot.webp">
+            <img class="card-teaser card-teaser--contain" alt="" aria-hidden="true" data-teaser="video/teasers/social-bot.webp?v=2">
           </div>
           <div class="work-caption">
             <div class="cap-head">
@@ -898,7 +926,7 @@
 
       <li>
         <a class="work-item book-card" href="reflectus.html">
-          <div class="work-media fit">
+          <div class="work-media">
             <img src="reflectus-images/reflectus-book-cover.jpg" alt="ReflectUS">
           </div>
           <div class="work-caption">
@@ -914,7 +942,7 @@
 
       <li>
         <a class="work-item book-card" href="creeping-body.html">
-          <div class="work-media fit">
+          <div class="work-media">
             <img src="creeping-body-images/creeping-body-book-cover.jpg" alt="The Creeping Body">
           </div>
           <div class="work-caption">
@@ -930,7 +958,7 @@
 
       <li>
         <a class="work-item book-card" href="9-teen.html">
-          <div class="work-media fit">
+          <div class="work-media">
             <img src="9-teen-images/9-teen-book-cover.jpg" alt="9-TEEN">
           </div>
           <div class="work-caption">
@@ -1094,6 +1122,43 @@
       var load = function () { if (!img.getAttribute('src')) { img.src = img.dataset.teaser; } };
       item.addEventListener('mouseenter', load, { once: true });
       item.addEventListener('focusin', load, { once: true });
+    });
+  })();
+
+  // Full-bleed tiles never crop, so most images leave a margin inside the band.
+  // Sample the image's own edge color and paint the tile with it, so the
+  // background reads as an extension of the artwork instead of a box around it.
+  (function () {
+    function extend(img) {
+      var media = img.closest('.work-media');
+      if (!media) return;
+      try {
+        var c = document.createElement('canvas');
+        var w = c.width = 24, h = c.height = 24;
+        var ctx = c.getContext('2d');
+        ctx.drawImage(img, 0, 0, w, h);
+        var d = ctx.getImageData(0, 0, w, h).data;
+        var r = 0, g = 0, b = 0, n = 0;
+        for (var y = 0; y < h; y++) {
+          for (var x = 0; x < w; x++) {
+            // outer ring only — the frame's border color, not its subject
+            if (x > 1 && x < w - 2 && y > 1 && y < h - 2) continue;
+            var i = (y * w + x) * 4;
+            if (d[i + 3] < 128) continue;   // transparent PNG edge — skip
+            r += d[i]; g += d[i + 1]; b += d[i + 2]; n++;
+          }
+        }
+        if (!n) return;   // fully transparent edges — keep the default white
+        media.style.setProperty('--tile-bg',
+          'rgb(' + Math.round(r / n) + ',' + Math.round(g / n) + ',' + Math.round(b / n) + ')');
+      } catch (e) {
+        /* tainted canvas (file:// or cross-origin) — keep the default background */
+      }
+    }
+
+    document.querySelectorAll('.work-media > img:not(.card-teaser)').forEach(function (img) {
+      if (img.complete && img.naturalWidth) { extend(img); }
+      else { img.addEventListener('load', function () { extend(img); }, { once: true }); }
     });
   })();
 

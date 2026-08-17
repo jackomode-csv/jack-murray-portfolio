@@ -15,14 +15,19 @@ tbaa-intro-clip.original.gif
 
 # Project videos are hosted on Cloudflare R2, not committed (posters stay in repo)
 video/*.mp4
+# Same rule for the Big Apple Greeter case study: 72MB of mp4 that .gitattributes
+# would route through LFS, which Pages cannot serve anyway. Posters and stills stay.
+bag-images/*.mp4
 video/*.log
 encode-all.sh
 fix-two.sh
 
 # Homepage hero reel now served from R2 (video.jkmry.com/demo_reel_workspace.mp4)
+# big-apple-demo-reel.mp4 is the case-study hero, also on R2
 jackM-demo-reel-web.mp4
 jackM-demo-reel.mp4
 demo_reel_workspace.mp4
+big-apple-demo-reel.mp4
 
 # Layered source files — export flattened jpg/png for the web instead
 *.psd

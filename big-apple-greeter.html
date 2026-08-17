@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- Unlisted until launch: reachable on a direct link, kept out of search. -->
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Big Apple Greeter: The Full Story | JKMRY</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inclusive+Sans:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --accent: #3E7D5A;   /* the homepage green, so the nav behaves as it does there */
+    --white: #FFFFFF;
+    --cream: #FFFFFF;
+    --black: #121212;
+    --ink: #1A1A1A;
+    --gray-dark: #3A3A3A;
+    --gray: #6B6B6B;
+    --gray-light: #A8A8A8;
+    --gray-rule: #D6D4D0;
+    --red: #DE5447;          /* the client's brand red; this page wears its own work */
+    --red-bright: #C23A2D;
+    --font-headline: 'Inclusive Sans', 'Helvetica Neue', Arial, sans-serif;
+    --font-body: 'Inclusive Sans', 'Helvetica Neue', Arial, sans-serif;
+    --font-sans: 'Inclusive Sans', 'Helvetica Neue', Arial, sans-serif;
+    /* headlines are physically widened: Inclusive Sans has a weight axis but
+       no width axis, so this is a real horizontal scale on the glyphs */
+    --stretch: 1.15;
+
+    /* ---- LAYOUT GRID ---- */
+    --grid-max: 1000px;
+    --grid-pad: 2.5rem;
+    /* text runs hard against the left edge of the page, with this buffer */
+    --text-edge: 20px;
+    --grid-gap: 8px;
+    --grid-mid: 20px;
+    --grid-cols: 4;
+    --grid-rows: 8;
+    --grid-row: calc((100vh - (var(--grid-rows) + 1) * var(--grid-gap)) / var(--grid-rows));
+  }
+
+  html { font-size: 16px; scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: var(--font-body);
+    line-height: 1.7;
+    overflow-x: clip;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection { background: var(--red); color: var(--white); }
+
+  img { display: block; max-width: 100%; height: auto; }
+
+  /* ---- NAV ---- */
+  .topbar {
+    border: none;
+    padding: 0.3rem 0;
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    background: transparent;
+    z-index: 100;
+  }
+
+  .topbar-inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gray);
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+  }
+
+  .topbar-inner a { color: var(--ink); text-decoration: none; transition: color 0.2s; }
+  .topbar-inner a:hover { color: var(--red); }
+
+  .topbar.on-dark .topbar-inner {
+    color: rgba(255,255,255,0.7);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+  }
+  .topbar.on-dark .topbar-inner a { color: var(--white); }
+  .topbar.on-dark .topbar-inner a:hover { color: var(--white); opacity: 0.7; }
+
+  /* ---- HERO (full-bleed) ---- */
+  .hero { width: 100%; background: var(--white); }
+
+  .hero-fig { width: 100%; height: 100vh; overflow: hidden; position: relative; }
+  .hero-fig img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+  /* the hero is the logo animation on white: show the whole frame, never crop */
+  .hero-fig video { width: 100%; height: 100%; object-fit: contain; background: var(--white); display: block; }
+
+  /* Click the reel itself to play/pause, same as the homepage sizzle reel. */
+  .has-player { position: relative; }
+  .has-player video { cursor: pointer; }
+
+  /* Play indicator, shown only while paused. It used to sit in the middle of
+     the frame, which covered the shot it was inviting you to watch, so it
+     stacks into the corner instead: play on top, sound under it, scrubber
+     along the bottom. Ink-on-white, the same treatment as the sound button. */
+  .hero-play {
+    position: absolute;
+    z-index: 3;
+    right: 1.6rem;
+    bottom: 6.4rem;   /* clears the sound button, which clears the scrubber */
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    border: 1px solid var(--gray-rule);
+    background: rgba(255,255,255,0.82);
+    color: var(--ink);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    pointer-events: none;   /* clicks fall through to the video */
+  }
+  .is-paused .hero-play { display: flex; }
+  .hero-play svg { width: 21px; height: 21px; margin-left: 3px; }  /* optical-center the triangle */
+
+  /* Timer / scrubber, shown only while paused, same as the homepage. Runs
+     along the bottom, so the sound button sits a row above it (see below). */
+  .hero-timeline {
+    position: absolute;
+    z-index: 4;
+    left: 1.6rem;
+    right: 1.6rem;
+    bottom: 1.6rem;
+    display: none;
+    align-items: center;
+    gap: 0.9rem;
+    color: var(--gray);
+    font-family: var(--font-sans);
+    font-size: 0.66rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+  }
+  .is-paused .hero-timeline { display: flex; }
+  .hero-track {
+    position: relative;
+    flex: 1;
+    height: 4px;
+    border-radius: 999px;
+    background: var(--gray-rule);
+    cursor: pointer;
+  }
+  .hero-fill {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 0%;
+    border-radius: 999px;
+    background: var(--red);
+  }
+  /* A dot rides the leading edge of the fill so the bar reads as a control
+     someone can grab, rather than a red stripe that stops at an arbitrary
+     point. The ring and shadow keep it legible on the white artwork as well
+     as on the two reels that sit on black. */
+  .hero-fill::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 50%;
+    width: 11px;
+    height: 11px;
+    margin-right: -5.5px;
+    border-radius: 50%;
+    background: var(--white);
+    border: 1px solid rgba(0,0,0,0.12);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.28);
+    transform: translateY(-50%);
+  }
+  .hero-time { font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+  /* The reel carries a soundtrack, but browsers only allow autoplay while
+     muted, so it starts silent and this hands the sound over on a click.
+     Sits on white artwork, so it's ink-on-white and takes the client's red
+     on hover, the way the rest of this page wears its own work. */
+  .hero-sound {
+    position: absolute;
+    z-index: 2;
+    right: 1.6rem;
+    bottom: 3.4rem;   /* clears the scrubber row that appears while paused */
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 12px 20px;
+    border: 1px solid var(--gray-rule);
+    border-radius: 999px;
+    background: rgba(255,255,255,0.82);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: 0.66rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    line-height: 1;
+    cursor: pointer;
+    transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+  }
+  .hero-sound:hover {
+    color: var(--white);
+    background: var(--red);
+    border-color: var(--red);
+  }
+  .hero-sound svg { width: 16px; height: 16px; display: block; }
+  /* show whichever icon matches the current state */
+  .hero-sound .icon-on { display: none; }
+  .hero-sound.is-on .icon-off { display: none; }
+  .hero-sound.is-on .icon-on { display: block; }
+
+  .hero-head {
+    width: 100%;
+    margin: var(--grid-row) 0 0;
+    padding: 0 var(--text-edge);
+    display: block;
+    grid-template-columns: 1fr var(--grid-gap) 1fr var(--grid-mid) 1fr var(--grid-gap) 1fr;
+    grid-auto-rows: min-content;
+    column-gap: 0;
+    row-gap: var(--grid-gap);
+  }
+
+  .hero-title {
+    grid-column: 1 / 4;
+    grid-row: 1 / 2;
+    align-self: start;
+    font-family: var(--font-headline);
+    font-size: clamp(2rem, 4.5vw, 4rem);
+    font-weight: 700;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    color: var(--black);
+    margin: 0;
+    min-width: 0;
+  }
+
+  .hero-premise {
+    grid-column: 3 / 6;
+    grid-row: 2 / 3;
+    align-self: start;
+    min-width: 0;
+    font-size: clamp(1.15rem, 2vw, 1.5rem);
+    font-weight: 300;
+    line-height: 1.5;
+    color: var(--gray-dark);
+    margin: 0;
+  }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px; height: 1px;
+    margin: -1px; padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .hero-credits {
+    grid-column: 3 / 6;
+    grid-row: 1 / 2;   /* the title and premise above it are gone */
+    align-self: start;
+    min-width: 0;
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--gray);
+    padding-top: 1.4rem;
+    border-top: 1px solid var(--gray-rule);
+    margin: 0;
+  }
+
+  .hero-credits strong { color: var(--ink); font-weight: 600; }
+  .hero-credits .sep { color: var(--gray-light); padding: 0 0.55rem; }
+
+  /* ---- EDITORIAL FLOW ---- */
+  .editorial { width: 100%; margin: 0; padding: 0; }
+
+  .cascade {
+    width: 100%;
+    padding: var(--grid-gap);
+    display: grid;
+    grid-template-columns: 1fr var(--grid-gap) 1fr var(--grid-mid) 1fr var(--grid-gap) 1fr;
+    grid-auto-rows: var(--grid-row);
+    column-gap: 0;
+    row-gap: var(--grid-gap);
+  }
+
+  .cascade .c-media { margin: 0; height: 100%; overflow: hidden; }
+  .cascade .c-media img,
+  .cascade .c-media video { width: 100%; height: 100%; object-fit: cover; display: block; }
+  /* artwork that must not be cropped (the mark, the lockups) */
+  .cascade .c-media.fit { background: var(--white); }
+  .cascade .c-media.fit img,
+  .cascade .c-media.fit video { object-fit: contain; }
+
+  .c-text { align-self: center; min-width: 0; }
+  .c-text[style*="grid-column:1/4"] { text-align: right; }
+  .c-text[style*="grid-column:5/8"] { text-align: left; }
+  .c-text .section-label { margin-bottom: 0.6rem; }
+  .c-text h3 {
+    font-family: var(--font-headline);
+    font-size: clamp(1.15rem, 1.7vw, 1.5rem);
+    font-weight: 600;
+    color: var(--black);
+    line-height: 1.25;
+    margin-bottom: 0;
+  }
+  .c-text p { font-size: 0.82rem; line-height: 1.5; color: var(--gray-dark); margin: 0; }
+
+  .section-label {
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--red);
+    margin-bottom: 1.2rem;
+  }
+
+  /* ---- FULL-BLEED BREAKS ---- */
+  .bleed { width: 100%; }
+  .bleed .case-img { width: 100%; height: 100vh; overflow: hidden; margin: 0; background: var(--white); }
+  /* Full-screen sections fill the viewport. Cover crops rather than banding,
+     which is the only way to fill a frame whose ratio the asset can't match. */
+  .bleed .case-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .bleed .case-img video { width: 100%; height: 100%; object-fit: cover; display: block; background: var(--white); }
+  .bleed .case-img.on-black { background: var(--black); }
+  /* Some assets have to be seen whole. Rather than crop them to the viewport,
+     the container grows to the asset's own height: still edge to edge on the
+     sides, just taller than one screen when the asset is taller than 16:9. */
+  .bleed .case-img.whole { height: auto; }
+  .bleed .case-img.whole img,
+  .bleed .case-img.whole video { width: 100%; height: auto; object-fit: fill; }
+
+  .case-img { width: 100%; overflow: hidden; background: var(--white); }
+  .case-img img { width: 100%; }
+
+  /* ---- CHAPTER (a centred run of prose) ---- */
+  .chapter {
+    max-width: none;   /* headlines run out to the right edge */
+    margin: 0;
+    padding: 15rem var(--text-edge) 7rem;
+  }
+  .chapter.tight { padding-top: 7rem; }
+  /* The Problem headline used to sit between this line and the reel below.
+     With it gone, keep the breathing room that section provided. */
+  .chapter.intro { padding-bottom: 29rem; }
+  .chapter h2 {
+    font-family: var(--font-headline);
+    /* the headline now carries the section on its own, so it runs larger and
+       loses its trailing margin; the chapter's own padding sets the spacing */
+    /* Size is set by script so the line never runs past two lines; this is
+       the starting point and the ceiling before that fitting happens. */
+    font-size: clamp(2.2rem, 9vw, 8.5rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.02;
+    color: var(--black);
+    margin-bottom: 0;
+    max-width: none;
+    /* Laid out narrower, then scaled back out to full width, so the stretched
+       glyphs land exactly on the right edge instead of overflowing it. */
+    width: calc(100% / var(--stretch));
+    transform: scaleX(var(--stretch));
+    transform-origin: left center;
+    text-wrap: balance;
+  }
+  .chapter p {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--gray-dark);
+    margin-bottom: 1.2rem;
+    max-width: 62ch;
+  }
+  .chapter p:last-child { margin-bottom: 0; }
+  .chapter p strong { color: var(--ink); font-weight: 600; }
+
+  /* ---- MEDIA ROWS ---- */
+  .media-row {
+    max-width: none;
+    margin: 0;
+    padding: 7rem 0;
+    display: grid;
+    gap: 0;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    align-items: start;
+  }
+  .media-row.two { grid-template-columns: repeat(2, 1fr); }
+  .media-row figure { margin: 0; }
+  /* No fixed aspect-ratio and no border: each asset sets its own height and
+     fills the frame edge to edge. A locked ratio is what produced the white
+     bars, since contain had to letterbox anything that didn't match it. */
+  .media-row .frame {
+    width: 100%;
+    overflow: hidden;
+    background: var(--black);
+    line-height: 0;   /* kill the inline-descender gap under the media */
+  }
+  .media-row .frame.light { background: var(--white); }
+  /* The lockup is artwork, not a banner. Run full width and its wordmark
+     out-sizes the headline above it, which reads as the logo shouting over
+     the copy. Held to a width where its type sits below the headline, and
+     aligned to the same left edge as the text. */
+  /* The 1993 lockup sits directly on top of the opening line, sharing its
+     left edge. Sized so its wordmark stays smaller than the headline under it. */
+  .intro-mark {
+    display: block;
+    width: min(860px, 88%);
+    height: auto;
+    margin: 0 0 0.6rem -0.02em;
+  }
+  .media-row .frame img,
+  .media-row .frame video { width: 100%; height: auto; display: block; }
+
+  /* ---- SPEC LIST (identity decisions) ---- */
+  .specs {
+    max-width: var(--grid-max);
+    margin: 0;
+    padding: 4rem var(--text-edge) 7rem;
+    display: grid;
+    gap: 1.6rem;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
+  .spec { border-top: 1px solid var(--gray-rule); padding-top: 1rem; }
+  .spec h4 {
+    font-family: var(--font-sans);
+    font-size: 0.66rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+  }
+  .spec p { font-size: 0.9rem; line-height: 1.6; color: var(--gray-dark); }
+
+  /* ---- SCROLL FADE-IN ---- */
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.9s ease, transform 0.9s ease; }
+  /* Set after the shorthand, which would otherwise zero the delay. Text blocks
+     stagger their own children so a section that lands fully in view still
+     arrives a line at a time instead of as a wall of copy. */
+  .reveal { transition-delay: var(--reveal-delay, 0s); }
+  .reveal.in-view { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1 !important; transform: none !important; transition: none; }
+  }
+
+  /* ---- PULL QUOTE ---- */
+  .pull-quote { padding: 9rem 2.5rem; text-align: center; background: var(--black); }
+  .pull-quote blockquote {
+    font-family: var(--font-headline);
+    font-size: clamp(1.6rem, 3.6vw, 2.8rem);
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.4;
+    color: var(--white);
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .pull-quote cite {
+    display: block;
+    margin-top: 1.6rem;
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--gray-light);
+    font-style: normal;
+  }
+
+  /* ---- CLOSING NOTE ---- */
+  .closing {
+    background: var(--black);
+    color: var(--white);
+    padding: 12rem var(--text-edge);
+  }
+  .closing-inner { max-width: var(--grid-max); margin: 0; }
+  .closing .section-label { color: var(--red); }
+  .closing h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(1.8rem, 6vw, 5rem);
+    font-weight: 300;
+    line-height: 1.06;
+    letter-spacing: -0.02em;
+    color: var(--white);
+    max-width: none;
+    width: calc(100% / var(--stretch));
+    transform: scaleX(var(--stretch));
+    transform-origin: left center;
+    text-wrap: balance;
+  }
+  .closing p {
+    margin-top: 1.4rem;
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--gray-light);
+    max-width: 60ch;
+  }
+
+  /* ---- CLOSING CARD ----
+     Who built it, what it was built with, and the way into the long version.
+     Centred, because it closes the page as a colophon rather than as one more
+     column of copy. The claim, the name and the button carry the weight; the
+     skill grid stays quiet underneath them. */
+  .skills {
+    max-width: var(--grid-max);
+    margin: 0 auto;
+    padding: 0 var(--text-edge) 4.5rem;
+  }
+  .skills-name {
+    font-family: var(--font-headline);
+    font-size: clamp(1.7rem, 3.4vw, 2.6rem);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--black);
+  }
+  .skills-role {
+    font-family: var(--font-sans);
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--gray);
+    margin-top: 0.6rem;
+  }
+  .skill-grid {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.6rem 1.2rem;
+    margin-top: 2.6rem;
+  }
+  .skill-grid li {
+    font-family: var(--font-sans);
+    font-size: 0.86rem;
+    font-weight: 400;
+    color: var(--ink);
+    padding: 0.7rem 0;
+    border-top: 1px solid var(--gray-rule);
+  }
+  .skill-grid li span {
+    display: block;
+    font-size: 0.66rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gray-light);
+    margin-top: 0.25rem;
+  }
+  /* the long version: a page on this site, in the weight of the two above it */
+  .report-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    margin: 3rem 0 0;
+    padding: 1.15rem 2.4rem;
+    border: 2px solid var(--ink);
+    border-radius: 3px;
+    background: var(--white);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: 1.02rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  }
+  .report-cta:hover, .report-cta:focus-visible {
+    background: var(--red);
+    border-color: var(--red);
+    color: var(--white);
+    outline: none;
+  }
+  .report-cta-arrow { font-size: 1.15rem; line-height: 1; }
+  .report-note {
+    margin: 1rem 0 0;
+    max-width: 44ch;
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    color: var(--gray);
+  }
+
+  /* ---- CREDITS ---- */
+  .credits {
+    max-width: var(--grid-max);
+    margin: 0;
+    padding: 5rem var(--text-edge);
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    line-height: 1.7;
+    color: var(--gray);
+    border-top: 1px solid var(--gray-rule);
+  }
+
+  /* ---- FOOTER ---- */
+  .footer { background: var(--black); color: var(--gray-light); padding: 2.5rem 0; }
+  .footer-inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-logo {
+    font-family: var(--font-headline);
+    font-size: 1.1rem;
+    font-weight: 300;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--white);
+    text-decoration: none;
+  }
+  .footer-text { font-family: var(--font-sans); font-size: 0.72rem; color: var(--gray); }
+
+  /* ---- PAGE FRAME ---- */
+  .page-frame {
+    position: fixed;
+    inset: 0;
+    z-index: 9500;
+    pointer-events: none;
+    /* the white matte that used to frame every edge is gone: media runs to
+       the true edge of the screen now */
+  }
+
+  /* ---- RESPONSIVE ---- */
+  @media (max-width: 768px) {
+    .skill-grid { grid-template-columns: 1fr; }
+    .skills { padding: 1rem 1.5rem 2rem; }
+    .report-cta { padding: 1rem 1.6rem; font-size: 0.95rem; }
+    .hero-fig { height: 60vh; }
+    .hero-head {
+      display: block;
+      width: 100%;
+      min-height: 0;
+      margin-top: 0;
+      padding: 2.5rem 1.5rem 0;
+    }
+    .hero-title, .hero-premise, .hero-credits { margin-bottom: 1.4rem; }
+    .hero-premise { font-size: 1.2rem; }
+    .cascade { display: block; padding: 3rem 1.5rem; }
+    .cascade .c-text { margin: 1.5rem 0; text-align: left; }
+    .cascade .c-text p { font-size: 1rem; }
+    .cascade .c-media { height: auto; margin-bottom: 1.5rem; }
+    .cascade .c-media img,
+    .cascade .c-media video { height: auto; object-fit: contain; }
+    .bleed .case-img { height: 60vh; }
+    .chapter { padding: 8rem var(--text-edge) 4rem; }
+    .chapter.intro { padding-bottom: 15rem; }
+    .media-row, .media-row.two { grid-template-columns: 1fr; padding: 4rem 0; }
+    .specs { padding: 2.5rem var(--text-edge) 4rem; }
+    .pull-quote { padding: 5.5rem 1.5rem; }
+    .closing { padding: 7.5rem var(--text-edge); }
+    .footer-inner { flex-direction: column; gap: 1rem; text-align: center; }
+  }
+
+  /* ---- SITE NAV: the homepage bar, carried across every page ----
+     Selectors are written to hit both templates: the case-study pages nest the
+     row inside .topbar-inner, the video pages make .topbar the row itself. */
+  .topbar .wordmark {
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+  .topbar .wordmark:hover { color: var(--accent); }
+
+  .topbar .site-nav { display: flex; align-items: center; gap: 0.25rem; flex-wrap: wrap; }
+  .topbar .site-nav > a, .topbar .nav-dropdown > a {
+    font-family: var(--font-sans);
+    font-size: 0.66rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--gray-dark);
+    text-decoration: none;
+    display: inline-block;
+    padding: 12px 18px;
+    border-radius: 999px;
+    transition: color 0.2s ease, background 0.2s ease;
+  }
+  .topbar .site-nav > a:hover,
+  .topbar .nav-dropdown > a:hover,
+  .topbar .nav-dropdown:focus-within > a { color: #fff; background: var(--accent); }
+  .topbar .site-nav > a[aria-current="page"] { color: var(--accent); }
+
+  /* Work: the same hover dropdown, pointing back at the homepage sections */
+  .topbar .nav-dropdown { position: relative; }
+  .topbar .nav-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 11rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 6px;
+    background: rgba(0,0,0,0.72);
+    border: 1px solid rgba(255,255,255,0.16);
+    border-radius: 16px;
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+    z-index: 6;
+  }
+  .topbar .nav-dropdown:hover .nav-menu,
+  .topbar .nav-dropdown:focus-within .nav-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  .topbar .nav-menu a {
+    padding: 11px 18px;
+    border-radius: 999px;
+    font-family: var(--font-sans);
+    font-size: 0.66rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: rgba(255,255,255,0.85);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color 0.2s ease, background 0.2s ease;
+  }
+  .topbar .nav-menu a:hover { color: #fff; background: var(--accent); }
+
+  /* the page script flips .on-dark over dark artwork, so the nav flips too */
+  .topbar.on-dark .wordmark { color: var(--white); }
+  .topbar.on-dark .site-nav > a,
+  .topbar.on-dark .nav-dropdown > a { color: rgba(255,255,255,0.88); }
+  .topbar.on-dark .site-nav > a:hover,
+  .topbar.on-dark .nav-dropdown > a:hover { color: #fff; background: var(--accent); }
+
+  @media (max-width: 720px) {
+    .topbar .wordmark { font-size: 0.85rem; letter-spacing: 0.18em; }
+    .topbar .site-nav { gap: 0; }
+    .topbar .site-nav > a, .topbar .nav-dropdown > a { padding: 10px 11px; letter-spacing: 0.1em; }
+    .topbar .nav-menu { left: auto; right: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-frame" aria-hidden="true"></div>
+
+<div class="topbar">
+<div class="topbar-inner">
+<a class="wordmark" href="index.html">JKMRY</a>
+<nav class="site-nav" aria-label="Main">
+<div class="nav-dropdown">
+<a href="index.html#work" aria-haspopup="true">Work</a>
+<div class="nav-menu">
+<a href="index.html#video">Video</a>
+<a href="index.html#books">Books</a>
+</div>
+</div>
+<a href="about.html">About</a>
+<a href="https://instagram.com/jackomode" target="_blank" rel="noopener">Instagram</a>
+<a href="about.html#contact">Contact</a>
+</nav>
+</div>
+</div>
+
+<!-- Everything that slides when the detail drawer opens. The fixed frame and
+     topbar stay outside it: a transformed ancestor becomes the containing
+     block for fixed children, which would make them scroll away. -->
+<div class="page" id="page">
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+<figure class="case-img hero-fig has-player">
+<video muted playsinline preload="auto" data-autostart poster="bag-images/hero-poster.jpg" aria-label="Big Apple Greeter, the 35th-anniversary identity reel: the logo lockup, the apple mark, and the campaign in place across the city">
+<source src="https://video.jkmry.com/BAG_Clean_Up_1.mp4" type="video/mp4">
+</video>
+<div class="hero-play" aria-hidden="true">
+<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+</div>
+<button class="hero-sound" type="button" aria-pressed="false" aria-label="Unmute the reel">
+<svg class="icon-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+<path d="M11 5 6 9H2v6h4l5 4z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>
+</svg>
+<svg class="icon-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+<path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a9 9 0 0 1 0 14"/>
+</svg>
+<span class="hero-sound-label">Unmute</span>
+</button>
+<div class="hero-timeline">
+<span class="hero-time hero-current">0:00</span>
+<div class="hero-track"><div class="hero-fill"></div></div>
+<span class="hero-time hero-duration">0:00</span>
+</div>
+</figure>
+</section>
+
+<div class="hero-head">
+<!-- The reel is the title now. The h1 stays for screen readers and search,
+     since a page with no h1 at all is a real loss. -->
+<h1 class="visually-hidden">Big Apple Greeter</h1>
+<p class="hero-credits">
+<strong>Sole designer: Jack Murray</strong><span class="sep">&middot;</span>2026 &ndash; present<span class="sep">&middot;</span>Brand strategy, identity design, motion &amp; 3D<span class="sep">&middot;</span>Web design, build &amp; launch planning
+</p>
+</div>
+
+<main class="editorial">
+
+<!-- ===== THE CLIENT ===== -->
+<section class="chapter intro">
+<img class="intro-mark" src="bag-images/logo.png" alt="The Big Apple Greeter primary lockup: the apple mark with the handshake cutout beside the wordmark">
+<h2>A New York City Organization with over 300 volunteers and 5000 annual visitors across 100 neighborhoods turns 35.</h2>
+</section>
+
+<!-- ===== THE PROBLEM: the reel carries the line itself ===== -->
+<section class="bleed">
+<figure class="case-img whole">
+<video autoplay muted loop playsinline preload="auto" data-autostart poster="bag-images/logo-reel-jkmry-poster.jpg" aria-label="The 1993 red apple mark spinning to reveal the anniversary version: the apple turns jade green and a red 35 drops in to replace the leaf and stem, resolving on the full lockup, Big Apple Greeter, A Welcoming Friend in New York City">
+<source src="bag-images/logo_reel_jkmry.mp4" type="video/mp4">
+</video>
+</figure>
+</section>
+
+<!-- ===== DISCOVERY ===== -->
+<section class="chapter">
+<h2>Capturing a New York cultural moment.</h2>
+</section>
+
+<section class="bleed">
+<figure class="case-img whole">
+<video muted loop playsinline preload="metadata" data-hold="centered" data-autostart poster="bag-images/logo-switch-poster.jpg" aria-label="The mark rebuilt in the style of New York&rsquo;s own icons, then shown running in an Instagram feed: three phones carrying the apple sculpture composited into locations across the city under the line Big Apple Greeter, New York Icon">
+<source src="bag-images/logo-switch.mp4" type="video/mp4">
+</video>
+</figure>
+</section>
+
+<!-- ===== THE IDEA ===== -->
+<section class="chapter">
+<h2>Big Apple Greeter is now mobile.</h2>
+</section>
+
+<section class="bleed">
+<figure class="case-img whole">
+<video autoplay muted loop playsinline preload="metadata" data-autostart poster="bag-images/desktop-mobile-poster.jpg" aria-label="The new site running on a desktop and a phone at once: the anniversary homepage on a laptop, We&rsquo;re Turning 35, Celebrate with us, then a phone rising in front of it carrying the mobile visitor request form on its arrival screen, This is your stop, You have arrived">
+<source src="bag-images/desktop-mobile.mp4" type="video/mp4">
+</video>
+</figure>
+</section>
+
+<!-- ===== ON THE MAP ===== -->
+<section class="chapter">
+<h2>On the map.</h2>
+</section>
+
+<section class="bleed">
+<figure class="case-img whole">
+<video autoplay muted loop playsinline preload="metadata" data-autostart poster="bag-images/map-sequence-poster.jpg" aria-label="A Big Apple Greeter reel playing on a phone, pulling back to the city map: apple pins mark what a greeter actually takes you to, labelled Astoria, Queens, riding the bus; Penn Station, learning the subway; United Nations, the best view in the city; and North Dumpling Co, dumplings on the Lower East Side">
+<source src="bag-images/map-sequence.mp4" type="video/mp4">
+</video>
+</figure>
+</section>
+
+<!-- ===== THE IDENTITY ===== -->
+<section class="chapter">
+<h2>35 years of content made to last another 35.</h2>
+</section>
+
+<section class="bleed">
+<figure class="case-img on-black has-player">
+<video playsinline preload="metadata" poster="bag-images/short-bag-sizzle-poster.jpg" aria-label="The Big Apple Greeter sizzle reel: the line Don&rsquo;t tour New York. Hang out in it. beside the apple mark, cut against footage of the city and the people greeters actually meet">
+<source src="bag-images/short-bag-sizzle.mp4" type="video/mp4">
+</video>
+<div class="hero-play" aria-hidden="true">
+<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+</div>
+<button class="hero-sound" type="button" aria-pressed="false" aria-label="Unmute the reel">
+<svg class="icon-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+<path d="M11 5 6 9H2v6h4l5 4z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>
+</svg>
+<svg class="icon-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+<path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a9 9 0 0 1 0 14"/>
+</svg>
+<span class="hero-sound-label">Unmute</span>
+</button>
+<div class="hero-timeline">
+<span class="hero-time hero-current">0:00</span>
+<div class="hero-track"><div class="hero-fill"></div></div>
+<span class="hero-time hero-duration">0:00</span>
+</div>
+</figure>
+</section>
+
+<!-- ===== THE LAUNCH ===== -->
+<section class="chapter">
+<h2>It&rsquo;s showtime, coming September 2026.</h2>
+</section>
+
+<section class="bleed">
+<figure class="case-img on-black">
+<video autoplay muted loop playsinline preload="metadata" data-autostart poster="bag-images/subway-v2-poster.jpg" aria-label="Inside a New York subway car on the 7 train: the Big Apple Greeter apple composited into the carriage, with the campaign running in the ad frames along both walls">
+<source src="bag-images/subway-v2.mp4" type="video/mp4">
+</video>
+</figure>
+</section>
+
+<!-- ===== THE HANDOFF: same headline treatment as every other section ===== -->
+<section class="chapter">
+<h2>Site is paired with a headless CMS API, allowing easy maintenance without code.</h2>
+</section>
+
+<!-- ===== CLOSING CARD: the claim, who made it, what with, and the long version ===== -->
+<section class="skills">
+
+<p class="skills-name">Jack Murray</p>
+<p class="skills-role">Sole designer &middot; 2026 to present</p>
+
+<ul class="skill-grid">
+<li>Brand strategy<span>Positioning &amp; naming</span></li>
+<li>Identity design<span>Illustrator</span></li>
+<li>3D &amp; modelling<span>Blender</span></li>
+<li>Motion design<span>After Effects</span></li>
+<li>Image compositing<span>Photoshop</span></li>
+<li>Video editing<span>Premiere Pro</span></li>
+<li>Web design &amp; build<span>HTML, CSS &amp; JavaScript</span></li>
+<li>Typography<span>Type &amp; hierarchy</span></li>
+<li>Copywriting<span>Voice &amp; tone</span></li>
+</ul>
+
+<a class="report-cta" href="big-apple-greeter-report.html">Read the full report<span class="report-cta-arrow" aria-hidden="true">&rarr;</span></a>
+<p class="report-note">The long version: how the mark was rebuilt, all eight pages before and after, and the campaign that fills the map.</p>
+
+</section>
+
+</main>
+
+<p class="credits">Photography courtesy of Big Apple Greeter, used with permission. Campaign imagery composited by Jack Murray.</p>
+
+<footer class="footer">
+<div class="footer-inner">
+<a class="footer-logo" href="index.html">JKMRY</a>
+<span class="footer-text">&copy; 2026. All rights reserved.</span>
+</div>
+</footer>
+
+</div><!-- /.page -->
+
+
+<script>
+  /* ---- NAV ADAPTS TO BACKGROUND UNDER IT ---- */
+  const topbar = document.querySelector('.topbar');
+  const darkZones = document.querySelectorAll('.pull-quote, .closing, .footer');
+  function syncNav() {
+    const navY = topbar.offsetHeight / 2;
+    let onDark = false;
+    darkZones.forEach(z => {
+      const r = z.getBoundingClientRect();
+      if (r.top <= navY && r.bottom > navY) onDark = true;
+    });
+    topbar.classList.toggle('on-dark', onDark);
+  }
+  syncNav();
+  window.addEventListener('scroll', syncNav, { passive: true });
+  window.addEventListener('resize', syncNav);
+
+  /* ---- REEL PLAYER ----
+     One implementation, wired to any figure marked .has-player. Controls are
+     found within their own figure by class rather than by id, so a page can
+     carry more than one player without colliding. */
+  (function () {
+    const figs = document.querySelectorAll('.has-player');
+    if (!figs.length) return;
+
+    const fmt = function (t) {
+      t = Math.max(0, Math.floor(t || 0));
+      const m = Math.floor(t / 60), s = t % 60;
+      return m + ':' + (s < 10 ? '0' : '') + s;
+    };
+
+    figs.forEach(function (fig) {
+      const reel = fig.querySelector('video');
+      if (!reel) return;
+      const btn = fig.querySelector('.hero-sound');
+      const label = fig.querySelector('.hero-sound-label');
+      const track = fig.querySelector('.hero-track');
+      const fill = fig.querySelector('.hero-fill');
+      const timeEl = fig.querySelector('.hero-current');
+      const durEl = fig.querySelector('.hero-duration');
+
+      /* sound */
+      if (btn) {
+        const syncSound = function () {
+          const on = !reel.muted;
+          btn.classList.toggle('is-on', on);
+          btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+          btn.setAttribute('aria-label', on ? 'Mute the reel' : 'Unmute the reel');
+          if (label) { label.textContent = on ? 'Mute' : 'Unmute'; }
+        };
+        btn.addEventListener('click', function () {
+          reel.muted = !reel.muted;
+          // The click is the gesture browsers require before audio may play,
+          // so start the reel rather than unmuting something that is not running.
+          if (!reel.muted && reel.paused) { reel.play(); }
+          syncSound();
+        });
+        reel.addEventListener('volumechange', syncSound);
+        syncSound();
+      }
+
+      /* play / pause: the whole frame is the control */
+      reel.addEventListener('click', function () {
+        if (reel.paused) {
+          const p = reel.play();
+          if (p && p.catch) { p.catch(function () {}); }
+        } else {
+          reel.pause();
+        }
+      });
+      reel.addEventListener('play', function () { fig.classList.remove('is-paused'); });
+      reel.addEventListener('pause', function () { fig.classList.add('is-paused'); });
+
+      // A reel that never autoplays, or is refused autoplay, fires no pause
+      // event, so it would sit still with no affordance on it.
+      reel.addEventListener('loadeddata', function () {
+        setTimeout(function () {
+          if (reel.paused) { fig.classList.add('is-paused'); }
+        }, 400);
+      }, { once: true });
+      if (reel.paused && !reel.autoplay && !reel.hasAttribute('data-autostart')) { fig.classList.add('is-paused'); }
+
+      /* timeline */
+      if (track && fill && timeEl && durEl) {
+        reel.addEventListener('loadedmetadata', function () {
+          durEl.textContent = fmt(reel.duration);
+        });
+        reel.addEventListener('timeupdate', function () {
+          const d = reel.duration || 0;
+          fill.style.width = d ? (reel.currentTime / d * 100) + '%' : '0%';
+          timeEl.textContent = fmt(reel.currentTime);
+        });
+        // Click to seek, and stay paused if it was paused.
+        track.addEventListener('click', function (e) {
+          const r = track.getBoundingClientRect();
+          let pct = (e.clientX - r.left) / r.width;
+          pct = Math.min(1, Math.max(0, pct));
+          reel.currentTime = pct * (reel.duration || 0);
+        });
+        // Metadata can land before these listeners attach on a warm cache
+        if (reel.readyState >= 1) { durEl.textContent = fmt(reel.duration); }
+      }
+    });
+  })();
+
+  /* ---- SCROLL FADE-IN ---- */
+  // Whole units: an image reveals as one piece.
+  const fadeEls = document.querySelectorAll('.case-img, .credits, .skills');
+  // Groups: reveal the children one at a time. Scrolling already staggers
+  // these naturally, but a short section can land fully in view at once, so
+  // each child also carries a small delay to keep it arriving in sequence.
+  const fadeGroups = document.querySelectorAll(
+    '.hero-head, .chapter, .c-text, .pull-quote, .specs, .closing-inner, .media-row'
+  );
+  // The .reveal class is only ever added by script, so if this never runs the
+  // page still reads; nothing is left sitting at opacity 0.
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+
+    fadeEls.forEach(el => { el.classList.add('reveal'); io.observe(el); });
+
+    fadeGroups.forEach(group => {
+      Array.prototype.forEach.call(group.children, (child, i) => {
+        child.classList.add('reveal');
+        child.style.setProperty('--reveal-delay', (i * 0.09).toFixed(2) + 's');
+        io.observe(child);
+      });
+    });
+  }
+
+  /* ---- FIT HEADLINES TO TWO LINES ----
+     The CSS clamp is the ceiling. Each headline is then sized down only as far
+     as it needs to go to stay within two lines, so short lines run huge and a
+     long one still lands on two rather than wrapping into a paragraph. */
+  (function () {
+    const heads = document.querySelectorAll('.chapter h2, .closing h2');
+    if (!heads.length) return;
+    const MAX_LINES = 2;
+    const MIN_PX = 22;
+    // Two lines is the target, not an absolute. A headline much longer than
+    // its neighbours would have to shrink to about half their size to hit it,
+    // which reads as a mistake; past this floor it takes a third line instead
+    // and stays in scale with the rest of the page.
+    const FLOOR_RATIO = 0.62;
+
+    const fit = function (el) {
+      // Start from the stylesheet's own ceiling, not the last fitted value.
+      el.style.fontSize = '';
+      const ceiling = parseFloat(getComputedStyle(el).fontSize);
+      const lineFor = function (px) {
+        el.style.fontSize = px + 'px';
+        const lh = parseFloat(getComputedStyle(el).lineHeight) || px * 1.02;
+        return Math.round(el.scrollHeight / lh);
+      };
+      if (lineFor(ceiling) <= MAX_LINES) { el.style.fontSize = ceiling + 'px'; return; }
+      const floor = Math.max(MIN_PX, ceiling * FLOOR_RATIO);
+      let lo = floor, hi = ceiling, best = floor;
+      for (let i = 0; i < 14; i++) {
+        const mid = (lo + hi) / 2;
+        if (lineFor(mid) <= MAX_LINES) { best = mid; lo = mid; } else { hi = mid; }
+      }
+      el.style.fontSize = best.toFixed(1) + 'px';
+    };
+
+    const fitAll = function () { heads.forEach(fit); };
+
+    fitAll();
+    // Web font metrics differ from the fallback, so measure again once it lands
+    if (document.fonts && document.fonts.ready) { document.fonts.ready.then(fitAll); }
+    let t;
+    window.addEventListener('resize', function () {
+      clearTimeout(t);
+      t = setTimeout(fitAll, 120);
+    });
+  })();
+
+  /* ---- WHAT PLAYS, AND WHEN ----
+     Sound is what decides it. The silent composites carry loop and run as
+     ambient texture. The three clips with a soundtrack do not loop: they play
+     once and hold their closing frame, and nothing restarts them on their own,
+     because a reel that carries audio is something you watch rather than
+     something that decorates the page.
+     Either way, anything marked data-autostart starts on visibility and pauses
+     when it leaves, so nothing runs unseen and a play-once reel cannot reach
+     its end off screen before anyone scrolls to it. Clips without that mark
+     stay click-to-play, and the player controls can always replay by hand. */
+  const clips = document.querySelectorAll('video');
+  clips.forEach(function (v) {
+    v.addEventListener('ended', function () { v.dataset.played = '1'; });
+  });
+  if ('IntersectionObserver' in window) {
+    const vo = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        const v = e.target;
+        if (e.isIntersecting) {
+          // data-hold clips wait to be centered instead; see the routine below.
+          // hasAttribute, not dataset: a valueless attribute reads as "", which
+          // is falsy, so a dataset test here would never start anything.
+          if (!v.hasAttribute('data-autostart') || v.dataset.hold || v.dataset.played) { return; }
+          const p = v.play(); if (p && p.catch) p.catch(() => {});
+        }
+        else if (!v.ended) { v.pause(); }
+      });
+    }, { threshold: 0.25 });
+    clips.forEach(v => vo.observe(v));
+  }
+
+  /* ---- HOLD THE DISCOVERY COMPOSITE UNTIL IT'S CENTERED ----
+     This one is the turn in the argument, so it sits on its poster rather than
+     starting early, and runs only once the frame is centered in the viewport.
+     The gate observer is just a cheap on-screen check; the per-frame centering
+     math runs only while the video is near, and stops for good once it plays.
+     After that it loops like the other silent composites. It deliberately has
+     no autoplay attribute, since that would start it before it is centered and
+     defeat the whole point, so if this script never runs the poster shows. */
+  const held = document.querySelectorAll('video[data-hold="centered"]');
+  if (held.length && 'IntersectionObserver' in window) {
+    held.forEach(v => {
+      const TOL = 0.08;        // share of the viewport that still reads as centered
+      let watching = false;
+      let prevOffset = null;
+      const isCentered = () => {
+        const r = v.getBoundingClientRect();
+        const vh = window.innerHeight || document.documentElement.clientHeight;
+        if (!r.height) { return false; }
+        // Taller than the screen: covering it is as centered as it can get.
+        if (r.top <= 0 && r.bottom >= vh) { return true; }
+        // How far the middle of the video sits from the middle of the screen.
+        // Positive means it has yet to climb into place.
+        const off = (r.top + r.height / 2) - vh / 2;
+        if (Math.abs(off) <= Math.max(vh * TOL, 40)) { return true; }
+        // A flick scroll can clear that whole window between two frames, so a
+        // flip in sign means the middle went past and we just missed the frame.
+        const crossed = prevOffset !== null && (off < 0) !== (prevOffset < 0);
+        prevOffset = off;
+        return crossed;
+      };
+      const tick = () => {
+        if (!watching || !v.dataset.hold) { return; }
+        if (isCentered()) {
+          watching = false;
+          delete v.dataset.hold;   // hands it back to the observer above
+          const p = v.play(); if (p && p.catch) p.catch(() => {});
+          return;
+        }
+        requestAnimationFrame(tick);
+      };
+      const gate = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (!v.dataset.hold) { gate.disconnect(); return; }
+          if (e.isIntersecting) {
+            v.preload = 'auto';    // buffer on approach so the start isn't a stall
+            if (!watching) { watching = true; requestAnimationFrame(tick); }
+          } else {
+            watching = false;
+          }
+        });
+      }, { threshold: 0, rootMargin: '200px 0px 200px 0px' });
+      gate.observe(v);
+    });
+  }
+</script>
+
+</body>
+</html>
