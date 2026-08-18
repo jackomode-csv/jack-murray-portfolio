@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Farmer's Value | JKMRY</title>
+<title>The Farmer's Value &mdash; JKMRY</title>
 <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -71,7 +71,7 @@
   }
   .site-footer a:hover { color: var(--accent); }
   @media (max-width: 600px) {
-    .topbar.stage.site-footer { padding-left: 1.25rem; padding-right: 1.25rem; }
+    .topbar, .stage, .site-footer { padding-left: 1.25rem; padding-right: 1.25rem; }
   }
 
   /* ---- SITE NAV: the homepage bar, carried across every page ----
@@ -90,7 +90,7 @@
   .topbar .wordmark:hover { color: var(--accent); }
 
   .topbar .site-nav { display: flex; align-items: center; gap: 0.25rem; flex-wrap: wrap; }
-  .topbar .site-nav > a.topbar .nav-dropdown > a {
+  .topbar .site-nav > a, .topbar .nav-dropdown > a {
     font-family: var(--font);
     font-size: 0.66rem;
     font-weight: 500;
@@ -103,7 +103,9 @@
     border-radius: 999px;
     transition: color 0.2s ease, background 0.2s ease;
   }
-  .topbar .site-nav > a:hover.topbar .nav-dropdown > a:hover.topbar .nav-dropdown:focus-within > a { color: #fff; background: var(--accent); }
+  .topbar .site-nav > a:hover,
+  .topbar .nav-dropdown > a:hover,
+  .topbar .nav-dropdown:focus-within > a { color: #fff; background: var(--accent); }
   .topbar .site-nav > a[aria-current="page"] { color: var(--accent); }
 
   /* Work: the same hover dropdown, pointing back at the homepage sections */
@@ -128,7 +130,8 @@
     transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
     z-index: 6;
   }
-  .topbar .nav-dropdown:hover .nav-menu.topbar .nav-dropdown:focus-within .nav-menu {
+  .topbar .nav-dropdown:hover .nav-menu,
+  .topbar .nav-dropdown:focus-within .nav-menu {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
@@ -151,7 +154,7 @@
   @media (max-width: 720px) {
     .topbar .wordmark { font-size: 0.85rem; letter-spacing: 0.18em; }
     .topbar .site-nav { gap: 0; }
-    .topbar .site-nav > a.topbar .nav-dropdown > a { padding: 10px 11px; letter-spacing: 0.1em; }
+    .topbar .site-nav > a, .topbar .nav-dropdown > a { padding: 10px 11px; letter-spacing: 0.1em; }
     .topbar .nav-menu { left: auto; right: 0; }
   }
 </style>
@@ -175,7 +178,7 @@
   <main class="stage">
     <p class="eyebrow">Video &middot; Research Video Essay</p>
     <h1>The Farmer&rsquo;s Value</h1>
-    <p class="premise">A sourced argument for saving the small American farm, the carbon cost of paving it over, the broken math of farm subsidies, and the greenhouse and vertical-farming fixes, told as hand-drawn whiteboard animation.</p>
+    <p class="premise">A sourced argument for saving the small American farm &mdash; the carbon cost of paving it over, the broken math of farm subsidies, and the greenhouse and vertical-farming fixes &mdash; told as hand-drawn whiteboard animation.</p>
     <div class="meta"><span>Run time 6:18</span><span class="sep">/</span><span>Documentary &middot; Research &middot; Whiteboard animation</span></div>
     <figure class="video-player">
       <video controls preload="none" playsinline poster="farmers-value-images/still-first-frame.jpg">
@@ -185,7 +188,7 @@
     <a class="full-story" href="farmers-value-story.html">Read the full story &nearr;</a>
   </main>
   <section class="usage-note" style="border-top:1px solid var(--line,#DCDBD4); padding:1.1rem clamp(1.25rem,5vw,4.5rem); font-size:0.66rem; line-height:1.55; color:var(--muted,#8C8C84);">
-    <p style="letter-spacing:0.01em;">The work shown here is student work, created for educational purposes as part of academic coursework, <strong style="color:var(--soft,#4A4A46);">not for commercial use</strong>. It may include third-party material (music, footage, or imagery) used under the fair-use provisions of U.S. copyright law (17 U.S.C. &sect; 107) for purposes such as criticism, commentary, teaching, and scholarship. No copyright infringement is intended and no commercial gain is derived from this work. Rights holders with any concerns may contact <a href="mailto:jackwardmurray@gmail.com" style="color:inherit; text-decoration:underline;">jackwardmurray&#64;gmail.com</a>.</p>
+    <p style="letter-spacing:0.01em;">The work shown here is student work, created for educational purposes as part of academic coursework &mdash; <strong style="color:var(--soft,#4A4A46);">not for commercial use</strong>. It may include third-party material (music, footage, or imagery) used under the fair-use provisions of U.S. copyright law (17 U.S.C. &sect; 107) for purposes such as criticism, commentary, teaching, and scholarship. No copyright infringement is intended and no commercial gain is derived from this work. Rights holders with any concerns may contact <a href="mailto:jackwardmurray@gmail.com" style="color:inherit; text-decoration:underline;">jackwardmurray&#64;gmail.com</a>.</p>
   </section>
   <footer class="site-footer">
     <span>JKMRY</span>

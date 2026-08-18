@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Stella&rsquo;s Purpose | JKMRY</title>
+<title>Stella&rsquo;s Purpose &mdash; JKMRY</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inclusive+Sans:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
@@ -86,11 +86,13 @@
 
   .bleed { width: 100%; }
   .bleed .case-img { width: 100%; height: 100vh; overflow: hidden; margin: 0; background: var(--white); }
-  .bleed .case-img img.bleed .case-img video { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .bleed .case-img img,
+  .bleed .case-img video { width: 100%; height: 100%; object-fit: cover; display: block; }
   .bleed .case-img.on-black { background: var(--black); }
   /* escape hatch: show the whole frame instead of cropping to the viewport */
   .bleed .case-img.whole { height: auto; }
-  .bleed .case-img.whole img.bleed .case-img.whole video { width: 100%; height: auto; object-fit: fill; }
+  .bleed .case-img.whole img,
+  .bleed .case-img.whole video { width: 100%; height: auto; object-fit: fill; }
 
   /* ---- NAV ---- */
   .topbar {
@@ -220,7 +222,7 @@
     padding: 0;
   }
 
-  /* staggered cascade, 4-col grid, left column offset 4 rows below right */
+  /* staggered cascade — 4-col grid, left column offset 4 rows below right */
   .cascade {
     width: 100%;
     padding: var(--grid-gap);
@@ -512,7 +514,7 @@
       margin-top: 0;
       padding: 2.5rem 1.5rem 0;
     }
-    .hero-title.hero-premise.hero-credits {
+    .hero-title, .hero-premise, .hero-credits {
       white-space: normal;
       margin-bottom: 1.4rem;
     }
@@ -545,7 +547,7 @@
   .topbar .wordmark:hover { color: var(--accent); }
 
   .topbar .site-nav { display: flex; align-items: center; gap: 0.25rem; flex-wrap: wrap; }
-  .topbar .site-nav > a.topbar .nav-dropdown > a {
+  .topbar .site-nav > a, .topbar .nav-dropdown > a {
     font-family: var(--font-sans);
     font-size: 0.66rem;
     font-weight: 500;
@@ -558,7 +560,9 @@
     border-radius: 999px;
     transition: color 0.2s ease, background 0.2s ease;
   }
-  .topbar .site-nav > a:hover.topbar .nav-dropdown > a:hover.topbar .nav-dropdown:focus-within > a { color: #fff; background: var(--accent); }
+  .topbar .site-nav > a:hover,
+  .topbar .nav-dropdown > a:hover,
+  .topbar .nav-dropdown:focus-within > a { color: #fff; background: var(--accent); }
   .topbar .site-nav > a[aria-current="page"] { color: var(--accent); }
 
   /* Work: the same hover dropdown, pointing back at the homepage sections */
@@ -583,7 +587,8 @@
     transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
     z-index: 6;
   }
-  .topbar .nav-dropdown:hover .nav-menu.topbar .nav-dropdown:focus-within .nav-menu {
+  .topbar .nav-dropdown:hover .nav-menu,
+  .topbar .nav-dropdown:focus-within .nav-menu {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
@@ -605,13 +610,15 @@
 
   /* the page script flips .on-dark over dark artwork, so the nav flips too */
   .topbar.on-dark .wordmark { color: var(--white); }
-  .topbar.on-dark .site-nav > a.topbar.on-dark .nav-dropdown > a { color: rgba(255,255,255,0.88); }
-  .topbar.on-dark .site-nav > a:hover.topbar.on-dark .nav-dropdown > a:hover { color: #fff; background: var(--accent); }
+  .topbar.on-dark .site-nav > a,
+  .topbar.on-dark .nav-dropdown > a { color: rgba(255,255,255,0.88); }
+  .topbar.on-dark .site-nav > a:hover,
+  .topbar.on-dark .nav-dropdown > a:hover { color: #fff; background: var(--accent); }
 
   @media (max-width: 720px) {
     .topbar .wordmark { font-size: 0.85rem; letter-spacing: 0.18em; }
     .topbar .site-nav { gap: 0; }
-    .topbar .site-nav > a.topbar .nav-dropdown > a { padding: 10px 11px; letter-spacing: 0.1em; }
+    .topbar .site-nav > a, .topbar .nav-dropdown > a { padding: 10px 11px; letter-spacing: 0.1em; }
     .topbar .nav-menu { left: auto; right: 0; }
   }
 
@@ -682,15 +689,15 @@
 <!-- ===== HERO ===== -->
 <section class="hero">
 <figure class="case-img hero-fig">
-<img alt="Stella’s Purpose, illustrated cover page asking “What is Stella’s purpose?”" src="stella-images/stella-cover.png"/>
+<img alt="Stella’s Purpose — illustrated cover page asking “What is Stella’s purpose?”" src="stella-images/stella-cover.png"/>
 </figure>
 </section>
 
 <div class="hero-head">
 <h1 class="hero-title">Stella’s Purpose</h1>
-<p class="hero-premise">A collaborative persona study of an MBTI-opposite partner, told as an illustrated picture book about identity, purpose, and simply being alive.</p>
+<p class="hero-premise">A collaborative persona study of an MBTI-opposite partner — told as an illustrated picture book about identity, purpose, and simply being alive.</p>
 <p class="hero-credits">
-<strong>Designer: Jack Murray</strong><span class="sep">·</span>2022<span class="sep">·</span>Illustrated photography, hand lettering<span class="sep">·</span>Visual book, Proust Questionnaire
+<strong>Designer — Jack Murray</strong><span class="sep">·</span>2022<span class="sep">·</span>Illustrated photography, hand lettering<span class="sep">·</span>Visual book, Proust Questionnaire
 </p>
 </div>
 
@@ -698,18 +705,18 @@
 
 <!-- ===== CASCADE A · Brief + Story ===== -->
 <section class="chapter">
-<h2>Profiles &amp; Personas paired students by MBTI opposites and asked each to learn, then visually portray, their partner.</h2>
+<h2>Profiles &amp; Personas paired students by MBTI opposites and asked each to learn — then visually portray — their partner.</h2>
 </section>
 
 <section class="bleed">
 <figure class="case-img whole">
-<img alt="Stella’s Purpose, opening spread, “When Stella was young, her Mother read to her”" src="stella-images/stella-pg1.png"/>
+<img alt="Stella’s Purpose — opening spread, “When Stella was young, her Mother read to her”" src="stella-images/stella-pg1.png"/>
 </figure>
 </section>
 
 <section class="bleed">
 <figure class="case-img whole">
-<img alt="Stella’s Purpose, illustrated page, “the meaning of life is”" src="stella-images/stella-pg2.png"/>
+<img alt="Stella’s Purpose — illustrated page, “the meaning of life is”" src="stella-images/stella-pg2.png"/>
 </figure>
 </section>
 
@@ -720,24 +727,24 @@
 <!-- ===== FULL-BLEED BREAK 1 ===== -->
 <section class="bleed">
 <figure class="case-img">
-<img alt="Stella’s Purpose, full page, “to live life with meaning”" src="stella-images/stella-pg3.png"/>
+<img alt="Stella’s Purpose — full page, “to live life with meaning”" src="stella-images/stella-pg3.png"/>
 </figure>
 </section>
 
 <!-- ===== CASCADE B · Concept + Process 01–03 ===== -->
 <section class="chapter">
-<h2>The portrait took the form of a children’s picture book, Stella’s quiet philosophy carried in posterized.</h2>
+<h2>The portrait took the form of a children’s picture book — Stella’s quiet philosophy carried in posterized.</h2>
 </section>
 
 <section class="bleed">
 <figure class="case-img whole">
-<img alt="Stella’s Purpose, preliminary portrait drawings of Stella" src="stella-images/process-drawings.png"/>
+<img alt="Stella’s Purpose — preliminary portrait drawings of Stella" src="stella-images/process-drawings.png"/>
 </figure>
 </section>
 
 <section class="bleed">
 <figure class="case-img whole">
-<img alt="Stella’s Purpose, gallery visit documenting Stella’s artistic preferences" src="stella-images/process-art.png"/>
+<img alt="Stella’s Purpose — gallery visit documenting Stella’s artistic preferences" src="stella-images/process-art.png"/>
 </figure>
 </section>
 
@@ -747,7 +754,7 @@
 
 <section class="bleed">
 <figure class="case-img whole">
-<img alt="Stella’s Purpose, children’s-book inspiration, Corduroy and Curious George" src="stella-images/process-inspiration.png"/>
+<img alt="Stella’s Purpose — children’s-book inspiration, Corduroy and Curious George" src="stella-images/process-inspiration.png"/>
 </figure>
 </section>
 
@@ -758,7 +765,7 @@
 <!-- ===== CASCADE C · Process 03–04 ===== -->
 <section class="bleed">
 <figure class="case-img whole">
-<img alt="Stella’s Purpose, scrapped ideas, handwritten notes and brainstorming" src="stella-images/process-scrapped.png"/>
+<img alt="Stella’s Purpose — scrapped ideas, handwritten notes and brainstorming" src="stella-images/process-scrapped.png"/>
 </figure>
 </section>
 
@@ -768,7 +775,7 @@
 
 <section class="bleed">
 <figure class="case-img whole">
-<img alt="Stella’s Purpose, print iterations and trials from the design lab" src="stella-images/process-trials.png"/>
+<img alt="Stella’s Purpose — print iterations and trials from the design lab" src="stella-images/process-trials.png"/>
 </figure>
 </section>
 
@@ -780,30 +787,30 @@
 <section class="spreads">
 <div class="spreads-head">
 <h2>Select Spreads</h2>
-<p>Turning the pages, the story opening, deepening, and settling into its quiet close.</p>
+<p>Turning the pages — the story opening, deepening, and settling into its quiet close.</p>
 </div>
 
 <figure class="spread case-img">
-<img alt="Stella’s Purpose, spread, “but as she grew older”" src="stella-images/stella-pg4.png"/>
+<img alt="Stella’s Purpose — spread, “but as she grew older”" src="stella-images/stella-pg4.png"/>
 </figure>
 
 <figure class="spread case-img">
-<img alt="Stella’s Purpose, spread, “she realized that sometimes you don’t need a purpose”" src="stella-images/stella-pg5.png"/>
+<img alt="Stella’s Purpose — spread, “she realized that sometimes you don’t need a purpose”" src="stella-images/stella-pg5.png"/>
 </figure>
 
 <figure class="spread case-img">
-<img alt="Stella’s Purpose, spread, “sometimes you just”" src="stella-images/stella-pg6.png"/>
+<img alt="Stella’s Purpose — spread, “sometimes you just”" src="stella-images/stella-pg6.png"/>
 </figure>
 
 <figure class="spread case-img">
-<img alt="Stella’s Purpose, closing spread, “want to be alive”" src="stella-images/stella-pg7.png"/>
+<img alt="Stella’s Purpose — closing spread, “want to be alive”" src="stella-images/stella-pg7.png"/>
 </figure>
 </section>
 
 <!-- ===== FULL-BLEED CLOSING IMAGE ===== -->
 <section class="bleed">
 <figure class="case-img">
-<img alt="Stella’s Purpose, process cover, “A Lovely Collab from Stella Zheng and Jack Murray”" src="stella-images/process-cover.png"/>
+<img alt="Stella’s Purpose — process cover, “A Lovely Collab from Stella Zheng and Jack Murray”" src="stella-images/process-cover.png"/>
 </figure>
 </section>
 
@@ -832,7 +839,7 @@
 <script>
   /* ---- NAV ADAPTS TO BACKGROUND UNDER IT ---- */
   const topbar = document.querySelector('.topbar');
-  const darkZones = document.querySelectorAll('.hero.pull-quote.footer');
+  const darkZones = document.querySelectorAll('.hero, .pull-quote, .footer');
   function syncNav() {
     const navY = topbar.offsetHeight / 2;
     let onDark = false;
@@ -865,7 +872,7 @@
      as it needs to go to stay within two lines, so short lines run huge and a
      long one still lands on two rather than wrapping into a paragraph. */
   (function () {
-    const heads = document.querySelectorAll('.chapter h2.closing h2.hero-title');
+    const heads = document.querySelectorAll('.chapter h2, .closing h2, .hero-title');
     if (!heads.length) return;
     const MAX_LINES = 3;
     const MIN_PX = 22;

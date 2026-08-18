@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Farmer's Value | JKMRY</title>
+<title>The Farmer's Value &mdash; JKMRY</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inclusive+Sans:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
@@ -86,11 +86,13 @@
 
   .bleed { width: 100%; }
   .bleed .case-img { width: 100%; height: 100vh; overflow: hidden; margin: 0; background: var(--white); }
-  .bleed .case-img img.bleed .case-img video { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .bleed .case-img img,
+  .bleed .case-img video { width: 100%; height: 100%; object-fit: cover; display: block; }
   .bleed .case-img.on-black { background: var(--black); }
   /* escape hatch: show the whole frame instead of cropping to the viewport */
   .bleed .case-img.whole { height: auto; }
-  .bleed .case-img.whole img.bleed .case-img.whole video { width: 100%; height: auto; object-fit: fill; }
+  .bleed .case-img.whole img,
+  .bleed .case-img.whole video { width: 100%; height: auto; object-fit: fill; }
 
   /* ---- NAV ---- */
   .topbar {
@@ -148,7 +150,8 @@
     overflow: hidden;
   }
 
-  .hero-fig img.hero-fig video {
+  .hero-fig img,
+  .hero-fig video {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -220,7 +223,7 @@
     padding: 0;
   }
 
-  /* staggered cascade, 4-col grid, left column offset 4 rows below right */
+  /* staggered cascade — 4-col grid, left column offset 4 rows below right */
   .cascade {
     width: 100%;
     padding: var(--grid-gap);
@@ -512,7 +515,7 @@
       margin-top: 0;
       padding: 2.5rem 1.5rem 0;
     }
-    .hero-title.hero-premise.hero-credits {
+    .hero-title, .hero-premise, .hero-credits {
       white-space: normal;
       margin-bottom: 1.4rem;
     }
@@ -545,7 +548,7 @@
   .topbar .wordmark:hover { color: var(--accent); }
 
   .topbar .site-nav { display: flex; align-items: center; gap: 0.25rem; flex-wrap: wrap; }
-  .topbar .site-nav > a.topbar .nav-dropdown > a {
+  .topbar .site-nav > a, .topbar .nav-dropdown > a {
     font-family: var(--font-sans);
     font-size: 0.66rem;
     font-weight: 500;
@@ -558,7 +561,9 @@
     border-radius: 999px;
     transition: color 0.2s ease, background 0.2s ease;
   }
-  .topbar .site-nav > a:hover.topbar .nav-dropdown > a:hover.topbar .nav-dropdown:focus-within > a { color: #fff; background: var(--accent); }
+  .topbar .site-nav > a:hover,
+  .topbar .nav-dropdown > a:hover,
+  .topbar .nav-dropdown:focus-within > a { color: #fff; background: var(--accent); }
   .topbar .site-nav > a[aria-current="page"] { color: var(--accent); }
 
   /* Work: the same hover dropdown, pointing back at the homepage sections */
@@ -583,7 +588,8 @@
     transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
     z-index: 6;
   }
-  .topbar .nav-dropdown:hover .nav-menu.topbar .nav-dropdown:focus-within .nav-menu {
+  .topbar .nav-dropdown:hover .nav-menu,
+  .topbar .nav-dropdown:focus-within .nav-menu {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
@@ -605,13 +611,15 @@
 
   /* the page script flips .on-dark over dark artwork, so the nav flips too */
   .topbar.on-dark .wordmark { color: var(--white); }
-  .topbar.on-dark .site-nav > a.topbar.on-dark .nav-dropdown > a { color: rgba(255,255,255,0.88); }
-  .topbar.on-dark .site-nav > a:hover.topbar.on-dark .nav-dropdown > a:hover { color: #fff; background: var(--accent); }
+  .topbar.on-dark .site-nav > a,
+  .topbar.on-dark .nav-dropdown > a { color: rgba(255,255,255,0.88); }
+  .topbar.on-dark .site-nav > a:hover,
+  .topbar.on-dark .nav-dropdown > a:hover { color: #fff; background: var(--accent); }
 
   @media (max-width: 720px) {
     .topbar .wordmark { font-size: 0.85rem; letter-spacing: 0.18em; }
     .topbar .site-nav { gap: 0; }
-    .topbar .site-nav > a.topbar .nav-dropdown > a { padding: 10px 11px; letter-spacing: 0.1em; }
+    .topbar .site-nav > a, .topbar .nav-dropdown > a { padding: 10px 11px; letter-spacing: 0.1em; }
     .topbar .nav-menu { left: auto; right: 0; }
   }
 
@@ -682,7 +690,7 @@
 <!-- ===== HERO ===== -->
 <section class="hero">
 <figure class="case-img hero-fig">
-<video autoplay muted loop playsinline controls poster="farmers-value-images/still-first-frame.jpg" aria-label="The Farmer's Value, documentary film">
+<video autoplay muted loop playsinline controls poster="farmers-value-images/still-first-frame.jpg" aria-label="The Farmer's Value — documentary film">
 <source src="https://video.jkmry.com/farmers-value-web.mp4" type="video/mp4">
 </video>
 </figure>
@@ -690,9 +698,9 @@
 
 <div class="hero-head">
 <h1 class="hero-title">The Farmer's Value</h1>
-<p class="hero-premise">A short documentary on the economics crushing small American farms, and the carbon and subsidy math for fixing them.</p>
+<p class="hero-premise">A short documentary on the economics crushing small American farms — and the carbon and subsidy math for fixing them.</p>
 <p class="hero-credits">
-<strong>Designer: Jack Murray</strong><span class="sep">·</span>2024<span class="sep">·</span>Documentary, research<span class="sep">·</span>Director, writer, editor
+<strong>Designer — Jack Murray</strong><span class="sep">·</span>2024<span class="sep">·</span>Documentary, research<span class="sep">·</span>Director, writer, editor
 </p>
 </div>
 
@@ -700,29 +708,29 @@
 
 <!-- ===== CASCADE A · Brief + Concept ===== -->
 <section class="chapter">
-<h2>After hundreds of years, Well's Potato Farm left Long Island, selling 236 acres in Suffolk County to buy.</h2>
+<h2>After hundreds of years, Well's Potato Farm left Long Island — selling 236 acres in Suffolk County to buy.</h2>
 </section>
 
 <section class="bleed">
 <figure class="case-img whole">
-<img alt="The Farmer's Value, peering through a weathered barn window onto the fields" src="farmers-value-images/still-barn-window.jpg"/>
+<img alt="The Farmer's Value — peering through a weathered barn window onto the fields" src="farmers-value-images/still-barn-window.jpg"/>
 </figure>
 </section>
 
 <section class="bleed">
 <figure class="case-img whole">
-<img alt="The Farmer's Value, standing in the open Long Island farmland" src="farmers-value-images/still-longisland.jpg"/>
+<img alt="The Farmer's Value — standing in the open Long Island farmland" src="farmers-value-images/still-longisland.jpg"/>
 </figure>
 </section>
 
 <section class="chapter">
-<h2>Local produce is both an economic engine and a carbon solution, and most people never see what is lost when a farm disappears.</h2>
+<h2>Local produce is both an economic engine and a carbon solution — and most people never see what is lost when a farm disappears.</h2>
 </section>
 
 <!-- ===== FULL-BLEED BREAK 1 ===== -->
 <section class="bleed">
 <figure class="case-img">
-<img alt="The Farmer's Value, cinematic still of farmland framed as a vision of what could be" src="farmers-value-images/still-farmland-vision.jpg"/>
+<img alt="The Farmer's Value — cinematic still of farmland framed as a vision of what could be" src="farmers-value-images/still-farmland-vision.jpg"/>
 </figure>
 </section>
 
@@ -733,13 +741,13 @@
 
 <section class="bleed">
 <figure class="case-img whole">
-<img alt="The Farmer's Value, semi truck and trailer graphic hauling produce 600 miles" src="farmers-value-images/Artboard 1 copy 8.png"/>
+<img alt="The Farmer's Value — semi truck and trailer graphic hauling produce 600 miles" src="farmers-value-images/Artboard 1 copy 8.png"/>
 </figure>
 </section>
 
 <section class="bleed">
 <figure class="case-img whole">
-<img alt="The Farmer's Value, stack of dollar bills representing skewed farm subsidies" src="farmers-value-images/Artboard 1 copy 3.png"/>
+<img alt="The Farmer's Value — stack of dollar bills representing skewed farm subsidies" src="farmers-value-images/Artboard 1 copy 3.png"/>
 </figure>
 </section>
 
@@ -749,7 +757,7 @@
 
 <section class="bleed">
 <figure class="case-img whole">
-<img alt="The Farmer's Value, barn sketch filled with vertical-farm photography" src="farmers-value-images/still-vertical-farm.jpg"/>
+<img alt="The Farmer's Value — barn sketch filled with vertical-farm photography" src="farmers-value-images/still-vertical-farm.jpg"/>
 </figure>
 </section>
 
@@ -761,34 +769,34 @@
 <section class="spreads">
 <div class="spreads-head">
 <h2>Select Spreads</h2>
-<p>The graphic language of the film, landscapes paired with precise data illustration.</p>
+<p>The graphic language of the film — landscapes paired with precise data illustration.</p>
 </div>
 
 <figure class="spread case-img">
-<img alt="The Farmer's Value, classic American barn and silo poster artwork" src="farmers-value-images/Artboard 1 copy.png"/>
+<img alt="The Farmer's Value — classic American barn and silo poster artwork" src="farmers-value-images/Artboard 1 copy.png"/>
 </figure>
 
 <figure class="spread case-img">
-<img alt="The Farmer's Value, hoop house greenhouse illustration extending the growing season" src="farmers-value-images/Artboard 1 copy 2.png"/>
+<img alt="The Farmer's Value — hoop house greenhouse illustration extending the growing season" src="farmers-value-images/Artboard 1 copy 2.png"/>
 </figure>
 
 <figure class="spread case-img">
-<img alt="The Farmer's Value, isometric vertical farming rows illustration" src="farmers-value-images/Artboard 1 copy 9.png"/>
+<img alt="The Farmer's Value — isometric vertical farming rows illustration" src="farmers-value-images/Artboard 1 copy 9.png"/>
 </figure>
 
 <figure class="spread case-img">
-<img alt="The Farmer's Value, Long Island outline and the potato that started it all" src="farmers-value-images/Artboard 2.png"/>
+<img alt="The Farmer's Value — Long Island outline and the potato that started it all" src="farmers-value-images/Artboard 2.png"/>
 </figure>
 
 <figure class="spread case-img">
-<img alt="The Farmer's Value, U.S. Capitol building, the policy shaping farm economics" src="farmers-value-images/Artboard 1.png"/>
+<img alt="The Farmer's Value — U.S. Capitol building, the policy shaping farm economics" src="farmers-value-images/Artboard 1.png"/>
 </figure>
 </section>
 
 <!-- ===== FULL-BLEED CLOSING IMAGE ===== -->
 <section class="bleed">
 <figure class="case-img">
-<img alt="The Farmer's Value, thesis still: value what comes from the land more than the land itself" src="farmers-value-images/still-thesis.jpg"/>
+<img alt="The Farmer's Value — thesis still: value what comes from the land more than the land itself" src="farmers-value-images/still-thesis.jpg"/>
 </figure>
 </section>
 
@@ -807,7 +815,7 @@
 </div> -->
 
   <section class="usage-note" style="border-top:1px solid var(--line,#DCDBD4); padding:1.1rem clamp(1.25rem,5vw,4.5rem); font-size:0.66rem; line-height:1.55; color:var(--muted,#8C8C84);">
-    <p style="letter-spacing:0.01em;">The work shown here is student work, created for educational purposes as part of academic coursework, <strong style="color:var(--soft,#4A4A46);">not for commercial use</strong>. It may include third-party material (music, footage, or imagery) used under the fair-use provisions of U.S. copyright law (17 U.S.C. &sect; 107) for purposes such as criticism, commentary, teaching, and scholarship. No copyright infringement is intended and no commercial gain is derived from this work. Rights holders with any concerns may contact <a href="mailto:jackwardmurray@gmail.com" style="color:inherit; text-decoration:underline;">jackwardmurray&#64;gmail.com</a>.</p>
+    <p style="letter-spacing:0.01em;">The work shown here is student work, created for educational purposes as part of academic coursework &mdash; <strong style="color:var(--soft,#4A4A46);">not for commercial use</strong>. It may include third-party material (music, footage, or imagery) used under the fair-use provisions of U.S. copyright law (17 U.S.C. &sect; 107) for purposes such as criticism, commentary, teaching, and scholarship. No copyright infringement is intended and no commercial gain is derived from this work. Rights holders with any concerns may contact <a href="mailto:jackwardmurray@gmail.com" style="color:inherit; text-decoration:underline;">jackwardmurray&#64;gmail.com</a>.</p>
   </section>
 <footer class="footer">
 <div class="footer-inner">
@@ -820,7 +828,7 @@
 <script>
   /* ---- NAV ADAPTS TO BACKGROUND UNDER IT ---- */
   const topbar = document.querySelector('.topbar');
-  const darkZones = document.querySelectorAll('.hero.pull-quote.footer');
+  const darkZones = document.querySelectorAll('.hero, .pull-quote, .footer');
   function syncNav() {
     const navY = topbar.offsetHeight / 2;
     let onDark = false;
@@ -853,7 +861,7 @@
      as it needs to go to stay within two lines, so short lines run huge and a
      long one still lands on two rather than wrapping into a paragraph. */
   (function () {
-    const heads = document.querySelectorAll('.chapter h2.closing h2.hero-title');
+    const heads = document.querySelectorAll('.chapter h2, .closing h2, .hero-title');
     if (!heads.length) return;
     const MAX_LINES = 3;
     const MIN_PX = 22;

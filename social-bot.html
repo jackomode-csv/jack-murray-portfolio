@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Social Bot | JKMRY</title>
+<title>Social Bot &mdash; JKMRY</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inclusive+Sans:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
@@ -68,7 +68,7 @@
   }
   .site-footer a:hover { color: var(--accent); }
   @media (max-width: 600px) {
-    .topbar.stage.site-footer { padding-left: var(--text-edge); padding-right: var(--text-edge); }
+    .topbar, .stage, .site-footer { padding-left: var(--text-edge); padding-right: var(--text-edge); }
   }
 
   /* ---- SITE NAV: the homepage bar, carried across every page ----
@@ -87,7 +87,7 @@
   .topbar .wordmark:hover { color: var(--accent); }
 
   .topbar .site-nav { display: flex; align-items: center; gap: 0.25rem; flex-wrap: wrap; }
-  .topbar .site-nav > a.topbar .nav-dropdown > a {
+  .topbar .site-nav > a, .topbar .nav-dropdown > a {
     font-family: var(--font);
     font-size: 0.66rem;
     font-weight: 500;
@@ -100,7 +100,9 @@
     border-radius: 999px;
     transition: color 0.2s ease, background 0.2s ease;
   }
-  .topbar .site-nav > a:hover.topbar .nav-dropdown > a:hover.topbar .nav-dropdown:focus-within > a { color: #fff; background: var(--accent); }
+  .topbar .site-nav > a:hover,
+  .topbar .nav-dropdown > a:hover,
+  .topbar .nav-dropdown:focus-within > a { color: #fff; background: var(--accent); }
   .topbar .site-nav > a[aria-current="page"] { color: var(--accent); }
 
   /* Work: the same hover dropdown, pointing back at the homepage sections */
@@ -125,7 +127,8 @@
     transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
     z-index: 6;
   }
-  .topbar .nav-dropdown:hover .nav-menu.topbar .nav-dropdown:focus-within .nav-menu {
+  .topbar .nav-dropdown:hover .nav-menu,
+  .topbar .nav-dropdown:focus-within .nav-menu {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
@@ -148,7 +151,7 @@
   @media (max-width: 720px) {
     .topbar .wordmark { font-size: 0.85rem; letter-spacing: 0.18em; }
     .topbar .site-nav { gap: 0; }
-    .topbar .site-nav > a.topbar .nav-dropdown > a { padding: 10px 11px; letter-spacing: 0.1em; }
+    .topbar .site-nav > a, .topbar .nav-dropdown > a { padding: 10px 11px; letter-spacing: 0.1em; }
     .topbar .nav-menu { left: auto; right: 0; }
   }
 
@@ -203,7 +206,8 @@
   /* ---- HEADLINE: identical to the case study ----
      .premise carries this page the way .chapter h2 carries a BAG section, so
      it takes that rule verbatim and the same two-line fitter drives it. */
-  .premise.stage h1 {
+  .premise,
+  .stage h1 {
     font-family: var(--font-headline);
     font-size: clamp(2.2rem, 9vw, 8.5rem);
     font-weight: 700;
@@ -265,7 +269,7 @@
   <main class="stage">
     <p class="eyebrow">Video &middot; Satirical Short</p>
     <h1>Social Bot</h1>
-    <p class="premise">A satire staged entirely as a vintage BlackBerry: an inbox of absurd political spam, Steve Bannon (&ldquo;drinks at Chili&rsquo;s?&rdquo;), Don Jr. (&ldquo;Dems wanna arm deer!&rdquo;), and &ldquo;Fancy Bear&rdquo; on misinformation spread by social bots, opening into messages of a person in a homemade tin-foil robot suit loose in the suburbs: at the fence, behind the wheel, walking off down the block, until the battery dies. A deadpan jab at bots, feeds, and political noise.</p>
+    <p class="premise">A satire staged entirely as a vintage BlackBerry: an inbox of absurd political spam &mdash; Steve Bannon (&ldquo;drinks at Chili&rsquo;s?&rdquo;), Don Jr. (&ldquo;Dems wanna arm deer!&rdquo;), and &ldquo;Fancy Bear&rdquo; on misinformation spread by social bots &mdash; opening into messages of a person in a homemade tin-foil robot suit loose in the suburbs: at the fence, behind the wheel, walking off down the block, until the battery dies. A deadpan jab at bots, feeds, and political noise.</p>
     <figure class="video-player">
       <video controls preload="none" playsinline poster="video/social-bot.jpg">
         <source src="https://video.jkmry.com/social-bot.mp4" type="video/mp4">
@@ -273,7 +277,7 @@
     </figure>
   </main>
   <section class="usage-note" style="border-top:1px solid var(--line,#DCDBD4); padding:1.1rem clamp(1.25rem,5vw,4.5rem); font-size:0.66rem; line-height:1.55; color:var(--muted,#8C8C84);">
-    <p style="letter-spacing:0.01em;">The work shown here is student work, created for educational purposes as part of academic coursework, <strong style="color:var(--soft,#4A4A46);">not for commercial use</strong>. It may include third-party material (music, footage, or imagery) used under the fair-use provisions of U.S. copyright law (17 U.S.C. &sect; 107) for purposes such as criticism, commentary, teaching, and scholarship. No copyright infringement is intended and no commercial gain is derived from this work. Rights holders with any concerns may contact <a href="mailto:jackwardmurray@gmail.com" style="color:inherit; text-decoration:underline;">jackwardmurray&#64;gmail.com</a>.</p>
+    <p style="letter-spacing:0.01em;">The work shown here is student work, created for educational purposes as part of academic coursework &mdash; <strong style="color:var(--soft,#4A4A46);">not for commercial use</strong>. It may include third-party material (music, footage, or imagery) used under the fair-use provisions of U.S. copyright law (17 U.S.C. &sect; 107) for purposes such as criticism, commentary, teaching, and scholarship. No copyright infringement is intended and no commercial gain is derived from this work. Rights holders with any concerns may contact <a href="mailto:jackwardmurray@gmail.com" style="color:inherit; text-decoration:underline;">jackwardmurray&#64;gmail.com</a>.</p>
   </section>
   
 <!-- closing card: the same layout the BAG case study ends on -->
@@ -297,7 +301,7 @@
      as it needs to go to stay within two lines, so short lines run huge and a
      long one still lands on two rather than wrapping into a paragraph. */
   (function () {
-    const heads = document.querySelectorAll('.premise.stage h1');
+    const heads = document.querySelectorAll('.premise, .stage h1');
     if (!heads.length) return;
     const MAX_LINES = 2;
     const MIN_PX = 22;
