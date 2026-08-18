@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Branding — JKMRY</title>
+<title>Branding | JKMRY</title>
 <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -389,7 +389,7 @@
   .case-text-col .case-meta { grid-template-columns: 1fr 1fr; }
   .case-text-col .case-meta-item:nth-child(2) { border-right: none; }
   .case-image-col > * { max-width: 100% !important; margin: 0 0 1.5rem !important; padding: 0 !important; }
-  .case-image-col .case-img, .case-image-col .case-img-placeholder {
+  .case-image-col .case-img.case-image-col .case-img-placeholder {
     max-width: 100% !important; margin-left: auto !important; margin-right: auto !important;
   }
   @media (max-width: 900px) {
@@ -413,7 +413,7 @@
   .topbar .wordmark:hover { color: var(--accent); }
 
   .topbar .site-nav { display: flex; align-items: center; gap: 0.25rem; flex-wrap: wrap; }
-  .topbar .site-nav > a, .topbar .nav-dropdown > a {
+  .topbar .site-nav > a.topbar .nav-dropdown > a {
     font-family: var(--font-sans);
     font-size: 0.66rem;
     font-weight: 500;
@@ -426,9 +426,7 @@
     border-radius: 999px;
     transition: color 0.2s ease, background 0.2s ease;
   }
-  .topbar .site-nav > a:hover,
-  .topbar .nav-dropdown > a:hover,
-  .topbar .nav-dropdown:focus-within > a { color: #fff; background: var(--accent); }
+  .topbar .site-nav > a:hover.topbar .nav-dropdown > a:hover.topbar .nav-dropdown:focus-within > a { color: #fff; background: var(--accent); }
   .topbar .site-nav > a[aria-current="page"] { color: var(--accent); }
 
   /* Work: the same hover dropdown, pointing back at the homepage sections */
@@ -453,8 +451,7 @@
     transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
     z-index: 6;
   }
-  .topbar .nav-dropdown:hover .nav-menu,
-  .topbar .nav-dropdown:focus-within .nav-menu {
+  .topbar .nav-dropdown:hover .nav-menu.topbar .nav-dropdown:focus-within .nav-menu {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
@@ -477,7 +474,7 @@
   @media (max-width: 720px) {
     .topbar .wordmark { font-size: 0.85rem; letter-spacing: 0.18em; }
     .topbar .site-nav { gap: 0; }
-    .topbar .site-nav > a, .topbar .nav-dropdown > a { padding: 10px 11px; letter-spacing: 0.1em; }
+    .topbar .site-nav > a.topbar .nav-dropdown > a { padding: 10px 11px; letter-spacing: 0.1em; }
     .topbar .nav-menu { left: auto; right: 0; }
   }
 </style>
@@ -509,7 +506,7 @@
 <header class="case-header">
 <p class="case-cat">Branding · Visual Identity</p>
 <h1 class="case-title">Branding</h1>
-<p class="case-subtitle">Identity systems built around a clear idea — logo, color, type, and the rules that hold them together across every application.</p>
+<p class="case-subtitle">Identity systems built around a clear idea, logo, color, type, and the rules that hold them together across every application.</p>
 <div class="case-meta">
 <div class="case-meta-item">
 <p class="case-meta-label">Role</p>
@@ -546,7 +543,7 @@
 <div class="case-section-grid">
 <p class="case-section-label">Logo</p>
 <div class="case-section-body">
-<p>The mark and its construction — primary lockup, secondary marks, and clear-space and minimum-size rules. Describe the reasoning behind the form here.</p>
+<p>The mark and its construction, primary lockup, secondary marks, and clear-space and minimum-size rules. Describe the reasoning behind the form here.</p>
 </div>
 </div>
 </div>
@@ -557,7 +554,7 @@
 <div class="case-section-grid">
 <p class="case-section-label">Color</p>
 <div class="case-section-body">
-<p>The palette and how it is applied — primary, secondary, and neutral roles, plus any accessibility or contrast constraints the brand follows.</p>
+<p>The palette and how it is applied, primary, secondary, and neutral roles, plus any accessibility or contrast constraints the brand follows.</p>
 </div>
 </div>
 </div>
@@ -568,7 +565,7 @@
 <div class="case-section-grid">
 <p class="case-section-label">Typography</p>
 <div class="case-section-body">
-<p>The typeface choices and the hierarchy they create — display, body, and supporting weights, and the voice they give the brand.</p>
+<p>The typeface choices and the hierarchy they create, display, body, and supporting weights, and the voice they give the brand.</p>
 </div>
 </div>
 </div>
@@ -579,7 +576,7 @@
 <div class="case-section-grid">
 <p class="case-section-label">Applications</p>
 <div class="case-section-body">
-<p>The system in use — stationery, signage, digital, packaging, or whatever the brand lives on. This is where the rules prove they hold together.</p>
+<p>The system in use, stationery, signage, digital, packaging, or whatever the brand lives on. This is where the rules prove they hold together.</p>
 </div>
 </div>
 </div>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Creeping Body &mdash; JKMRY</title>
+<title>The Creeping Body | JKMRY</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inclusive+Sans:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
@@ -86,13 +86,11 @@
 
   .bleed { width: 100%; }
   .bleed .case-img { width: 100%; height: 100vh; overflow: hidden; margin: 0; background: var(--white); }
-  .bleed .case-img img,
-  .bleed .case-img video { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .bleed .case-img img.bleed .case-img video { width: 100%; height: 100%; object-fit: cover; display: block; }
   .bleed .case-img.on-black { background: var(--black); }
   /* escape hatch: show the whole frame instead of cropping to the viewport */
   .bleed .case-img.whole { height: auto; }
-  .bleed .case-img.whole img,
-  .bleed .case-img.whole video { width: 100%; height: auto; object-fit: fill; }
+  .bleed .case-img.whole img.bleed .case-img.whole video { width: 100%; height: auto; object-fit: fill; }
 
   /* ---- NAV ---- */
   .topbar {
@@ -141,7 +139,7 @@
   /* ---- HERO (full-bleed) ---- */
   .hero {
     width: 100%;
-    background: #000;   /* pure black — matches the photo backdrop seamlessly */
+    background: #000;   /* pure black, matches the photo backdrop seamlessly */
   }
 
   .hero-fig {
@@ -223,7 +221,7 @@
     padding: 0;
   }
 
-  /* staggered cascade — 4-col grid, left column offset 4 rows below right */
+  /* staggered cascade, 4-col grid, left column offset 4 rows below right */
   .cascade {
     width: 100%;
     padding: var(--grid-gap);
@@ -515,7 +513,7 @@
       margin-top: 0;
       padding: 2.5rem 1.5rem 0;
     }
-    .hero-title, .hero-premise, .hero-credits {
+    .hero-title.hero-premise.hero-credits {
       white-space: normal;
       margin-bottom: 1.4rem;
     }
@@ -610,7 +608,7 @@
     color: var(--gray-light);
   }
 
-  /* ---- BLACK PAGE THEME — the book photos dissolve into the page ---- */
+  /* ---- BLACK PAGE THEME, the book photos dissolve into the page ---- */
   body { background: #000; }
   .page-frame { border-color: #000; }
   .topbar-inner { color: rgba(255,255,255,0.72); }
@@ -620,7 +618,7 @@
   .hero-premise { color: #C9C9C9; }
   .hero-credits { color: #909090; border-top-color: #2A2A2A; }
   .hero-credits strong { color: #fff; }
-  .case-img, .bleed .case-img { background: #000; }
+  .case-img.bleed .case-img { background: #000; }
   .spreads .spread { box-shadow: none; }
   .section-label { color: #909090; }
   .skill-grid li { color: #EDEDED; border-top-color: #2A2A2A; }
@@ -646,7 +644,7 @@
   .topbar .wordmark:hover { color: var(--accent); }
 
   .topbar .site-nav { display: flex; align-items: center; gap: 0.25rem; flex-wrap: wrap; }
-  .topbar .site-nav > a, .topbar .nav-dropdown > a {
+  .topbar .site-nav > a.topbar .nav-dropdown > a {
     font-family: var(--font-sans);
     font-size: 0.66rem;
     font-weight: 500;
@@ -659,9 +657,7 @@
     border-radius: 999px;
     transition: color 0.2s ease, background 0.2s ease;
   }
-  .topbar .site-nav > a:hover,
-  .topbar .nav-dropdown > a:hover,
-  .topbar .nav-dropdown:focus-within > a { color: #fff; background: var(--accent); }
+  .topbar .site-nav > a:hover.topbar .nav-dropdown > a:hover.topbar .nav-dropdown:focus-within > a { color: #fff; background: var(--accent); }
   .topbar .site-nav > a[aria-current="page"] { color: var(--accent); }
 
   /* Work: the same hover dropdown, pointing back at the homepage sections */
@@ -686,8 +682,7 @@
     transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
     z-index: 6;
   }
-  .topbar .nav-dropdown:hover .nav-menu,
-  .topbar .nav-dropdown:focus-within .nav-menu {
+  .topbar .nav-dropdown:hover .nav-menu.topbar .nav-dropdown:focus-within .nav-menu {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
@@ -709,15 +704,13 @@
 
   /* the page script flips .on-dark over dark artwork, so the nav flips too */
   .topbar.on-dark .wordmark { color: var(--white); }
-  .topbar.on-dark .site-nav > a,
-  .topbar.on-dark .nav-dropdown > a { color: rgba(255,255,255,0.88); }
-  .topbar.on-dark .site-nav > a:hover,
-  .topbar.on-dark .nav-dropdown > a:hover { color: #fff; background: var(--accent); }
+  .topbar.on-dark .site-nav > a.topbar.on-dark .nav-dropdown > a { color: rgba(255,255,255,0.88); }
+  .topbar.on-dark .site-nav > a:hover.topbar.on-dark .nav-dropdown > a:hover { color: #fff; background: var(--accent); }
 
   @media (max-width: 720px) {
     .topbar .wordmark { font-size: 0.85rem; letter-spacing: 0.18em; }
     .topbar .site-nav { gap: 0; }
-    .topbar .site-nav > a, .topbar .nav-dropdown > a { padding: 10px 11px; letter-spacing: 0.1em; }
+    .topbar .site-nav > a.topbar .nav-dropdown > a { padding: 10px 11px; letter-spacing: 0.1em; }
     .topbar .nav-menu { left: auto; right: 0; }
   }
 
@@ -788,7 +781,7 @@
 <!-- ===== HERO ===== -->
 <section class="hero">
 <figure class="case-img hero-fig">
-<img alt="The Creeping Body — the hand-painted cover of the hand-bound Supreme Court publication" src="creeping-body-images/creeping-body-book-cover.jpg"/>
+<img alt="The Creeping Body, the hand-painted cover of the hand-bound Supreme Court publication" src="creeping-body-images/creeping-body-book-cover.jpg"/>
 </figure>
 </section>
 
@@ -806,24 +799,24 @@
 <section class="spreads">
 
 <figure class="spread case-img">
-<img alt="The Creeping Body — the printed book open to the Citizens United campaign finance timeline spread" src="creeping-body-images/creeping-body-book-10-11.jpg"/>
+<img alt="The Creeping Body, the printed book open to the Citizens United campaign finance timeline spread" src="creeping-body-images/creeping-body-book-10-11.jpg"/>
 </figure>
 
 <div class="book-pair">
 <figure class="spread case-img">
-<img alt="The Creeping Body — dual timeline spread on the Court’s use of history and tradition" src="creeping-body-images/creeping-body-book-18-19.jpg"/>
+<img alt="The Creeping Body, dual timeline spread on the Court’s use of history and tradition" src="creeping-body-images/creeping-body-book-18-19.jpg"/>
 </figure>
 <figure class="spread case-img">
-<img alt="The Creeping Body — Kennedy v. Bremerton and NYSRPA v. Bruen spread from the case analysis" src="creeping-body-images/creeping-body-book-20-21.jpg"/>
+<img alt="The Creeping Body, Kennedy v. Bremerton and NYSRPA v. Bruen spread from the case analysis" src="creeping-body-images/creeping-body-book-20-21.jpg"/>
 </figure>
 </div>
 
 <div class="book-pair">
 <figure class="spread case-img">
-<img alt="The Creeping Body — chapter opener on the Supreme Court as a political body" src="creeping-body-images/creeping-body-book-28-29.jpg"/>
+<img alt="The Creeping Body, chapter opener on the Supreme Court as a political body" src="creeping-body-images/creeping-body-book-28-29.jpg"/>
 </figure>
 <figure class="spread case-img">
-<img alt="The Creeping Body — Due Process Era timeline spread on the Bakeshop Act and Lochner v. New York" src="creeping-body-images/creeping-body-book-8-9.jpg"/>
+<img alt="The Creeping Body, Due Process Era timeline spread on the Bakeshop Act and Lochner v. New York" src="creeping-body-images/creeping-body-book-8-9.jpg"/>
 </figure>
 </div>
 </section>
@@ -863,7 +856,7 @@
 <script>
   /* ---- NAV ADAPTS TO BACKGROUND UNDER IT ---- */
   const topbar = document.querySelector('.topbar');
-  const darkZones = document.querySelectorAll('.hero, .pull-quote, .footer');
+  const darkZones = document.querySelectorAll('.hero.pull-quote.footer');
   function syncNav() {
     const navY = topbar.offsetHeight / 2;
     let onDark = false;
@@ -896,7 +889,7 @@
      as it needs to go to stay within two lines, so short lines run huge and a
      long one still lands on two rather than wrapping into a paragraph. */
   (function () {
-    const heads = document.querySelectorAll('.chapter h2, .closing h2, .hero-title');
+    const heads = document.querySelectorAll('.chapter h2.closing h2.hero-title');
     if (!heads.length) return;
     const MAX_LINES = 2;
     const MIN_PX = 22;

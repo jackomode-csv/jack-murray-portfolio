@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>About &mdash; JKMRY</title>
+<title>About | JKMRY</title>
 <meta name="description" content="Jack Murray is a New York based brand designer who takes an identity from the mark through to the motion, the site, and the words on it.">
 <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
@@ -125,7 +125,7 @@
   .site-footer a:hover { color: var(--accent); }
 
   @media (max-width: 720px) {
-    .topbar, .site-footer { padding-left: 1.25rem; padding-right: 1.25rem; }
+    .topbar.site-footer { padding-left: 1.25rem; padding-right: 1.25rem; }
     .about { padding: 2.5rem 1.25rem 3.5rem; }
     .disciplines { grid-template-columns: 1fr; gap: 2rem; }
     .wl-role { display: none; }
@@ -147,7 +147,7 @@
   .topbar .wordmark:hover { color: var(--accent); }
 
   .topbar .site-nav { display: flex; align-items: center; gap: 0.25rem; flex-wrap: wrap; }
-  .topbar .site-nav > a, .topbar .nav-dropdown > a {
+  .topbar .site-nav > a.topbar .nav-dropdown > a {
     font-family: var(--font);
     font-size: 0.66rem;
     font-weight: 500;
@@ -160,9 +160,7 @@
     border-radius: 999px;
     transition: color 0.2s ease, background 0.2s ease;
   }
-  .topbar .site-nav > a:hover,
-  .topbar .nav-dropdown > a:hover,
-  .topbar .nav-dropdown:focus-within > a { color: #fff; background: var(--accent); }
+  .topbar .site-nav > a:hover.topbar .nav-dropdown > a:hover.topbar .nav-dropdown:focus-within > a { color: #fff; background: var(--accent); }
   .topbar .site-nav > a[aria-current="page"] { color: var(--accent); }
 
   /* Work: the same hover dropdown, pointing back at the homepage sections */
@@ -187,8 +185,7 @@
     transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
     z-index: 6;
   }
-  .topbar .nav-dropdown:hover .nav-menu,
-  .topbar .nav-dropdown:focus-within .nav-menu {
+  .topbar .nav-dropdown:hover .nav-menu.topbar .nav-dropdown:focus-within .nav-menu {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
@@ -211,7 +208,7 @@
   @media (max-width: 720px) {
     .topbar .wordmark { font-size: 0.85rem; letter-spacing: 0.18em; }
     .topbar .site-nav { gap: 0; }
-    .topbar .site-nav > a, .topbar .nav-dropdown > a { padding: 10px 11px; letter-spacing: 0.1em; }
+    .topbar .site-nav > a.topbar .nav-dropdown > a { padding: 10px 11px; letter-spacing: 0.1em; }
     .topbar .nav-menu { left: auto; right: 0; }
   }
 </style>
