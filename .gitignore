@@ -22,12 +22,13 @@ video/*.log
 encode-all.sh
 fix-two.sh
 
-# Homepage hero reel now served from R2 (video.jkmry.com/demo_reel_workspace.mp4)
+# Homepage hero reel now served from R2 (video.jkmry.com/jkmry-sizzle-reel.mp4)
 # big-apple-demo-reel.mp4 is the case-study hero, also on R2
 jackM-demo-reel-web.mp4
 jackM-demo-reel.mp4
 demo_reel_workspace.mp4
 big-apple-demo-reel.mp4
+jkmry-sizzle-reel.mp4
 
 # Layered source files — export flattened jpg/png for the web instead
 *.psd
