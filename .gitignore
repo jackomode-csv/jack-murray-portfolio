@@ -26,7 +26,7 @@ fix-two.sh
 # big-apple-demo-reel.mp4 is the case-study hero, also on R2
 jackM-demo-reel-web.mp4
 jackM-demo-reel.mp4
-demo_reel_workspace.mp4
+demo_reel_workspace*.mp4
 big-apple-demo-reel.mp4
 jkmry-sizzle-reel.mp4
 
