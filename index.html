@@ -3,20 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JKMRY — Portfolio</title>
+<title>JKMRY | Portfolio</title>
 <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
   :root {
-    /* one neutral palette — the work supplies the color */
+    /* one neutral palette, the work supplies the color */
     --bg:    #FFFFFF;
     --tile:  #FFFFFF;
     --ink:   #161614;
     --soft:  #4A4A46;
     --muted: #8C8C84;
     --line:  #DCDBD4;
-    --accent: #3E7D5A;   /* green accent — frames + interactive */
+    --accent: #3E7D5A;   /* green accent, frames + interactive */
 
     --font: 'Jost', 'Futura', 'Helvetica Neue', Arial, sans-serif;
 
@@ -82,7 +82,7 @@
     inset: 0;
     width: 100%;
     height: 100%;
-    object-fit: contain;   /* show the whole frame — never crop */
+    object-fit: contain;   /* show the whole frame, never crop */
     object-position: center;
     display: block;
   }
@@ -155,7 +155,7 @@
   }
   .nav-menu a:hover { color: #fff; background: var(--accent); }
 
-  /* split control pill — mute toggle on one half, restart on the other */
+  /* split control pill, mute toggle on one half, restart on the other */
   .hero-controls {
     position: absolute;
     z-index: 3;
@@ -195,10 +195,10 @@
   .unmute-btn.is-on .icon-off { display: none; }
   .unmute-btn.is-on .icon-on  { display: block; }
 
-  /* click target hint — whole video toggles play/pause */
+  /* click target hint, whole video toggles play/pause */
   .hero-video { cursor: pointer; }
 
-  /* centered play indicator — shown only while paused */
+  /* centered play indicator, shown only while paused */
   .play-btn {
     position: absolute;
     z-index: 4;
@@ -219,7 +219,7 @@
   .hero.is-paused .play-btn { display: flex; }
   .play-btn svg { width: 36px; height: 36px; margin-left: 5px; }  /* optical-center the triangle */
 
-  /* timer / scrubber bar — shown only while paused */
+  /* timer / scrubber bar, shown only while paused */
   .video-timeline {
     position: absolute;
     z-index: 5;
@@ -343,7 +343,7 @@
   .work {
     max-width: none;
     margin: 0;
-    padding: 0 0 2rem;   /* tiles run edge to edge — only text is inset */
+    padding: 0 0 2rem;   /* tiles run edge to edge, only text is inset */
   }
 
   /* contained, shorter band that breaks the full-bleed rhythm */
@@ -403,7 +403,7 @@
     gap: calc(var(--tile-gap) + 1.2rem);
   }
   .book-card { display: block; width: 100%; }
-  /* covers are portrait — hold a viewport-tall band and let the background extend.
+  /* covers are portrait, hold a viewport-tall band and let the background extend.
      The covers are photographed on black, so the band falls back to black (not the
      page white) whenever the sampled color isn't available. */
   .book-stack .work-media {
@@ -414,7 +414,7 @@
   /* covers stay full-color on hover (caption carries the title), keep the gentle lift */
   .book-stack .work-item:hover .work-media img { filter: none; }
 
-  /* Books banner — full-screen autoplaying silent loop, like the hero */
+  /* Books banner, full-screen autoplaying silent loop, like the hero */
   .book-banner {
     position: relative;
     width: 100%;
@@ -430,10 +430,10 @@
     inset: 0;
     width: 100%;
     height: 100%;
-    object-fit: contain;   /* show the whole frame — never crop (matches hero) */
+    object-fit: contain;   /* show the whole frame, never crop (matches hero) */
     object-position: center;
   }
-  /* centered play indicator — shown only while the banner is paused */
+  /* centered play indicator, shown only while the banner is paused */
   .banner-play {
     position: absolute; z-index: 2; top: 50%; left: 50%;
     transform: translate(-50%, -50%); display: none;
@@ -449,7 +449,7 @@
 
   /* full-bleed rows: span both columns. Order is full, pair, full, pair… */
   .work-grid > li.full { grid-column: 1 / -1; }
-  /* explicit height, not aspect-ratio — a ratio + max-height makes the box
+  /* explicit height, not aspect-ratio, a ratio + max-height makes the box
      narrow itself, and a full-bleed tile must always span the screen */
   .work-grid > li.full .work-media {
     aspect-ratio: auto;
@@ -477,7 +477,7 @@
     /* --tile-bg is sampled from the image's own edge in JS, so the band
        reads as an extension of the artwork rather than a box around it */
     background: var(--tile-bg, var(--tile));
-    border: 0;             /* no frame — the tiles run to the screen edge */
+    border: 0;             /* no frame, the tiles run to the screen edge */
   }
 
   .work-media img,
@@ -486,7 +486,7 @@
     inset: 0;
     width: 100%;
     height: 100%;
-    object-fit: contain;   /* show the whole frame — the background fills the rest */
+    object-fit: contain;   /* show the whole frame, the background fills the rest */
     object-position: center;
     display: block;
     transition: transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
@@ -509,7 +509,7 @@
   }
   .work-item:hover .work-media--blank { background: #1C1C19; }
 
-  /* logo tile — title-treatment PNG centered on white */
+  /* logo tile, title-treatment PNG centered on white */
   .work-media--logo {
     display: flex;
     align-items: center;
@@ -526,13 +526,13 @@
     object-fit: contain;
     object-position: center;
   }
-  /* keep the logo's real colors on hover (no grey-out) — just a gentle lift */
+  /* keep the logo's real colors on hover (no grey-out), just a gentle lift */
   .work-item:hover .work-media--logo img {
     transform: scale(1.04);
     filter: none;
   }
 
-  /* title overlay — hidden until hover, then rises up over the image */
+  /* title overlay, hidden until hover, then rises up over the image */
   .work-overlay {
     position: absolute;
     inset: 0;
@@ -589,16 +589,16 @@
 
   /* ---- VIDEO CARD CAPTIONS (title · description · runtime under each tile) ---- */
   .video-grid .work-overlay { display: none; }   /* captions live under the card instead */
-  /* keep video stills full-color on hover — just the gentle lift */
+  /* keep video stills full-color on hover, just the gentle lift */
   .video-grid .work-item:hover .work-media img { filter: none; }
 
-  /* hover teaser — a few frames clipped from the video, looping */
+  /* hover teaser, a few frames clipped from the video, looping */
   .work-media .card-teaser {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
-    object-fit: contain;   /* never crop — the tile background carries the rest */
+    object-fit: contain;   /* never crop, the tile background carries the rest */
     object-position: center;
     opacity: 0;
     z-index: 2;
@@ -626,7 +626,7 @@
     letter-spacing: -0.005em;
     color: var(--ink);
   }
-  /* time reads as part of the title — same weight and color */
+  /* time reads as part of the title, same weight and color */
   .cap-time {
     font-size: 1.12rem;
     font-weight: 500;
@@ -697,12 +697,12 @@
   @media (max-width: 900px) {
     :root { --edge: 2rem; --gutter: 1.75rem; --tile-gap: 24px; --text-inset: 1.25rem; }
     .work-grid { grid-template-columns: 1fr; }
-    /* single column — every tile is full-bleed, so they share one ratio */
+    /* single column, every tile is full-bleed, so they share one ratio */
     .work-grid > li .work-media,
     .work-grid > li.full .work-media { aspect-ratio: 4 / 3; height: auto; }
     .book-stack .work-media { aspect-ratio: 4 / 3; height: auto; }
     .intro { padding: 2.5rem 0 3.5rem; }
-    /* on touch, overlays can't hover — keep titles legible */
+    /* on touch, overlays can't hover, keep titles legible */
     .work-overlay { opacity: 1; }
     .work-overlay .work-title,
     .work-overlay .work-desc { transform: none; }
@@ -728,7 +728,7 @@
 <!-- HERO VIDEO -->
 <section class="hero">
   <video class="hero-video" id="heroVideo" autoplay muted playsinline
-         preload="auto" aria-label="Jack Murray — demo reel">
+         preload="auto" aria-label="Jack Murray, demo reel">
     <source src="https://video.jkmry.com/demo_reel_workspace_1.mp4" type="video/mp4">
   </video>
 
@@ -828,7 +828,7 @@
               <span class="cap-time">6:18</span>
             </div>
             <p class="cap-desc">Research Video Essay</p>
-            <p class="cap-blurb">A sourced argument for saving small family farms &mdash; the carbon cost of relocating, broken subsidy math, and greenhouse and vertical-farming fixes &mdash; told as hand-drawn whiteboard animation.</p>
+            <p class="cap-blurb">A sourced argument for saving small family farms, the carbon cost of relocating, broken subsidy math, and greenhouse and vertical-farming fixes, told as hand-drawn whiteboard animation.</p>
           </div>
         </a>
       </li>
@@ -903,7 +903,7 @@
               <span class="cap-time">36 pages</span>
             </div>
             <p class="cap-desc">Political Book</p>
-            <p class="cap-blurb">A children&rsquo;s book about the stories America keeps telling itself &mdash; written, staged, and designed from a self-made dataset, brought to life in the simple, effective illustration of Jaja Riley.</p>
+            <p class="cap-blurb">A children&rsquo;s book about the stories America keeps telling itself, written, staged, and designed from a self-made dataset, brought to life in the simple, effective illustration of Jaja Riley.</p>
           </div>
         </a>
       </li>
@@ -919,7 +919,7 @@
               <span class="cap-time">50 pages</span>
             </div>
             <p class="cap-desc">Editorial &amp; Research</p>
-            <p class="cap-blurb">A hand-bound, 50-page publication written, designed, and printed during an intensive semester at Paris College of Art &mdash; four essays that turn dense Supreme Court argument into something you can hold and actually read.</p>
+            <p class="cap-blurb">A hand-bound, 50-page publication written, designed, and printed during an intensive semester at Paris College of Art, four essays that turn dense Supreme Court argument into something you can hold and actually read.</p>
           </div>
         </a>
       </li>
@@ -935,7 +935,7 @@
               <span class="cap-time">6 pages &middot; 3 pop-ups</span>
             </div>
             <p class="cap-desc">Pop-Up &amp; Paper</p>
-            <p class="cap-blurb">A handcrafted pop-up book that turns flat photography into sculptural, three-dimensional scenes &mdash; exploring identity, place, and scale through the Unisphere in Flushing Meadows.</p>
+            <p class="cap-blurb">A handcrafted pop-up book that turns flat photography into sculptural, three-dimensional scenes, exploring identity, place, and scale through the Unisphere in Flushing Meadows.</p>
           </div>
         </a>
       </li>
@@ -999,7 +999,7 @@
 
     // Start with sound on where the browser permits audible autoplay (only
     // allowed with enough media engagement / prior interaction). If it's
-    // blocked, keep playing muted — the visitor turns sound on with the button.
+    // blocked, keep playing muted, the visitor turns sound on with the button.
     (function startWithSound() {
       if (!wantsSound()) { sync(); return; }   // visitor chose mute last time
       video.muted = false;
@@ -1071,7 +1071,7 @@
       atEnd = false;   // a manual seek cancels the poster state
     });
 
-    // Restart — jump to the start and play (keeps the current sound state).
+    // Restart, jump to the start and play (keeps the current sound state).
     var restartBtn = document.getElementById('restartBtn');
     if (restartBtn) {
       restartBtn.addEventListener('click', function () {
@@ -1130,7 +1130,7 @@
               sum[k] += v;
             }
           });
-          // 24 of 255 — tight enough to mean one ground, loose enough for the
+          // 24 of 255, tight enough to mean one ground, loose enough for the
           // noise a downscaled jpg leaves behind
           if (Math.max(hi[0] - lo[0], hi[1] - lo[1], hi[2] - lo[2]) <= 24) {
             paint(sum[0] / 4, sum[1] / 4, sum[2] / 4);
@@ -1144,10 +1144,10 @@
         var r = 0, g = 0, b = 0, n = 0;
         for (var y = 0; y < h; y++) {
           for (var x = 0; x < w; x++) {
-            // outer ring only — the frame's border color, not its subject
+            // outer ring only, the frame's border color, not its subject
             if (x > 1 && x < w - 2 && y > 1 && y < h - 2) continue;
             var i = at(x, y);
-            if (d[i + 3] < 128) continue;   // transparent PNG edge — skip
+            if (d[i + 3] < 128) continue;   // transparent PNG edge, skip
             r += d[i]; g += d[i + 1]; b += d[i + 2]; n++;
           }
         }
@@ -1157,10 +1157,10 @@
         // (Travel Lite went yellow off 3 pixels). Trust the sample only when
         // most of the ring is actually artwork.
         var ring = w * h - (w - 4) * (h - 4);
-        if (n < ring * 0.6) return;   // no real edge color to extend — keep the default
+        if (n < ring * 0.6) return;   // no real edge color to extend, keep the default
         paint(r / n, g / n, b / n);
       } catch (e) {
-        /* tainted canvas (file:// or cross-origin) — keep the default background */
+        /* tainted canvas (file:// or cross-origin), keep the default background */
       }
     }
 
@@ -1170,7 +1170,7 @@
     });
   })();
 
-  // Books banner — click to toggle play/pause, like the hero. Also nudge
+  // Books banner, click to toggle play/pause, like the hero. Also nudge
   // playback in JS in case a browser stalls the muted autoplay.
   (function () {
     var banner = document.querySelector('.book-banner');
