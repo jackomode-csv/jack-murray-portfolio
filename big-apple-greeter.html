@@ -225,6 +225,38 @@
   .hero-sound.is-on .icon-off { display: none; }
   .hero-sound.is-on .icon-on { display: block; }
 
+  /* Scroll cue. The reel fills the screen, so nothing below it shows until you
+     move, and this says the page continues. It sits on the white the hero
+     letterboxes against, so it takes ink rather than the white the homepage
+     cue uses over its video. */
+  .hero-cue {
+    position: absolute;
+    z-index: 3;
+    left: 50%;
+    bottom: 1.9rem;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.45rem;
+    color: var(--gray);
+    font-family: var(--font-sans);
+    font-size: 0.62rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    text-decoration: none;
+    transition: color 0.2s ease, opacity 0.3s ease;
+  }
+  .hero-cue:hover { color: var(--red); }
+  .hero-cue svg { width: 17px; height: 17px; animation: cue-nudge 1.8s ease-in-out infinite; }
+  @keyframes cue-nudge {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(5px); }
+  }
+  /* while paused the scrubber owns the bottom strip, so the cue steps aside */
+  .is-paused .hero-cue { opacity: 0; pointer-events: none; }
+
   .hero-head {
     width: 100%;
     margin: var(--grid-row) 0 0;
@@ -461,6 +493,7 @@
   .reveal.in-view { opacity: 1; transform: none; }
   @media (prefers-reduced-motion: reduce) {
     .reveal { opacity: 1 !important; transform: none !important; transition: none; }
+    .hero-cue svg { animation: none; }
   }
 
   /* ---- PULL QUOTE ---- */
@@ -816,10 +849,14 @@
 <div class="hero-track"><div class="hero-fill"></div></div>
 <span class="hero-time hero-duration">0:00</span>
 </div>
+<a class="hero-cue" href="#hero-head" aria-label="Scroll to the case study">
+<span>Scroll</span>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</a>
 </figure>
 </section>
 
-<div class="hero-head">
+<div class="hero-head" id="hero-head">
 <!-- The reel is the title now. The h1 stays for screen readers and search,
      since a page with no h1 at all is a real loss. -->
 <h1 class="visually-hidden">Big Apple Greeter</h1>
