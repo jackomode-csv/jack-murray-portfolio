@@ -4,7 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Politics of Design &mdash; JKMRY</title>
-<link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inclusive+Sans:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -19,9 +21,12 @@
     --gray-light: #A8A8A8;
     --gray-rule: #D6D4D0;
     --red: #161614;
-    --font-headline: 'Jost', 'Futura', 'Helvetica Neue', sans-serif;
-    --font-body: 'Jost', 'Futura', 'Helvetica Neue', sans-serif;
-    --font-sans: 'Jost', 'Futura', 'Helvetica Neue', sans-serif;
+    --font-headline: 'Inclusive Sans', 'Helvetica Neue', Arial, sans-serif;
+    --font-body: 'Inclusive Sans', 'Helvetica Neue', Arial, sans-serif;
+    --font-sans: 'Inclusive Sans', 'Helvetica Neue', Arial, sans-serif;
+
+    --text-edge: 20px;   /* hard left buffer to the true page edge */
+    --stretch: 1.15;     /* headlines are physically widened by this */
 
     /* ---- LAYOUT GRID ---- */
     --grid-max: 1000px;    /* content width the grid spans */
@@ -47,6 +52,47 @@
   ::selection { background: var(--red); color: var(--white); }
 
   img { display: block; max-width: 100%; height: auto; }
+
+
+  /* ---- BAG TREATMENT ----
+     Headlines carry each section on their own, hard against a 20px edge,
+     sized by script to stay within two lines. */
+  .chapter {
+    max-width: none;
+    margin: 0;
+    padding: 15rem var(--text-edge) 7rem;
+  }
+  .chapter.tight { padding-top: 7rem; }
+  .chapter h2 {
+    font-family: var(--font-headline);
+    /* the headline now carries the section on its own, so it runs larger and
+       loses its trailing margin; the chapter's own padding sets the spacing */
+    /* Size is set by script so the line never runs past two lines; this is
+       the starting point and the ceiling before that fitting happens. */
+    font-size: clamp(2.2rem, 9vw, 8.5rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.02;
+    color: var(--black);
+    margin-bottom: 0;
+    max-width: none;
+    /* Laid out narrower, then scaled back out to full width, so the stretched
+       glyphs land exactly on the right edge instead of overflowing it. */
+    width: calc(100% / var(--stretch));
+    transform: scaleX(var(--stretch));
+    transform-origin: left center;
+    text-wrap: balance;
+  }
+
+  .bleed { width: 100%; }
+  .bleed .case-img { width: 100%; height: 100vh; overflow: hidden; margin: 0; background: var(--white); }
+  .bleed .case-img img,
+  .bleed .case-img video { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .bleed .case-img.on-black { background: var(--black); }
+  /* escape hatch: show the whole frame instead of cropping to the viewport */
+  .bleed .case-img.whole { height: auto; }
+  .bleed .case-img.whole img,
+  .bleed .case-img.whole video { width: 100%; height: auto; object-fit: fill; }
 
   /* ---- NAV ---- */
   .topbar {
@@ -460,6 +506,7 @@
 
   /* ---- RESPONSIVE ---- */
   @media (max-width: 768px) {
+    .chapter { padding: 8rem var(--text-edge) 4rem; }
     .hero-head {
       display: block;
       width: 100%;
@@ -574,6 +621,47 @@
     .topbar .site-nav > a, .topbar .nav-dropdown > a { padding: 10px 11px; letter-spacing: 0.1em; }
     .topbar .nav-menu { left: auto; right: 0; }
   }
+
+  /* ---- BAG HERO TREATMENT ----
+     The same giant, bold, hard-left type the Big Apple Greeter case study
+     uses. Appended last so it beats the grid placement these pages were
+     originally built with. Colour is deliberately left alone, so the dark-hero
+     variants further up still apply. */
+  .hero-head {
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: 5rem var(--text-edge) 3rem;
+  }
+  .hero-title {
+    grid-column: auto;
+    grid-row: auto;
+    white-space: normal;
+    font-family: var(--font-headline);
+    font-size: clamp(2.2rem, 9vw, 8.5rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.02;
+    margin: 0;
+    max-width: none;
+    /* laid out narrower, then scaled back out, so stretched glyphs land on the
+       right edge instead of overflowing it */
+    width: calc(100% / var(--stretch));
+    transform: scaleX(var(--stretch));
+    transform-origin: left center;
+  }
+  .hero-premise {
+    grid-column: auto;
+    grid-row: auto;
+    max-width: none;
+    font-size: clamp(1.15rem, 2.1vw, 1.9rem);
+    line-height: 1.35;
+    margin: 2.4rem 0 0;
+  }
+  .hero-credits { grid-column: auto; grid-row: auto; max-width: none; }
+  @media (max-width: 700px) {
+    .hero-head { padding: 2.5rem var(--text-edge) 0; }
+  }
 </style>
 </head>
 <body>
@@ -616,21 +704,24 @@
 <main class="editorial">
 
 <!-- ===== CASCADE A · Brief + Concept ===== -->
-<section class="cascade">
-<div class="c-text" style="grid-column:1/4;grid-row:1/5;">
-<p class="section-label">The Brief</p>
-<p>An investigation into design as an instrument of governance — how buildings, objects, and images shape the way citizens encounter the state. The essay reads nine sites, from the Institut du Monde Arabe to the European Parliament, as arguments made in steel, glass, and cloth.</p>
-</div>
-<figure class="c-media case-img" style="grid-column:5/8;grid-row:1/7;">
+<section class="chapter">
+<h2>An investigation into design as an instrument of governance — how buildings, objects, and images shape the way citizens encounter the state.</h2>
+</section>
+
+<section class="bleed">
+<figure class="case-img whole">
 <img alt="Institut du Monde Arabe — Jean Nouvel's mechanical mashrabiya facade as a regulated optical system" src="politics-of-design-images/slide-3.png"/>
 </figure>
-<figure class="c-media case-img" style="grid-column:1/4;grid-row:5/11;">
+</section>
+
+<section class="bleed">
+<figure class="case-img whole">
 <img alt="J. Edgar Hoover Building — brutalist concrete mass of the FBI Headquarters" src="politics-of-design-images/slide-4.png"/>
 </figure>
-<div class="c-text" style="grid-column:5/8;grid-row:7/9;">
-<p class="section-label">Concept</p>
-<p>Design enforces political values even when it appears neutral or decorative. In the hands of the state, empathy becomes surveillance, modernism becomes capitalism, and abstraction becomes control. Each case exposes the ideology hidden inside the form.</p>
-</div>
+</section>
+
+<section class="chapter">
+<h2>Design enforces political values even when it appears neutral or decorative.</h2>
 </section>
 
 <!-- ===== FULL-BLEED BREAK 1 ===== -->
@@ -641,31 +732,34 @@
 </section>
 
 <!-- ===== CASCADE B · Process 01 + 02 + 03 ===== -->
-<section class="cascade">
-<div class="c-text" style="grid-column:1/4;grid-row:1/5;">
-<p class="section-label">Process · 01</p>
-<h3>Reading facades as power</h3>
-<p>Each site was analyzed as a visual machine — Nouvel's light-diaphragm screen and the Hoover Building's blank brutalist walls both stage a relationship between citizen and institution.</p>
-</div>
-<figure class="c-media case-img" style="grid-column:5/8;grid-row:1/7;">
+<section class="chapter">
+<h2>Reading facades as power.</h2>
+</section>
+
+<section class="bleed">
+<figure class="case-img whole">
 <img alt="Mid-century suburban home — the ranch house as Cold War ideology in built form" src="politics-of-design-images/slide-5.png"/>
 </figure>
-<figure class="c-media case-img" style="grid-column:1/4;grid-row:5/11;">
+</section>
+
+<section class="bleed">
+<figure class="case-img whole">
 <img alt="Alexander Calder's Flamingo — red abstract sculpture softening Chicago's Federal Plaza" src="politics-of-design-images/slide-6.png"/>
 </figure>
-<div class="c-text" style="grid-column:5/8;grid-row:7/9;">
-<p class="section-label">Process · 02</p>
-<h3>Governance through desire</h3>
-<p>From the suburban home's surveilling picture window to Calder's cheerful abstraction, design shapes everyday behavior — manufacturing consent that direct coercion never could.</p>
-</div>
-<figure class="c-media case-img" style="grid-column:5/8;grid-row:9/15;">
+</section>
+
+<section class="chapter">
+<h2>Governance through desire.</h2>
+</section>
+
+<section class="bleed">
+<figure class="case-img whole">
 <img alt="Hugo Boss Waffen-SS uniforms — tailored authoritarian aesthetics of fascist Germany" src="politics-of-design-images/slide-7.png"/>
 </figure>
-<div class="c-text" style="grid-column:1/4;grid-row:11/15;">
-<p class="section-label">Process · 03</p>
-<h3>The extreme end of aesthetics</h3>
-<p>At its limit, design produces obedient subjects: the meticulously tailored SS uniform merged modern fashion with ideology, lending fascism a seductive, intimidating elegance.</p>
-</div>
+</section>
+
+<section class="chapter">
+<h2>The extreme end of aesthetics.</h2>
 </section>
 
 <!-- ===== SELECT SPREADS ===== -->
@@ -751,6 +845,53 @@
     }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
     fadeEls.forEach(el => { el.classList.add('reveal'); io.observe(el); });
   }
+
+  /* ---- FIT HEADLINES TO TWO LINES ----
+     The CSS clamp is the ceiling. Each headline is then sized down only as far
+     as it needs to go to stay within two lines, so short lines run huge and a
+     long one still lands on two rather than wrapping into a paragraph. */
+  (function () {
+    const heads = document.querySelectorAll('.chapter h2, .closing h2, .hero-title');
+    if (!heads.length) return;
+    const MAX_LINES = 3;
+    const MIN_PX = 22;
+    // Two lines is the target, not an absolute. A headline much longer than
+    // its neighbours would have to shrink to about half their size to hit it,
+    // which reads as a mistake; past this floor it takes a third line instead
+    // and stays in scale with the rest of the page.
+    const FLOOR_RATIO = 0.9;
+
+    const fit = function (el) {
+      // Start from the stylesheet's own ceiling, not the last fitted value.
+      el.style.fontSize = '';
+      const ceiling = parseFloat(getComputedStyle(el).fontSize);
+      const lineFor = function (px) {
+        el.style.fontSize = px + 'px';
+        const lh = parseFloat(getComputedStyle(el).lineHeight) || px * 1.02;
+        return Math.round(el.scrollHeight / lh);
+      };
+      if (lineFor(ceiling) <= MAX_LINES) { el.style.fontSize = ceiling + 'px'; return; }
+      const floor = Math.max(MIN_PX, ceiling * FLOOR_RATIO);
+      let lo = floor, hi = ceiling, best = floor;
+      for (let i = 0; i < 14; i++) {
+        const mid = (lo + hi) / 2;
+        if (lineFor(mid) <= MAX_LINES) { best = mid; lo = mid; } else { hi = mid; }
+      }
+      el.style.fontSize = best.toFixed(1) + 'px';
+    };
+
+    const fitAll = function () { heads.forEach(fit); };
+
+    fitAll();
+    // Web font metrics differ from the fallback, so measure again once it lands
+    if (document.fonts && document.fonts.ready) { document.fonts.ready.then(fitAll); }
+    let t;
+    window.addEventListener('resize', function () {
+      clearTimeout(t);
+      t = setTimeout(fitAll, 120);
+    });
+  })();
+
 </script>
 
 </body>

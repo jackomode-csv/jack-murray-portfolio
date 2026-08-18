@@ -4,13 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Social Bot &mdash; JKMRY</title>
-<link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inclusive+Sans:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
   :root {
     --bg: #FFFFFF; --ink: #161614; --soft: #4A4A46; --muted: #8C8C84;
     --line: #DCDBD4; --accent: #3E7D5A;
-    --font: 'Jost', 'Futura', 'Helvetica Neue', Arial, sans-serif;
+    --font: 'Inclusive Sans', 'Helvetica Neue', Arial, sans-serif;
+    --text-edge: 20px;
+    --stretch: 1.15;
   }
   html { font-size: 16px; }
   body {
@@ -28,7 +32,7 @@
   .topbar a:hover { color: var(--accent); }
   .stage {
     flex: 1; display: flex; flex-direction: column; justify-content: center;
-    max-width: 1280px; margin: 0 auto; width: 100%; padding: 4rem 4.5rem;
+    max-width: none; margin: 0; width: 100%; padding: 4rem var(--text-edge);
   }
   .eyebrow {
     font-size: 0.66rem; font-weight: 600; text-transform: uppercase;
@@ -40,7 +44,7 @@
   }
   .premise {
     font-size: clamp(1.1rem, 2vw, 1.45rem); font-weight: 300;
-    color: var(--soft); max-width: 46ch; line-height: 1.45;
+    color: var(--soft); max-width: none; line-height: 1.45;
   }
   .meta {
     margin-top: 2rem; display: flex; gap: 0.6rem; align-items: center;
@@ -64,7 +68,7 @@
   }
   .site-footer a:hover { color: var(--accent); }
   @media (max-width: 600px) {
-    .topbar, .stage, .site-footer { padding-left: 1.25rem; padding-right: 1.25rem; }
+    .topbar, .stage, .site-footer { padding-left: var(--text-edge); padding-right: var(--text-edge); }
   }
 
   /* ---- SITE NAV: the homepage bar, carried across every page ----
@@ -150,6 +154,100 @@
     .topbar .site-nav > a, .topbar .nav-dropdown > a { padding: 10px 11px; letter-spacing: 0.1em; }
     .topbar .nav-menu { left: auto; right: 0; }
   }
+
+  /* ---- CLOSING CARD ----
+     The same card the Big Apple Greeter case study closes on: name, run time,
+     then the skills as a ruled three-column grid. */
+  .skills {
+    max-width: none;
+    margin: 0;
+    padding: 6rem var(--text-edge) 5rem;
+    border-top: 1px solid var(--line, #DCDBD4);
+  }
+  .skills-name {
+    font-family: var(--font);
+    font-size: clamp(1.7rem, 3.4vw, 2.6rem);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .skills-role {
+    font-family: var(--font);
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--muted, #8C8C84);
+    margin-top: 0.6rem;
+  }
+  .skill-grid {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.6rem 1.2rem;
+    margin-top: 2.6rem;
+    padding: 0;
+  }
+  .skill-grid li {
+    font-family: var(--font);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--ink);
+    padding: 0.7rem 0;
+    border-top: 1px solid var(--line, #DCDBD4);
+  }
+  @media (max-width: 600px) {
+    .skill-grid { grid-template-columns: 1fr 1fr; }
+    .skills { padding: 4rem var(--text-edge) 3rem; }
+  }
+
+
+  /* ---- HEADLINE: identical to the case study ----
+     .premise carries this page the way .chapter h2 carries a BAG section, so
+     it takes that rule verbatim and the same two-line fitter drives it. */
+  .premise,
+  .stage h1 {
+    font-family: var(--font-headline);
+    font-size: clamp(2.2rem, 9vw, 8.5rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.02;
+    color: var(--black);
+    margin-bottom: 0;
+    max-width: none;
+    width: calc(100% / var(--stretch));
+    transform: scaleX(var(--stretch));
+    transform-origin: left center;
+    text-wrap: balance;
+  }
+  .stage { padding-top: 6rem; }
+
+  /* ---- VIDEO: full-bleed, same as the case study ----
+     A 100vh container with the video covering it, exactly like
+     .bleed .case-img on Big Apple Greeter: fills the screen, crops rather
+     than letterboxes. */
+  .video-player {
+    width: 100vw;
+    margin: 3rem 0 0;
+    margin-left: calc(50% - 50vw);
+    height: 100vh;
+    overflow: hidden;
+    background: #000;
+    border: 0;
+    line-height: 0;
+  }
+  .video-player video {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-height: none;
+    object-fit: cover;
+    background: #000;
+  }
+  @media (max-width: 700px) {
+    .video-player { height: 60vh; }
+  }
 </style>
 </head>
 <body>
@@ -172,7 +270,6 @@
     <p class="eyebrow">Video &middot; Satirical Short</p>
     <h1>Social Bot</h1>
     <p class="premise">A satire staged entirely as a vintage BlackBerry: an inbox of absurd political spam &mdash; Steve Bannon (&ldquo;drinks at Chili&rsquo;s?&rdquo;), Don Jr. (&ldquo;Dems wanna arm deer!&rdquo;), and &ldquo;Fancy Bear&rdquo; on misinformation spread by social bots &mdash; opening into messages of a person in a homemade tin-foil robot suit loose in the suburbs: at the fence, behind the wheel, walking off down the block, until the battery dies. A deadpan jab at bots, feeds, and political noise.</p>
-    <div class="meta"><span>Run time 0:14</span><span class="sep">/</span><span>Satire &middot; Motion graphics &middot; Performance</span></div>
     <figure class="video-player">
       <video controls preload="none" playsinline poster="video/social-bot.jpg">
         <source src="https://video.jkmry.com/social-bot.mp4" type="video/mp4">
@@ -182,9 +279,68 @@
   <section class="usage-note" style="border-top:1px solid var(--line,#DCDBD4); padding:1.1rem clamp(1.25rem,5vw,4.5rem); font-size:0.66rem; line-height:1.55; color:var(--muted,#8C8C84);">
     <p style="letter-spacing:0.01em;">The work shown here is student work, created for educational purposes as part of academic coursework &mdash; <strong style="color:var(--soft,#4A4A46);">not for commercial use</strong>. It may include third-party material (music, footage, or imagery) used under the fair-use provisions of U.S. copyright law (17 U.S.C. &sect; 107) for purposes such as criticism, commentary, teaching, and scholarship. No copyright infringement is intended and no commercial gain is derived from this work. Rights holders with any concerns may contact <a href="mailto:jackwardmurray@gmail.com" style="color:inherit; text-decoration:underline;">jackwardmurray&#64;gmail.com</a>.</p>
   </section>
-  <footer class="site-footer">
+  
+<!-- closing card: the same layout the BAG case study ends on -->
+<section class="skills">
+<p class="skills-name">Jack Murray</p>
+<p class="skills-role">Run time 0:14</p>
+<ul class="skill-grid">
+<li>Satire</li>
+<li>Motion graphics</li>
+<li>Performance</li>
+</ul>
+</section>
+
+<footer class="site-footer">
     <span>JKMRY</span>
     <a href="index.html">&larr; Back to work</a>
   </footer>
+<script>
+  /* ---- FIT HEADLINES TO TWO LINES ----
+     The CSS clamp is the ceiling. Each headline is then sized down only as far
+     as it needs to go to stay within two lines, so short lines run huge and a
+     long one still lands on two rather than wrapping into a paragraph. */
+  (function () {
+    const heads = document.querySelectorAll('.premise, .stage h1');
+    if (!heads.length) return;
+    const MAX_LINES = 2;
+    const MIN_PX = 22;
+    // Two lines is the target, not an absolute. A headline much longer than
+    // its neighbours would have to shrink to about half their size to hit it,
+    // which reads as a mistake; past this floor it takes a third line instead
+    // and stays in scale with the rest of the page.
+    const FLOOR_RATIO = 0.62;
+
+    const fit = function (el) {
+      // Start from the stylesheet's own ceiling, not the last fitted value.
+      el.style.fontSize = '';
+      const ceiling = parseFloat(getComputedStyle(el).fontSize);
+      const lineFor = function (px) {
+        el.style.fontSize = px + 'px';
+        const lh = parseFloat(getComputedStyle(el).lineHeight) || px * 1.02;
+        return Math.round(el.scrollHeight / lh);
+      };
+      if (lineFor(ceiling) <= MAX_LINES) { el.style.fontSize = ceiling + 'px'; return; }
+      const floor = Math.max(MIN_PX, ceiling * FLOOR_RATIO);
+      let lo = floor, hi = ceiling, best = floor;
+      for (let i = 0; i < 14; i++) {
+        const mid = (lo + hi) / 2;
+        if (lineFor(mid) <= MAX_LINES) { best = mid; lo = mid; } else { hi = mid; }
+      }
+      el.style.fontSize = best.toFixed(1) + 'px';
+    };
+
+    const fitAll = function () { heads.forEach(fit); };
+
+    fitAll();
+    // Web font metrics differ from the fallback, so measure again once it lands
+    if (document.fonts && document.fonts.ready) { document.fonts.ready.then(fitAll); }
+    let t;
+    window.addEventListener('resize', function () {
+      clearTimeout(t);
+      t = setTimeout(fitAll, 120);
+    });
+  })();
+</script>
 </body>
 </html>
