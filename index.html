@@ -725,9 +725,191 @@
     .intro-lead { max-width: none; }
   }
 
-  /* Featured works: three across, one per row once there is no room. */
-  .featured-grid { grid-template-columns: repeat(3, 1fr); }
-  @media (max-width: 900px) { .featured-grid { grid-template-columns: 1fr; } }
+  /* ---- FEATURED WORKS ----
+     Three pieces, each running the full width of the screen, one under the
+     next. A row of thumbnails asked you to choose between them; a stack lets
+     each one land on its own before the next arrives. */
+  .featured-stack {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--tile-gap) + 1.6rem);
+    margin: 0;
+    padding: 0;
+  }
+  .featured-stack > li { width: 100%; }
+  .featured-stack .work-item { display: block; width: 100%; }
+  /* An explicit height, not aspect-ratio: a ratio plus a max-height makes the
+     box narrow itself, and a full-bleed piece has to span the screen. 16:9
+     until that would out-run the viewport. */
+  .featured-stack .work-media,
+  .featured-stack .feature-media {
+    aspect-ratio: auto;
+    height: min(56.25vw, 88svh);
+  }
+  /* The reel is the work here, so it carries no hover dimming and no link. */
+  .feature-media {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background: #000;
+    margin: 0;
+  }
+  .feature-media video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;   /* show the whole frame, the black carries the rest */
+    object-position: center;
+    display: block;
+  }
+
+  /* Project names take the case study's headline treatment at a smaller size:
+     same family, weight, tracking and physical stretch, stepped down so the
+     section title above still leads. The left edge is a margin rather than
+     padding, since scaleX would stretch padding too and push the text off the
+     20px line; the width is the remaining space divided by the scale, so the
+     glyphs land on the right edge instead of overflowing it. */
+  .featured-stack .work-caption { padding: 1.4rem var(--text-edge) 0; }
+  .featured-stack .cap-title {
+    display: block;
+    font-family: var(--font);
+    font-size: clamp(1.9rem, 5.5vw, 5rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.02;
+    color: var(--ink);
+    max-width: none;
+    width: calc(100% / var(--stretch));
+    transform: scaleX(var(--stretch));
+    transform-origin: left center;
+    text-wrap: balance;
+  }
+  .featured-stack .cap-desc {
+    margin-top: 0.9rem;
+    font-size: 0.82rem;
+    letter-spacing: 0.16em;
+  }
+  .featured-stack .cap-blurb {
+    margin-top: 0.7rem;
+    font-size: 1.02rem;
+    max-width: 62ch;
+  }
+  /* The caption below already carries the title, so a featured piece keeps its
+     own colour on hover and just takes the gentle lift, the way the book
+     covers do in their band. */
+  .featured-stack .work-item:hover .work-media img { filter: none; }
+  @media (max-width: 700px) {
+    .featured-stack { gap: calc(var(--tile-gap) + 0.8rem); }
+    .featured-stack .work-media,
+    .featured-stack .feature-media { height: 56.25vw; }
+  }
+
+  /* ---- REEL CONTROLS ----
+     The same player the case study runs: play state in the corner rather than
+     over the middle of the shot, sound handed over on a click (browsers only
+     allow autoplay while muted), scrubber along the bottom. Ink on translucent
+     white, which stays legible over the reel's own black. */
+  .has-player { position: relative; }
+  .has-player video { cursor: pointer; }
+  .hero-play {
+    position: absolute;
+    z-index: 3;
+    right: 1.6rem;
+    bottom: 6.4rem;   /* clears the sound button, which clears the scrubber */
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 54px; height: 54px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    background: rgba(255,255,255,0.82);
+    color: var(--ink);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    pointer-events: none;   /* clicks fall through to the video */
+  }
+  .is-paused .hero-play { display: flex; }
+  .hero-play svg { width: 21px; height: 21px; margin-left: 3px; }  /* optical-center the triangle */
+
+  .hero-timeline {
+    position: absolute;
+    z-index: 4;
+    left: 1.6rem; right: 1.6rem;
+    bottom: 1.6rem;
+    display: none;
+    align-items: center;
+    gap: 0.9rem;
+    color: rgba(255,255,255,0.82);
+    font-family: var(--font);
+    font-size: 0.66rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+  }
+  .is-paused .hero-timeline { display: flex; }
+  .hero-track {
+    position: relative;
+    flex: 1;
+    height: 4px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.3);
+    cursor: pointer;
+  }
+  .hero-fill {
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 0%;
+    border-radius: 999px;
+    background: var(--accent);
+  }
+  /* A dot rides the leading edge so the bar reads as something to grab,
+     rather than a stripe that stops at an arbitrary point. */
+  .hero-fill::after {
+    content: "";
+    position: absolute;
+    right: 0; top: 50%;
+    width: 11px; height: 11px;
+    margin-right: -5.5px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    border: 1px solid rgba(0,0,0,0.12);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.28);
+    transform: translateY(-50%);
+  }
+  .hero-time { font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+  .hero-sound {
+    position: absolute;
+    z-index: 2;
+    right: 1.6rem;
+    bottom: 3.4rem;   /* clears the scrubber row that appears while paused */
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 12px 20px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: rgba(255,255,255,0.82);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    color: var(--ink);
+    font-family: var(--font);
+    font-size: 0.66rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    line-height: 1;
+    cursor: pointer;
+    transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+  }
+  .hero-sound:hover {
+    color: #FFFFFF;
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+  .hero-sound svg { width: 16px; height: 16px; display: block; }
+  .hero-sound .icon-on { display: none; }
+  .hero-sound.is-on .icon-off { display: none; }
+  .hero-sound.is-on .icon-on { display: block; }
 
   /* The You Don't Know Jack mark is red on black in the film itself, so the
      tile carries that rather than the white the sampler would pick up. */
@@ -838,53 +1020,67 @@
        To restore: put this section back and re-add the nav item on every page. -->
 
 <h2 class="work-section" id="featured">Featured Works</h2>
-  <ul class="work-grid featured-grid">
+  <ul class="featured-stack">
+
+    <li>
+      <!-- No link: the Big Apple Greeter case study is held back until launch,
+           so the reel is the piece itself and plays where it sits. -->
+      <figure class="feature-media has-player">
+        <video playsinline preload="metadata" poster="bag-images/short-bag-sizzle-poster.jpg" aria-label="The Big Apple Greeter sizzle reel: the line Don&rsquo;t tour New York. Hang out in it. beside the apple mark, cut against footage of the city and the people greeters actually meet">
+          <source src="https://video.jkmry.com/short-bag-sizzle.mp4" type="video/mp4">
+        </video>
+        <div class="hero-play" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+        <button class="hero-sound" type="button" aria-pressed="false" aria-label="Unmute the reel">
+          <svg class="icon-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M11 5 6 9H2v6h4l5 4z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>
+          </svg>
+          <svg class="icon-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a9 9 0 0 1 0 14"/>
+          </svg>
+          <span class="hero-sound-label">Unmute</span>
+        </button>
+        <div class="hero-timeline">
+          <span class="hero-time hero-current">0:00</span>
+          <div class="hero-track"><div class="hero-fill"></div></div>
+          <span class="hero-time hero-duration">0:00</span>
+        </div>
+      </figure>
+      <div class="work-caption">
+        <h3 class="cap-title">Big Apple Greeter</h3>
+        <p class="cap-desc">Brand Identity &middot; Sizzle Reel</p>
+        <p class="cap-blurb">The identity for a 35-year-old New York nonprofit, cut against the city and the people its volunteers actually meet. The full case study stays under wraps until the rebrand launches.</p>
+      </div>
+    </li>
+
     <li>
       <a class="work-item" href="you-dont-know-jack">
-          <div class="work-media work-media--logo work-media--ink">
-            <img src="video-logos/you-dont-know-jack.png" alt="You Don't Know Jack">
-            <img class="card-teaser" alt="" aria-hidden="true" data-teaser="video/teasers/you-dont-know-jack.webp?v=2">
-          </div>
-          <div class="work-caption">
-            <div class="cap-head">
-              <h3 class="cap-title">You Don&rsquo;t Know Jack</h3>
-              <span class="cap-time">4:09</span>
-            </div>
-            <p class="cap-desc">Satirical Mockumentary</p>
-            <p class="cap-blurb">A fake <em>E! True Hollywood Story</em>&ndash;style retrospective that turns the art-school work into one self-aware joke about scrambling a portfolio together in three weeks.</p>
-          </div>
-        </a>
+        <div class="work-media work-media--logo work-media--ink">
+          <img src="video-logos/you-dont-know-jack.png" alt="You Don't Know Jack">
+          <img class="card-teaser" alt="" aria-hidden="true" data-teaser="video/teasers/you-dont-know-jack.webp?v=2">
+        </div>
+        <div class="work-caption">
+          <h3 class="cap-title">You Don&rsquo;t Know Jack</h3>
+          <p class="cap-desc">Satirical Mockumentary &middot; 4:09</p>
+          <p class="cap-blurb">A fake <em>E! True Hollywood Story</em>&ndash;style retrospective that turns the art-school work into one self-aware joke about scrambling a portfolio together in three weeks.</p>
+        </div>
+      </a>
     </li>
+
     <li>
-      <a class="work-item book-card" href="reflectus">
-          <div class="work-media">
-            <img src="reflectus-images/reflectus-book-cover.jpg" alt="ReflectUS">
-          </div>
-          <div class="work-caption">
-            <div class="cap-head">
-              <h3 class="cap-title">ReflectUS</h3>
-              <span class="cap-time">36 pages</span>
-            </div>
-            <p class="cap-desc">Political Book</p>
-            <p class="cap-blurb">A children&rsquo;s book about the stories America keeps telling itself, written, staged, and designed from a self-made dataset, brought to life in the simple, effective illustration of Jaja Riley.</p>
-          </div>
-        </a>
+      <a class="work-item" href="9-teen">
+        <div class="work-media">
+          <img src="9-teen-images/9-teen-book-cover.jpg" alt="9-TEEN">
+        </div>
+        <div class="work-caption">
+          <h3 class="cap-title">9-TEEN</h3>
+          <p class="cap-desc">Pop-Up &amp; Paper &middot; 6 pages, 3 pop-ups</p>
+          <p class="cap-blurb">A handcrafted pop-up book that turns flat photography into sculptural, three-dimensional scenes, exploring identity, place, and scale through the Unisphere in Flushing Meadows.</p>
+        </div>
+      </a>
     </li>
-    <li>
-      <a class="work-item book-card" href="9-teen">
-          <div class="work-media">
-            <img src="9-teen-images/9-teen-book-cover.jpg" alt="9-TEEN">
-          </div>
-          <div class="work-caption">
-            <div class="cap-head">
-              <h3 class="cap-title">9-TEEN</h3>
-              <span class="cap-time">6 pages &middot; 3 pop-ups</span>
-            </div>
-            <p class="cap-desc">Pop-Up &amp; Paper</p>
-            <p class="cap-blurb">A handcrafted pop-up book that turns flat photography into sculptural, three-dimensional scenes, exploring identity, place, and scale through the Unisphere in Flushing Meadows.</p>
-          </div>
-        </a>
-    </li>
+
   </ul>
 
 <h2 class="work-section" id="video">Video</h2>
@@ -1286,12 +1482,113 @@
     if (p && p.catch) { p.catch(function () {}); }
   })();
 
+
+  /* ---- REEL PLAYER ----
+     The same implementation the case study runs, wired to any figure marked
+     .has-player. Controls are found within their own figure by class rather
+     than by id, so a page can carry more than one player without colliding. */
+  (function () {
+    const figs = document.querySelectorAll('.has-player');
+    if (!figs.length) return;
+
+    const fmt = function (t) {
+      t = Math.max(0, Math.floor(t || 0));
+      const m = Math.floor(t / 60), s = t % 60;
+      return m + ':' + (s < 10 ? '0' : '') + s;
+    };
+
+    figs.forEach(function (fig) {
+      const reel = fig.querySelector('video');
+      if (!reel) return;
+      const btn = fig.querySelector('.hero-sound');
+      const label = fig.querySelector('.hero-sound-label');
+      const track = fig.querySelector('.hero-track');
+      const fill = fig.querySelector('.hero-fill');
+      const timeEl = fig.querySelector('.hero-current');
+      const durEl = fig.querySelector('.hero-duration');
+
+      /* sound */
+      if (btn) {
+        const syncSound = function () {
+          const on = !reel.muted;
+          btn.classList.toggle('is-on', on);
+          btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+          btn.setAttribute('aria-label', on ? 'Mute the reel' : 'Unmute the reel');
+          if (label) { label.textContent = on ? 'Mute' : 'Unmute'; }
+        };
+        btn.addEventListener('click', function () {
+          reel.muted = !reel.muted;
+          // The click is the gesture browsers require before audio may play,
+          // so start the reel rather than unmuting something that is not running.
+          if (!reel.muted && reel.paused) { reel.play(); }
+          syncSound();
+        });
+        reel.addEventListener('volumechange', syncSound);
+        syncSound();
+      }
+
+      /* play / pause: the whole frame is the control */
+      reel.addEventListener('click', function () {
+        if (reel.paused) {
+          const p = reel.play();
+          if (p && p.catch) { p.catch(function () {}); }
+        } else {
+          reel.pause();
+        }
+      });
+      reel.addEventListener('play', function () { fig.classList.remove('is-paused'); });
+      reel.addEventListener('pause', function () { fig.classList.add('is-paused'); });
+
+      // A reel that never autoplays, or is refused autoplay, fires no pause
+      // event, so it would sit still with no affordance on it.
+      reel.addEventListener('loadeddata', function () {
+        setTimeout(function () {
+          if (reel.paused) { fig.classList.add('is-paused'); }
+        }, 400);
+      }, { once: true });
+      if (reel.paused && !reel.autoplay) { fig.classList.add('is-paused'); }
+
+      /* timeline */
+      if (track && fill && timeEl && durEl) {
+        reel.addEventListener('loadedmetadata', function () {
+          durEl.textContent = fmt(reel.duration);
+        });
+        reel.addEventListener('timeupdate', function () {
+          const d = reel.duration || 0;
+          fill.style.width = d ? (reel.currentTime / d * 100) + '%' : '0%';
+          timeEl.textContent = fmt(reel.currentTime);
+        });
+        // Click to seek, and stay paused if it was paused.
+        track.addEventListener('click', function (e) {
+          const r = track.getBoundingClientRect();
+          let pct = (e.clientX - r.left) / r.width;
+          pct = Math.min(1, Math.max(0, pct));
+          reel.currentTime = pct * (reel.duration || 0);
+        });
+        // Metadata can land before these listeners attach on a warm cache
+        if (reel.readyState >= 1) { durEl.textContent = fmt(reel.duration); }
+      }
+    });
+  })();
+
+  // A reel off screen should not be running. Pause it on the way out, and
+  // leave starting it to the visitor, since it carries sound.
+  (function () {
+    if (!('IntersectionObserver' in window)) return;
+    const reels = document.querySelectorAll('.has-player video');
+    if (!reels.length) return;
+    const io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (!e.isIntersecting && !e.target.paused) { e.target.pause(); } });
+    }, { threshold: 0 });
+    reels.forEach(function (v) { io.observe(v); });
+  })();
+
   /* ---- FIT HEADLINES TO TWO LINES ----
      The CSS clamp is the ceiling. Each headline is then sized down only as far
      as it needs to go to stay within two lines, so short lines run huge and a
      long one still lands on two rather than wrapping into a paragraph. */
   (function () {
-    const heads = document.querySelectorAll('.work-section');
+    const heads = document.querySelectorAll('.work-section, .featured-stack .cap-title');
     if (!heads.length) return;
     const MAX_LINES = 2;
     const MIN_PX = 22;
