@@ -33,6 +33,10 @@
     --gutter: 3rem;
     --edge:   4.5rem;
     --tile-gap: 56px;
+    /* air above a section headline. These are headlines now, not the
+       0.72rem labels they used to be, so they need room over them the
+       way the case study gives its chapters room. */
+    --section-gap: clamp(5rem, 8vw, 9rem);
     --text-inset: 1.9rem;   /* captions + section rules, measured from a tile's edge */
   }
 
@@ -380,12 +384,14 @@
      one sitting in a black box on a white page. Type inverts to match. */
   .books-band {
     background: #000;
-    padding: var(--tile-gap) 0 calc(var(--tile-gap) + 2rem);
+    padding: calc(var(--tile-gap) + 1.5rem) 0 calc(var(--tile-gap) + 2rem);
+    margin-top: var(--section-gap);
     margin-bottom: 2rem;
   }
   .books-band .work-section {
     color: #FFFFFF;
     border-bottom-color: #FFFFFF;
+    margin-top: 0;   /* the band's own margin already carries the gap */
   }
   .books-band .cap-title,
   .books-band .cap-time { color: #FFFFFF; }
@@ -671,7 +677,7 @@
   .work-section + .work-grid { margin-top: 0; }
   .work-grid + .work-section,
   .book-stack + .work-section,
-  .work-inset + .work-section { margin-top: calc(var(--tile-gap) + 1rem); }
+  .work-inset + .work-section { margin-top: var(--section-gap); }
 
   /* ---- FOOTER ---- */
   .site-footer {
@@ -755,9 +761,15 @@
     background: #000;
     margin: 0;
   }
-  /* The case study's opening reel is the logo animation on white, so the tile
-     carries white and the frame reads as one piece with the page. */
+  /* The reel fills the screen outright. The case study letterboxes it on white
+     so the lockup reads whole; here it is the opening image of the page, so it
+     runs edge to edge and is allowed to crop. White is only what shows while it
+     loads. Same 100svh / 60svh the video pages use. */
   .feature-media--light { background: #FFFFFF; }
+  .featured-stack .feature-media--light {
+    height: 100vh;
+    height: 100svh;
+  }
   .feature-media video {
     width: 100%;
     height: 100%;
@@ -765,6 +777,9 @@
     object-position: center;
     display: block;
   }
+  /* after the rule above, not before it: same specificity, so source order is
+     what decides which object-fit lands */
+  .feature-media--light video { object-fit: cover; }
 
   /* Project names take the case study's headline treatment at a smaller size:
      same family, weight, tracking and physical stretch, stepped down so the
@@ -805,6 +820,8 @@
     .featured-stack { gap: calc(var(--tile-gap) + 0.8rem); }
     .featured-stack .work-media,
     .featured-stack .feature-media { height: 56.25vw; }
+    /* a 16:9 frame covering a phone screen would crop away most of the width */
+    .featured-stack .feature-media--light { height: 60svh; }
   }
 
   /* ---- REEL CONTROLS ----
@@ -938,7 +955,7 @@
     text-transform: none;
     border-bottom: none;
     padding: 0 0 1.5rem;
-    margin: 0 0 var(--tile-gap) var(--text-edge);
+    margin: var(--section-gap) 0 var(--tile-gap) var(--text-edge);
     max-width: none;
     width: calc((100% - var(--text-edge)) / var(--stretch));
     transform: scaleX(var(--stretch));
@@ -947,6 +964,7 @@
   }
   @media (max-width: 700px) {
     .work-section { margin-bottom: 2rem; }
+    :root { --section-gap: 4rem; }
   }
 </style>
 </head>
