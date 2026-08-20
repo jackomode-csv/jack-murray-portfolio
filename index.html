@@ -1160,22 +1160,21 @@
   <ul class="work-grid video-grid">
 
       <li class="full">
-        <a class="work-item" href="you-dont-know-jack">
-          <div class="work-media work-media--logo">
-            <img src="video-logos/you-dont-know-jack.png" alt="You Don't Know Jack">
-            <img class="card-teaser" alt="" aria-hidden="true" data-teaser="video/teasers/you-dont-know-jack.webp?v=2">
+        <a class="work-item" href="social-bot">
+          <div class="work-media work-media--logo work-media--nopad">
+            <img src="video/social-bot.jpg" alt="Social Bot">
+            <img class="card-teaser card-teaser--contain" alt="" aria-hidden="true" data-teaser="video/teasers/social-bot.webp?v=2">
           </div>
           <div class="work-caption">
             <div class="cap-head">
-              <h3 class="cap-title">You Don&rsquo;t Know Jack</h3>
-              <span class="cap-time">4:09</span>
+              <h3 class="cap-title">Social Bot</h3>
+              <span class="cap-time">0:14</span>
             </div>
-            <p class="cap-desc">Satirical Mockumentary</p>
-            <p class="cap-blurb">A fake <em>E! True Hollywood Story</em>&ndash;style retrospective that turns the art-school work into one self-aware joke about scrambling a portfolio together in three weeks.</p>
+            <p class="cap-desc">Satirical Short</p>
+            <p class="cap-blurb">A satire staged as a vintage BlackBerry: an inbox of absurd political spam opening onto a homemade tin-foil robot loose in the suburbs.</p>
           </div>
         </a>
       </li>
-
 
       <li class="full">
         <a class="work-item" href="travel-lite">
@@ -1220,19 +1219,19 @@
          tile back (see git history) and drop the "full" class above.
          The page, poster and teaser all stay in the repo. -->
 
-    <li class="full">
-        <a class="work-item" href="social-bot">
-          <div class="work-media work-media--logo work-media--nopad">
-            <img src="video/social-bot.jpg" alt="Social Bot">
-            <img class="card-teaser card-teaser--contain" alt="" aria-hidden="true" data-teaser="video/teasers/social-bot.webp?v=2">
+      <li class="full">
+        <a class="work-item" href="you-dont-know-jack">
+          <div class="work-media work-media--logo">
+            <img src="video-logos/you-dont-know-jack.png" alt="You Don't Know Jack">
+            <img class="card-teaser" alt="" aria-hidden="true" data-teaser="video/teasers/you-dont-know-jack.webp?v=2">
           </div>
           <div class="work-caption">
             <div class="cap-head">
-              <h3 class="cap-title">Social Bot</h3>
-              <span class="cap-time">0:14</span>
+              <h3 class="cap-title">You Don&rsquo;t Know Jack</h3>
+              <span class="cap-time">4:09</span>
             </div>
-            <p class="cap-desc">Satirical Short</p>
-            <p class="cap-blurb">A satire staged as a vintage BlackBerry: an inbox of absurd political spam opening onto a homemade tin-foil robot loose in the suburbs.</p>
+            <p class="cap-desc">Satirical Mockumentary</p>
+            <p class="cap-blurb">A fake <em>E! True Hollywood Story</em>&ndash;style retrospective that turns the art-school work into one self-aware joke about scrambling a portfolio together in three weeks.</p>
           </div>
         </a>
       </li>
@@ -1396,13 +1395,19 @@
     var POSTER_FRAME = 14;
     var atEnd = false;
 
+    // A pause the visitor asked for, as opposed to one the page did on its way
+    // off screen. Only the first kind should survive scrolling back.
+    var userPaused = false;
+
     function toggle() {
       if (video.paused || video.ended) {
         if (video.ended || atEnd) { video.currentTime = 0; }   // replay from the start
         atEnd = false;
+        userPaused = false;
         var p = video.play();
         if (p && p.catch) { p.catch(function () {}); }
       } else {
+        userPaused = true;
         video.pause();
       }
     }
@@ -1437,10 +1442,32 @@
     if (restartBtn) {
       restartBtn.addEventListener('click', function () {
         atEnd = false;
+        userPaused = false;
         video.currentTime = 0;
         var p = video.play();
         if (p && p.catch) { p.catch(function () {}); }
       });
+    }
+
+    // The reel carries sound, so it has no business running once you have
+    // scrolled past it. It stops when it leaves the screen and picks up where
+    // it left off when it comes back, unless the visitor paused it by hand or
+    // it already ran out and parked on its closing frame. Pausing here goes
+    // straight to the element rather than through toggle(), so it is never
+    // mistaken for a deliberate pause.
+    if ('IntersectionObserver' in window) {
+      var onScreen = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) {
+            if (userPaused || atEnd || video.ended) { return; }
+            var p = video.play();
+            if (p && p.catch) { p.catch(function () {}); }
+          } else if (!video.paused) {
+            video.pause();
+          }
+        });
+      }, { threshold: 0.35 });
+      onScreen.observe(video);
     }
   })();
 
@@ -1549,6 +1576,7 @@
       }
     }
     banner.addEventListener('click', bToggle);
+    bv.addEventListener('click', function () { bv.dataset.userPaused = bv.paused ? '' : '1'; });
     bv.addEventListener('play',  function () { banner.classList.remove('is-paused'); });
     bv.addEventListener('pause', function () { banner.classList.add('is-paused'); });
     var p = bv.play();
@@ -1726,6 +1754,28 @@
       });
     }, { threshold: 0, rootMargin: '600px 0px 600px 0px' });
     reels.forEach(function (v) { warm.observe(v); });
+  })();
+
+  // Same rule for the silent loops: the Books banner and the ReflectUS tile
+  // decode continuously otherwise, for nobody. They carry no sound, so there
+  // is nothing to be startled by when they pick back up.
+  (function () {
+    if (!('IntersectionObserver' in window)) return;
+    var loops = document.querySelectorAll('.book-banner-video, .work-media--paper video');
+    if (!loops.length) return;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        var v = e.target;
+        if (e.isIntersecting) {
+          if (v.dataset.userPaused) { return; }
+          var p = v.play();
+          if (p && p.catch) { p.catch(function () {}); }
+        } else if (!v.paused) {
+          v.pause();
+        }
+      });
+    }, { threshold: 0.2 });
+    loops.forEach(function (v) { io.observe(v); });
   })();
 
   /* ---- FIT HEADLINES TO TWO LINES ----
