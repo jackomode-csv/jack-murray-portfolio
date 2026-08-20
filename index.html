@@ -815,7 +815,13 @@
   /* The caption below already carries the title, so a featured piece keeps its
      own colour on hover and just takes the gentle lift, the way the book
      covers do in their band. */
-  .featured-stack .work-item:hover .work-media img { filter: none; }
+  .featured-stack .work-item:hover .work-media img,
+  .featured-stack .work-item:hover .work-media video { filter: none; }
+  /* The ReflectUS animation is drawn on white and has no artwork edge for the
+     sampler to read, so the tile states its ground rather than inheriting one.
+     The clip is decoration inside a link: clicks belong to the anchor. */
+  .work-media--paper { background: #FFFFFF; }
+  .work-media--paper video { pointer-events: none; }
   @media (max-width: 700px) {
     .featured-stack { gap: calc(var(--tile-gap) + 0.8rem); }
     .featured-stack .work-media,
@@ -825,47 +831,56 @@
   }
 
   /* ---- REEL CONTROLS ----
-     The same player the case study runs: play state in the corner rather than
-     over the middle of the shot, sound handed over on a click (browsers only
-     allow autoplay while muted), scrubber along the bottom. Ink on translucent
-     white, which stays legible over the reel's own black. */
+     Under the reel, not over it. Overlaid controls were landing on the closing
+     card's date line, and a frame told to fill the screen should have nothing
+     sitting on top of it. One row: play state, scrubber, sound. Ink on the
+     page, so it reads as part of the page rather than furniture on the film. */
   .has-player { position: relative; }
   .has-player video { cursor: pointer; }
-  .hero-play {
-    position: absolute;
-    z-index: 3;
-    right: 1.6rem;
-    bottom: 6.4rem;   /* clears the sound button, which clears the scrubber */
-    display: none;
-    align-items: center;
-    justify-content: center;
-    width: 54px; height: 54px;
-    border-radius: 50%;
-    border: 1px solid var(--line);
-    background: rgba(255,255,255,0.82);
-    color: var(--ink);
-    -webkit-backdrop-filter: blur(4px);
-    backdrop-filter: blur(4px);
-    pointer-events: none;   /* clicks fall through to the video */
-  }
-  .is-paused .hero-play { display: flex; }
-  .hero-play svg { width: 21px; height: 21px; margin-left: 3px; }  /* optical-center the triangle */
 
-  .hero-timeline {
-    position: absolute;
-    z-index: 4;
-    left: 1.6rem; right: 1.6rem;
-    bottom: 1.6rem;
-    display: none;
+  .player-bar {
+    display: flex;
     align-items: center;
     gap: 0.9rem;
+    padding: 1rem var(--text-edge) 0;
     color: var(--muted);
     font-family: var(--font);
     font-size: 0.66rem;
     font-weight: 500;
     letter-spacing: 0.06em;
   }
-  .is-paused .hero-timeline { display: flex; }
+
+  .pb-play {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    background: transparent;
+    color: var(--ink);
+    cursor: pointer;
+    transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+  }
+  .pb-play:hover { color: #FFFFFF; background: var(--accent); border-color: var(--accent); }
+  .pb-play svg { width: 15px; height: 15px; display: block; }
+  .pb-play .icon-play { margin-left: 2px; }   /* optical-center the triangle */
+  /* playing shows pause, paused shows play */
+  .pb-play .icon-play { display: none; }
+  .is-paused .pb-play .icon-play { display: block; }
+  .is-paused .pb-play .icon-pause { display: none; }
+
+  /* the scrubber runs the width of the row now, and is always there: it was
+     only ever hidden because it sat on the artwork */
+  .player-bar .hero-timeline {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    gap: 0.9rem;
+    min-width: 0;
+  }
   .hero-track {
     position: relative;
     flex: 1;
@@ -890,27 +905,22 @@
     width: 11px; height: 11px;
     margin-right: -5.5px;
     border-radius: 50%;
-    background: #FFFFFF;
-    border: 1px solid rgba(0,0,0,0.12);
-    box-shadow: 0 1px 4px rgba(0,0,0,0.28);
+    background: var(--accent);
     transform: translateY(-50%);
   }
   .hero-time { font-variant-numeric: tabular-nums; white-space: nowrap; }
 
+  /* The reel carries a soundtrack, but browsers only allow autoplay while
+     muted, so it starts silent and this hands the sound over on a click. */
   .hero-sound {
-    position: absolute;
-    z-index: 2;
-    right: 1.6rem;
-    bottom: 3.4rem;   /* clears the scrubber row that appears while paused */
+    flex: none;
     display: inline-flex;
     align-items: center;
     gap: 0.55rem;
-    padding: 12px 20px;
+    padding: 11px 18px;
     border: 1px solid var(--line);
     border-radius: 999px;
-    background: rgba(255,255,255,0.82);
-    -webkit-backdrop-filter: blur(6px);
-    backdrop-filter: blur(6px);
+    background: transparent;
     color: var(--ink);
     font-family: var(--font);
     font-size: 0.66rem;
@@ -930,6 +940,11 @@
   .hero-sound .icon-on { display: none; }
   .hero-sound.is-on .icon-off { display: none; }
   .hero-sound.is-on .icon-on { display: block; }
+  @media (max-width: 600px) {
+    .player-bar { gap: 0.6rem; }
+    .hero-sound-label { display: none; }   /* the icon carries it on a phone */
+    .hero-sound { padding: 11px 13px; }
+  }
 
   /* The You Don't Know Jack mark is red on black in the film itself, so the
      tile carries that rather than the white the sampler would pick up. */
@@ -1050,33 +1065,53 @@
     <li>
       <!-- No link: the Big Apple Greeter case study is held back until launch,
            so the reel is the piece itself and plays where it sits. -->
-      <figure class="feature-media feature-media--light has-player">
-        <video muted playsinline preload="metadata" data-autostart poster="bag-images/hero-poster.jpg" aria-label="Big Apple Greeter, the 35th-anniversary identity reel: the logo lockup, the apple mark, and the campaign in place across the city">
-          <source src="https://video.jkmry.com/BAG_Clean_Up_2.mp4" type="video/mp4">
-        </video>
-        <div class="hero-play" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+      <div class="has-player">
+        <figure class="feature-media feature-media--light">
+          <video muted playsinline preload="metadata" data-autostart poster="bag-images/hero-poster.jpg" aria-label="Big Apple Greeter, the 35th-anniversary identity reel: the logo lockup, the apple mark, and the campaign in place across the city">
+            <source src="https://video.jkmry.com/BAG_Clean_Up_2.mp4" type="video/mp4">
+          </video>
+        </figure>
+        <div class="player-bar">
+          <button class="pb-play" type="button" aria-label="Play or pause the reel">
+            <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+            <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+          </button>
+          <div class="hero-timeline">
+            <span class="hero-time hero-current">0:00</span>
+            <div class="hero-track"><div class="hero-fill"></div></div>
+            <span class="hero-time hero-duration">0:00</span>
+          </div>
+          <button class="hero-sound" type="button" aria-pressed="false" aria-label="Unmute the reel">
+            <svg class="icon-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M11 5 6 9H2v6h4l5 4z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>
+            </svg>
+            <svg class="icon-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a9 9 0 0 1 0 14"/>
+            </svg>
+            <span class="hero-sound-label">Unmute</span>
+          </button>
         </div>
-        <button class="hero-sound" type="button" aria-pressed="false" aria-label="Unmute the reel">
-          <svg class="icon-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M11 5 6 9H2v6h4l5 4z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>
-          </svg>
-          <svg class="icon-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a9 9 0 0 1 0 14"/>
-          </svg>
-          <span class="hero-sound-label">Unmute</span>
-        </button>
-        <div class="hero-timeline">
-          <span class="hero-time hero-current">0:00</span>
-          <div class="hero-track"><div class="hero-fill"></div></div>
-          <span class="hero-time hero-duration">0:00</span>
-        </div>
-      </figure>
+      </div>
       <div class="work-caption">
         <h3 class="cap-title">Big Apple Greeter</h3>
         <p class="cap-desc">Brand Identity &middot; 0:33</p>
         <p class="cap-blurb">The identity for a 35-year-old New York nonprofit, cut against the city and the people its volunteers actually meet. The full case study stays under wraps until the rebrand launches.</p>
       </div>
+    </li>
+
+    <li>
+      <a class="work-item" href="reflectus">
+        <div class="work-media work-media--paper">
+          <video autoplay muted loop playsinline preload="auto" aria-label="ReflectUS, the book turning through its spreads" tabindex="-1" disablepictureinpicture>
+            <source src="https://video.jkmry.com/reflectus-banner.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="work-caption">
+          <h3 class="cap-title">ReflectUS</h3>
+          <p class="cap-desc">Political Book &middot; 36 pages</p>
+          <p class="cap-blurb">A children&rsquo;s book about the stories America keeps telling itself, written, staged, and designed from a self-made dataset, brought to life in the simple, effective illustration of Jaja Riley.</p>
+        </div>
+      </a>
     </li>
 
     <li>
@@ -1089,19 +1124,6 @@
           <h3 class="cap-title">You Don&rsquo;t Know Jack</h3>
           <p class="cap-desc">Satirical Mockumentary &middot; 4:09</p>
           <p class="cap-blurb">A fake <em>E! True Hollywood Story</em>&ndash;style retrospective that turns the art-school work into one self-aware joke about scrambling a portfolio together in three weeks.</p>
-        </div>
-      </a>
-    </li>
-
-    <li>
-      <a class="work-item" href="reflectus">
-        <div class="work-media">
-          <img src="reflectus-images/reflectus-book-cover.jpg" alt="ReflectUS">
-        </div>
-        <div class="work-caption">
-          <h3 class="cap-title">ReflectUS</h3>
-          <p class="cap-desc">Political Book &middot; 36 pages</p>
-          <p class="cap-blurb">A children&rsquo;s book about the stories America keeps telling itself, written, staged, and designed from a self-made dataset, brought to life in the simple, effective illustration of Jaja Riley.</p>
         </div>
       </a>
     </li>
@@ -1552,15 +1574,18 @@
         syncSound();
       }
 
-      /* play / pause: the whole frame is the control */
-      reel.addEventListener('click', function () {
+      /* play / pause: the frame is the control, and so is the button on the bar */
+      const toggle = function () {
         if (reel.paused) {
           const p = reel.play();
           if (p && p.catch) { p.catch(function () {}); }
         } else {
           reel.pause();
         }
-      });
+      };
+      reel.addEventListener('click', toggle);
+      const playBtn = fig.querySelector('.pb-play');
+      if (playBtn) { playBtn.addEventListener('click', toggle); }
       reel.addEventListener('play', function () { fig.classList.remove('is-paused'); });
       reel.addEventListener('pause', function () { fig.classList.add('is-paused'); });
 
