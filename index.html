@@ -755,6 +755,9 @@
     background: #000;
     margin: 0;
   }
+  /* The case study's opening reel is the logo animation on white, so the tile
+     carries white and the frame reads as one piece with the page. */
+  .feature-media--light { background: #FFFFFF; }
   .feature-media video {
     width: 100%;
     height: 100%;
@@ -839,7 +842,7 @@
     display: none;
     align-items: center;
     gap: 0.9rem;
-    color: rgba(255,255,255,0.82);
+    color: var(--muted);
     font-family: var(--font);
     font-size: 0.66rem;
     font-weight: 500;
@@ -851,7 +854,7 @@
     flex: 1;
     height: 4px;
     border-radius: 999px;
-    background: rgba(255,255,255,0.3);
+    background: var(--line);
     cursor: pointer;
   }
   .hero-fill {
@@ -917,14 +920,16 @@
   .work-media--ink .card-teaser { background: #000; }
 
   /* ---- SECTION TITLES ----
-     Set as the case study sets its headlines. Colour is deliberately not
-     declared here, so .books-band .work-section still turns the Books title
-     white on its black band.
+     Set as the case study sets its headlines, in ink. These had been left to
+     inherit the old subheader grey, which is right for a 0.72rem label and
+     wrong for a headline. The Books title still goes white on its black band:
+     .books-band .work-section is the more specific selector and wins.
      The left edge is a margin rather than padding: scaleX would otherwise
      stretch the padding too and push the text off the 20px line. Width is the
      remaining space divided by the scale, so the glyphs land on the right edge
      instead of overflowing it. */
   .work-section {
+    color: var(--ink);
     font-family: var(--font);
     font-size: clamp(2.2rem, 9vw, 8.5rem);
     font-weight: 700;
@@ -1019,15 +1024,17 @@
        entry to match. The page itself still works on a direct link.
        To restore: put this section back and re-add the nav item on every page. -->
 
-<h2 class="work-section" id="featured">Featured Works</h2>
+<!-- The section label is the statement line now: it says what the work is
+     for before you meet any of it, rather than naming the shelf. -->
+<h2 class="work-section" id="featured">Jack Murray is an entertainer, I just use design instead of song and dance.</h2>
   <ul class="featured-stack">
 
     <li>
       <!-- No link: the Big Apple Greeter case study is held back until launch,
            so the reel is the piece itself and plays where it sits. -->
-      <figure class="feature-media has-player">
-        <video playsinline preload="metadata" poster="bag-images/short-bag-sizzle-poster.jpg" aria-label="The Big Apple Greeter sizzle reel: the line Don&rsquo;t tour New York. Hang out in it. beside the apple mark, cut against footage of the city and the people greeters actually meet">
-          <source src="https://video.jkmry.com/short-bag-sizzle.mp4" type="video/mp4">
+      <figure class="feature-media feature-media--light has-player">
+        <video muted playsinline preload="metadata" data-autostart poster="bag-images/hero-poster.jpg" aria-label="Big Apple Greeter, the 35th-anniversary identity reel: the logo lockup, the apple mark, and the campaign in place across the city">
+          <source src="https://video.jkmry.com/BAG_Clean_Up_2.mp4" type="video/mp4">
         </video>
         <div class="hero-play" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
@@ -1049,7 +1056,7 @@
       </figure>
       <div class="work-caption">
         <h3 class="cap-title">Big Apple Greeter</h3>
-        <p class="cap-desc">Brand Identity &middot; Sizzle Reel</p>
+        <p class="cap-desc">Brand Identity &middot; 0:33</p>
         <p class="cap-blurb">The identity for a 35-year-old New York nonprofit, cut against the city and the people its volunteers actually meet. The full case study stays under wraps until the rebrand launches.</p>
       </div>
     </li>
@@ -1069,14 +1076,14 @@
     </li>
 
     <li>
-      <a class="work-item" href="9-teen">
+      <a class="work-item" href="reflectus">
         <div class="work-media">
-          <img src="9-teen-images/9-teen-book-cover.jpg" alt="9-TEEN">
+          <img src="reflectus-images/reflectus-book-cover.jpg" alt="ReflectUS">
         </div>
         <div class="work-caption">
-          <h3 class="cap-title">9-TEEN</h3>
-          <p class="cap-desc">Pop-Up &amp; Paper &middot; 6 pages, 3 pop-ups</p>
-          <p class="cap-blurb">A handcrafted pop-up book that turns flat photography into sculptural, three-dimensional scenes, exploring identity, place, and scale through the Unisphere in Flushing Meadows.</p>
+          <h3 class="cap-title">ReflectUS</h3>
+          <p class="cap-desc">Political Book &middot; 36 pages</p>
+          <p class="cap-blurb">A children&rsquo;s book about the stories America keeps telling itself, written, staged, and designed from a self-made dataset, brought to life in the simple, effective illustration of Jaja Riley.</p>
         </div>
       </a>
     </li>
@@ -1571,16 +1578,42 @@
     });
   })();
 
-  // A reel off screen should not be running. Pause it on the way out, and
-  // leave starting it to the visitor, since it carries sound.
+  // Nothing runs unseen. A reel marked data-autostart starts silent when it
+  // scrolls into view, the way the case study runs it; anything else stays
+  // click-to-play. Either way it pauses on the way out.
   (function () {
     if (!('IntersectionObserver' in window)) return;
     const reels = document.querySelectorAll('.has-player video');
     if (!reels.length) return;
     const io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) { if (!e.isIntersecting && !e.target.paused) { e.target.pause(); } });
-    }, { threshold: 0 });
-    reels.forEach(function (v) { io.observe(v); });
+      entries.forEach(function (e) {
+        const v = e.target;
+        if (e.isIntersecting) {
+          // hasAttribute, not dataset: a valueless attribute reads as "",
+          // which is falsy, so a dataset test would never start anything.
+          if (!v.hasAttribute('data-autostart') || v.dataset.played) { return; }
+          const p = v.play(); if (p && p.catch) { p.catch(function () {}); }
+        } else if (!v.paused) {
+          v.pause();
+        }
+      });
+    }, { threshold: 0.25 });
+    reels.forEach(function (v) {
+      v.addEventListener('ended', function () { v.dataset.played = '1'; });
+      io.observe(v);
+    });
+
+    // Buffer on approach, so a reel that starts on visibility isn't starting
+    // from nothing. preload stays at metadata in the markup until then, which
+    // keeps a page-load's worth of video off the wire.
+    const warm = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) { return; }
+        if (e.target.preload !== 'auto') { e.target.preload = 'auto'; }
+        warm.unobserve(e.target);
+      });
+    }, { threshold: 0, rootMargin: '600px 0px 600px 0px' });
+    reels.forEach(function (v) { warm.observe(v); });
   })();
 
   /* ---- FIT HEADLINES TO TWO LINES ----
