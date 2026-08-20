@@ -964,10 +964,9 @@
     .hero-sound { padding: 11px 13px; }
   }
 
-  /* The You Don't Know Jack mark is red on black in the film itself, so the
-     tile carries that rather than the white the sampler would pick up. */
-  .work-media--ink { background: #000; }
-  .work-media--ink .card-teaser { background: #000; }
+  /* The hover teaser is clipped from the film and sits on the tile's own
+     ground rather than the black it would otherwise fall back to. */
+  .featured-stack .work-media--logo .card-teaser { background: var(--tile-bg, #FFFFFF); }
 
   /* ---- SECTION TITLES ----
      Set as the case study sets its headlines, in ink. These had been left to
@@ -1142,7 +1141,7 @@
 
     <li>
       <a class="work-item" href="you-dont-know-jack">
-        <div class="work-media work-media--logo work-media--ink">
+        <div class="work-media work-media--logo">
           <img src="video-logos/you-dont-know-jack.png" alt="You Don't Know Jack">
           <img class="card-teaser" alt="" aria-hidden="true" data-teaser="video/teasers/you-dont-know-jack.webp?v=2">
         </div>
@@ -1552,9 +1551,7 @@
       }
     }
 
-    // A tile carrying .work-media--ink sets its own ground and is left alone,
-    // otherwise the sampler would repaint it from the artwork's edge.
-    document.querySelectorAll('.work-media:not(.work-media--ink) > img:not(.card-teaser)').forEach(function (img) {
+    document.querySelectorAll('.work-media > img:not(.card-teaser)').forEach(function (img) {
       if (img.complete && img.naturalWidth) { extend(img); }
       else { img.addEventListener('load', function () { extend(img); }, { once: true }); }
     });
