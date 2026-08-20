@@ -761,27 +761,18 @@
     background: #000;
     margin: 0;
   }
-  /* The reel fills the screen outright. The case study letterboxes it on white
-     so the lockup reads whole; here it is the opening image of the page, so it
-     runs edge to edge and is allowed to crop. White is only what shows while it
-     loads. Same 100svh / 60svh the video pages use. */
+  /* The whole frame reads, rather than the frame filling the screen. Cropping
+     to cover was taking the closing card off the bottom on any window wider
+     than 16:9, so the box carries the reel's own 16:9 instead and only gives
+     that up when the screen is too short to hold it. White is the ground the
+     reel is drawn on, so a letterbox on a wide window is white on white. */
   .feature-media--light { background: #FFFFFF; }
-  /* The reel and its bar are one screen between them. The bar used to sit
-     under a frame that was already a full 100svh tall, which pushed the
-     bottom of the reel past the viewport edge, so it always read as clipped.
-     The wrapper takes the screen height and the frame takes what is left. */
-  .featured-stack .has-player {
-    height: 100vh;
-    height: 100svh;
-    display: flex;
-    flex-direction: column;
-  }
   .featured-stack .has-player .feature-media--light {
-    flex: 1;
-    min-height: 0;   /* a flex item will not shrink below its content without this */
-    height: auto;
+    /* 56.25vw is 16:9 at full width. The second term reserves room for the bar
+       so the reel and its controls still land in a single view; 4rem is the
+       bar's 54px with a little slack. */
+    height: min(56.25vw, calc(100svh - 4rem));
   }
-  .featured-stack .has-player .player-bar { flex: none; }
   .feature-media video {
     width: 100%;
     height: 100%;
@@ -790,8 +781,10 @@
     display: block;
   }
   /* after the rule above, not before it: same specificity, so source order is
-     what decides which object-fit lands */
-  .feature-media--light video { object-fit: cover; }
+     what decides which object-fit lands. The box is already the reel's ratio
+     wherever there is room, so contain letterboxes only on a wide short
+     window, and does it in the white the reel is drawn on. */
+  .feature-media--light video { object-fit: contain; }
 
   /* Project names take the case study's headline treatment at a smaller size:
      same family, weight, tracking and physical stretch, stepped down so the
@@ -838,8 +831,9 @@
     .featured-stack { gap: calc(var(--tile-gap) + 0.8rem); }
     .featured-stack .work-media,
     .featured-stack .feature-media { height: 56.25vw; }
-    /* a 16:9 frame covering a phone screen would crop away most of the width */
-    .featured-stack .has-player { height: 60svh; }
+    /* full width at the reel's own ratio; nothing to reserve, the bar wraps
+       under it and the whole thing is well short of a screen on a phone */
+    .featured-stack .has-player .feature-media--light { height: 56.25vw; }
   }
 
   /* ---- REEL CONTROLS ----
