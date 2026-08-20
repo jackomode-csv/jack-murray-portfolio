@@ -850,7 +850,8 @@
     letter-spacing: 0.06em;
   }
 
-  .pb-play {
+  .pb-play,
+  .pb-full {
     flex: none;
     display: inline-flex;
     align-items: center;
@@ -864,13 +865,24 @@
     cursor: pointer;
     transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
   }
-  .pb-play:hover { color: #FFFFFF; background: var(--accent); border-color: var(--accent); }
-  .pb-play svg { width: 15px; height: 15px; display: block; }
+  .pb-play:hover,
+  .pb-full:hover { color: #FFFFFF; background: var(--accent); border-color: var(--accent); }
+  .pb-play svg,
+  .pb-full svg { width: 15px; height: 15px; display: block; }
   .pb-play .icon-play { margin-left: 2px; }   /* optical-center the triangle */
   /* playing shows pause, paused shows play */
   .pb-play .icon-play { display: none; }
   .is-paused .pb-play .icon-play { display: block; }
   .is-paused .pb-play .icon-pause { display: none; }
+
+  /* Full screen is where the whole frame shows: the reel is cropped to cover
+     on the page, and this is how you get the closing card back uncut. */
+  .pb-full .icon-min { display: none; }
+  .is-full .pb-full .icon-min { display: block; }
+  .is-full .pb-full .icon-max { display: none; }
+  /* the button hides itself where the API is missing, and inline-flex would
+     otherwise beat the hidden attribute */
+  .player-bar [hidden] { display: none; }
 
   /* the scrubber runs the width of the row now, and is always there: it was
      only ever hidden because it sat on the artwork */
@@ -1089,6 +1101,14 @@
               <path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a9 9 0 0 1 0 14"/>
             </svg>
             <span class="hero-sound-label">Unmute</span>
+          </button>
+          <button class="pb-full" type="button" aria-label="Play full screen">
+            <svg class="icon-max" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/>
+            </svg>
+            <svg class="icon-min" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M8 3v3a2 2 0 0 1-2 2H3"/><path d="M21 8h-3a2 2 0 0 1-2-2V3"/><path d="M3 16h3a2 2 0 0 1 2 2v3"/><path d="M16 21v-3a2 2 0 0 1 2-2h3"/>
+            </svg>
           </button>
         </div>
       </div>
@@ -1586,6 +1606,49 @@
       reel.addEventListener('click', toggle);
       const playBtn = fig.querySelector('.pb-play');
       if (playBtn) { playBtn.addEventListener('click', toggle); }
+
+      /* full screen */
+      const fsBtn = fig.querySelector('.pb-full');
+      if (fsBtn) {
+        const req = reel.requestFullscreen || reel.webkitRequestFullscreen;
+        // iPhone Safari has no Element.requestFullscreen at all, only this one
+        // on the video itself.
+        const ios = typeof reel.webkitEnterFullscreen === 'function';
+        if (!req && !ios) {
+          fsBtn.hidden = true;   // no API here, so no button pretending there is
+        } else {
+          const current = function () {
+            return document.fullscreenElement || document.webkitFullscreenElement || null;
+          };
+          fsBtn.addEventListener('click', function () {
+            if (current()) {
+              const exit = document.exitFullscreen || document.webkitExitFullscreen;
+              if (exit) { exit.call(document); }
+              return;
+            }
+            // Hand over the native controls on the way in: the page's own bar
+            // is not reachable from full screen, and a film filling the screen
+            // with no way to pause it is a trap.
+            reel.controls = true;
+            if (req) {
+              const p = req.call(reel);
+              if (p && p.catch) { p.catch(function () { reel.controls = false; }); }
+            } else {
+              reel.webkitEnterFullscreen();
+            }
+          });
+          const syncFs = function () {
+            const on = current() === reel;
+            fig.classList.toggle('is-full', on);
+            fsBtn.setAttribute('aria-label', on ? 'Exit full screen' : 'Play full screen');
+            if (!on) { reel.controls = false; }
+          };
+          document.addEventListener('fullscreenchange', syncFs);
+          document.addEventListener('webkitfullscreenchange', syncFs);
+          // iOS reports the exit on the element rather than the document
+          reel.addEventListener('webkitendfullscreen', function () { reel.controls = false; });
+        }
+      }
       reel.addEventListener('play', function () { fig.classList.remove('is-paused'); });
       reel.addEventListener('pause', function () { fig.classList.add('is-paused'); });
 
