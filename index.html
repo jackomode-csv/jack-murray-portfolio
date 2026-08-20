@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>JKMRY | Portfolio</title>
 <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Inclusive+Sans:wght@400..700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -19,10 +18,6 @@
     --line:  #DCDBD4;
     --accent: #3E7D5A;   /* green accent, frames + interactive */
 
-    /* the case study's headline face and its horizontal scale, for .statement */
-    --font-statement: 'Inclusive Sans', 'Helvetica Neue', Arial, sans-serif;
-    --stretch: 1.15;
-    --text-edge: 20px;
     --font: 'Jost', 'Futura', 'Helvetica Neue', Arial, sans-serif;
 
     /* strict type scale */
@@ -735,30 +730,6 @@
      tile carries that rather than the white the sampler would pick up. */
   .work-media--ink { background: #000; }
   .work-media--ink .card-teaser { background: #000; }
-
-  /* ---- STATEMENT ----
-     One line under the reel, set exactly as the case study sets its section
-     headlines: same clamp, weight, horizontal scale and hard-left edge. */
-  .statement {
-    padding: 9rem var(--text-edge) 8rem;
-  }
-  .statement h2 {
-    font-family: var(--font-statement);
-    font-size: clamp(2.2rem, 9vw, 8.5rem);
-    font-weight: 700;
-    letter-spacing: -0.03em;
-    line-height: 1.02;
-    color: var(--ink);
-    margin-bottom: 0;
-    max-width: none;
-    width: calc(100% / var(--stretch));
-    transform: scaleX(var(--stretch));
-    transform-origin: left center;
-    text-wrap: balance;
-  }
-  @media (max-width: 700px) {
-    .statement { padding: 5rem var(--text-edge) 4rem; }
-  }
 </style>
 </head>
 <body>
@@ -824,10 +795,6 @@
       <polyline points="6 9 12 15 18 9"/>
     </svg>
   </a>
-</section>
-
-<section class="statement">
-  <h2>People need to be entertained to be informed.</h2>
 </section>
 
 <!-- WORK -->
@@ -1286,52 +1253,6 @@
     bv.addEventListener('pause', function () { banner.classList.add('is-paused'); });
     var p = bv.play();
     if (p && p.catch) { p.catch(function () {}); }
-  })();
-
-  /* ---- FIT HEADLINES TO TWO LINES ----
-     The CSS clamp is the ceiling. Each headline is then sized down only as far
-     as it needs to go to stay within two lines, so short lines run huge and a
-     long one still lands on two rather than wrapping into a paragraph. */
-  (function () {
-    const heads = document.querySelectorAll('.statement h2');
-    if (!heads.length) return;
-    const MAX_LINES = 2;
-    const MIN_PX = 22;
-    // Two lines is the target, not an absolute. A headline much longer than
-    // its neighbours would have to shrink to about half their size to hit it,
-    // which reads as a mistake; past this floor it takes a third line instead
-    // and stays in scale with the rest of the page.
-    const FLOOR_RATIO = 0.62;
-
-    const fit = function (el) {
-      // Start from the stylesheet's own ceiling, not the last fitted value.
-      el.style.fontSize = '';
-      const ceiling = parseFloat(getComputedStyle(el).fontSize);
-      const lineFor = function (px) {
-        el.style.fontSize = px + 'px';
-        const lh = parseFloat(getComputedStyle(el).lineHeight) || px * 1.02;
-        return Math.round(el.scrollHeight / lh);
-      };
-      if (lineFor(ceiling) <= MAX_LINES) { el.style.fontSize = ceiling + 'px'; return; }
-      const floor = Math.max(MIN_PX, ceiling * FLOOR_RATIO);
-      let lo = floor, hi = ceiling, best = floor;
-      for (let i = 0; i < 14; i++) {
-        const mid = (lo + hi) / 2;
-        if (lineFor(mid) <= MAX_LINES) { best = mid; lo = mid; } else { hi = mid; }
-      }
-      el.style.fontSize = best.toFixed(1) + 'px';
-    };
-
-    const fitAll = function () { heads.forEach(fit); };
-
-    fitAll();
-    // Web font metrics differ from the fallback, so measure again once it lands
-    if (document.fonts && document.fonts.ready) { document.fonts.ready.then(fitAll); }
-    let t;
-    window.addEventListener('resize', function () {
-      clearTimeout(t);
-      t = setTimeout(fitAll, 120);
-    });
   })();
 </script>
 
