@@ -242,7 +242,9 @@
     text-wrap: balance;
     margin-left: 0;
   }
-  .bio { max-width: 46ch; gap: 2rem; }
+  /* .about spans the viewport less its 20px edges, so 50% of that content
+     box ends exactly on the centre line of the page. */
+  .bio { max-width: 50%; gap: 2rem; }
   .bio p {
     font-size: clamp(1.35rem, 2.3vw, 2rem);
     font-weight: 400;
@@ -252,6 +254,7 @@
   .disc-tag { font-size: 0.9rem; }
   @media (max-width: 700px) {
     .about { padding: 2.5rem var(--text-edge) 4rem; }
+    .bio { max-width: none; }
     .bio p { font-size: 1.25rem; }
   }
 </style>
