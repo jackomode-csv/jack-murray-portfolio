@@ -351,6 +351,61 @@
       t = setTimeout(fitAll, 120);
     });
   })();
+
+  /* ---- NOTHING PLAYS OFF SCREEN ----
+     Every clip stops when it is not on screen and picks up where it left off
+     when it comes back. "On screen" here means the middle half of the
+     viewport: the root is shrunk 25% top and bottom, so this is a plain
+     enter/exit rather than a ratio, and a full-height reel stops as you
+     scroll off it rather than a whole screen later.
+     What resumes is what the page itself stopped. A pause the visitor asked
+     for is remembered, so scrolling back does not undo it, and a reel that
+     already ran to its end stays on its closing frame. Clips that were going
+     to start on their own, autoplay or data-autostart, still do, once they
+     are actually being looked at. */
+  (function () {
+    if (!('IntersectionObserver' in window)) return;
+    var clips = document.querySelectorAll('video');
+    if (!clips.length) return;
+
+    Array.prototype.forEach.call(clips, function (v) {
+      v.addEventListener('ended', function () { v.dataset.played = '1'; });
+      // The observer sets data-auto-paused before it pauses anything, so any
+      // pause without that flag is a person reaching for the control.
+      v.addEventListener('pause', function () {
+        if (!v.dataset.autoPaused) { v.dataset.userPaused = '1'; }
+      });
+      v.addEventListener('play', function () {
+        delete v.dataset.userPaused;
+        delete v.dataset.played;
+      });
+    });
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        var v = e.target, p;
+        if (e.isIntersecting) {
+          if (v.dataset.autoPaused) {          // the page stopped it, so the page restarts it
+            delete v.dataset.autoPaused;
+            p = v.play(); if (p && p.catch) { p.catch(function () {}); }
+            return;
+          }
+          // data-hold clips wait to be centered instead; their own routine
+          // clears the flag and starts them.
+          if (v.dataset.userPaused || v.dataset.played || v.dataset.hold) { return; }
+          // hasAttribute, not dataset: a valueless attribute reads as "",
+          // which is falsy, so a dataset test would never start anything.
+          if (!v.autoplay && !v.hasAttribute('data-autostart')) { return; }
+          p = v.play(); if (p && p.catch) { p.catch(function () {}); }
+        } else if (!v.paused) {
+          v.dataset.autoPaused = '1';
+          v.pause();
+        }
+      });
+    }, { threshold: 0, rootMargin: '-25% 0px -25% 0px' });
+
+    Array.prototype.forEach.call(clips, function (v) { io.observe(v); });
+  })();
 </script>
 </body>
 </html>

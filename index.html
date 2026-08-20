@@ -1394,19 +1394,13 @@
     var POSTER_FRAME = 14;
     var atEnd = false;
 
-    // A pause the visitor asked for, as opposed to one the page did on its way
-    // off screen. Only the first kind should survive scrolling back.
-    var userPaused = false;
-
     function toggle() {
       if (video.paused || video.ended) {
         if (video.ended || atEnd) { video.currentTime = 0; }   // replay from the start
         atEnd = false;
-        userPaused = false;
         var p = video.play();
         if (p && p.catch) { p.catch(function () {}); }
       } else {
-        userPaused = true;
         video.pause();
       }
     }
@@ -1441,33 +1435,12 @@
     if (restartBtn) {
       restartBtn.addEventListener('click', function () {
         atEnd = false;
-        userPaused = false;
         video.currentTime = 0;
         var p = video.play();
         if (p && p.catch) { p.catch(function () {}); }
       });
     }
 
-    // The reel carries sound, so it has no business running once you have
-    // scrolled past it. It stops when it leaves the screen and picks up where
-    // it left off when it comes back, unless the visitor paused it by hand or
-    // it already ran out and parked on its closing frame. Pausing here goes
-    // straight to the element rather than through toggle(), so it is never
-    // mistaken for a deliberate pause.
-    if ('IntersectionObserver' in window) {
-      var onScreen = new IntersectionObserver(function (entries) {
-        entries.forEach(function (e) {
-          if (e.isIntersecting) {
-            if (userPaused || atEnd || video.ended) { return; }
-            var p = video.play();
-            if (p && p.catch) { p.catch(function () {}); }
-          } else if (!video.paused) {
-            video.pause();
-          }
-        });
-      }, { threshold: 0.35 });
-      onScreen.observe(video);
-    }
   })();
 
   // Lazy-load each card's hover teaser the first time it's hovered/focused.
@@ -1573,7 +1546,6 @@
       }
     }
     banner.addEventListener('click', bToggle);
-    bv.addEventListener('click', function () { bv.dataset.userPaused = bv.paused ? '' : '1'; });
     bv.addEventListener('play',  function () { banner.classList.remove('is-paused'); });
     bv.addEventListener('pause', function () { banner.classList.add('is-paused'); });
     var p = bv.play();
@@ -1715,35 +1687,14 @@
     });
   })();
 
-  // Nothing runs unseen. A reel marked data-autostart starts silent when it
-  // scrolls into view, the way the case study runs it; anything else stays
-  // click-to-play. Either way it pauses on the way out.
+  // Buffer on approach, so a clip that starts on visibility is not starting
+  // from nothing. preload stays at metadata in the markup until then, which
+  // keeps a page-load's worth of video off the wire.
   (function () {
     if (!('IntersectionObserver' in window)) return;
-    const reels = document.querySelectorAll('.has-player video');
+    var reels = document.querySelectorAll('.has-player video');
     if (!reels.length) return;
-    const io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        const v = e.target;
-        if (e.isIntersecting) {
-          // hasAttribute, not dataset: a valueless attribute reads as "",
-          // which is falsy, so a dataset test would never start anything.
-          if (!v.hasAttribute('data-autostart') || v.dataset.played) { return; }
-          const p = v.play(); if (p && p.catch) { p.catch(function () {}); }
-        } else if (!v.paused) {
-          v.pause();
-        }
-      });
-    }, { threshold: 0.25 });
-    reels.forEach(function (v) {
-      v.addEventListener('ended', function () { v.dataset.played = '1'; });
-      io.observe(v);
-    });
-
-    // Buffer on approach, so a reel that starts on visibility isn't starting
-    // from nothing. preload stays at metadata in the markup until then, which
-    // keeps a page-load's worth of video off the wire.
-    const warm = new IntersectionObserver(function (entries) {
+    var warm = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
         if (!e.isIntersecting) { return; }
         if (e.target.preload !== 'auto') { e.target.preload = 'auto'; }
@@ -1753,27 +1704,6 @@
     reels.forEach(function (v) { warm.observe(v); });
   })();
 
-  // Same rule for the silent loops: the Books banner and the ReflectUS tile
-  // decode continuously otherwise, for nobody. They carry no sound, so there
-  // is nothing to be startled by when they pick back up.
-  (function () {
-    if (!('IntersectionObserver' in window)) return;
-    var loops = document.querySelectorAll('.book-banner-video, .work-media--paper video');
-    if (!loops.length) return;
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        var v = e.target;
-        if (e.isIntersecting) {
-          if (v.dataset.userPaused) { return; }
-          var p = v.play();
-          if (p && p.catch) { p.catch(function () {}); }
-        } else if (!v.paused) {
-          v.pause();
-        }
-      });
-    }, { threshold: 0.2 });
-    loops.forEach(function (v) { io.observe(v); });
-  })();
 
   /* ---- FIT HEADLINES TO TWO LINES ----
      The CSS clamp is the ceiling. Each headline is then sized down only as far
@@ -1819,6 +1749,61 @@
       clearTimeout(t);
       t = setTimeout(fitAll, 120);
     });
+  })();
+
+  /* ---- NOTHING PLAYS OFF SCREEN ----
+     Every clip stops when it is not on screen and picks up where it left off
+     when it comes back. "On screen" here means the middle half of the
+     viewport: the root is shrunk 25% top and bottom, so this is a plain
+     enter/exit rather than a ratio, and a full-height reel stops as you
+     scroll off it rather than a whole screen later.
+     What resumes is what the page itself stopped. A pause the visitor asked
+     for is remembered, so scrolling back does not undo it, and a reel that
+     already ran to its end stays on its closing frame. Clips that were going
+     to start on their own, autoplay or data-autostart, still do, once they
+     are actually being looked at. */
+  (function () {
+    if (!('IntersectionObserver' in window)) return;
+    var clips = document.querySelectorAll('video');
+    if (!clips.length) return;
+
+    Array.prototype.forEach.call(clips, function (v) {
+      v.addEventListener('ended', function () { v.dataset.played = '1'; });
+      // The observer sets data-auto-paused before it pauses anything, so any
+      // pause without that flag is a person reaching for the control.
+      v.addEventListener('pause', function () {
+        if (!v.dataset.autoPaused) { v.dataset.userPaused = '1'; }
+      });
+      v.addEventListener('play', function () {
+        delete v.dataset.userPaused;
+        delete v.dataset.played;
+      });
+    });
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        var v = e.target, p;
+        if (e.isIntersecting) {
+          if (v.dataset.autoPaused) {          // the page stopped it, so the page restarts it
+            delete v.dataset.autoPaused;
+            p = v.play(); if (p && p.catch) { p.catch(function () {}); }
+            return;
+          }
+          // data-hold clips wait to be centered instead; their own routine
+          // clears the flag and starts them.
+          if (v.dataset.userPaused || v.dataset.played || v.dataset.hold) { return; }
+          // hasAttribute, not dataset: a valueless attribute reads as "",
+          // which is falsy, so a dataset test would never start anything.
+          if (!v.autoplay && !v.hasAttribute('data-autostart')) { return; }
+          p = v.play(); if (p && p.catch) { p.catch(function () {}); }
+        } else if (!v.paused) {
+          v.dataset.autoPaused = '1';
+          v.pause();
+        }
+      });
+    }, { threshold: 0, rootMargin: '-25% 0px -25% 0px' });
+
+    Array.prototype.forEach.call(clips, function (v) { io.observe(v); });
   })();
 </script>
 
