@@ -721,6 +721,10 @@
     .work-pair { grid-template-columns: 1fr; }
     .intro-lead { max-width: none; }
   }
+
+  /* Featured works: three across, one per row once there is no room. */
+  .featured-grid { grid-template-columns: repeat(3, 1fr); }
+  @media (max-width: 900px) { .featured-grid { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
@@ -738,6 +742,7 @@
       <div class="nav-dropdown">
         <a href="#work" aria-haspopup="true">Work</a>
         <div class="nav-menu">
+          <a href="#featured">Featured</a>
           <a href="#video">Video</a>
           <a href="#books">Books</a>
         </div>
@@ -796,19 +801,87 @@
        entry to match. The page itself still works on a direct link.
        To restore: put this section back and re-add the nav item on every page. -->
 
+<h2 class="work-section" id="featured">Featured Works</h2>
+  <ul class="work-grid featured-grid">
+    <li>
+      <a class="work-item" href="you-dont-know-jack.html">
+          <div class="work-media work-media--logo">
+            <img src="video-logos/you-dont-know-jack.png" alt="You Don't Know Jack">
+            <img class="card-teaser" alt="" aria-hidden="true" data-teaser="video/teasers/you-dont-know-jack.webp?v=2">
+          </div>
+          <div class="work-caption">
+            <div class="cap-head">
+              <h3 class="cap-title">You Don&rsquo;t Know Jack</h3>
+              <span class="cap-time">4:09</span>
+            </div>
+            <p class="cap-desc">Satirical Mockumentary</p>
+            <p class="cap-blurb">A fake <em>E! True Hollywood Story</em>&ndash;style retrospective that turns the art-school work into one self-aware joke about scrambling a portfolio together in three weeks.</p>
+          </div>
+        </a>
+    </li>
+    <li>
+      <a class="work-item book-card" href="reflectus.html">
+          <div class="work-media">
+            <img src="reflectus-images/reflectus-book-cover.jpg" alt="ReflectUS">
+          </div>
+          <div class="work-caption">
+            <div class="cap-head">
+              <h3 class="cap-title">ReflectUS</h3>
+              <span class="cap-time">36 pages</span>
+            </div>
+            <p class="cap-desc">Political Book</p>
+            <p class="cap-blurb">A children&rsquo;s book about the stories America keeps telling itself, written, staged, and designed from a self-made dataset, brought to life in the simple, effective illustration of Jaja Riley.</p>
+          </div>
+        </a>
+    </li>
+    <li>
+      <a class="work-item book-card" href="9-teen.html">
+          <div class="work-media">
+            <img src="9-teen-images/9-teen-book-cover.jpg" alt="9-TEEN">
+          </div>
+          <div class="work-caption">
+            <div class="cap-head">
+              <h3 class="cap-title">9-TEEN</h3>
+              <span class="cap-time">6 pages &middot; 3 pop-ups</span>
+            </div>
+            <p class="cap-desc">Pop-Up &amp; Paper</p>
+            <p class="cap-blurb">A handcrafted pop-up book that turns flat photography into sculptural, three-dimensional scenes, exploring identity, place, and scale through the Unisphere in Flushing Meadows.</p>
+          </div>
+        </a>
+    </li>
+  </ul>
+
 <h2 class="work-section" id="video">Video</h2>
   <ul class="work-grid video-grid">
+
+      <li class="full">
+        <a class="work-item" href="you-dont-know-jack.html">
+          <div class="work-media work-media--logo">
+            <img src="video-logos/you-dont-know-jack.png" alt="You Don't Know Jack">
+            <img class="card-teaser" alt="" aria-hidden="true" data-teaser="video/teasers/you-dont-know-jack.webp?v=2">
+          </div>
+          <div class="work-caption">
+            <div class="cap-head">
+              <h3 class="cap-title">You Don&rsquo;t Know Jack</h3>
+              <span class="cap-time">4:09</span>
+            </div>
+            <p class="cap-desc">Satirical Mockumentary</p>
+            <p class="cap-blurb">A fake <em>E! True Hollywood Story</em>&ndash;style retrospective that turns the art-school work into one self-aware joke about scrambling a portfolio together in three weeks.</p>
+          </div>
+        </a>
+      </li>
+
 
       <li class="full">
         <a class="work-item" href="travel-lite.html">
           <div class="work-media work-media--logo">
             <img src="video-logos/travel-lite.png" alt="Travel Lite">
-            <img class="card-teaser" alt="" aria-hidden="true" data-teaser="video/teasers/travel-lite.webp?v=2">
+            <img class="card-teaser" alt="" aria-hidden="true" data-teaser="video/teasers/travel-lite.webp?v=3">
           </div>
           <div class="work-caption">
             <div class="cap-head">
               <h3 class="cap-title">Travel Lite</h3>
-              <span class="cap-time">6:26</span>
+              <span class="cap-time">4:30</span>
             </div>
             <p class="cap-desc">Cinematic Art Film</p>
             <p class="cap-blurb">Three braided stories of creative commitment. Jamie Thomas skating, Midori&rsquo;s 1986 Tanglewood violin, and a 62-ft violin built from barn trash, visible only from the air.</p>
@@ -843,23 +916,6 @@
          The page, poster and teaser all stay in the repo. -->
 
     <li class="full">
-        <a class="work-item" href="you-dont-know-jack.html">
-          <div class="work-media work-media--logo">
-            <img src="video-logos/you-dont-know-jack.png" alt="You Don't Know Jack">
-            <img class="card-teaser" alt="" aria-hidden="true" data-teaser="video/teasers/you-dont-know-jack.webp?v=2">
-          </div>
-          <div class="work-caption">
-            <div class="cap-head">
-              <h3 class="cap-title">You Don&rsquo;t Know Jack</h3>
-              <span class="cap-time">4:09</span>
-            </div>
-            <p class="cap-desc">Satirical Mockumentary</p>
-            <p class="cap-blurb">A fake <em>E! True Hollywood Story</em>&ndash;style retrospective that turns the art-school work into one self-aware joke about scrambling a portfolio together in three weeks.</p>
-          </div>
-        </a>
-      </li>
-
-                        <li class="full">
         <a class="work-item" href="social-bot.html">
           <div class="work-media work-media--logo work-media--nopad">
             <img src="video/social-bot.jpg" alt="Social Bot">
@@ -907,6 +963,22 @@
           </div>
         </a>
       </li>
+      <li>
+        <a class="work-item book-card" href="9-teen.html">
+          <div class="work-media">
+            <img src="9-teen-images/9-teen-book-cover.jpg" alt="9-TEEN">
+          </div>
+          <div class="work-caption">
+            <div class="cap-head">
+              <h3 class="cap-title">9-TEEN</h3>
+              <span class="cap-time">6 pages &middot; 3 pop-ups</span>
+            </div>
+            <p class="cap-desc">Pop-Up &amp; Paper</p>
+            <p class="cap-blurb">A handcrafted pop-up book that turns flat photography into sculptural, three-dimensional scenes, exploring identity, place, and scale through the Unisphere in Flushing Meadows.</p>
+          </div>
+        </a>
+      </li>
+
 
       <li>
         <a class="work-item book-card" href="creeping-body.html">
@@ -924,23 +996,7 @@
         </a>
       </li>
 
-      <li>
-        <a class="work-item book-card" href="9-teen.html">
-          <div class="work-media">
-            <img src="9-teen-images/9-teen-book-cover.jpg" alt="9-TEEN">
-          </div>
-          <div class="work-caption">
-            <div class="cap-head">
-              <h3 class="cap-title">9-TEEN</h3>
-              <span class="cap-time">6 pages &middot; 3 pop-ups</span>
-            </div>
-            <p class="cap-desc">Pop-Up &amp; Paper</p>
-            <p class="cap-blurb">A handcrafted pop-up book that turns flat photography into sculptural, three-dimensional scenes, exploring identity, place, and scale through the Unisphere in Flushing Meadows.</p>
-          </div>
-        </a>
-      </li>
-
-    </ul>
+      </ul>
   </section>
 
   </main>
