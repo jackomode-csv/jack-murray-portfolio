@@ -766,10 +766,22 @@
      runs edge to edge and is allowed to crop. White is only what shows while it
      loads. Same 100svh / 60svh the video pages use. */
   .feature-media--light { background: #FFFFFF; }
-  .featured-stack .feature-media--light {
+  /* The reel and its bar are one screen between them. The bar used to sit
+     under a frame that was already a full 100svh tall, which pushed the
+     bottom of the reel past the viewport edge, so it always read as clipped.
+     The wrapper takes the screen height and the frame takes what is left. */
+  .featured-stack .has-player {
     height: 100vh;
     height: 100svh;
+    display: flex;
+    flex-direction: column;
   }
+  .featured-stack .has-player .feature-media--light {
+    flex: 1;
+    min-height: 0;   /* a flex item will not shrink below its content without this */
+    height: auto;
+  }
+  .featured-stack .has-player .player-bar { flex: none; }
   .feature-media video {
     width: 100%;
     height: 100%;
@@ -827,7 +839,7 @@
     .featured-stack .work-media,
     .featured-stack .feature-media { height: 56.25vw; }
     /* a 16:9 frame covering a phone screen would crop away most of the width */
-    .featured-stack .feature-media--light { height: 60svh; }
+    .featured-stack .has-player { height: 60svh; }
   }
 
   /* ---- REEL CONTROLS ----
