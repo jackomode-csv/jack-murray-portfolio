@@ -725,6 +725,11 @@
   /* Featured works: three across, one per row once there is no room. */
   .featured-grid { grid-template-columns: repeat(3, 1fr); }
   @media (max-width: 900px) { .featured-grid { grid-template-columns: 1fr; } }
+
+  /* The You Don't Know Jack mark is red on black in the film itself, so the
+     tile carries that rather than the white the sampler would pick up. */
+  .work-media--ink { background: #000; }
+  .work-media--ink .card-teaser { background: #000; }
 </style>
 </head>
 <body>
@@ -737,7 +742,7 @@
   </video>
 
   <header class="hero-header">
-    <a class="wordmark" href="index.html">JKMRY</a>
+    <a class="wordmark" href="/">JKMRY</a>
     <nav class="hero-nav">
       <div class="nav-dropdown">
         <a href="#work" aria-haspopup="true">Work</a>
@@ -747,9 +752,9 @@
           <a href="#books">Books</a>
         </div>
       </div>
-      <a href="about.html">About</a>
+      <a href="about">About</a>
       <a href="https://instagram.com/jackomode" target="_blank" rel="noopener">Instagram</a>
-      <a href="about.html#contact">Contact</a>
+      <a href="about#contact">Contact</a>
     </nav>
   </header>
 
@@ -804,8 +809,8 @@
 <h2 class="work-section" id="featured">Featured Works</h2>
   <ul class="work-grid featured-grid">
     <li>
-      <a class="work-item" href="you-dont-know-jack.html">
-          <div class="work-media work-media--logo">
+      <a class="work-item" href="you-dont-know-jack">
+          <div class="work-media work-media--logo work-media--ink">
             <img src="video-logos/you-dont-know-jack.png" alt="You Don't Know Jack">
             <img class="card-teaser" alt="" aria-hidden="true" data-teaser="video/teasers/you-dont-know-jack.webp?v=2">
           </div>
@@ -820,7 +825,7 @@
         </a>
     </li>
     <li>
-      <a class="work-item book-card" href="reflectus.html">
+      <a class="work-item book-card" href="reflectus">
           <div class="work-media">
             <img src="reflectus-images/reflectus-book-cover.jpg" alt="ReflectUS">
           </div>
@@ -835,7 +840,7 @@
         </a>
     </li>
     <li>
-      <a class="work-item book-card" href="9-teen.html">
+      <a class="work-item book-card" href="9-teen">
           <div class="work-media">
             <img src="9-teen-images/9-teen-book-cover.jpg" alt="9-TEEN">
           </div>
@@ -855,7 +860,7 @@
   <ul class="work-grid video-grid">
 
       <li class="full">
-        <a class="work-item" href="you-dont-know-jack.html">
+        <a class="work-item" href="you-dont-know-jack">
           <div class="work-media work-media--logo">
             <img src="video-logos/you-dont-know-jack.png" alt="You Don't Know Jack">
             <img class="card-teaser" alt="" aria-hidden="true" data-teaser="video/teasers/you-dont-know-jack.webp?v=2">
@@ -873,7 +878,7 @@
 
 
       <li class="full">
-        <a class="work-item" href="travel-lite.html">
+        <a class="work-item" href="travel-lite">
           <div class="work-media work-media--logo">
             <img src="video-logos/travel-lite.png" alt="Travel Lite">
             <img class="card-teaser" alt="" aria-hidden="true" data-teaser="video/teasers/travel-lite.webp?v=3">
@@ -890,7 +895,7 @@
       </li>
 
       <li class="full">
-        <a class="work-item" href="farmers-value.html">
+        <a class="work-item" href="farmers-value">
           <div class="work-media">
             <img src="farmers-value-images/still-first-frame.jpg" alt="The Farmer's Value">
             <img class="card-teaser" alt="" aria-hidden="true" data-teaser="video/teasers/farmers-value.webp?v=2">
@@ -916,7 +921,7 @@
          The page, poster and teaser all stay in the repo. -->
 
     <li class="full">
-        <a class="work-item" href="social-bot.html">
+        <a class="work-item" href="social-bot">
           <div class="work-media work-media--logo work-media--nopad">
             <img src="video/social-bot.jpg" alt="Social Bot">
             <img class="card-teaser card-teaser--contain" alt="" aria-hidden="true" data-teaser="video/teasers/social-bot.webp?v=2">
@@ -949,7 +954,7 @@
   <ul class="book-stack">
 
       <li>
-        <a class="work-item book-card" href="reflectus.html">
+        <a class="work-item book-card" href="reflectus">
           <div class="work-media">
             <img src="reflectus-images/reflectus-book-cover.jpg" alt="ReflectUS">
           </div>
@@ -964,7 +969,7 @@
         </a>
       </li>
       <li>
-        <a class="work-item book-card" href="9-teen.html">
+        <a class="work-item book-card" href="9-teen">
           <div class="work-media">
             <img src="9-teen-images/9-teen-book-cover.jpg" alt="9-TEEN">
           </div>
@@ -981,7 +986,7 @@
 
 
       <li>
-        <a class="work-item book-card" href="creeping-body.html">
+        <a class="work-item book-card" href="creeping-body">
           <div class="work-media">
             <img src="creeping-body-images/creeping-body-book-cover.jpg" alt="The Creeping Body">
           </div>
@@ -1007,7 +1012,7 @@
   <footer class="site-footer">
     <span class="wordmark">JKMRY</span>
     <div class="footer-links">
-      <a href="about.html"><span class="label">About</span></a>
+      <a href="about"><span class="label">About</span></a>
       <a href="https://instagram.com/jackomode" target="_blank" rel="noopener"><span class="label">Instagram</span></a>
       <a href="mailto:jackwardmurray@gmail.com"><span class="label">Email</span></a>
     </div>
@@ -1220,7 +1225,9 @@
       }
     }
 
-    document.querySelectorAll('.work-media > img:not(.card-teaser)').forEach(function (img) {
+    // A tile carrying .work-media--ink sets its own ground and is left alone,
+    // otherwise the sampler would repaint it from the artwork's edge.
+    document.querySelectorAll('.work-media:not(.work-media--ink) > img:not(.card-teaser)').forEach(function (img) {
       if (img.complete && img.naturalWidth) { extend(img); }
       else { img.addEventListener('load', function () { extend(img); }, { once: true }); }
     });
