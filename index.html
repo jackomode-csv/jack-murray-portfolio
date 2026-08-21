@@ -393,8 +393,7 @@
     border-bottom-color: #FFFFFF;
     margin-top: 0;   /* the band's own margin already carries the gap */
   }
-  .books-band .cap-title,
-  .books-band .cap-time { color: #FFFFFF; }
+  .books-band .cap-title { color: #FFFFFF; }
   .books-band .cap-desc { color: rgba(255,255,255,0.58); }
   .books-band .cap-blurb { color: rgba(255,255,255,0.74); }
   /* The band is the ground now, so a cover needs no box of its own. Written
@@ -622,27 +621,12 @@
 
   /* tiles are edge-to-edge, so captions carry their own inset */
   .work-caption { padding: 1.15rem var(--text-inset) 0; }
-  .cap-head {
-    display: flex;
-    align-items: baseline;
-    gap: 0.6rem;
-    flex-wrap: wrap;
-  }
   .cap-title {
     font-size: 1.12rem;
     font-weight: 500;
     line-height: 1.25;
     letter-spacing: -0.005em;
     color: var(--ink);
-  }
-  /* time reads as part of the title, same weight and color */
-  .cap-time {
-    font-size: 1.12rem;
-    font-weight: 500;
-    line-height: 1.25;
-    color: var(--ink);
-    font-variant-numeric: tabular-nums;
-    white-space: nowrap;
   }
   .cap-desc {
     margin-top: 0.4rem;
@@ -788,12 +772,12 @@
 
   /* Project names take the case study's headline treatment at a smaller size:
      same family, weight, tracking and physical stretch, stepped down so the
-     section title above still leads. The left edge is a margin rather than
+     section title above still leads. Every section, not just Featured. The left edge is a margin rather than
      padding, since scaleX would stretch padding too and push the text off the
      20px line; the width is the remaining space divided by the scale, so the
      glyphs land on the right edge instead of overflowing it. */
-  .featured-stack .work-caption { padding: 1.4rem var(--text-edge) 0; }
-  .featured-stack .cap-title {
+  .work-caption { padding: 1.4rem var(--text-edge) 0; }
+  .cap-title {
     display: block;
     font-family: var(--font);
     font-size: clamp(1.9rem, 5.5vw, 5rem);
@@ -807,12 +791,12 @@
     transform-origin: left center;
     text-wrap: balance;
   }
-  .featured-stack .cap-desc {
+  .cap-desc {
     margin-top: 0.9rem;
     font-size: 0.82rem;
     letter-spacing: 0.16em;
   }
-  .featured-stack .cap-blurb {
+  .cap-blurb {
     margin-top: 0.7rem;
     font-size: 1.02rem;
     max-width: 62ch;
@@ -1165,12 +1149,9 @@
             <img class="card-teaser" alt="" aria-hidden="true" data-teaser="video/teasers/sustainable-saturday.webp">
           </div>
           <div class="work-caption">
-            <div class="cap-head">
-              <h3 class="cap-title">Sustainable Saturday</h3>
-              <span class="cap-time">3 films &middot; 2:04</span>
-            </div>
-            <p class="cap-desc">Sustainability Campaign</p>
-            <p class="cap-blurb">A campaign aimed at men aged 16 to 24, built as one Saturday of ordinary chores, the laundry at 9:30, the trash at 11:45, a broken chair at 1:00, each done the way that lasts.</p>
+            <h3 class="cap-title">Sustainable Saturday</h3>
+            <p class="cap-desc">Sustainability Campaign &middot; 3 films, 2:04</p>
+            <p class="cap-blurb">A Sustainability Campaign for 16-24 year old men, a day in their life using sustainable practices.</p>
           </div>
         </a>
       </li>
@@ -1182,11 +1163,8 @@
             <img class="card-teaser card-teaser--contain" alt="" aria-hidden="true" data-teaser="video/teasers/social-bot.webp?v=2">
           </div>
           <div class="work-caption">
-            <div class="cap-head">
-              <h3 class="cap-title">Social Bot</h3>
-              <span class="cap-time">0:14</span>
-            </div>
-            <p class="cap-desc">Satirical Short</p>
+            <h3 class="cap-title">Social Bot</h3>
+            <p class="cap-desc">Satirical Short &middot; 0:14</p>
             <p class="cap-blurb">A satire staged as a vintage BlackBerry: an inbox of absurd political spam opening onto a homemade tin-foil robot loose in the suburbs.</p>
           </div>
         </a>
@@ -1199,11 +1177,8 @@
             <img class="card-teaser" alt="" aria-hidden="true" data-teaser="video/teasers/travel-lite.webp?v=3">
           </div>
           <div class="work-caption">
-            <div class="cap-head">
-              <h3 class="cap-title">Travel Lite</h3>
-              <span class="cap-time">4:30</span>
-            </div>
-            <p class="cap-desc">Cinematic Art Film</p>
+            <h3 class="cap-title">Travel Lite</h3>
+            <p class="cap-desc">Cinematic Art Film &middot; 4:30</p>
             <p class="cap-blurb">Three braided stories of creative commitment. Jamie Thomas skating, Midori&rsquo;s 1986 Tanglewood violin, and a 62-ft violin built from barn trash, visible only from the air.</p>
           </div>
         </a>
@@ -1216,11 +1191,8 @@
             <img class="card-teaser" alt="" aria-hidden="true" data-teaser="video/teasers/farmers-value.webp?v=2">
           </div>
           <div class="work-caption">
-            <div class="cap-head">
-              <h3 class="cap-title">The Farmer&rsquo;s Value</h3>
-              <span class="cap-time">6:18</span>
-            </div>
-            <p class="cap-desc">Research Video Essay</p>
+            <h3 class="cap-title">The Farmer&rsquo;s Value</h3>
+            <p class="cap-desc">Research Video Essay &middot; 6:18</p>
             <p class="cap-blurb">A sourced argument for saving small family farms, the carbon cost of relocating, broken subsidy math, and greenhouse and vertical-farming fixes, told as hand-drawn whiteboard animation.</p>
           </div>
         </a>
@@ -1242,11 +1214,8 @@
             <img class="card-teaser" alt="" aria-hidden="true" data-teaser="video/teasers/you-dont-know-jack.webp?v=2">
           </div>
           <div class="work-caption">
-            <div class="cap-head">
-              <h3 class="cap-title">You Don&rsquo;t Know Jack</h3>
-              <span class="cap-time">4:09</span>
-            </div>
-            <p class="cap-desc">Satirical Mockumentary</p>
+            <h3 class="cap-title">You Don&rsquo;t Know Jack</h3>
+            <p class="cap-desc">Satirical Mockumentary &middot; 4:09</p>
             <p class="cap-blurb">A fake <em>E! True Hollywood Story</em>&ndash;style retrospective that turns the art-school work into one self-aware joke about scrambling a portfolio together in three weeks.</p>
           </div>
         </a>
@@ -1274,11 +1243,8 @@
             <img src="reflectus-images/reflectus-book-cover.jpg" alt="ReflectUS">
           </div>
           <div class="work-caption">
-            <div class="cap-head">
-              <h3 class="cap-title">ReflectUS</h3>
-              <span class="cap-time">36 pages</span>
-            </div>
-            <p class="cap-desc">Political Book</p>
+            <h3 class="cap-title">ReflectUS</h3>
+            <p class="cap-desc">Political Book &middot; 36 pages</p>
             <p class="cap-blurb">A children&rsquo;s book about the stories America keeps telling itself, written, staged, and designed from a self-made dataset, brought to life in the simple, effective illustration of Jaja Riley.</p>
           </div>
         </a>
@@ -1289,11 +1255,8 @@
             <img src="9-teen-images/9-teen-book-cover.jpg" alt="9-TEEN">
           </div>
           <div class="work-caption">
-            <div class="cap-head">
-              <h3 class="cap-title">9-TEEN</h3>
-              <span class="cap-time">6 pages &middot; 3 pop-ups</span>
-            </div>
-            <p class="cap-desc">Pop-Up &amp; Paper</p>
+            <h3 class="cap-title">9-TEEN</h3>
+            <p class="cap-desc">Pop-Up &amp; Paper &middot; 6 pages, 3 pop-ups</p>
             <p class="cap-blurb">A handcrafted pop-up book that turns flat photography into sculptural, three-dimensional scenes, exploring identity, place, and scale through the Unisphere in Flushing Meadows.</p>
           </div>
         </a>
@@ -1306,11 +1269,8 @@
             <img src="creeping-body-images/creeping-body-book-cover.jpg" alt="The Creeping Body">
           </div>
           <div class="work-caption">
-            <div class="cap-head">
-              <h3 class="cap-title">The Creeping Body</h3>
-              <span class="cap-time">50 pages</span>
-            </div>
-            <p class="cap-desc">Editorial &amp; Research</p>
+            <h3 class="cap-title">The Creeping Body</h3>
+            <p class="cap-desc">Editorial &amp; Research &middot; 50 pages</p>
             <p class="cap-blurb">A hand-bound, 50-page publication written, designed, and printed during an intensive semester at Paris College of Art, four essays that turn dense Supreme Court argument into something you can hold and actually read.</p>
           </div>
         </a>
@@ -1727,7 +1687,7 @@
      as it needs to go to stay within two lines, so short lines run huge and a
      long one still lands on two rather than wrapping into a paragraph. */
   (function () {
-    const heads = document.querySelectorAll('.work-section, .featured-stack .cap-title');
+    const heads = document.querySelectorAll('.work-section, .cap-title');
     if (!heads.length) return;
     const MAX_LINES = 2;
     const MIN_PX = 22;
