@@ -2,10 +2,16 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<!-- Offline for now: reachable on a direct link, kept out of search. -->
+<!-- Superseded by Sustainable Saturday, which recuts this campaign around one
+     day rather than three loose pieces. The page was never linked from the
+     site, but the URL may be sitting in an application or a message, so it
+     redirects rather than 404s. The original page and its stills are in git
+     history at 55f9357~1 if the earlier cuts are ever wanted back. -->
 <meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Now We Know Where We&rsquo;re Going: Video Campaign | JKMRY</title>
+<meta http-equiv="refresh" content="0; url=sustainable-saturday">
+<link rel="canonical" href="https://jkmry.com/sustainable-saturday">
+<title>Now We Know Where We&rsquo;re Going &rarr; Sustainable Saturday | JKMRY</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inclusive+Sans:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
@@ -13,299 +19,39 @@
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
   :root {
     --bg: #FFFFFF; --ink: #161614; --soft: #4A4A46; --muted: #8C8C84;
-    --line: #DCDBD4; --accent: #3E7D5A;
+    --accent: #3E7D5A;
     --font: 'Inclusive Sans', 'Helvetica Neue', Arial, sans-serif;
+    --text-edge: 20px;
   }
-  html { font-size: 16px; }
   body {
     background: var(--bg); color: var(--ink); font-family: var(--font);
-    font-weight: 400; line-height: 1.6; min-height: 100vh; overflow-x: clip;
-    display: flex; flex-direction: column; -webkit-font-smoothing: antialiased;
+    line-height: 1.6; min-height: 100vh; display: flex; align-items: center;
+    padding: 2rem var(--text-edge); -webkit-font-smoothing: antialiased;
   }
-  a { color: inherit; text-decoration: none; }
-  .topbar {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 1.3rem 4.5rem; font-size: 0.66rem; font-weight: 500;
-    text-transform: uppercase; letter-spacing: 0.16em; color: var(--muted);
-  }
-  .topbar a { transition: color 0.2s ease; }
-  .topbar a:hover { color: var(--accent); }
-  .stage {
-    max-width: 1280px; margin: 0 auto; width: 100%; padding: 3rem 4.5rem 1rem;
-  }
+  a { color: inherit; }
   .eyebrow {
     font-size: 0.66rem; font-weight: 600; text-transform: uppercase;
-    letter-spacing: 0.2em; color: var(--accent); margin-bottom: 1.4rem;
+    letter-spacing: 0.2em; color: var(--accent); margin-bottom: 1.2rem;
   }
-  .logo-title { margin: 0 0 1.4rem; }
-  .logo-title img { display: block; width: 100%; max-width: 520px; height: auto; }
-  .premise {
-    font-size: clamp(1.1rem, 2vw, 1.45rem); font-weight: 300;
-    color: var(--soft); max-width: 52ch; line-height: 1.45;
+  h1 {
+    font-size: clamp(1.7rem, 4vw, 2.8rem); font-weight: 700;
+    letter-spacing: -0.02em; line-height: 1.1;
   }
-  /* ---- PIECES ---- */
-  .pieces { max-width: 1280px; margin: 0 auto; width: 100%; padding: 3rem 4.5rem 4rem; }
-  .pieces-head {
-    font-size: 0.66rem; font-weight: 600; text-transform: uppercase;
-    letter-spacing: 0.2em; color: var(--muted);
-    padding-bottom: 1.1rem; margin-bottom: 2rem; border-bottom: 1px solid var(--line);
-  }
-  .piece-list { list-style: none; display: flex; flex-direction: column; gap: 2.4rem; }
-  .piece {
-    display: grid; grid-template-columns: 3rem 1fr; gap: 1.4rem;
-    padding-bottom: 2.4rem; border-bottom: 1px solid var(--line);
-  }
-  .piece:last-child { border-bottom: none; padding-bottom: 0; }
-  .piece-num {
-    font-size: 1.4rem; font-weight: 300; color: var(--muted); line-height: 1.2;
-  }
-  .piece-body h3 {
-    font-size: clamp(1.4rem, 2.4vw, 2rem); font-weight: 500;
-    letter-spacing: -0.01em; line-height: 1.15; margin-bottom: 0.5rem;
-  }
-  .piece-type {
+  p { margin-top: 1rem; color: var(--soft); max-width: 46ch; }
+  .go {
+    display: inline-block; margin-top: 1.8rem; padding: 13px 24px;
+    border-radius: 999px; background: var(--accent); color: #fff;
     font-size: 0.66rem; font-weight: 500; text-transform: uppercase;
-    letter-spacing: 0.14em; color: var(--accent); margin-bottom: 0.9rem;
-  }
-  .piece-desc {
-    font-size: 1rem; font-weight: 300; color: var(--soft);
-    max-width: 60ch; line-height: 1.55;
-  }
-  .video-player { width: 100vw; margin: 3rem 0 0; margin-left: calc(50% - 50vw); background: #000; border: 0; }
-  .video-player video { display: block; width: 100%; height: auto; max-height: 100svh; background: #000; }
-  .site-footer {
-    margin-top: auto; border-top: 1px solid var(--line); padding: 2.2rem 4.5rem;
-    display: flex; justify-content: space-between; align-items: center;
-    font-size: 0.66rem; font-weight: 500; text-transform: uppercase;
-    letter-spacing: 0.16em; color: var(--soft);
-  }
-  .site-footer a:hover { color: var(--accent); }
-  @media (max-width: 600px) {
-    .topbar, .stage, .pieces, .site-footer { padding-left: 1.25rem; padding-right: 1.25rem; }
-    .piece { grid-template-columns: 1fr; gap: 0.4rem; }
-  }
-
-  /* ---- SITE NAV: the homepage bar, carried across every page ----
-     Selectors are written to hit both templates: the case-study pages nest the
-     row inside .topbar-inner, the video pages make .topbar the row itself. */
-  .topbar .wordmark {
-    font-family: var(--font);
-    font-size: 0.95rem;
-    font-weight: 600;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--ink);
-    text-decoration: none;
-    transition: color 0.2s ease;
-  }
-  .topbar .wordmark:hover { color: var(--accent); }
-
-  .topbar .site-nav { display: flex; align-items: center; gap: 0.25rem; flex-wrap: wrap; }
-  .topbar .site-nav > a, .topbar .nav-dropdown > a {
-    font-family: var(--font);
-    font-size: 0.66rem;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    color: var(--soft);
-    text-decoration: none;
-    display: inline-block;
-    padding: 12px 18px;
-    border-radius: 999px;
-    transition: color 0.2s ease, background 0.2s ease;
-  }
-  .topbar .site-nav > a:hover,
-  .topbar .nav-dropdown > a:hover,
-  .topbar .nav-dropdown:focus-within > a { color: #fff; background: var(--accent); }
-  .topbar .site-nav > a[aria-current="page"] { color: var(--accent); }
-
-  /* Work: the same hover dropdown, pointing back at the homepage sections */
-  .topbar .nav-dropdown { position: relative; }
-  .topbar .nav-menu {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    min-width: 11rem;
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    padding: 6px;
-    background: rgba(0,0,0,0.72);
-    border: 1px solid rgba(255,255,255,0.16);
-    border-radius: 16px;
-    -webkit-backdrop-filter: blur(8px);
-    backdrop-filter: blur(8px);
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(8px);
-    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
-    z-index: 6;
-  }
-  .topbar .nav-dropdown:hover .nav-menu,
-  .topbar .nav-dropdown:focus-within .nav-menu {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-  }
-  .topbar .nav-menu a {
-    padding: 11px 18px;
-    border-radius: 999px;
-    font-family: var(--font);
-    font-size: 0.66rem;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    color: rgba(255,255,255,0.85);
-    text-decoration: none;
-    white-space: nowrap;
-    transition: color 0.2s ease, background 0.2s ease;
-  }
-  .topbar .nav-menu a:hover { color: #fff; background: var(--accent); }
-
-  @media (max-width: 720px) {
-    .topbar .wordmark { font-size: 0.85rem; letter-spacing: 0.18em; }
-    .topbar .site-nav { gap: 0; }
-    .topbar .site-nav > a, .topbar .nav-dropdown > a { padding: 10px 11px; letter-spacing: 0.1em; }
-    .topbar .nav-menu { left: auto; right: 0; }
+    letter-spacing: 0.14em; text-decoration: none;
   }
 </style>
 </head>
 <body>
-  <header class="topbar">
-<a class="wordmark" href="/">JKMRY</a>
-<nav class="site-nav" aria-label="Main">
-<div class="nav-dropdown">
-<a href="/#work" aria-haspopup="true">Work</a>
-<div class="nav-menu">
-<a href="/#featured">Featured</a>
-<a href="/#video">Video</a>
-<a href="/#books">Books</a>
-</div>
-</div>
-<a href="about">About</a>
-<a href="https://instagram.com/jackomode" target="_blank" rel="noopener">Instagram</a>
-<a href="about#contact">Contact</a>
-</nav>
-</header>
-
-  <main class="stage">
-    <p class="eyebrow">Video Campaign</p>
-    <h1 class="logo-title"><img src="video-logos/now-we-know.png" alt="Now We Know Where We're Going"></h1>
-    <p class="premise">A sustainability video campaign, short, deadpan how-tos and promos that make everyday eco-swaps worth watching. The moving-image counterpart to the climate zine of the same name.</p>
-  </main>
-
-  <section class="pieces">
-    <h2 class="pieces-head">In the campaign</h2>
-    <ul class="piece-list">
-
-      <li class="piece">
-        <span class="piece-num">01</span>
-        <div class="piece-body">
-          <h3>Wool Dryer Balls</h3>
-          <p class="piece-type">Short-form sustainability promo &middot; 0:43</p>
-          <p class="piece-desc">A punchy eco-pitch for wool dryer balls versus disposable sheets, cut to Manu Chao&rsquo;s &ldquo;King of Bongo,&rdquo; with an on-camera demo, stat captions, and deadpan humor.</p>
-          <figure class="video-player">
-            <video controls preload="none" playsinline poster="video/dryer-balls.jpg">
-              <source src="https://video.jkmry.com/dryer-balls.mp4" type="video/mp4">
-            </video>
-          </figure>
-        </div>
-      </li>
-
-      <li class="piece">
-        <span class="piece-num">02</span>
-        <div class="piece-body">
-          <h3>Skateboard Chair</h3>
-          <p class="piece-type">Maker / product-design build &middot; 0:40</p>
-          <p class="piece-desc">A captioned time-lapse building a functional cantilever chair out of skateboard decks, bolt, cut the tongue, drill, assemble, &ldquo;Sit!&rdquo;</p>
-          <figure class="video-player">
-            <video controls preload="none" playsinline poster="video/skateboard-chair.jpg">
-              <source src="https://video.jkmry.com/skateboard-chair.mp4" type="video/mp4">
-            </video>
-          </figure>
-        </div>
-      </li>
-
-      <li class="piece">
-        <span class="piece-num">03</span>
-        <div class="piece-body">
-          <h3>Compost Lasagna</h3>
-          <p class="piece-type">Sustainability how-to &middot; 1:17</p>
-          <p class="piece-desc">An instructional guide to lasagna-method composting, weeds, leaves, and dead plants, dug in and mulched, then six months&rsquo; wait, shot with shallow-depth-of-field outdoor cinematography.</p>
-          <figure class="video-player">
-            <video controls preload="none" playsinline poster="video/compost-lasagna.jpg">
-              <source src="https://video.jkmry.com/compost-lasagna.mp4" type="video/mp4">
-            </video>
-          </figure>
-        </div>
-      </li>
-
-    </ul>
-  </section>
-
-  <section class="usage-note" style="border-top:1px solid var(--line,#DCDBD4); padding:1.1rem clamp(1.25rem,5vw,4.5rem); font-size:0.66rem; line-height:1.55; color:var(--muted,#8C8C84);">
-    <p style="letter-spacing:0.01em;">The work shown here is student work, created for educational purposes as part of academic coursework, <strong style="color:var(--soft,#4A4A46);">not for commercial use</strong>. It may include third-party material (music, footage, or imagery) used under the fair-use provisions of U.S. copyright law (17 U.S.C. &sect; 107) for purposes such as criticism, commentary, teaching, and scholarship. No copyright infringement is intended and no commercial gain is derived from this work. Rights holders with any concerns may contact <a href="mailto:jackwardmurray@gmail.com" style="color:inherit; text-decoration:underline;">jackwardmurray&#64;gmail.com</a>.</p>
-  </section>
-  <footer class="site-footer">
-    <span>JKMRY</span>
-    <a href="/">&larr; Back to work</a>
-  </footer>
-<script>
-  /* ---- NOTHING PLAYS OFF SCREEN ----
-     Every clip stops when it is not on screen and picks up where it left off
-     when it comes back. "On screen" here means the middle half of the
-     viewport: the root is shrunk 25% top and bottom, so this is a plain
-     enter/exit rather than a ratio, and a full-height reel stops as you
-     scroll off it rather than a whole screen later.
-     What resumes is what the page itself stopped. A pause the visitor asked
-     for is remembered, so scrolling back does not undo it, and a reel that
-     already ran to its end stays on its closing frame. Clips that were going
-     to start on their own, autoplay or data-autostart, still do, once they
-     are actually being looked at. */
-  (function () {
-    if (!('IntersectionObserver' in window)) return;
-    var clips = document.querySelectorAll('video');
-    if (!clips.length) return;
-
-    Array.prototype.forEach.call(clips, function (v) {
-      v.addEventListener('ended', function () { v.dataset.played = '1'; });
-      // The observer sets data-auto-paused before it pauses anything, so any
-      // pause without that flag is a person reaching for the control.
-      v.addEventListener('pause', function () {
-        if (!v.dataset.autoPaused) { v.dataset.userPaused = '1'; }
-      });
-      v.addEventListener('play', function () {
-        delete v.dataset.userPaused;
-        delete v.dataset.played;
-      });
-    });
-
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        var v = e.target, p;
-        if (e.isIntersecting) {
-          if (v.dataset.autoPaused) {          // the page stopped it, so the page restarts it
-            delete v.dataset.autoPaused;
-            p = v.play(); if (p && p.catch) { p.catch(function () {}); }
-            return;
-          }
-          // data-hold clips wait to be centered instead; their own routine
-          // clears the flag and starts them.
-          if (v.dataset.userPaused || v.dataset.played || v.dataset.hold) { return; }
-          // hasAttribute, not dataset: a valueless attribute reads as "",
-          // which is falsy, so a dataset test would never start anything.
-          if (!v.autoplay && !v.hasAttribute('data-autostart')) { return; }
-          p = v.play(); if (p && p.catch) { p.catch(function () {}); }
-        } else if (!v.paused) {
-          v.dataset.autoPaused = '1';
-          v.pause();
-        }
-      });
-    }, { threshold: 0, rootMargin: '-25% 0px -25% 0px' });
-
-    Array.prototype.forEach.call(clips, function (v) { io.observe(v); });
-  })();
-</script>
-
+<main>
+  <p class="eyebrow">This campaign has moved</p>
+  <h1>Now We Know Where We&rsquo;re Going is now Sustainable Saturday.</h1>
+  <p>Same campaign, recut around a single day. Taking you there now.</p>
+  <a class="go" href="sustainable-saturday">Sustainable Saturday &rarr;</a>
+</main>
 </body>
 </html>
