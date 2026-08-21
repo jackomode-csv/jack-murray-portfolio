@@ -232,6 +232,15 @@
   }
   .stage { padding-top: 6rem; }
 
+  /* The campaign line is the note under the title, not a second title. It
+     steps back a shade from the near-black the headline rule sets, and takes
+     air between the two. Written past .premise on its own, which the shared
+     headline rule uses, so this is the more specific selector and wins. */
+  .stage .premise {
+    color: var(--soft);
+    margin-top: 2.6rem;
+  }
+
   /* ---- VIDEO: full-bleed, same as the case study ----
      A 100vh container with the video covering it, exactly like
      .bleed .case-img on Big Apple Greeter: fills the screen, crops rather
@@ -259,10 +268,8 @@
   }
 
   /* ---- THE THREE FILMS ----
-     Each one is carried by its title at the same scale the case study gives a
-     section, with the time it happens set small above it. The films are stamped
-     9:30 am, 11:45 am and 1:00 pm, so the page runs in that order and the
-     timestamps are the spine rather than decoration. */
+     Each one is carried by its title alone, at the same scale the case study
+     gives a section, and then the film itself. */
   .film { padding: 11rem var(--text-edge) 0; }
   .film h2 {
     font-family: var(--font-headline);
@@ -276,22 +283,6 @@
     transform: scaleX(var(--stretch));
     transform-origin: left center;
     text-wrap: balance;
-  }
-  .film-time {
-    font-size: 0.68rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.18em;
-    color: var(--accent);
-    margin-bottom: 1.1rem;
-  }
-  .film-note {
-    margin-top: 1.8rem;
-    font-size: clamp(1.05rem, 1.6vw, 1.35rem);
-    font-weight: 400;
-    line-height: 1.5;
-    color: var(--soft);
-    max-width: 58ch;
   }
   /* the stage already carries the campaign line, so the first film does not
      need a second full run-up to it */
@@ -320,40 +311,30 @@
 </nav>
 </header>
   <main class="stage">
-    <p class="eyebrow">Video Campaign</p>
     <h1>Sustainable Saturday</h1>
-    <p class="subtitle">Sustainability campaign &middot; Men, 16 to 24</p>
-    <p class="premise">Three chores. One Saturday. Nothing thrown out.</p>
+    <p class="premise">A Sustainability Campaign for 16-24 year old men, a day in their life using sustainable practices.</p>
   </main>
 
   <section class="film">
-    <p class="film-time">Saturday 9:30 am &middot; 0:18</p>
-    <h2>Doing the laundry.</h2>
-    <p class="film-note">Sixteen cents a sheet, gone up a pant leg, against a set of wool balls that outlast the dryer. Deadpan cards on black, an on-camera demo, and a closing line that has no business being in a sustainability advert.</p>
+    <h2>Laundry Day</h2>
     <figure class="video-player">
-      <video controls preload="none" playsinline poster="video/doing-the-laundry.jpg" aria-label="A stack of laundry going into the dryer under the card &ldquo;Laundry Day, Saturday 9:30 am&rdquo;">
+      <video controls preload="none" playsinline poster="video/doing-the-laundry.jpg" aria-label="Laundry Day">
         <source src="https://video.jkmry.com/doing-the-laundry.mp4" type="video/mp4">
       </video>
     </figure>
   </section>
-
   <section class="film">
-    <p class="film-time">Saturday 11:45 am &middot; 0:46</p>
-    <h2>Taking out the trash.</h2>
-    <p class="film-note">The fridge, the vacuum bag, the paper tablecloth and whatever you do not want to know about, packed into one cardboard box and buried in the yard. A daffodil comes up where it went in.</p>
+    <h2>Taking out the Trash</h2>
     <figure class="video-player">
-      <video controls preload="none" playsinline poster="video/taking-out-the-trash.jpg" aria-label="A cardboard box being packed on a kitchen counter under the card &ldquo;Take Out the Trash, Saturday 11:45 am&rdquo;">
+      <video controls preload="none" playsinline poster="video/taking-out-the-trash.jpg" aria-label="Taking out the Trash">
         <source src="https://video.jkmry.com/taking-out-the-trash.mp4" type="video/mp4">
       </video>
     </figure>
   </section>
-
   <section class="film">
-    <p class="film-time">Saturday 1:00 pm &middot; 1:00</p>
-    <h2>Replacing a broken chair.</h2>
-    <p class="film-note">Four hours, a rack of dead skate decks, one call to Dad, and a cantilever chair that actually holds. Ends, at 5:15, on the only instruction that matters: relax.</p>
+    <h2>Replacing a Broken Chair</h2>
     <figure class="video-player">
-      <video controls preload="none" playsinline poster="video/replacing-a-broken-chair.jpg" aria-label="A broken skateboard deck pulled off a rack under the card &ldquo;Replace Broken Chair, Saturday 1:00 pm&rdquo;">
+      <video controls preload="none" playsinline poster="video/replacing-a-broken-chair.jpg" aria-label="Replacing a Broken Chair">
         <source src="https://video.jkmry.com/replacing-a-broken-chair.mp4" type="video/mp4">
       </video>
     </figure>
@@ -363,23 +344,6 @@
     <p style="letter-spacing:0.01em;">The work shown here is student work, created for educational purposes as part of academic coursework, <strong style="color:var(--soft,#4A4A46);">not for commercial use</strong>. It may include third-party material (music, footage, or imagery) used under the fair-use provisions of U.S. copyright law (17 U.S.C. &sect; 107) for purposes such as criticism, commentary, teaching, and scholarship. No copyright infringement is intended and no commercial gain is derived from this work. Rights holders with any concerns may contact <a href="mailto:jackwardmurray@gmail.com" style="color:inherit; text-decoration:underline;">jackwardmurray&#64;gmail.com</a>.</p>
   </section>
   
-<!-- closing card: the same layout the BAG case study ends on -->
-<section class="skills">
-<p class="skills-name">Jack Murray</p>
-<p class="skills-role">Three films &middot; Run time 2:04</p>
-<ul class="skill-grid">
-<li>Campaign concept</li>
-<li>Direction</li>
-<li>Cinematography</li>
-<li>Editing</li>
-<li>Motion graphics</li>
-<li>Copywriting</li>
-<li>Sound</li>
-<li>Colour</li>
-<li>Set and build</li>
-</ul>
-</section>
-
 <footer class="site-footer">
     <span>JKMRY</span>
     <a href="/">&larr; Back to work</a>
