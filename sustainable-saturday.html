@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sustainable Saturday | JKMRY</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inclusive+Sans:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #FFFFFF; --ink: #161614; --soft: #4A4A46; --muted: #8C8C84;
+    --line: #DCDBD4; --accent: #3E7D5A;
+    --font: 'Inclusive Sans', 'Helvetica Neue', Arial, sans-serif;
+    --text-edge: 20px;
+    --stretch: 1.15;
+    /* the copied case-study headline rule names these two */
+    --font-headline: 'Inclusive Sans', 'Helvetica Neue', Arial, sans-serif;
+    --black: #121212;
+  }
+  html { font-size: 16px; }
+  body {
+    background: var(--bg); color: var(--ink); font-family: var(--font);
+    font-weight: 400; line-height: 1.6; min-height: 100vh; overflow-x: clip;
+    display: flex; flex-direction: column; -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+  .topbar {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.3rem 4.5rem; font-size: 0.66rem; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.16em; color: var(--muted);
+  }
+  .topbar a { transition: color 0.2s ease; }
+  .topbar a:hover { color: var(--accent); }
+  .stage {
+    flex: 1; display: flex; flex-direction: column; justify-content: center;
+    max-width: none; margin: 0; width: 100%; padding: 4rem var(--text-edge);
+  }
+  .eyebrow {
+    font-size: 0.66rem; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.2em; color: var(--accent); margin-bottom: 1.4rem;
+  }
+  .stage h1 {
+    font-size: clamp(2.4rem, 6vw, 5rem); font-weight: 500; line-height: 1.02;
+    letter-spacing: -0.02em; margin-bottom: 0.6rem;
+  }
+  .logo-title { margin: 0 0 1rem; }
+  .logo-title img { display: block; width: 100%; max-width: 480px; height: auto; }
+  .subtitle {
+    font-size: clamp(1rem, 2vw, 1.3rem); font-weight: 300; font-style: italic;
+    color: var(--muted); margin-bottom: 1.8rem;
+  }
+  .premise {
+    font-size: clamp(1.1rem, 2vw, 1.45rem); font-weight: 300;
+    color: var(--soft); max-width: none; line-height: 1.45;
+  }
+  .meta {
+    margin-top: 2rem; display: flex; gap: 0.6rem; align-items: center;
+    flex-wrap: wrap; font-size: 0.66rem; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.14em; color: var(--muted);
+  }
+  .meta .sep { color: var(--line); }
+  .status {
+    margin-top: 2.4rem; align-self: flex-start; font-size: 0.66rem;
+    font-weight: 500; text-transform: uppercase; letter-spacing: 0.16em;
+    color: var(--muted); border: 1px solid var(--line); border-radius: 999px;
+    padding: 12px 22px;
+  }
+  .video-player { width: 100vw; margin: 3rem 0 0; margin-left: calc(50% - 50vw); background: #000; border: 0; }
+  .video-player video { display: block; width: 100%; height: auto; max-height: 100svh; background: #000; }
+  .site-footer {
+    border-top: 1px solid var(--line); padding: 2.2rem 4.5rem;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.66rem; font-weight: 500; text-transform: uppercase;
+    letter-spacing: 0.16em; color: var(--soft);
+  }
+  .site-footer a:hover { color: var(--accent); }
+  @media (max-width: 600px) {
+    .topbar, .stage, .site-footer { padding-left: var(--text-edge); padding-right: var(--text-edge); }
+  }
+
+  /* ---- SITE NAV: the homepage bar, carried across every page ----
+     Selectors are written to hit both templates: the case-study pages nest the
+     row inside .topbar-inner, the video pages make .topbar the row itself. */
+  .topbar .wordmark {
+    font-family: var(--font);
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+  .topbar .wordmark:hover { color: var(--accent); }
+
+  .topbar .site-nav { display: flex; align-items: center; gap: 0.25rem; flex-wrap: wrap; }
+  .topbar .site-nav > a, .topbar .nav-dropdown > a {
+    font-family: var(--font);
+    font-size: 0.66rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--soft);
+    text-decoration: none;
+    display: inline-block;
+    padding: 12px 18px;
+    border-radius: 999px;
+    transition: color 0.2s ease, background 0.2s ease;
+  }
+  .topbar .site-nav > a:hover,
+  .topbar .nav-dropdown > a:hover,
+  .topbar .nav-dropdown:focus-within > a { color: #fff; background: var(--accent); }
+  .topbar .site-nav > a[aria-current="page"] { color: var(--accent); }
+
+  /* Work: the same hover dropdown, pointing back at the homepage sections */
+  .topbar .nav-dropdown { position: relative; }
+  .topbar .nav-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 11rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 6px;
+    background: rgba(0,0,0,0.72);
+    border: 1px solid rgba(255,255,255,0.16);
+    border-radius: 16px;
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+    z-index: 6;
+  }
+  .topbar .nav-dropdown:hover .nav-menu,
+  .topbar .nav-dropdown:focus-within .nav-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  .topbar .nav-menu a {
+    padding: 11px 18px;
+    border-radius: 999px;
+    font-family: var(--font);
+    font-size: 0.66rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: rgba(255,255,255,0.85);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color 0.2s ease, background 0.2s ease;
+  }
+  .topbar .nav-menu a:hover { color: #fff; background: var(--accent); }
+
+  @media (max-width: 720px) {
+    .topbar .wordmark { font-size: 0.85rem; letter-spacing: 0.18em; }
+    .topbar .site-nav { gap: 0; }
+    .topbar .site-nav > a, .topbar .nav-dropdown > a { padding: 10px 11px; letter-spacing: 0.1em; }
+    .topbar .nav-menu { left: auto; right: 0; }
+  }
+
+  /* ---- CLOSING CARD ----
+     The same card the Big Apple Greeter case study closes on: name, run time,
+     then the skills as a ruled three-column grid. */
+  .skills {
+    max-width: none;
+    margin: 0;
+    padding: 6rem var(--text-edge) 5rem;
+    border-top: 1px solid var(--line, #DCDBD4);
+  }
+  .skills-name {
+    font-family: var(--font);
+    font-size: clamp(1.7rem, 3.4vw, 2.6rem);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .skills-role {
+    font-family: var(--font);
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--muted, #8C8C84);
+    margin-top: 0.6rem;
+  }
+  .skill-grid {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.6rem 1.2rem;
+    margin-top: 2.6rem;
+    padding: 0;
+  }
+  .skill-grid li {
+    font-family: var(--font);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--ink);
+    padding: 0.7rem 0;
+    border-top: 1px solid var(--line, #DCDBD4);
+  }
+  @media (max-width: 600px) {
+    .skill-grid { grid-template-columns: 1fr 1fr; }
+    .skills { padding: 4rem var(--text-edge) 3rem; }
+  }
+
+
+  /* ---- HEADLINE: identical to the case study ----
+     .premise carries this page the way .chapter h2 carries a BAG section, so
+     it takes that rule verbatim and the same two-line fitter drives it. */
+  .premise,
+  .stage h1 {
+    font-family: var(--font-headline);
+    font-size: clamp(2.2rem, 9vw, 8.5rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.02;
+    color: var(--black);
+    margin-bottom: 0;
+    max-width: none;
+    width: calc(100% / var(--stretch));
+    transform: scaleX(var(--stretch));
+    transform-origin: left center;
+    text-wrap: balance;
+  }
+  .stage { padding-top: 6rem; }
+
+  /* ---- VIDEO: full-bleed, same as the case study ----
+     A 100vh container with the video covering it, exactly like
+     .bleed .case-img on Big Apple Greeter: fills the screen, crops rather
+     than letterboxes. */
+  .video-player {
+    width: 100vw;
+    margin: 3rem 0 0;
+    margin-left: calc(50% - 50vw);
+    height: 100vh;
+    overflow: hidden;
+    background: #000;
+    border: 0;
+    line-height: 0;
+  }
+  .video-player video {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-height: none;
+    object-fit: cover;
+    background: #000;
+  }
+  @media (max-width: 700px) {
+    .video-player { height: 60vh; }
+  }
+
+  /* ---- THE THREE FILMS ----
+     Each one is carried by its title at the same scale the case study gives a
+     section, with the time it happens set small above it. The films are stamped
+     9:30 am, 11:45 am and 1:00 pm, so the page runs in that order and the
+     timestamps are the spine rather than decoration. */
+  .film { padding: 11rem var(--text-edge) 0; }
+  .film h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(2.2rem, 9vw, 8.5rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.02;
+    color: var(--black);
+    max-width: none;
+    width: calc(100% / var(--stretch));
+    transform: scaleX(var(--stretch));
+    transform-origin: left center;
+    text-wrap: balance;
+  }
+  .film-time {
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+    margin-bottom: 1.1rem;
+  }
+  .film-note {
+    margin-top: 1.8rem;
+    font-size: clamp(1.05rem, 1.6vw, 1.35rem);
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--soft);
+    max-width: 58ch;
+  }
+  /* the stage already carries the campaign line, so the first film does not
+     need a second full run-up to it */
+  .film:first-of-type { padding-top: 7rem; }
+  @media (max-width: 700px) {
+    .film { padding-top: 6rem; }
+    .film:first-of-type { padding-top: 4rem; }
+  }
+</style>
+</head>
+<body>
+  <header class="topbar">
+<a class="wordmark" href="/">JKMRY</a>
+<nav class="site-nav" aria-label="Main">
+<div class="nav-dropdown">
+<a href="/#work" aria-haspopup="true">Work</a>
+<div class="nav-menu">
+<a href="/#featured">Featured</a>
+<a href="/#video">Video</a>
+<a href="/#books">Books</a>
+</div>
+</div>
+<a href="about">About</a>
+<a href="https://instagram.com/jackomode" target="_blank" rel="noopener">Instagram</a>
+<a href="about#contact">Contact</a>
+</nav>
+</header>
+  <main class="stage">
+    <p class="eyebrow">Video Campaign</p>
+    <h1>Sustainable Saturday</h1>
+    <p class="subtitle">Sustainability campaign &middot; Men, 16 to 24</p>
+    <p class="premise">Three chores. One Saturday. Nothing thrown out.</p>
+  </main>
+
+  <section class="film">
+    <p class="film-time">Saturday 9:30 am &middot; 0:18</p>
+    <h2>Doing the laundry.</h2>
+    <p class="film-note">Sixteen cents a sheet, gone up a pant leg, against a set of wool balls that outlast the dryer. Deadpan cards on black, an on-camera demo, and a closing line that has no business being in a sustainability advert.</p>
+    <figure class="video-player">
+      <video controls preload="none" playsinline poster="video/doing-the-laundry.jpg" aria-label="A stack of laundry going into the dryer under the card &ldquo;Laundry Day, Saturday 9:30 am&rdquo;">
+        <source src="https://video.jkmry.com/doing-the-laundry.mp4" type="video/mp4">
+      </video>
+    </figure>
+  </section>
+
+  <section class="film">
+    <p class="film-time">Saturday 11:45 am &middot; 0:46</p>
+    <h2>Taking out the trash.</h2>
+    <p class="film-note">The fridge, the vacuum bag, the paper tablecloth and whatever you do not want to know about, packed into one cardboard box and buried in the yard. A daffodil comes up where it went in.</p>
+    <figure class="video-player">
+      <video controls preload="none" playsinline poster="video/taking-out-the-trash.jpg" aria-label="A cardboard box being packed on a kitchen counter under the card &ldquo;Take Out the Trash, Saturday 11:45 am&rdquo;">
+        <source src="https://video.jkmry.com/taking-out-the-trash.mp4" type="video/mp4">
+      </video>
+    </figure>
+  </section>
+
+  <section class="film">
+    <p class="film-time">Saturday 1:00 pm &middot; 1:00</p>
+    <h2>Replacing a broken chair.</h2>
+    <p class="film-note">Four hours, a rack of dead skate decks, one call to Dad, and a cantilever chair that actually holds. Ends, at 5:15, on the only instruction that matters: relax.</p>
+    <figure class="video-player">
+      <video controls preload="none" playsinline poster="video/replacing-a-broken-chair.jpg" aria-label="A broken skateboard deck pulled off a rack under the card &ldquo;Replace Broken Chair, Saturday 1:00 pm&rdquo;">
+        <source src="https://video.jkmry.com/replacing-a-broken-chair.mp4" type="video/mp4">
+      </video>
+    </figure>
+  </section>
+
+  <section class="usage-note" style="border-top:1px solid var(--line,#DCDBD4); padding:1.1rem clamp(1.25rem,5vw,4.5rem); font-size:0.66rem; line-height:1.55; color:var(--muted,#8C8C84);">
+    <p style="letter-spacing:0.01em;">The work shown here is student work, created for educational purposes as part of academic coursework, <strong style="color:var(--soft,#4A4A46);">not for commercial use</strong>. It may include third-party material (music, footage, or imagery) used under the fair-use provisions of U.S. copyright law (17 U.S.C. &sect; 107) for purposes such as criticism, commentary, teaching, and scholarship. No copyright infringement is intended and no commercial gain is derived from this work. Rights holders with any concerns may contact <a href="mailto:jackwardmurray@gmail.com" style="color:inherit; text-decoration:underline;">jackwardmurray&#64;gmail.com</a>.</p>
+  </section>
+  
+<!-- closing card: the same layout the BAG case study ends on -->
+<section class="skills">
+<p class="skills-name">Jack Murray</p>
+<p class="skills-role">Three films &middot; Run time 2:04</p>
+<ul class="skill-grid">
+<li>Campaign concept</li>
+<li>Direction</li>
+<li>Cinematography</li>
+<li>Editing</li>
+<li>Motion graphics</li>
+<li>Copywriting</li>
+<li>Sound</li>
+<li>Colour</li>
+<li>Set and build</li>
+</ul>
+</section>
+
+<footer class="site-footer">
+    <span>JKMRY</span>
+    <a href="/">&larr; Back to work</a>
+  </footer>
+<script>
+  /* ---- FIT HEADLINES TO TWO LINES ----
+     The CSS clamp is the ceiling. Each headline is then sized down only as far
+     as it needs to go to stay within two lines, so short lines run huge and a
+     long one still lands on two rather than wrapping into a paragraph. */
+  (function () {
+    const heads = document.querySelectorAll('.premise, .stage h1, .film h2');
+    if (!heads.length) return;
+    const MAX_LINES = 2;
+    const MIN_PX = 22;
+    // Two lines is the target, not an absolute. A headline much longer than
+    // its neighbours would have to shrink to about half their size to hit it,
+    // which reads as a mistake; past this floor it takes a third line instead
+    // and stays in scale with the rest of the page.
+    const FLOOR_RATIO = 0.62;
+
+    const fit = function (el) {
+      // Start from the stylesheet's own ceiling, not the last fitted value.
+      el.style.fontSize = '';
+      const ceiling = parseFloat(getComputedStyle(el).fontSize);
+      const lineFor = function (px) {
+        el.style.fontSize = px + 'px';
+        const lh = parseFloat(getComputedStyle(el).lineHeight) || px * 1.02;
+        return Math.round(el.scrollHeight / lh);
+      };
+      if (lineFor(ceiling) <= MAX_LINES) { el.style.fontSize = ceiling + 'px'; return; }
+      const floor = Math.max(MIN_PX, ceiling * FLOOR_RATIO);
+      let lo = floor, hi = ceiling, best = floor;
+      for (let i = 0; i < 14; i++) {
+        const mid = (lo + hi) / 2;
+        if (lineFor(mid) <= MAX_LINES) { best = mid; lo = mid; } else { hi = mid; }
+      }
+      el.style.fontSize = best.toFixed(1) + 'px';
+    };
+
+    const fitAll = function () { heads.forEach(fit); };
+
+    fitAll();
+    // Web font metrics differ from the fallback, so measure again once it lands
+    if (document.fonts && document.fonts.ready) { document.fonts.ready.then(fitAll); }
+    let t;
+    window.addEventListener('resize', function () {
+      clearTimeout(t);
+      t = setTimeout(fitAll, 120);
+    });
+  })();
+
+  /* ---- NOTHING PLAYS OFF SCREEN ----
+     Every clip stops when it is not on screen and picks up where it left off
+     when it comes back. "On screen" here means the middle half of the
+     viewport: the root is shrunk 25% top and bottom, so this is a plain
+     enter/exit rather than a ratio, and a full-height reel stops as you
+     scroll off it rather than a whole screen later.
+     What resumes is what the page itself stopped. A pause the visitor asked
+     for is remembered, so scrolling back does not undo it, and a reel that
+     already ran to its end stays on its closing frame. Clips that were going
+     to start on their own, autoplay or data-autostart, still do, once they
+     are actually being looked at. */
+  (function () {
+    if (!('IntersectionObserver' in window)) return;
+    var clips = document.querySelectorAll('video');
+    if (!clips.length) return;
+
+    Array.prototype.forEach.call(clips, function (v) {
+      v.addEventListener('ended', function () { v.dataset.played = '1'; });
+      // The observer sets data-auto-paused before it pauses anything, so any
+      // pause without that flag is a person reaching for the control.
+      v.addEventListener('pause', function () {
+        if (!v.dataset.autoPaused) { v.dataset.userPaused = '1'; }
+      });
+      v.addEventListener('play', function () {
+        delete v.dataset.userPaused;
+        delete v.dataset.played;
+      });
+    });
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        var v = e.target, p;
+        if (e.isIntersecting) {
+          if (v.dataset.autoPaused) {          // the page stopped it, so the page restarts it
+            delete v.dataset.autoPaused;
+            p = v.play(); if (p && p.catch) { p.catch(function () {}); }
+            return;
+          }
+          // data-hold clips wait to be centered instead; their own routine
+          // clears the flag and starts them.
+          if (v.dataset.userPaused || v.dataset.played || v.dataset.hold) { return; }
+          // hasAttribute, not dataset: a valueless attribute reads as "",
+          // which is falsy, so a dataset test would never start anything.
+          if (!v.autoplay && !v.hasAttribute('data-autostart')) { return; }
+          p = v.play(); if (p && p.catch) { p.catch(function () {}); }
+        } else if (!v.paused) {
+          v.dataset.autoPaused = '1';
+          v.pause();
+        }
+      });
+    }, { threshold: 0, rootMargin: '-25% 0px -25% 0px' });
+
+    Array.prototype.forEach.call(clips, function (v) { io.observe(v); });
+  })();
+</script>
+</body>
+</html>
