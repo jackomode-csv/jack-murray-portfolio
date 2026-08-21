@@ -251,6 +251,36 @@
   @media (max-width: 700px) {
     .video-player { height: 60vh; }
   }
+
+  /* ---- A PHONE, NOT A FILM ----
+     This one is shot as a phone screen, 720 x 1092. The full-bleed container
+     above is a landscape hole, and covering it cropped the tall frame down to
+     a strip and threw the rest away. It runs at its own proportions instead:
+     centred, whole, and no bigger than a phone wants to be. */
+  .video-player {
+    width: 100%;
+    margin: 3.5rem 0 0;
+    margin-left: 0;
+    height: auto;
+    overflow: visible;
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    padding: 0 var(--text-edge);
+  }
+  .video-player video {
+    width: auto;
+    height: min(80svh, 820px);
+    max-width: 100%;
+    max-height: none;
+    object-fit: contain;
+    background: #000;
+  }
+  @media (max-width: 700px) {
+    /* on a phone the frame is already the right shape for the screen */
+    .video-player { height: auto; padding: 0; }
+    .video-player video { width: 100%; height: auto; }
+  }
 </style>
 </head>
 <body>
@@ -273,7 +303,7 @@
   <main class="stage">
     <p class="eyebrow">Video &middot; Satirical Short</p>
     <h1>Social Bot</h1>
-    <p class="premise">A satire staged entirely as a vintage BlackBerry: an inbox of absurd political spam, Steve Bannon (&ldquo;drinks at Chili&rsquo;s?&rdquo;), Don Jr. (&ldquo;Dems wanna arm deer!&rdquo;), and &ldquo;Fancy Bear&rdquo; on misinformation spread by social bots, opening into messages of a person in a homemade tin-foil robot suit loose in the suburbs: at the fence, behind the wheel, walking off down the block, until the battery dies. A deadpan jab at bots, feeds, and political noise.</p>
+    <p class="premise">A phone on January 6th, 2021.</p>
     <figure class="video-player">
       <video controls preload="none" playsinline poster="video/social-bot.jpg">
         <source src="https://video.jkmry.com/social-bot.mp4" type="video/mp4">
