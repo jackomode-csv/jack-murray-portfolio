@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- Unlisted: reachable on a direct link, linked from nowhere, kept out of search. -->
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cond&eacute; Nast Samples | JKMRY</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inclusive+Sans:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="video/vogue-tiktok-sample.jpg">
+<link rel="preload" as="image" href="video/bon-appetit-tiktok-sample.jpg">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #FFFFFF; --ink: #161614; --soft: #4A4A46; --muted: #8C8C84;
+    --line: #DCDBD4; --accent: #3E7D5A;
+    --black: #121212;
+    --font: 'Inclusive Sans', 'Helvetica Neue', Arial, sans-serif;
+    --text-edge: 20px;
+    --stretch: 1.15;
+    --phone-gap: clamp(12px, 3vw, 44px);
+    /* The whole point of the page is both phones playing on arrival, so the
+       screen height is taken from what is left of the viewport under the nav
+       and the title, not from the width. */
+    --screen-h: clamp(300px, calc(100svh - 16rem), 800px);
+  }
+  html { font-size: 16px; }
+  body {
+    background: var(--bg); color: var(--ink); font-family: var(--font);
+    font-weight: 400; line-height: 1.6; min-height: 100vh; overflow-x: clip;
+    display: flex; flex-direction: column; -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+
+  .topbar {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.3rem 4.5rem; font-size: 0.66rem; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.16em; color: var(--muted);
+  }
+
+  /* ---- TITLE: the case-study headline, held to one line ----
+     Same weight, tracking and horizontal stretch as the Big Apple Greeter
+     section heads, at a size that leaves the first screen to the phones. */
+  .stage {
+    flex: 1; width: 100%;
+    padding: 1.4rem var(--text-edge) 5rem;
+  }
+  .stage h1 {
+    font-family: var(--font);
+    font-size: clamp(2rem, 5.2vw, 4.6rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.02;
+    color: var(--black);
+    width: calc(100% / var(--stretch));
+    transform: scaleX(var(--stretch));
+    transform-origin: left center;
+  }
+
+  /* ---- TWO PHONES ----
+     Each clip is 720 x 1280, so the screen is exactly 9:16 and nothing crops
+     or letterboxes. They sit side by side at every width: on a phone they get
+     small, but both are still running in the same glance, which is the job. */
+  .phones {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: var(--phone-gap);
+    margin-top: clamp(1.6rem, 3.5vh, 2.8rem);
+  }
+  .sample {
+    margin: 0;
+    width: min(calc(var(--screen-h) * 9 / 16), calc((100% - var(--phone-gap)) / 2));
+    min-width: 0;
+  }
+  .phone {
+    padding: 3.2%;
+    border-radius: 13% / 7.3%;
+    background: var(--black);
+    box-shadow:
+      0 0 0 1px rgba(0,0,0,0.06),
+      0 18px 40px -14px rgba(0,0,0,0.35);
+  }
+  .phone video {
+    display: block;
+    width: 100%;
+    aspect-ratio: 9 / 16;
+    height: auto;
+    object-fit: cover;
+    border-radius: 10% / 5.6%;
+    background: #000;
+  }
+  /* The name on the left edge of the phone, its pause button on the right,
+     so the control sits under the clip rather than over it. */
+  .sample figcaption {
+    margin-top: 0.9rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.66rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--soft);
+  }
+  .toggle {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 9px 15px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font);
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    line-height: 1;
+    cursor: pointer;
+    transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+  }
+  .toggle:hover, .toggle:focus-visible {
+    color: #fff; background: var(--accent); border-color: var(--accent); outline: none;
+  }
+  .toggle svg { width: 11px; height: 11px; display: block; }
+  /* show whichever icon matches the clip's state */
+  .toggle .icon-play { display: none; }
+  .is-paused .toggle .icon-play { display: block; }
+  .is-paused .toggle .icon-pause { display: none; }
+  .phone video { cursor: pointer; }
+
+  .site-footer {
+    border-top: 1px solid var(--line); padding: 2.2rem 4.5rem;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.66rem; font-weight: 500; text-transform: uppercase;
+    letter-spacing: 0.16em; color: var(--soft);
+  }
+  .site-footer a:hover { color: var(--accent); }
+
+  @media (max-width: 600px) {
+    .topbar, .site-footer { padding-left: var(--text-edge); padding-right: var(--text-edge); }
+    .stage { padding-bottom: 3.5rem; }
+    .sample figcaption { font-size: 0.6rem; letter-spacing: 0.14em; }
+    /* half a phone's width has no room for the word, so the icon carries it */
+    .toggle { padding: 9px; }
+    .toggle-label { display: none; }
+  }
+
+  /* ---- SITE NAV: the homepage bar, carried across every page ---- */
+  .topbar .wordmark {
+    font-family: var(--font);
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+  .topbar .wordmark:hover { color: var(--accent); }
+
+  .topbar .site-nav { display: flex; align-items: center; gap: 0.25rem; flex-wrap: wrap; }
+  .topbar .site-nav > a, .topbar .nav-dropdown > a {
+    font-family: var(--font);
+    font-size: 0.66rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--soft);
+    text-decoration: none;
+    display: inline-block;
+    padding: 12px 18px;
+    border-radius: 999px;
+    transition: color 0.2s ease, background 0.2s ease;
+  }
+  .topbar .site-nav > a:hover,
+  .topbar .nav-dropdown > a:hover,
+  .topbar .nav-dropdown:focus-within > a { color: #fff; background: var(--accent); }
+
+  /* Work: the same hover dropdown, pointing back at the homepage sections */
+  .topbar .nav-dropdown { position: relative; }
+  .topbar .nav-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 11rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 6px;
+    background: rgba(0,0,0,0.72);
+    border: 1px solid rgba(255,255,255,0.16);
+    border-radius: 16px;
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+    z-index: 6;
+  }
+  .topbar .nav-dropdown:hover .nav-menu,
+  .topbar .nav-dropdown:focus-within .nav-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  .topbar .nav-menu a {
+    padding: 11px 18px;
+    border-radius: 999px;
+    font-family: var(--font);
+    font-size: 0.66rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: rgba(255,255,255,0.85);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color 0.2s ease, background 0.2s ease;
+  }
+  .topbar .nav-menu a:hover { color: #fff; background: var(--accent); }
+
+  @media (max-width: 720px) {
+    .topbar .wordmark { font-size: 0.85rem; letter-spacing: 0.18em; }
+    .topbar .site-nav { gap: 0; }
+    .topbar .site-nav > a, .topbar .nav-dropdown > a { padding: 10px 11px; letter-spacing: 0.1em; }
+    .topbar .nav-menu { left: auto; right: 0; }
+  }
+</style>
+</head>
+<body>
+  <header class="topbar">
+<a class="wordmark" href="/">JKMRY</a>
+<nav class="site-nav" aria-label="Main">
+<div class="nav-dropdown">
+<a href="/#work" aria-haspopup="true">Work</a>
+<div class="nav-menu">
+<a href="/#featured">Featured</a>
+<a href="/#video">Video</a>
+<a href="/#books">Books</a>
+</div>
+</div>
+<a href="about">About</a>
+<a href="https://instagram.com/jackomode" target="_blank" rel="noopener">Instagram</a>
+<a href="about#contact">Contact</a>
+</nav>
+</header>
+  <main class="stage">
+    <h1>Cond&eacute; Nast Samples</h1>
+    <div class="phones">
+      <figure class="sample">
+        <div class="phone">
+          <video autoplay muted loop playsinline preload="auto" poster="video/vogue-tiktok-sample.jpg" aria-label="Vogue TikTok sample: Lupita Nyong&rsquo;o at COS Fall 2026, closing on a red gown and the Vogue wordmark">
+            <source src="https://video.jkmry.com/vogue-tiktok-sample.mp4" type="video/mp4">
+          </video>
+        </div>
+        <figcaption>
+          <span>Vogue</span>
+          <button class="toggle" type="button" data-name="Vogue" aria-label="Pause the Vogue sample">
+            <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="5" y="4" width="5" height="16" rx="1"/><rect x="14" y="4" width="5" height="16" rx="1"/></svg>
+            <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4v16l14-8z"/></svg>
+            <span class="toggle-label">Pause</span>
+          </button>
+        </figcaption>
+      </figure>
+      <figure class="sample">
+        <div class="phone">
+          <video autoplay muted loop playsinline preload="auto" poster="video/bon-appetit-tiktok-sample.jpg" aria-label="Bon App&eacute;tit TikTok sample: scrambled eggs on toast, closing on the pan mark and the Bon App&eacute;tit wordmark">
+            <source src="https://video.jkmry.com/bon-appetit-tiktok-sample.mp4" type="video/mp4">
+          </video>
+        </div>
+        <figcaption>
+          <span>Bon App&eacute;tit</span>
+          <button class="toggle" type="button" data-name="Bon App&eacute;tit" aria-label="Pause the Bon App&eacute;tit sample">
+            <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="5" y="4" width="5" height="16" rx="1"/><rect x="14" y="4" width="5" height="16" rx="1"/></svg>
+            <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4v16l14-8z"/></svg>
+            <span class="toggle-label">Pause</span>
+          </button>
+        </figcaption>
+      </figure>
+    </div>
+  </main>
+
+<footer class="site-footer">
+    <span>JKMRY</span>
+    <a href="/">&larr; Back to work</a>
+  </footer>
+<script>
+  /* ---- NO CLICK REQUIRED, BUT A WAY TO STOP ----
+     Both clips carry autoplay, muted, loop and playsinline, so they are running
+     before anyone reaches for anything. Each has its own pause button under
+     the phone, and the frame itself toggles too. A phone in Low Power Mode
+     refuses autoplay and fires no pause event, so the button checks the clip
+     once it has a frame and reads Play rather than claiming it is running. */
+  (function () {
+    var figs = document.querySelectorAll('.sample');
+    Array.prototype.forEach.call(figs, function (fig) {
+      var v = fig.querySelector('video');
+      var btn = fig.querySelector('.toggle');
+      if (!v || !btn) return;
+      var label = btn.querySelector('.toggle-label');
+      var name = btn.getAttribute('data-name');
+
+      var sync = function () {
+        var paused = v.paused;
+        fig.classList.toggle('is-paused', paused);
+        if (label) { label.textContent = paused ? 'Play' : 'Pause'; }
+        btn.setAttribute('aria-label', (paused ? 'Play' : 'Pause') + ' the ' + name + ' sample');
+      };
+      var toggle = function () {
+        if (v.paused) {
+          var p = v.play(); if (p && p.catch) { p.catch(function () {}); }
+        } else {
+          v.pause();
+        }
+      };
+
+      btn.addEventListener('click', toggle);
+      v.addEventListener('click', toggle);
+      v.addEventListener('play', sync);
+      v.addEventListener('pause', sync);
+      v.addEventListener('loadeddata', function () { setTimeout(sync, 400); }, { once: true });
+    });
+  })();
+</script>
+</body>
+</html>
