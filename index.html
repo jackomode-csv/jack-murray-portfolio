@@ -825,6 +825,22 @@
      card's date line, and a frame told to fill the screen should have nothing
      sitting on top of it. One row: play state, scrubber, sound. Ink on the
      page, so it reads as part of the page rather than furniture on the film. */
+  /* the caption under a player is the link, since the film itself is the controls */
+  .cap-link { display: block; }
+  .cap-more {
+    display: inline-block;
+    margin-top: 0.9rem;
+    font-size: 0.82rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--ink);
+    padding: 0.55rem 0.9rem;
+    margin-left: -0.9rem;
+    transition: color 0.2s, background 0.2s;
+  }
+  .cap-link:hover .cap-more,
+  .cap-link:focus-visible .cap-more { color: #fff; background: var(--accent); }
   .has-player { position: relative; }
   .has-player video { cursor: pointer; }
 
@@ -1064,8 +1080,8 @@
   <ul class="featured-stack">
 
     <li>
-      <!-- No link: the Big Apple Greeter case study is held back until launch,
-           so the reel is the piece itself and plays where it sits. -->
+      <!-- The reel keeps its own player, so clicks on the film still play and
+           pause it; the caption below is the way through to the case study. -->
       <div class="has-player">
         <figure class="feature-media feature-media--light">
           <video muted playsinline preload="metadata" data-autostart poster="bag-images/hero-poster.jpg" aria-label="Big Apple Greeter, the 35th-anniversary identity reel: the logo lockup, the apple mark, and the campaign in place across the city">
@@ -1101,11 +1117,12 @@
           </button>
         </div>
       </div>
-      <div class="work-caption">
+      <a class="work-caption cap-link" href="big-apple-greeter">
         <h3 class="cap-title">Big Apple Greeter</h3>
         <p class="cap-desc">Brand Identity &middot; 0:33</p>
-        <p class="cap-blurb">The identity for a 35-year-old New York nonprofit, cut against the city and the people its volunteers actually meet. The full case study stays under wraps until the rebrand launches.</p>
-      </div>
+        <p class="cap-blurb">The identity for a 35-year-old New York nonprofit, cut against the city and the people its volunteers actually meet.</p>
+        <span class="cap-more">See the full story<span aria-hidden="true"> &rarr;</span></span>
+      </a>
     </li>
 
     <li>
